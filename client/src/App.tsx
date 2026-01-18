@@ -3,6 +3,7 @@ import * as THREE from 'three'
 
 export default function App() {
   const mountRef = useRef<HTMLDivElement | null>(null)
+  const frameIdRef = useRef<number | null>(null)
 
   useEffect(() => {
     if (!mountRef.current) return
@@ -18,32 +19,66 @@ export default function App() {
     camera.position.z = 3
 
     const renderer = new THREE.WebGLRenderer({
-      antialias: true,
-      alpha: true
+      antialias: false, // ← Turn off antialiasing for better performance
+      alpha: true,
+      powerPreference: 'low-power' // ← Better for laptops/slower machines
     })
     renderer.setSize(window.innerWidth, window.innerHeight)
-    renderer.setPixelRatio(window.devicePixelRatio)
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)) // ← Cap pixel ratio
     renderer.setClearColor(0x000000, 0)
 
     mountRef.current.appendChild(renderer.domElement)
 
-    const cube = new THREE.Mesh(
-      new THREE.BoxGeometry(),
-      new THREE.MeshNormalMaterial()
-    )
+    // Create geometry and material (reuse them)
+    const geometry = new THREE.BoxGeometry()
+    const material = new THREE.MeshNormalMaterial()
+    const cube = new THREE.Mesh(geometry, material)
     scene.add(cube)
 
-    const animate = () => {
+    // Handle window resize
+    const handleResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight
+      camera.updateProjectionMatrix()
+      renderer.setSize(window.innerWidth, window.innerHeight)
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    }
+    window.addEventListener('resize', handleResize)
+
+    // Animation with frame limiting
+    let lastTime = 0
+    const fps = 60
+    const interval = 1000 / fps
+
+    const animate = (currentTime: number) => {
+      frameIdRef.current = requestAnimationFrame(animate)
+
+      // Limit to ~60fps
+      const delta = currentTime - lastTime
+      if (delta < interval) return
+      lastTime = currentTime - (delta % interval)
+
       cube.rotation.x += 0.01
       cube.rotation.y += 0.01
       renderer.render(scene, camera)
-      requestAnimationFrame(animate)
     }
-    animate()
+    animate(0)
 
+    // Cleanup
     return () => {
+      window.removeEventListener('resize', handleResize)
+      
+      if (frameIdRef.current) {
+        cancelAnimationFrame(frameIdRef.current)
+      }
+
+      // Dispose of Three.js objects
+      geometry.dispose()
+      material.dispose()
       renderer.dispose()
-      mountRef.current?.removeChild(renderer.domElement)
+      
+      if (mountRef.current) {
+        mountRef.current.removeChild(renderer.domElement)
+      }
     }
   }, [])
 
@@ -59,7 +94,6 @@ export default function App() {
       />
 
       {/* UI */}
-
     </>
   )
 }
