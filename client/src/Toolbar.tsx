@@ -2,6 +2,7 @@ import {useRef, useEffect, useState} from 'react'
 import * as THREE from 'three'
 import ToolbarHeader from './ToolbarHeader'
 import ToolbarBackgroundColor from './ToolbarBackgroundColor'
+import ToolBarPanelTab from './ToolbarPanelTab'
 
 interface ToolbarProps {
     scene : THREE.Scene;
@@ -14,6 +15,9 @@ export default function Toolbar({scene} : ToolbarProps) {
             <div className= "fixed flex flex-col h-[100%] w-[25%] bg-blue-200 z-10 right-0">
                 <ToolbarHeader/>
                 <ToolbarBackgroundColor scene={scene}/> 
+                <ToolBarPanelTab/>
+
+                {/*Toolbar Panel Selector*/}
             </div>
         </>
     )
