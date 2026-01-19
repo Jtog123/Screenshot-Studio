@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import {GLTF, GLTFLoader} from 'three/addons/loaders/GLTFLoader.js'
 import {useRef, useEffect} from 'react'
 import App from './App'
+import PhoneModel from './PhoneModel';
 
 //CAMERA ARGS
 const _fov : number = 75;
@@ -10,12 +11,19 @@ const _near : number = 0.1;
 const _far : number = 10000;
 
 
+
 export default function SceneManager() {
 
-    const mountRef = useRef<HTMLDivElement>(null);
+    // kind of like member vairables in a class
+    const mountRef = useRef<HTMLDivElement | null>(null);
+    const sceneRef = useRef<THREE.Scene | null>(null);
+    const loaderRef = useRef<GLTFLoader | null>(null);
 
+    //kind of like constructor
     useEffect(() => {
         if(!mountRef.current) return;
+
+        console.log("here")
 
         //SCENE, CAMERA, RENDERER, PHONE MODEL LOADER
         const _scene = new THREE.Scene();
@@ -26,6 +34,10 @@ export default function SceneManager() {
         const _renderer = new THREE.WebGLRenderer();
         const _loader = new GLTFLoader();
 
+        //assign the refs
+        sceneRef.current = _scene;
+        loaderRef.current = _loader;
+
         //set renderer size
         _renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -35,11 +47,13 @@ export default function SceneManager() {
         //set initial camera pos
         _camera.position.z = 5;
 
+        //add test light
+        const light = new THREE.DirectionalLight(0xFFFFFF, 5);
+        light.position.setY(2);
+        _scene.add(light);
 
         //RAY CASTING
         const _raycaster = new THREE.Raycaster();
-
-        //const _phoneModel : PhoneModel;
 
         //Grid
         const size = 20;
@@ -47,6 +61,24 @@ export default function SceneManager() {
         const _grid = new THREE.GridHelper(size, divisions);
         _grid.position.y = -2;
         _scene.add(_grid);
+
+        //run function
+        const run = () => {
+            requestAnimationFrame(() => run());
+            _renderer.render(_scene, _camera);
+        }
+
+        //run the animation loop
+        run();
+
+
+        const updateBackgroundColor = (evt: Event) => {
+            const selectedColor = evt.target as HTMLInputElement;
+            let colorString = selectedColor.value.replace("#", "0x");
+
+            const colorValue = Number(colorString);
+            _scene.background = new THREE.Color().setHex(colorValue);
+        }
 
 
         //clean up the ref
@@ -60,7 +92,11 @@ export default function SceneManager() {
     return (
         //Mount the app on this div
         <>
-            <div ref={mountRef}> </div>
+            <div ref={mountRef}>
+                 {sceneRef.current && loaderRef.current && (
+                    <PhoneModel scene={sceneRef.current} loader={loaderRef.current}/>
+                 )}
+            </div>
         </>
     )
 }
