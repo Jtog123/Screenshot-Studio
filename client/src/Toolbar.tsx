@@ -1,0 +1,164 @@
+import {useRef, useEffect, useState} from 'react'
+import * as THREE from 'three'
+import ToolbarHeader from './ToolbarHeader'
+import ToolbarBackgroundColor from './ToolbarBackgroundColor'
+
+interface ToolbarProps {
+    scene : THREE.Scene;
+}
+
+export default function Toolbar({scene} : ToolbarProps) {
+    return (
+        <>
+        
+            <div className= "fixed flex flex-col h-[100%] w-[25%] bg-blue-200 z-10 right-0">
+                <ToolbarHeader/>
+                <ToolbarBackgroundColor scene={scene}/> 
+            </div>
+        </>
+    )
+}
+
+/*
+// make it a div, resizable
+// make it golden ratio
+
+import * as THREE from "three"
+import { LightManager } from "./LightManager.js";
+import {PanelSelectorTab} from "./PanelSelectorTab.js"
+import { BackgroundComponentRect } from "./BackgroundComponentRect.js";
+import { SceneComponentRect } from "./SceneComponentRect.js";
+import { HeaderComponentRect } from "./HeaderComponentRect.js";
+import { ActiveComponentRect } from "./ActiveComponentRect.js";
+
+//Have the toolbar take in the light manager in the constructor
+
+class Toolbar {
+
+    //Take in a reference in the scene
+    public _scene : THREE.Scene;
+
+    //take in a reference
+    //public _lightManager : LightManager;
+
+    public _panelSelectorTab : PanelSelectorTab;
+    public _panelNames = ["Lights","Effects", "Text"];
+
+    public _headerComponentRect : HeaderComponentRect;
+    public _backgroundComponentRect : BackgroundComponentRect;
+    public _sceneComponentRect : SceneComponentRect;
+    public _activeComponentRect : ActiveComponentRect;
+
+    /*
+    toolbar has some kind of active tab, when you click on panelselectortab button
+    you switch the panel
+    
+    
+
+    public _toolbar : HTMLElement;
+
+
+    public _isCollapsed : boolean = false;
+
+    public _offsetX : number = 0;
+
+    private readonly baseClasses = "fixed h-screen bg-blue-600 text-white z-[1000] right-0";
+    //public _backgroundColor : HTMLInputElement;
+
+    //make it resizable
+
+    constructor(scene : THREE.Scene, lightManager : LightManager) {
+
+        //refernce the scene
+        this._scene = scene;
+
+        //takein reference
+        //this._lightManager = lightManager;
+
+        //Create the main div
+        this._toolbar = document.createElement("div");
+        this._toolbar.id = "toolbarDiv";
+
+        this.setToolbarWidth();
+
+
+        this._headerComponentRect = new HeaderComponentRect();
+        this._toolbar.appendChild(this._headerComponentRect.getComponent());
+
+        //Make next rectangle 61.8% of the toolbar
+        //SceneRectangle()
+
+        //Create backgroundColorclass, pull out that component too here to from scene compoenent rect
+        this._backgroundComponentRect = new BackgroundComponentRect(this._scene);
+        this._toolbar.appendChild(this._backgroundComponentRect.getComponent())
+
+
+        //might need to put these in here to iterate at this level
+        this._panelSelectorTab = new PanelSelectorTab(this._panelNames);
+        this._toolbar.appendChild(this._panelSelectorTab.getComponent());
+        //this._containerRect.appendChild(this._panelSelectorTab.getComponent());
+
+        //Toggle between lights,effects,text here???
+        this._sceneComponentRect = new SceneComponentRect(this._scene, lightManager);
+        this._toolbar.appendChild(this._sceneComponentRect.getComponent());
+
+
+        this._activeComponentRect = new ActiveComponentRect(lightManager);
+        this._toolbar.appendChild(this._activeComponentRect.getComponent());
+
+
+
+
+        this.listenForToolbarToggle();
+
+
+
+        document.body.appendChild(this._toolbar);
+
+        
+    }
+
+
+    public setToolbarWidth() : void {
+        const widthClass = "w-[28.2%]";
+        this._toolbar.className = `${this.baseClasses} ${widthClass}`;
+    }
+
+
+    //need to hide the elements when collapsing, scene component rect
+    //make it tranform by sliding
+    public listenForToolbarToggle() : void {
+        this._headerComponentRect._toggleToolbarButton.addEventListener("mousedown", (evt: Event) => {
+            console.log("hitting the toggle button", evt);
+
+            //flip the bool
+            this._isCollapsed = !this._isCollapsed;
+            //this.updateToolbarClassName();
+            if(this._isCollapsed) {
+                this._toolbar.className = `${this.baseClasses} w-[5%] transition-all duration-500 ease-in-out`;
+                this._headerComponentRect._toggleToolbarButton.textContent = "<-";
+                this._panelSelectorTab.hide();
+                this._sceneComponentRect.hide(); // hide color picker
+                this._headerComponentRect.hide(); // hide logo
+                this._activeComponentRect.hide()
+            } else {
+                this._toolbar.className = `${this.baseClasses} w-[28.2%] translate-x-0 transition-all duration-500 ease-in-out`;
+                this._headerComponentRect._toggleToolbarButton.textContent = "->";
+                this._panelSelectorTab.show();
+                this._sceneComponentRect.show(); // show color picker
+                this._headerComponentRect.show(); // show logo
+                this._activeComponentRect.show()
+            }
+
+        });
+    }
+
+
+
+
+}
+
+export {Toolbar};
+
+
+*/

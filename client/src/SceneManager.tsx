@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import {GLTF, GLTFLoader} from 'three/addons/loaders/GLTFLoader.js'
 import {useRef, useEffect, useState} from 'react'
 import App from './App'
-import PhoneModel from './PhoneModel';
+//import PhoneModel from './PhoneModel';
 
 //CAMERA ARGS
 const _fov : number = 75;
@@ -19,8 +19,8 @@ export default function SceneManager({scene}: SceneManagerProps) {
     // kind of like member vairables in a class
     const mountRef = useRef<HTMLDivElement | null>(null);
     //const sceneRef = useRef<THREE.Scene | null>(null);
-    const loaderRef = useRef<GLTFLoader | null>(null);
-    const [loader, setLoader] = useState<GLTFLoader | null>(null);
+    //const loaderRef = useRef<GLTFLoader | null>(null);
+    //const [loader, setLoader] = useState<GLTFLoader | null>(null);
     //const _scene = scene;
 
     //kind of like constructor
@@ -37,12 +37,12 @@ export default function SceneManager({scene}: SceneManagerProps) {
         );
 
         const _renderer = new THREE.WebGLRenderer();
-        const _loader = new GLTFLoader();
+        //const _loader = new GLTFLoader();
 
         //assign the refs
         //sceneRef.current = _scene;
         //loaderRef.current = _loader;
-        setLoader(_loader);
+        //setLoader(_loader);
 
         //set renderer size
         _renderer.setSize(window.innerWidth, window.innerHeight);
@@ -98,11 +98,8 @@ export default function SceneManager({scene}: SceneManagerProps) {
     return (
         //Mount the app on this div
         <>
-            <div ref={mountRef} className="fixed inset-0 z-10">
-                
-                 {/*scene && loader && (
-                    <PhoneModel scene={scene} loader={loader}/>
-                 )*/}
+            <div ref={mountRef} className="fixed top-0 left-0 z-0">
+
             </div>
         </>
     )

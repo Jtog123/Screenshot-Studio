@@ -1,3 +1,5 @@
+
+/*
 import { useEffect } from 'react';
 import * as THREE from 'three';
 import { GLTF, GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -46,4 +48,5 @@ export default function PhoneModel({scene, loader}: PhoneModelProps) {
 
     return (<></>)
 }
+    */
 
