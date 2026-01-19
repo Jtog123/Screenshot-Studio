@@ -18,11 +18,14 @@ export default function PhoneModel({scene, loader}: PhoneModelProps) {
 
         const loadPhone = async() => {
             try {
-                const gltf = await loader.loadAsync("../models/phone/iphone17CleanSceneTest.gltf"); 
+                console.log("Starting phone load...");
+                const gltf = await loader.loadAsync("/models/phone/iphone17CleanSceneTest.gltf"); 
+                console.log("Phone loaded:", gltf);
                 phone = gltf.scene;
+                console.log("Phone added to scene, children count:", scene.children.length);
                 scene.add(phone);
             } catch (err : unknown) {
-                throw err;
+                console.error('Failed to load phone model:', err);
             }
         }
 

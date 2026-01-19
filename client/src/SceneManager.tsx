@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import {GLTF, GLTFLoader} from 'three/addons/loaders/GLTFLoader.js'
-import {useRef, useEffect} from 'react'
+import {useRef, useEffect, useState} from 'react'
 import App from './App'
 import PhoneModel from './PhoneModel';
 
@@ -10,14 +10,18 @@ const _aspect : number = window.innerWidth / window.innerHeight;
 const _near : number = 0.1;
 const _far : number = 10000;
 
+interface SceneManagerProps {
+    scene : THREE.Scene;
+}
 
-
-export default function SceneManager() {
+export default function SceneManager({scene}: SceneManagerProps) {
 
     // kind of like member vairables in a class
     const mountRef = useRef<HTMLDivElement | null>(null);
-    const sceneRef = useRef<THREE.Scene | null>(null);
+    //const sceneRef = useRef<THREE.Scene | null>(null);
     const loaderRef = useRef<GLTFLoader | null>(null);
+    const [loader, setLoader] = useState<GLTFLoader | null>(null);
+    //const _scene = scene;
 
     //kind of like constructor
     useEffect(() => {
@@ -26,7 +30,8 @@ export default function SceneManager() {
         console.log("here")
 
         //SCENE, CAMERA, RENDERER, PHONE MODEL LOADER
-        const _scene = new THREE.Scene();
+        //const _scene = new THREE.Scene();
+        const _scene = scene;
         const _camera = new THREE.PerspectiveCamera(
             _fov, _aspect, _near, _far
         );
@@ -35,8 +40,9 @@ export default function SceneManager() {
         const _loader = new GLTFLoader();
 
         //assign the refs
-        sceneRef.current = _scene;
-        loaderRef.current = _loader;
+        //sceneRef.current = _scene;
+        //loaderRef.current = _loader;
+        setLoader(_loader);
 
         //set renderer size
         _renderer.setSize(window.innerWidth, window.innerHeight);
@@ -92,10 +98,11 @@ export default function SceneManager() {
     return (
         //Mount the app on this div
         <>
-            <div ref={mountRef}>
-                 {sceneRef.current && loaderRef.current && (
-                    <PhoneModel scene={sceneRef.current} loader={loaderRef.current}/>
-                 )}
+            <div ref={mountRef} className="fixed inset-0 z-10">
+                
+                 {/*scene && loader && (
+                    <PhoneModel scene={scene} loader={loader}/>
+                 )*/}
             </div>
         </>
     )
