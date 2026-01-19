@@ -11,7 +11,6 @@ export default function ToolBarPanelTab() {
         console.log("click button" , buttonName);
     }
 
-    // activeTab === buttonName ? console.log(buttonName) : console.log("hh");
     return (
         <>
         

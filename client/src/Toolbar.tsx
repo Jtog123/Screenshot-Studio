@@ -3,6 +3,8 @@ import * as THREE from 'three'
 import ToolbarHeader from './ToolbarHeader'
 import ToolbarBackgroundColor from './ToolbarBackgroundColor'
 import ToolBarPanelTab from './ToolbarPanelTab'
+import ToolbarLightSelector from './ToolbarLightSelector'
+import ToolbarActiveComponents from './ToolbarActiveComponents'
 
 interface ToolbarProps {
     scene : THREE.Scene;
@@ -16,6 +18,8 @@ export default function Toolbar({scene} : ToolbarProps) {
                 <ToolbarHeader/>
                 <ToolbarBackgroundColor scene={scene}/> 
                 <ToolBarPanelTab/>
+                <ToolbarLightSelector />
+                <ToolbarActiveComponents />
 
                 {/*Toolbar Panel Selector*/}
             </div>
