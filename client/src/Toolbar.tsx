@@ -5,20 +5,24 @@ import ToolbarBackgroundColor from './ToolbarBackgroundColor'
 import ToolBarPanelTab from './ToolbarPanelTab'
 import ToolbarLightSelector from './ToolbarLightSelector'
 import ToolbarActiveComponents from './ToolbarActiveComponents'
+import { LightManager } from './LightManager'
+import { lightPosition } from 'three/src/nodes/TSL.js'
 
 interface ToolbarProps {
-    scene : THREE.Scene;
+    _scene : THREE.Scene;
+    _lightManager : LightManager;
+
 }
 
-export default function Toolbar({scene} : ToolbarProps) {
+export default function Toolbar({_scene, _lightManager} : ToolbarProps) {
     return (
         <>
         
             <div className= "fixed flex flex-col h-[100%] w-[25%] bg-blue-200 z-10 right-0">
                 <ToolbarHeader/>
-                <ToolbarBackgroundColor scene={scene}/> 
+                <ToolbarBackgroundColor scene={_scene}/> 
                 <ToolBarPanelTab/>
-                <ToolbarLightSelector />
+                <ToolbarLightSelector scene={_scene} lightManager={_lightManager}/>
                 <ToolbarActiveComponents />
 
                 {/*Toolbar Panel Selector*/}

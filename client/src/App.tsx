@@ -3,19 +3,54 @@ import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import Toolbar from "./Toolbar.js"
+import { LightManager } from "./LightManager.js";
 
 export default function App() {
+
+    //CAMERA ARGS
+  const _fov : number = 75;
+  const _aspect : number = window.innerWidth / window.innerHeight;
+  const _near : number = 0.1;
+  const _far : number = 10000;
+
   //const mountRef = useRef<HTMLDivElement | null>(null);
   const [scene, setScene] = useState<THREE.Scene | null>(null);
+  const [camera, setCamera] = useState<THREE.PerspectiveCamera | null>(null);
+  const [raycaster, setRayCaster] = useState<THREE.Raycaster | null>(null);
+  const [renderer, setRenderer] = useState<THREE.WebGLRenderer | null>(null);
   const [phone, setPhoneModel] = useState<THREE.Group | null>(null);
+
+  const [lightManager, setLightManager] = useState<LightManager | null>(null);
   const [isPhoneLoading, setIsPhoneLoading] = useState(true);
   //const sceneRef = useRef<THREE.Scene | null>(null);
 
+
+  //Click the directional Light Button create a directional light with helper
+  //init the raycaster!!!!!!!!!!!!!!!!!!
+
   useEffect(() => {
 
-    //scene
+    //SET THE SCENE, CAMERA, RENDER, RAYCASTER, LIGHTMANAGER HERE
+    // PROP DRILL THEM AS NEEDED
+
     const _scene = new THREE.Scene();
     setScene(_scene);
+
+    const _renderer = new THREE.WebGLRenderer();
+    setRenderer(_renderer);
+
+    const _camera = new THREE.PerspectiveCamera(
+      _fov,_aspect,_near,_far
+    );
+    setCamera(_camera);
+
+    const _raycaster = new THREE.Raycaster();
+    setRayCaster(_raycaster);
+
+    //State variables arent set till after useEffect completes so use locals
+    const _lightManager = new LightManager(_raycaster, _renderer, _camera, _scene);
+    setLightManager(_lightManager);
+
 
     const loader = new GLTFLoader();
 
@@ -40,14 +75,8 @@ export default function App() {
   //{scene && <Toolbar scene={scene}/>} Making sure scene is not null
   return (
     <>
-      {scene && <Toolbar scene={scene} />} 
-      {isPhoneLoading ? (<h1>Loading</h1>) : (scene && <SceneManager scene={scene}/>)}
-      
-      
-      {/*<LightManager/>*/}
-
-
-      {/* UI */}
+      {scene && lightManager && <Toolbar _scene={scene} _lightManager={lightManager} />} 
+      {isPhoneLoading ? (<h1>Loading</h1>) : (scene && camera && renderer && <SceneManager _scene={scene} _camera={camera} _renderer={renderer}/>)}
     </>
   )
 }

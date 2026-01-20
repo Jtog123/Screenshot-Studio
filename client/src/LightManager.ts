@@ -1,7 +1,7 @@
 import * as THREE from 'three';
-//import { Light, LightType } from './Light.js';
+import { Light, LightType } from './Light.js';
 //import {LightGUI} from "./LightGui.js";
-//import { _DirectionalLightHelper, _SpotLightHelper, _PointLightHelper, _RectAreaLightHelper} from './LightHelper.js';
+import { _DirectionalLightHelper, _SpotLightHelper, _PointLightHelper, _RectAreaLightHelper} from './LightHelper.js';
 //import { DirectionalLightGUI } from './DirectionalLightGui.js';
 //import { SpotLightGUI } from './SpotLightGui.js';
 //import { PointLightGUI } from './PointLightGui.js';
@@ -10,7 +10,7 @@ import * as THREE from 'three';
 //We have to add. an event listener on the dialog windwo close button
 // When that close button is pressed we have to: close the gui, get the current active helper and color it green
 
-/*
+
 class LightManager {
 
     private _scene : THREE.Scene;
@@ -18,7 +18,7 @@ class LightManager {
     private _lights: Map<string, Light> = new Map();
     private _lightHelpers: Map<string, _DirectionalLightHelper | _SpotLightHelper | _PointLightHelper | _RectAreaLightHelper> = new Map();
 
-    private _lightGuis: Map<string, LightGUI> = new Map();
+    //private _lightGuis: Map<string, LightGUI> = new Map();
 
     //light counts
     private _directionalLightCounter : number = 0;
@@ -41,13 +41,15 @@ class LightManager {
     public _previousLightSelection : THREE.Object3D[] = []
 
     //may have to pass a scene object to delete the light
-    /*
+
     // Assuming 'scene' is your THREE.Scene and 'myLight' is your THREE.Light
+    /*
         if (myLight.parent) {
             myLight.parent.remove(myLight);
         }
         // Alternatively, if you know it's a direct child of the scene:
         scene.remove(myLight);
+        */
 
   
 
@@ -105,7 +107,7 @@ class LightManager {
             helper._title = `${helper._title} ${this._directionalLightCounter}`;
 
             //const gui = new LightGUI(newLight);
-            const gui = new DirectionalLightGUI(newLight);
+            //const gui = new DirectionalLightGUI(newLight);
 
             //use its name as the ID
             const lightID = helper.name;
@@ -113,13 +115,13 @@ class LightManager {
             //use the maps
             this._lights.set(lightID, newLight);
             this._lightHelpers.set(lightID, helper);
-            this._lightGuis.set(lightID, gui);
+            //this._lightGuis.set(lightID, gui);
 
             //wire it up
-            this.wireGUIToLight(lightID, gui, newLight);
+            //this.wireGUIToLight(lightID, gui, newLight);
 
             //poll for potneital closing
-            this.listenForGUIClose(lightID);
+            //this.listenForGUIClose(lightID);
 
             //for the raycaster
             this._lightGroup.add(helper);
@@ -162,7 +164,7 @@ class LightManager {
             helper._title = `${helper._title} ${this._spotLightCounter}`; 
 
             //const gui = new LightGUI(newLight);
-            const gui = new SpotLightGUI(newLight, this.setLightHelperColor.bind(this));
+            //const gui = new SpotLightGUI(newLight, this.setLightHelperColor.bind(this));
 
             // Use its name as the ID
             const lightID = helper.name;
@@ -170,13 +172,13 @@ class LightManager {
             // Use the maps
             this._lights.set(lightID, newLight);
             this._lightHelpers.set(lightID, helper);
-            this._lightGuis.set(lightID, gui);
+            //this._lightGuis.set(lightID, gui);
 
             // Wire it up
-            this.wireGUIToLight(lightID, gui, newLight);
+            //this.wireGUIToLight(lightID, gui, newLight);
 
             // Poll for potential closing
-            this.listenForGUIClose(lightID);
+            //this.listenForGUIClose(lightID);
 
             // For the raycaster
             this._lightGroup.add(helper);
@@ -208,7 +210,7 @@ class LightManager {
 
             //add the gui
             //make pointlightgui
-            const gui = new PointLightGUI(newLight);
+            //const gui = new PointLightGUI(newLight);
 
 
             // Use its name as the ID
@@ -217,14 +219,14 @@ class LightManager {
             // Use the maps
             this._lights.set(lightID, newLight);
             this._lightHelpers.set(lightID, helper);
-            this._lightGuis.set(lightID, gui);
+            //this._lightGuis.set(lightID, gui);
 
 
             // Wire it up
-            this.wireGUIToLight(lightID, gui, newLight);
+            //this.wireGUIToLight(lightID, gui, newLight);
 
             // Poll for potential closing
-            this.listenForGUIClose(lightID);
+            //this.listenForGUIClose(lightID);
 
             // For the raycaster
             this._lightGroup.add(helper);
@@ -257,20 +259,20 @@ class LightManager {
 
             helper._title = `${helper._title} ${this._rectAreaCounter}`;
 
-            const gui = new RectAreaLightGUI(newLight);
+            //const gui = new RectAreaLightGUI(newLight);
 
             const lightID = helper.name;
 
             // Use the maps
             this._lights.set(lightID, newLight);
             this._lightHelpers.set(lightID, helper);
-            this._lightGuis.set(lightID, gui);
+            //this._lightGuis.set(lightID, gui);
 
             // Wire it up
-            this.wireGUIToLight(lightID, gui, newLight);
+            //this.wireGUIToLight(lightID, gui, newLight);
 
             // Poll for potential closing
-            this.listenForGUIClose(lightID);
+            //this.listenForGUIClose(lightID);
 
             // For the raycaster
             this._lightGroup.add(helper);
@@ -288,6 +290,7 @@ class LightManager {
 
     }
 
+    /*
     private wireGUIToLight(lightID: string, gui: LightGUI, light:Light) : void {
         const helper = this._lightHelpers.get(lightID);
         //position
@@ -348,6 +351,7 @@ class LightManager {
 
 
     }
+        */
 
     public getLightList() : [string, Light][] {
         return [...this._lights];
@@ -412,14 +416,14 @@ class LightManager {
         const helper = this._lightHelpers.get(lightID);
 
         //grab its correposnding gui
-        const gui = this._lightGuis.get(lightID);
+       // const gui = this._lightGuis.get(lightID);
 
         //if either are null return
-        if(!helper || ! gui) return;
+        //if(!helper || ! gui) return;
 
-        gui._dialogWindow.show();
+        //gui._dialogWindow.show();
 
-        this.setLightHelperColor(helper, 0xFF0000);
+        //this.setLightHelperColor(helper, 0xFF0000);
 
         //set our current light
         this._selectedLightID = lightID;
@@ -427,19 +431,20 @@ class LightManager {
 
     private deselectLight(lightID: string) {
         const helper = this._lightHelpers.get(lightID);
-        const gui = this._lightGuis.get(lightID);
+        //const gui = this._lightGuis.get(lightID);
 
-        if(!helper || !gui) return ;
+        //if(!helper || !gui) return ;
 
         //hide the gui
-        gui._dialogWindow.close();
+        //gui._dialogWindow.close();
 
-        this.setLightHelperColor(helper, 0x00FF00);
+        //this.setLightHelperColor(helper, 0x00FF00);
 
     }
 
+    /*
     private listenForGUIClose(lightID : string) {
-        const gui = this._lightGuis.get(lightID);
+        //const gui = this._lightGuis.get(lightID);
         
         if(!gui) return;
 
@@ -452,6 +457,7 @@ class LightManager {
 
 
     }
+        */
 
     private setLightHelperColor(lightHelper : _DirectionalLightHelper | _SpotLightHelper | _PointLightHelper | _RectAreaLightHelper , colorValue: number) : void {
         const color = new THREE.Color(colorValue);
@@ -472,6 +478,7 @@ class LightManager {
 
     }
 
+    /*
     public removeLight(lightID: string) {
         const helper = this._lightHelpers.get(lightID);
         const gui = this._lightGuis.get(lightID);
@@ -502,6 +509,7 @@ class LightManager {
         //let deleteLight = this.getLight(lightID) as Light;
         //this._scene.remove(deleteLight._light);
     }
+        */
 
     //try tomorrow
     private clearLightSelection(lightID : string) : void {
@@ -551,4 +559,3 @@ class LightManager {
 
 
 export {LightManager}
-*/

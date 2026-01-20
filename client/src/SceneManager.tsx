@@ -11,10 +11,13 @@ const _near : number = 0.1;
 const _far : number = 10000;
 
 interface SceneManagerProps {
-    scene : THREE.Scene;
+    _scene : THREE.Scene;
+    _camera : THREE.PerspectiveCamera;
+    _renderer : THREE.WebGLRenderer;
+
 }
 
-export default function SceneManager({scene}: SceneManagerProps) {
+export default function SceneManager({_scene, _camera, _renderer}: SceneManagerProps) {
 
     // kind of like member vairables in a class
     const mountRef = useRef<HTMLDivElement | null>(null);
@@ -26,23 +29,6 @@ export default function SceneManager({scene}: SceneManagerProps) {
     //kind of like constructor
     useEffect(() => {
         if(!mountRef.current) return;
-
-        console.log("here")
-
-        //SCENE, CAMERA, RENDERER, PHONE MODEL LOADER
-        //const _scene = new THREE.Scene();
-        const _scene = scene;
-        const _camera = new THREE.PerspectiveCamera(
-            _fov, _aspect, _near, _far
-        );
-
-        const _renderer = new THREE.WebGLRenderer();
-        //const _loader = new GLTFLoader();
-
-        //assign the refs
-        //sceneRef.current = _scene;
-        //loaderRef.current = _loader;
-        //setLoader(_loader);
 
         //set renderer size
         _renderer.setSize(window.innerWidth, window.innerHeight);
@@ -59,7 +45,7 @@ export default function SceneManager({scene}: SceneManagerProps) {
         _scene.add(light);
 
         //RAY CASTING
-        const _raycaster = new THREE.Raycaster();
+        //const _raycaster = new THREE.Raycaster();
 
         //Grid
         const size = 20;
@@ -76,15 +62,6 @@ export default function SceneManager({scene}: SceneManagerProps) {
 
         //run the animation loop
         run();
-
-
-        const updateBackgroundColor = (evt: Event) => {
-            const selectedColor = evt.target as HTMLInputElement;
-            let colorString = selectedColor.value.replace("#", "0x");
-
-            const colorValue = Number(colorString);
-            _scene.background = new THREE.Color().setHex(colorValue);
-        }
 
 
         //clean up the ref
