@@ -450,7 +450,6 @@ class LightManager {
         const light = this.getLight(lightID);
         if(!light) return;
 
-        
         this.emit("lightSelected", {
             id: lightID,
             name: helper._title || lightID,
@@ -459,7 +458,7 @@ class LightManager {
 
     }
 
-    private deselectLight(lightID: string) {
+    public deselectLight(lightID: string) {
         const helper = this._lightHelpers.get(lightID);
         //const gui = this._lightGuis.get(lightID);
 
@@ -470,6 +469,10 @@ class LightManager {
         //gui._dialogWindow.close();
 
         this.setLightHelperColor(helper, 0x00FF00);
+
+        this._selectedLightID = null;
+
+        this.emit("lightDeselected", {id: lightID});
 
     }
         

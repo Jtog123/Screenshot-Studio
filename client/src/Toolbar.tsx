@@ -3,11 +3,10 @@ import * as THREE from 'three'
 import ToolbarHeader from './ToolbarHeader'
 import ToolbarBackgroundColor from './ToolbarBackgroundColor'
 import ToolBarPanelTab from './ToolbarPanelTab'
-import ToolbarLightSelector from './ToolbarLightSelector'
+import ToolbarLightCatalog from './ToolbarLightCatalog'
 import ToolbarActiveComponents from './ToolbarActiveComponents'
 import DirectionalLightGUI from './DirectionalLightGUI'
 import { LightManager } from './LightManager'
-import { lightPosition } from 'three/src/nodes/TSL.js'
 import { LightType } from './Light'
 
 interface ToolbarProps {
@@ -18,16 +17,25 @@ interface ToolbarProps {
 
 export default function Toolbar({_scene, _lightManager} : ToolbarProps) {
 
+    
     const[selectedLight, setSelectedLight] = useState<{id: string, type: LightType} | null>(null);
+    //const[isGUIWindowOpen, setGUIWindow] = useState<boolean>(false);
 
     useEffect(() => {
         _lightManager.addEventListener("lightSelected", (data: { id: string, type: LightType }) => {
             setSelectedLight({id: data.id, type: data.type});
-            
+            //setGUIWindow(true); 
         });
+
+        _lightManager.addEventListener("lightDeselected", (data: {id: string}) => {
+            setSelectedLight(null);
+            //setGUIWindow(false);
+        })
 
         
     }, [_lightManager])
+    
+
 
 
     return (
@@ -37,15 +45,15 @@ export default function Toolbar({_scene, _lightManager} : ToolbarProps) {
                 <ToolbarHeader/>
                 <ToolbarBackgroundColor scene={_scene}/> 
                 <ToolBarPanelTab/>
-                <ToolbarLightSelector scene={_scene} lightManager={_lightManager}/>
+                <ToolbarLightCatalog scene={_scene} lightManager={_lightManager}/>
                 <ToolbarActiveComponents />
 
                 {/*Toolbar Panel Selector*/}
             </div>
 
             {selectedLight?.type === LightType.DirectionalLight && (
-                <DirectionalLightGUI _lightID={selectedLight.id} _lightManager={_lightManager} />
-            ) }
+                <DirectionalLightGUI _lightID={selectedLight.id} _lightManager={_lightManager}/>) 
+            }
 
            
         </>

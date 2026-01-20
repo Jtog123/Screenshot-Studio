@@ -4,18 +4,20 @@ import { LightType } from './Light';
 import { useEffect, useState } from 'react';
 
 
-interface ToolbarLightSelectorProps {
+interface ToolbarLightCatalogProps {
     scene : THREE.Scene,
     lightManager : LightManager
 }
 
 //will need to take in the scene
-export default function ToolbarLightSelector({scene, lightManager} : ToolbarLightSelectorProps) {
+export default function ToolbarLightCatalog({scene, lightManager} : ToolbarLightCatalogProps) {
 
 
     function handleDirectionalLightCreation() : void {
         console.log("creating directional light");
         const newLight = lightManager.createLight(LightType.DirectionalLight, new THREE.Vector3(2,2,0));
+
+        const newLight2 = lightManager.createLight(LightType.DirectionalLight, new THREE.Vector3(-2,2,0));
         //Gui Creation happens here
 
     }
