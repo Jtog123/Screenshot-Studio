@@ -54,6 +54,15 @@ export default function App() {
 
     const loader = new GLTFLoader();
 
+    //Add the light group
+    _scene.add(_lightManager._lightGroup);
+
+    //raycaster
+    _renderer.domElement.addEventListener("mousedown", (evt: MouseEvent) => {
+      _lightManager.selectLight(evt);
+    //manager.selectLight(evt);
+    });
+
     //Load the Model
     loader.loadAsync("/models/phone/iphone17CleanSceneTest.gltf").then(gltf => {
         setPhoneModel(gltf.scene);

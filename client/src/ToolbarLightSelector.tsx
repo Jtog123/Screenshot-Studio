@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { LightManager } from "./LightManager";
 import { LightType } from './Light';
+import { useEffect, useState } from 'react';
 
 
 interface ToolbarLightSelectorProps {
@@ -11,14 +12,14 @@ interface ToolbarLightSelectorProps {
 //will need to take in the scene
 export default function ToolbarLightSelector({scene, lightManager} : ToolbarLightSelectorProps) {
 
+
     function handleDirectionalLightCreation() : void {
         console.log("creating directional light");
         const newLight = lightManager.createLight(LightType.DirectionalLight, new THREE.Vector3(2,2,0));
-        scene.add(newLight._light);
-        scene.add(newLight._lightHelper); //add everything? best way to do this?
-        
-        //pass the scene and light manager to this component
+        //Gui Creation happens here
+
     }
+
 
     return (
         <>

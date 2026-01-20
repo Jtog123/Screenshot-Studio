@@ -123,14 +123,19 @@ class LightManager {
             //poll for potneital closing
             //this.listenForGUIClose(lightID);
 
+            //add the light
+            this._scene.add(newLight._light);
+
             //for the raycaster
             this._lightGroup.add(helper);
+
 
             this.emit("lightCreated", {
                 id: lightID,
                 name: helper._title || lightID,
                 type: lightType
             });
+
         } else if(lightType === LightType.SpotLight) {
             console.log("creating the spotlight");
             
@@ -180,6 +185,9 @@ class LightManager {
             // Poll for potential closing
             //this.listenForGUIClose(lightID);
 
+            //add the light
+            this._scene.add(newLight._light);
+
             // For the raycaster
             this._lightGroup.add(helper);
 
@@ -228,6 +236,9 @@ class LightManager {
             // Poll for potential closing
             //this.listenForGUIClose(lightID);
 
+            //add the light
+            this._scene.add(newLight._light);
+
             // For the raycaster
             this._lightGroup.add(helper);
 
@@ -273,6 +284,9 @@ class LightManager {
 
             // Poll for potential closing
             //this.listenForGUIClose(lightID);
+
+            //add the light
+            this._scene.add(newLight._light);
 
             // For the raycaster
             this._lightGroup.add(helper);
@@ -352,11 +366,13 @@ class LightManager {
 
     }
         */
+        
 
     public getLightList() : [string, Light][] {
         return [...this._lights];
     }
 
+    
     public selectLight(evt: MouseEvent): void {
         const coords = new THREE.Vector2(
             (evt.clientX / this._renderer.domElement.clientWidth) * 2 - 1,
@@ -410,23 +426,37 @@ class LightManager {
             //this.listenForGUIClose(currentLightID);
         }
     }
+        
 
+    
     private selectLightByID(lightID: string) {
         //grab the light helper
         const helper = this._lightHelpers.get(lightID);
 
         //grab its correposnding gui
-       // const gui = this._lightGuis.get(lightID);
+        //const gui = this._lightGuis.get(lightID);
 
         //if either are null return
         //if(!helper || ! gui) return;
+        if(!helper) return;
 
         //gui._dialogWindow.show();
 
-        //this.setLightHelperColor(helper, 0xFF0000);
+        this.setLightHelperColor(helper, 0xFF0000);
 
         //set our current light
         this._selectedLightID = lightID;
+
+        const light = this.getLight(lightID);
+        if(!light) return;
+
+        
+        this.emit("lightSelected", {
+            id: lightID,
+            name: helper._title || lightID,
+            type: light._lightType
+        });
+
     }
 
     private deselectLight(lightID: string) {
@@ -434,17 +464,20 @@ class LightManager {
         //const gui = this._lightGuis.get(lightID);
 
         //if(!helper || !gui) return ;
+        if(!helper) return;
 
         //hide the gui
         //gui._dialogWindow.close();
 
-        //this.setLightHelperColor(helper, 0x00FF00);
+        this.setLightHelperColor(helper, 0x00FF00);
 
     }
+        
 
     /*
+    
     private listenForGUIClose(lightID : string) {
-        //const gui = this._lightGuis.get(lightID);
+        const gui = this._lightGuis.get(lightID);
         
         if(!gui) return;
 
@@ -458,6 +491,8 @@ class LightManager {
 
     }
         */
+        
+        
 
     private setLightHelperColor(lightHelper : _DirectionalLightHelper | _SpotLightHelper | _PointLightHelper | _RectAreaLightHelper , colorValue: number) : void {
         const color = new THREE.Color(colorValue);
@@ -509,7 +544,8 @@ class LightManager {
         //let deleteLight = this.getLight(lightID) as Light;
         //this._scene.remove(deleteLight._light);
     }
-        */
+        
+        
 
     //try tomorrow
     private clearLightSelection(lightID : string) : void {
@@ -543,6 +579,7 @@ class LightManager {
             this.deselectLight(lightID);
         }
     }
+        */
 
     //grab all light ids if needed - ex _DirectionalLight0
     public getLightIDs() : string[] {

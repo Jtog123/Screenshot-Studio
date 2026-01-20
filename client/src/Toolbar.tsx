@@ -5,8 +5,10 @@ import ToolbarBackgroundColor from './ToolbarBackgroundColor'
 import ToolBarPanelTab from './ToolbarPanelTab'
 import ToolbarLightSelector from './ToolbarLightSelector'
 import ToolbarActiveComponents from './ToolbarActiveComponents'
+import DirectionalLightGUI from './DirectionalLightGUI'
 import { LightManager } from './LightManager'
 import { lightPosition } from 'three/src/nodes/TSL.js'
+import { LightType } from './Light'
 
 interface ToolbarProps {
     _scene : THREE.Scene;
@@ -15,6 +17,19 @@ interface ToolbarProps {
 }
 
 export default function Toolbar({_scene, _lightManager} : ToolbarProps) {
+
+    const[selectedLight, setSelectedLight] = useState<{id: string, type: LightType} | null>(null);
+
+    useEffect(() => {
+        _lightManager.addEventListener("lightSelected", (data: { id: string, type: LightType }) => {
+            setSelectedLight({id: data.id, type: data.type});
+            
+        });
+
+        
+    }, [_lightManager])
+
+
     return (
         <>
         
@@ -27,6 +42,12 @@ export default function Toolbar({_scene, _lightManager} : ToolbarProps) {
 
                 {/*Toolbar Panel Selector*/}
             </div>
+
+            {selectedLight?.type === LightType.DirectionalLight && (
+                <DirectionalLightGUI _lightID={selectedLight.id} _lightManager={_lightManager} />
+            ) }
+
+           
         </>
     )
 }
