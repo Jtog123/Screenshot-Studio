@@ -4,11 +4,6 @@ import {useRef, useEffect, useState} from 'react'
 import App from './App'
 //import PhoneModel from './PhoneModel';
 
-//CAMERA ARGS
-const _fov : number = 75;
-const _aspect : number = window.innerWidth / window.innerHeight;
-const _near : number = 0.1;
-const _far : number = 10000;
 
 interface SceneManagerProps {
     _scene : THREE.Scene;
@@ -40,9 +35,9 @@ export default function SceneManager({_scene, _camera, _renderer}: SceneManagerP
         _camera.position.z = 5;
 
         //add test light
-        const light = new THREE.DirectionalLight(0xFFFFFF, 5);
-        light.position.setY(2);
-        _scene.add(light);
+       // const light = new THREE.DirectionalLight(0xFFFFFF, 5);
+        //light.position.setY(2);
+        //_scene.add(light);
 
         //RAY CASTING
         //const _raycaster = new THREE.Raycaster();

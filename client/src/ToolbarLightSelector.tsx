@@ -13,7 +13,9 @@ export default function ToolbarLightSelector({scene, lightManager} : ToolbarLigh
 
     function handleDirectionalLightCreation() : void {
         console.log("creating directional light");
-        lightManager.createLight(LightType.DirectionalLight, new THREE.Vector3(2,2,0));
+        const newLight = lightManager.createLight(LightType.DirectionalLight, new THREE.Vector3(2,2,0));
+        scene.add(newLight._light);
+        scene.add(newLight._lightHelper); //add everything? best way to do this?
         
         //pass the scene and light manager to this component
     }
