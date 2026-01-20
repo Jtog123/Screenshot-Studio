@@ -1,0 +1,79 @@
+import { _SpotLightHelper } from "./LightHelper";
+import { LightManager } from "./LightManager";
+
+
+interface SpotLightGUIProps {
+    _lightID : string;
+    _lightManager  : LightManager
+
+}
+
+export default function SpotLightGUI({_lightID, _lightManager} : SpotLightGUIProps) {
+
+    const light = _lightManager.getLight(_lightID);
+
+    function handleGUIWindowClose() : void {
+        _lightManager.deselectLight(_lightID);
+    }
+    
+    return (
+        <>
+        {
+            <div className="absolute rounded-xl right-[800px] top-[200px] min-w-[300px] min-h-[150px] max-w-[450px] overflow-auto bg-stone-950  pb-5 z-2 backdrop-blur-md border-1 border-stone-600 shadow-[0_0_20px_rgba(120,113,108,0.3),0_0_0_4px_rgba(28,25,23,1),0_0_0_5px_rgba(168,162,158,0.5)] ring-1 ring-stone-700/50">
+                <div className="dragbar flex items-center justify-between bg-stone-700/30 w-[100%] h-[1/4] py-1 pl-5 pr-2">
+                    <div className="titlebox ">
+                        <h1 className="title text-stone-200 text-lg">
+                            {(light?._lightHelper as _SpotLightHelper)._title}
+                        </h1>
+                    </div>
+
+                    <button onClick={handleGUIWindowClose}  className="rounded-xl right-0 mr-1 w-[10%] bg-red-500">
+                        X
+                    </button>
+                </div>
+
+                <div className="innerContents flex flex-col w-[100%] [h-100%] bg-stone-950 p-5">
+                    <div className="colorContainer flex w-[100%] h-[100%] items-center">
+                        <label className="text-sm text-stone-200 pr-5" htmlFor="">Light Color: </label>
+                        <input type="color" />
+
+                    </div>
+
+                    <div className="divider w-full h-px bg-stone-300/40 my-3"></div>
+
+                    <label className="text-sm text-stone-200" htmlFor="">Position X:</label>
+                    <input type="range" min={"-10"} max={"10"} value={"0"} step={"0.1"}/>
+
+                    <label className="text-sm text-stone-200" htmlFor="">Position Y:</label>
+                    <input type="range" min={"-10"} max={"10"} value={"0"} step={"0.1"}/>
+
+                    <label className="text-sm text-stone-200" htmlFor="">Position Z:</label>
+                    <input type="range" min={"-10"} max={"10"} value={"0"} step={"0.1"}/>
+
+                    <div className="divider w-full h-px bg-stone-300/40 my-3"></div>
+
+
+                    {/* ROTATION 
+
+                    <label className="text-sm text-stone-200" htmlFor="">Rotation X:</label>
+                    <input type="range" min={"-10"} max={"10"} value={"0"} step={"0.1"}/>
+
+                    <label className="text-sm text-stone-200" htmlFor="">Rotation Z:</label>
+                    <input type="range" min={"-10"} max={"10"} value={"0"} step={"0.1"}/>
+
+                    <div className="divider w-full h-px bg-stone-300/40 my-3"></div>
+                    */}
+
+
+                    {/* INTNESITY */}
+                    <label className="text-sm text-stone-200" htmlFor="">Intensity:</label>
+                    <input type="range" min={"0"} max={"50"} value={"5"} step={"0.1"}/>
+
+                </div>
+                
+            </div>
+        }
+        </>
+    )
+
+}

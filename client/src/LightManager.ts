@@ -140,10 +140,13 @@ class LightManager {
             console.log("creating the spotlight");
             
             const angle = Math.PI / 12;      // Wider cone so it's more visible
-            const distance = 3;             // Longer distance
+            const distance = 3;  // Longer distance
+            const penumbra = 0.5;
+            const decay = 0;
+                       
 
             // Create spotlight with higher intensity to make it visible
-            newLight._light = new THREE.SpotLight(newLight._lightColor, newLight._lightIntensity, distance, angle, 0.5, 0);
+            newLight._light = new THREE.SpotLight(newLight._lightColor, newLight._lightIntensity, distance, angle, penumbra, decay);
 
             // Position it to the side and above, pointing at origin
             //newLight._light.position.set(3, 3, 0);  // To the side and above;

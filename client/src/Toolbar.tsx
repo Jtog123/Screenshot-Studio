@@ -8,6 +8,7 @@ import ToolbarActiveComponents from './ToolbarActiveComponents'
 import DirectionalLightGUI from './DirectionalLightGUI'
 import { LightManager } from './LightManager'
 import { LightType } from './Light'
+import SpotLightGUI from './SpotLightGUI'
 
 interface ToolbarProps {
     _scene : THREE.Scene;
@@ -52,7 +53,10 @@ export default function Toolbar({_scene, _lightManager} : ToolbarProps) {
             </div>
 
             {selectedLight?.type === LightType.DirectionalLight && (
-                <DirectionalLightGUI _lightID={selectedLight.id} _lightManager={_lightManager}/>) 
+                <DirectionalLightGUI _lightID={selectedLight.id} _lightManager={_lightManager}/>) ||
+             selectedLight?.type === LightType.SpotLight && (
+                <SpotLightGUI _lightID={selectedLight.id} _lightManager={_lightManager} /> ) 
+                
             }
 
            
