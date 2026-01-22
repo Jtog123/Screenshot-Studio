@@ -509,8 +509,8 @@ class LightManager {
             if(child instanceof THREE.Line || child instanceof THREE.LineSegments) {
                 (child.material as THREE.LineBasicMaterial).color.set(color); 
             } else if (child instanceof THREE.Mesh) {
-                console.log("Mesh material:", child.material); // Log the material
-                console.log("Material type:", child.material.type);
+                //console.log("Mesh material:", child.material); // Log the material
+                //console.log("Material type:", child.material.type);
                 (child.material as THREE.MeshBasicMaterial).color.set(color);
                 lightHelper.color = colorValue;
             }

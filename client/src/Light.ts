@@ -26,7 +26,7 @@ class Light {
 
     //Create custom LightHelper class
 
-    public _lightColor : number;
+    public _lightColor : THREE.ColorRepresentation;
     public _lightIntensity : number;
     public _lightType : LightType; // can i guarantee there will be a light type at runtime? maybe add one default light
     public _light! : THREE.Light;
@@ -39,6 +39,10 @@ class Light {
 
 
     public _isVisible : boolean;
+
+    public _guiX : number = 0;
+    public _guiY : number = 0;
+
 
     //public _GUI : LightGUI;
 
@@ -58,6 +62,7 @@ class Light {
         this._lightType = lightType;
 
         this._isVisible = true;
+
 
         //Create a Light based on the type we pass it
         //this.createLight(this._lightType);

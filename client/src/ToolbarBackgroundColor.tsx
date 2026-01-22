@@ -24,7 +24,7 @@ export default function ToolbarBackgroundColor({scene}: ToolbarBackgroundColorPr
 
         //update the state
         setBackgroundColor(selectedColor);
-        console.log(backgroundColor);
+        //console.log(backgroundColor);
 
     }
 

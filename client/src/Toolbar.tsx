@@ -53,7 +53,7 @@ export default function Toolbar({_scene, _lightManager} : ToolbarProps) {
             </div>
 
             {selectedLight?.type === LightType.DirectionalLight && (
-                <DirectionalLightGUI _lightID={selectedLight.id} _lightManager={_lightManager}/>) ||
+                <DirectionalLightGUI key={selectedLight.id} _lightID={selectedLight.id} _lightManager={_lightManager}/>) ||
              selectedLight?.type === LightType.SpotLight && (
                 <SpotLightGUI _lightID={selectedLight.id} _lightManager={_lightManager} /> ) 
                 
@@ -66,6 +66,7 @@ export default function Toolbar({_scene, _lightManager} : ToolbarProps) {
 
 /*
 // make it a div, resizable
+
 // make it golden ratio
 
 import * as THREE from "three"

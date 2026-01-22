@@ -14,10 +14,10 @@ export default function ToolbarLightCatalog({scene, lightManager} : ToolbarLight
 
 
     function handleDirectionalLightCreation() : void {
-        console.log("creating directional light");
+        //console.log("creating directional light");
         const newLight = lightManager.createLight(LightType.DirectionalLight, new THREE.Vector3(2,2,0));
 
-        const newLight2 = lightManager.createLight(LightType.DirectionalLight, new THREE.Vector3(-2,2,0));
+        //const newLight2 = lightManager.createLight(LightType.DirectionalLight, new THREE.Vector3(-2,2,0));
         //Gui Creation happens here
 
     }
