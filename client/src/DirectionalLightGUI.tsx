@@ -17,8 +17,9 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
 
     const[guiPosition, setGuiPosition] = useState({x:light!._guiX, y:light!._guiY});
     const[isDragging, setIsDragging] = useState(false);
-    const[lightColor, setLightColor] = useState("#FFFFFF")
+    const[lightColor, setLightColor] = useState("#FFFFFF");
     const offset = useRef({x:0,y:0});
+    const[intensity, setLightIntensity] = useState(light!._lightIntensity);
     //const dragItem = useRef<{clientX:number, clientY:number} | null>(null);
 
     // Light Positions
@@ -27,7 +28,6 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
         y: 2,
         z: 0
     })
-
 
     //on mounting recall past state
     useEffect(() => {
@@ -51,6 +51,10 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
         //now the Light Color
         const hexString = "#" + light?._light.color.getHexString();
         setLightColor(hexString);
+
+        //get the intensity
+        const intensity = Number(light?._lightIntensity);
+        setLightIntensity(intensity);
 
 
     },[_lightID]);
@@ -81,9 +85,6 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
 
         }
 
-        //update light color
-        //updateLightColor()
-
         return () => {
             document.removeEventListener("mousemove", handleMouseMove);
             document.removeEventListener("mouseup", handleMouseUp);
@@ -91,6 +92,7 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
     }, [isDragging]);
 
 
+     //GUI DRAG LOGIC
     function handleGUIWindowClose() : void {
         _lightManager.deselectLight(_lightID);
     }
@@ -103,6 +105,7 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
         };
         e.preventDefault()
     }
+
 
     function handlePosSlidersChange(e: React.ChangeEvent<HTMLInputElement>, sliderName:string) : void {
         
@@ -139,9 +142,11 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
             light?._light.position.setZ(Number(e.target.value));
         }
 
-       
+        (light?._lightHelper as _DirectionalLightHelper).update();
 
     }
+
+
 
     function handleLightColorChange(evt: React.ChangeEvent<HTMLInputElement>) : void {
 
@@ -160,10 +165,23 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
 
     }
 
-    function handleMouseUp() : void {
+    function handleLightIntensityChange(evt : React.ChangeEvent<HTMLInputElement>) : void {
+        
+        
+        if(light) {
+            //set threejs
+            light._light.intensity = Number(evt.target.value);
 
-        setIsDragging(false);
+            //set the light internally in the class
+            light._lightIntensity = Number(evt.target.value);
+            
+            console.log(light._lightIntensity);
+        }
+        setLightIntensity(Number(evt.target.value));
+
     }
+
+    
 
 
 
@@ -209,20 +227,10 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
                     <div className="divider w-full h-px bg-stone-300/40 my-3"></div>
 
 
-                    {/* ROTATION */}
-
-                    <label className="text-sm text-stone-200" htmlFor="">Rotation X:</label>
-                    <input type="range" min={"-10"} max={"10"} value={"0"} step={"0.1"}/>
-
-                    <label className="text-sm text-stone-200" htmlFor="">Rotation Z:</label>
-                    <input type="range" min={"-10"} max={"10"} value={"0"} step={"0.1"}/>
-
-                    <div className="divider w-full h-px bg-stone-300/40 my-3"></div>
-
 
                     {/* INTNESITY */}
                     <label className="text-sm text-stone-200" htmlFor="">Intensity:</label>
-                    <input type="range" min={"0"} max={"50"} value={"5"} step={"0.1"}/>
+                    <input onChange={(e) => handleLightIntensityChange(e)} type="range" min={"0"} max={"50"} value={intensity} step={"0.1"}/>
 
                 </div>
                 

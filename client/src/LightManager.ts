@@ -125,6 +125,7 @@ class LightManager {
 
             //add the light
             this._scene.add(newLight._light);
+            this._scene.add((newLight._light as THREE.DirectionalLight).target)
 
             //for the raycaster
             this._lightGroup.add(helper);

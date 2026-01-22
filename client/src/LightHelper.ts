@@ -25,6 +25,19 @@ const directionalIDGenerator = generateDirectionalID();
 
 class _DirectionalLightHelper extends THREE.DirectionalLightHelper {
 
+    update() : void {
+        super.update();
+
+        if(this.light && this._arrowHelper) {
+            const newDir = new THREE.Vector3();
+            newDir.subVectors(this.light.target.position, this.light.position);
+            newDir.normalize();
+
+            this._arrowHelper.setDirection(newDir);
+
+        }
+    }
+
     private _direction : THREE.Vector3;
     private _origin : THREE.Vector3;
     private _length : number;
