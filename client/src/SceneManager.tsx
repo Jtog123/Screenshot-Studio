@@ -34,14 +34,6 @@ export default function SceneManager({_scene, _camera, _renderer}: SceneManagerP
         //set initial camera pos
         _camera.position.z = 5;
 
-        //add test light
-       // const light = new THREE.DirectionalLight(0xFFFFFF, 5);
-        //light.position.setY(2);
-        //_scene.add(light);
-
-        //RAY CASTING
-        //const _raycaster = new THREE.Raycaster();
-
         //Grid
         const size = 20;
         const divisions = 20;
