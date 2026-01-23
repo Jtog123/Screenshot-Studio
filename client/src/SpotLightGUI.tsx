@@ -160,7 +160,7 @@ export default function SpotLightGUI({_lightID, _lightManager} : SpotLightGUIPro
             (light._lightHelper as _SpotLightHelper).update();
 
         }
-
+         _lightManager.setLightHelperColor(light?._lightHelper as _SpotLightHelper, 0xFF0000);
         setLightDiameter(Number(e.target.value));
     }
 
