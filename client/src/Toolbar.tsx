@@ -10,6 +10,7 @@ import { LightManager } from './LightManager'
 import { LightType } from './Light'
 import SpotLightGUI from './SpotLightGUI'
 import PointLightGUI from './PointLightGUI'
+import RectAreaLightGUI from './RectLightGUI'
 
 interface ToolbarProps {
     _scene : THREE.Scene;
@@ -59,7 +60,9 @@ export default function Toolbar({_scene, _lightManager} : ToolbarProps) {
                 selectedLight?.type === LightType.SpotLight && (
                     <SpotLightGUI key={selectedLight.id} _lightID={selectedLight.id} _lightManager={_lightManager} /> ) ||
                 selectedLight?.type === LightType.PointLight && (
-                    <PointLightGUI />
+                    <PointLightGUI key={selectedLight.id} _lightID={selectedLight.id} _lightManager={_lightManager}/>) ||
+                selectedLight?.type === LightType.RectAreaLight && (
+                    <RectAreaLightGUI key={selectedLight.id} _lightID={selectedLight.id} _lightManager={_lightManager}/>
                 )
                   
             }

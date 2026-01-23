@@ -1,14 +1,14 @@
-import { _PointLightHelper } from "./LightHelper";
+import { _RectAreaLightHelper } from "./LightHelper";
 import { LightManager } from "./LightManager";
 import { useEffect, useRef, useState } from "react";
 import * as THREE from 'three'
 
-interface PointLightGUIProps {
+interface RectAreaLightGUIProps {
     _lightID : string;
     _lightManager  : LightManager
 }
 
-export default function PointLightGUI({_lightID, _lightManager} : PointLightGUIProps) {
+export default function RectAreaLightGUI({_lightID, _lightManager} : RectAreaLightGUIProps) {
 
     const light = _lightManager.getLight(_lightID);
     const[guiPosition, setGuiPosition] = useState({x:light!._guiX, y:light!._guiY});
@@ -24,8 +24,8 @@ export default function PointLightGUI({_lightID, _lightManager} : PointLightGUIP
 
     const[lightIntensity, setLightIntensity] = useState(light?._lightIntensity);
     const[lightColor, setLightColor] = useState("#FFFFFF");
-    const[lightDistance, setLightDistance] = useState(3);
-    //const[sphereSize, setSphereSize] = useState(light?._sphereSize);
+    const[lightWidth, setLightWidth] = useState(2);
+    const[lightHeight, setLightHeight] = useState(1);
 
     //on mounting update state
     useEffect(() => {
@@ -35,15 +35,16 @@ export default function PointLightGUI({_lightID, _lightManager} : PointLightGUIP
         const hexString = "#" + String(light?._light.color.getHexString());
         setLightColor(hexString);
 
-        const distance = (light?._light as THREE.PointLight).distance;
-        setLightDistance(distance);
+        const width = (light?._light as THREE.RectAreaLight).width;
+        setLightWidth(width);
 
-        //const sphereSize = (light?._lightHelper as _PointLightHelper)._sphereSize;
-        //setSphereSize(sphereSize);
+        const height = (light?._light as THREE.RectAreaLight).height;
+        setLightHeight(height);
 
     },[_lightID]);
 
 
+    //FOR MOVING GUI AROUND
     useEffect(() => {
         function handleMouseMove(e: MouseEvent) : void {
             if(!isDragging) return;
@@ -99,14 +100,12 @@ export default function PointLightGUI({_lightID, _lightManager} : PointLightGUIP
             light!._light.position.setZ(Number(e.target.value));
         }
 
-        (light?._lightHelper as _PointLightHelper).update();
+        //(light?._lightHelper as _RectAreaLightHelper).update();
     }
 
     function handleLightIntensityChange(e : React.ChangeEvent<HTMLInputElement>) : void {
         if(light) {
-            //update threejs
             light._light.intensity = Number(e.target.value);
-            //update inner class
             light._lightIntensity = Number(e.target.value);
         }
         setLightIntensity(Number(e.target.value));
@@ -117,33 +116,32 @@ export default function PointLightGUI({_lightID, _lightManager} : PointLightGUIP
         let selectedColorValue = selectedColor.replace("#", "0x");
 
         if(light) {
-            //update inner class
             light._lightColor = selectedColorValue;
-            //update threejs
             light._light.color.set(Number(selectedColorValue));
         }
 
         setLightColor(selectedColor);
     }
 
-    function handleLightDistanceChange(e : React.ChangeEvent<HTMLInputElement>) : void {
+    function handleLightWidthChange(e : React.ChangeEvent<HTMLInputElement>) : void {
         if(light) {
-            (light._light as THREE.PointLight).distance = Number(e.target.value);
+            //set internally?
+
+            //set in threejs
+            (light._light as THREE.RectAreaLight).width = Number(e.target.value);
         }
-        setLightDistance(Number(e.target.value));
+        setLightWidth(Number(e.target.value));
     }
 
-    /*
-    function handleSphereSizeChange(e : React.ChangeEvent<HTMLInputElement>) : void {
+    function handleLightHeightChange(e : React.ChangeEvent<HTMLInputElement>) : void {
         if(light) {
-            console.log("changing");
-            (light._lightHelper as _PointLightHelper)._sphereSize = Number(e.target.value);
-            (light!._lightHelper as _PointLightHelper).update();
-            
+            //set internally?
+
+            //set in threejs
+            (light._light as THREE.RectAreaLight).height = Number(e.target.value);
         }
-        setSphereSize(Number(e.target.value));
+        setLightHeight(Number(e.target.value));
     }
-        */
 
     //GUI DRAG LOGIC
     function handleMouseDown(e : React.MouseEvent) : void {
@@ -169,7 +167,7 @@ export default function PointLightGUI({_lightID, _lightManager} : PointLightGUIP
                 <div onMouseDown={handleMouseDown} className="dragbar flex items-center justify-between bg-stone-700/30 w-[100%] h-[1/4] py-1 pl-5 pr-2">
                     <div className="titlebox ">
                         <h1 className="title text-stone-200 text-lg">
-                            {(light?._lightHelper as _PointLightHelper)._title}
+                            {(light?._lightHelper as _RectAreaLightHelper)._title}
                         </h1>
                     </div>
 
@@ -197,21 +195,19 @@ export default function PointLightGUI({_lightID, _lightManager} : PointLightGUIP
 
                     <div className="divider w-full h-px bg-stone-300/40 my-3"></div>
 
-                    {/* DISTANCE */}
-                    <label className="text-sm text-stone-200" htmlFor="">Distance: {lightDistance}</label>
-                    <input onChange={(e) => handleLightDistanceChange(e)} type="range" min={"1"} max={"50"} value={lightDistance} step={"1"}/>
+                    {/* WIDTH */}
+                    <label className="text-sm text-stone-200" htmlFor="">Width: {lightWidth}</label>
+                    <input onChange={(e) => handleLightWidthChange(e)} type="range" min={"1"} max={"5"} value={lightWidth} step={"0.1"}/>
 
-                    {/*<div className="divider w-full h-px bg-stone-300/40 my-3"></div>
-
-                     SPHERE SIZE 
-                    <label className="text-sm text-stone-200" htmlFor="">Sphere Size:</label>
-                    <input  type="range" min={"0"} max={"10"} value={sphereSize} step={"0.1"}/>*/}
+                    {/* HEIGHT */}
+                    <label className="text-sm text-stone-200" htmlFor="">Height: {lightHeight}</label>
+                    <input onChange={(e) => handleLightHeightChange(e)} type="range" min={"1"} max={"5"} value={lightHeight} step={"0.1"}/>
 
                     <div className="divider w-full h-px bg-stone-300/40 my-3"></div>
 
                     {/* INTENSITY */}
                     <label className="text-sm text-stone-200" htmlFor="">Intensity: {lightIntensity}</label>
-                    <input onChange={(e) => handleLightIntensityChange(e)} type="range" min={"0"} max={"50"} value={lightIntensity} step={"0.1"}/>
+                    <input onChange={(e) => handleLightIntensityChange(e)} type="range" min={"1"} max={"10"} value={lightIntensity} step={"0.1"}/>
 
                 </div>
                 

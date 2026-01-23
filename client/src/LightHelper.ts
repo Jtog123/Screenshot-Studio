@@ -143,10 +143,12 @@ class _PointLightHelper extends THREE.PointLightHelper{
     public _title : string;
     public _hex : number;
     public _generatedID : string
+    public _sphereSize : number
 
     constructor(light : THREE.PointLight, sphereSize: number, color: THREE.ColorRepresentation) {
         super(light, sphereSize, color);
 
+        this._sphereSize = sphereSize
         this._title = "Point Light ";
         this._hex = 0x00FF00;
         this._generatedID = pointIDGenerator.next().value;
@@ -168,9 +170,15 @@ class _RectAreaLightHelper extends RectAreaLightHelper {
     public _title : string;
     public _hex : number;
     public _generatedID : string
+    public _height : number
+    public _width : number
 
     constructor(light : THREE.RectAreaLight, color: THREE.ColorRepresentation) {
         super(light, color);
+
+        //take the width and height from the light itself
+        this._height = light.height;
+        this._width = light.width;
 
         this._title = "Rect Area Light ";
         this._hex = 0x00FF00;

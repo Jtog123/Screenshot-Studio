@@ -29,6 +29,14 @@ export default function ToolbarLightCatalog({scene, lightManager} : ToolbarLight
 
     }
 
+    function handlePointLightCreation() : void {
+        const newLight = lightManager.createLight(LightType.PointLight, new THREE.Vector3(2,2,0));
+    }
+
+    function handleRectAreaLightCreation() : void {
+        const newLight = lightManager.createLight(LightType.RectAreaLight, new THREE.Vector3(2,2,0));
+    }
+
 
     return (
         <>
@@ -36,8 +44,8 @@ export default function ToolbarLightCatalog({scene, lightManager} : ToolbarLight
             <div className="grid grid-cols-2 grid-rows-2 w-[90%] h-[90%] bg-yellow-300">
                 <button onClick={handleDirectionalLightCreation} className="text-md bg-red-500"> Directional Light</button>
                 <button onClick={handleSpotLightCreation} className="text-md bg-purple-500"> Spot Light</button>
-                <button className="text-md bg-green-500"> Point Light</button>
-                <button className="text-md bg-emerald-500"> Rect Area Light</button>
+                <button onClick={handlePointLightCreation} className="text-md bg-green-500"> Point Light</button>
+                <button onClick={handleRectAreaLightCreation} className="text-md bg-emerald-500"> Rect Area Light</button>
             </div>
         </div>
 

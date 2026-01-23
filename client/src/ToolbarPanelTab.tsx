@@ -14,7 +14,7 @@ export default function ToolBarPanelTab() {
     return (
         <>
         
-        <div className="w-full h-[5%] py-5 bg-stone-950 flex justify-around items-center">
+        <div className="w-full h-[5%] px-3 py-5 bg-stone-950 flex justify-around items-center">
             {
                 buttonNames.map((buttonName, index) => (
                    

@@ -43,7 +43,11 @@ class Light {
     public _guiX : number = 0;
     public _guiY : number = 0;
 
+    //specific to spot light
     public _lightAngle = 0;
+
+    //specific to point light
+    public _sphereSize = 1;
 
 
     //public _GUI : LightGUI;
