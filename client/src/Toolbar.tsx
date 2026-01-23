@@ -18,11 +18,19 @@ interface ToolbarProps {
 
 }
 
+
+
 export default function Toolbar({_scene, _lightManager} : ToolbarProps) {
 
     
     const[selectedLight, setSelectedLight] = useState<{id: string, type: LightType} | null>(null);
+    const[toolbarClasses, setToolbarClasses] = useState<string>("fixed flex flex-col h-[100%] w-[25%] bg-blue-200 z-10 right-0");
+    const[isToolbarToggled, setToolbarToggled] = useState(false);
     //const[isGUIWindowOpen, setGUIWindow] = useState<boolean>(false);
+
+    function handleToggle() : void {
+        setToolbarToggled(!isToolbarToggled);
+    }
 
     useEffect(() => {
         _lightManager.addEventListener("lightSelected", (data: { id: string, type: LightType }) => {
@@ -39,20 +47,41 @@ export default function Toolbar({_scene, _lightManager} : ToolbarProps) {
     }, [_lightManager])
     
 
+    //create a state in the outer Toolbar function, isCollapsed setIsCollapsed
+    //pass this to ToolbarHeader
+    // on click of the collapse button we will trigger the function of collapsing the toolbar
 
 
+//Has the toolbar been closed, if yes then hide everything
     return (
-        <>
-        
-            <div className= "fixed flex flex-col h-[100%] w-[25%] bg-blue-200 z-10 right-0">
-                <ToolbarHeader/>
-                <ToolbarBackgroundColor scene={_scene}/> 
-                <ToolBarPanelTab/>
-                <ToolbarLightCatalog scene={_scene} lightManager={_lightManager}/>
-                <ToolbarActiveComponents />
+        <>  
+            {
+                (
+                    isToolbarToggled ? 
+                        <div className="fixed h-screen bg-stone-950 text-white z-[1000] right-0 w-[5%] transition-all duration-300 ease-in-out">
+                            <ToolbarHeader isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>
+                            <ToolbarBackgroundColor isToolbarToggled={isToolbarToggled}  scene={_scene}/> 
+                            <ToolBarPanelTab isToolbarToggled={isToolbarToggled} />
+                            <ToolbarLightCatalog isToolbarToggled={isToolbarToggled} scene={_scene} lightManager={_lightManager}/>
+                            <ToolbarActiveComponents isToolbarToggled={isToolbarToggled}  />
 
-                {/*Toolbar Panel Selector*/}
-            </div>
+                            {/*Toolbar Panel Selector*/}
+                        </div>
+                        :
+                        <div className="fixed flex flex-col h-[100%] w-[25%] bg-stone-950 z-10 right-0 transition-all duration-300 ease-in-out">
+                            <ToolbarHeader isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>
+                            <ToolbarBackgroundColor isToolbarToggled={isToolbarToggled} scene={_scene}/> 
+                            <ToolBarPanelTab isToolbarToggled={isToolbarToggled} />
+                            <ToolbarLightCatalog isToolbarToggled={isToolbarToggled}  scene={_scene} lightManager={_lightManager}/>
+                            <ToolbarActiveComponents isToolbarToggled={isToolbarToggled}  />
+
+                            {/*Toolbar Panel Selector*/}
+                        </div>
+                )
+                
+            }
+            
+
 
             {
                 selectedLight?.type === LightType.DirectionalLight && (

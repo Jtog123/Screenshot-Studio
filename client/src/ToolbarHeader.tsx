@@ -1,16 +1,21 @@
 import {useRef, useEffect, useState} from 'react'
-export default function ToolbarHeader() {
+
+interface ToolbarHeaderProps {
+    isToolbarToggled : boolean
+    setToolbarToggled: React.MouseEventHandler<HTMLButtonElement>
+}
+
+export default function ToolbarHeader({isToolbarToggled, setToolbarToggled} : ToolbarHeaderProps) {
     return (
         <>
-            <div className= "flex w-full items-center justify-between h-[5%] bg-red-600">
-                <button className= "h-[80%] min-w-[40px] bg-emerald-300 rounded-xl ml-3 shrink-0">
-                    collapse
+            <div className={isToolbarToggled ? `flex w-full items-center justify-center  h-[5%] bg-red-600 py-2` : `flex w-full items-center justify-between h-[5%] bg-red-600 px-3`}>
+                <button onClick={setToolbarToggled} className={isToolbarToggled ? "h-[25%] bg-emerald-300 rounded-xl px-3 pb-7" : "h-[80%] w-[40px] min-w-[40px] bg-emerald-300 rounded-xl shrink-0"}>
+                    {isToolbarToggled ? "←" : "→"}
                 </button>
 
-                <h1 className= "h-[80%] w-[1/3] bg-emerald-300 rounded-xl mr-3">
+                <h1 className={isToolbarToggled ? "hidden" : "h-[80%] w-[1/3] bg-emerald-300 rounded-xl flex items-center justify-center"}>
                     Logo here
                 </h1>
-                
             </div>
         </>
     )

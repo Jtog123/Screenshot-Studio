@@ -5,12 +5,13 @@ import { useEffect, useState } from 'react';
 
 
 interface ToolbarLightCatalogProps {
+    isToolbarToggled : boolean
     scene : THREE.Scene,
     lightManager : LightManager
 }
 
 //will need to take in the scene
-export default function ToolbarLightCatalog({scene, lightManager} : ToolbarLightCatalogProps) {
+export default function ToolbarLightCatalog({isToolbarToggled, scene, lightManager} : ToolbarLightCatalogProps) {
 
 
     function handleDirectionalLightCreation() : void {
@@ -40,7 +41,7 @@ export default function ToolbarLightCatalog({scene, lightManager} : ToolbarLight
 
     return (
         <>
-        <div className="flex justify-center items-center w-[screen] h-[52.5%] bg-stone-950">
+        <div className={isToolbarToggled ? `hidden`:`flex justify-center items-center w-[screen] h-[52.5%] bg-stone-950`}>
             <div className="grid grid-cols-2 grid-rows-2 w-[90%] h-[90%] bg-yellow-300">
                 <button onClick={handleDirectionalLightCreation} className="text-md bg-red-500"> Directional Light</button>
                 <button onClick={handleSpotLightCreation} className="text-md bg-purple-500"> Spot Light</button>

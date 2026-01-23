@@ -2,7 +2,11 @@ import {useRef, useEffect, useState} from 'react'
 
 const buttonNames = ["Lights", "Effects", "Text"];
 
-export default function ToolBarPanelTab() {
+interface ToolbarPanelProps {
+    isToolbarToggled : boolean
+}
+
+export default function ToolBarPanelTab({isToolbarToggled} : ToolbarPanelProps) {
 
     const[activeTab, setActiveTab] = useState("Lights");
 
@@ -14,7 +18,7 @@ export default function ToolBarPanelTab() {
     return (
         <>
         
-        <div className="w-full h-[5%] px-3 py-5 bg-stone-950 flex justify-around items-center">
+        <div className={isToolbarToggled ? `hidden` :`w-full h-[5%] px-3 py-5 bg-stone-950 flex justify-around items-center`}>
             {
                 buttonNames.map((buttonName, index) => (
                    

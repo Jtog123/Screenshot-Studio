@@ -3,12 +3,13 @@ import * as THREE from 'three'
 
 interface ToolbarBackgroundColorProps {
     scene : THREE.Scene;
+    isToolbarToggled : boolean
 }
 
 
 
 
-export default function ToolbarBackgroundColor({scene}: ToolbarBackgroundColorProps) {
+export default function ToolbarBackgroundColor({scene, isToolbarToggled}: ToolbarBackgroundColorProps) {
 
     
     const[backgroundColor, setBackgroundColor] = useState("#292524");
@@ -42,7 +43,7 @@ export default function ToolbarBackgroundColor({scene}: ToolbarBackgroundColorPr
 
     return (
         <>
-        <div className="flex w-[100%] h-[5%] items-center justify-between py-5 bg-stone-950">
+        <div className={isToolbarToggled ? `hidden` : `flex w-[100%] h-[5%] items-center justify-between py-5 bg-stone-950`}>
             <label className="text-md text-stone-200 ml-5">
                 Background: 
             </label>
