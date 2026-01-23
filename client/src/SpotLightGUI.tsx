@@ -1,6 +1,7 @@
-import { _SpotLightHelper } from "./LightHelper";
+import { _DirectionalLightHelper, _SpotLightHelper } from "./LightHelper";
 import { LightManager } from "./LightManager";
 import { useEffect, useRef, useState } from "react";
+import * as THREE from 'three'
 
 
 interface SpotLightGUIProps {
@@ -23,9 +24,26 @@ export default function SpotLightGUI({_lightID, _lightManager} : SpotLightGUIPro
         z: light?._light.position.z,
     });
 
+    const[lightIntensity, setLightIntensity] = useState(light?._lightIntensity);
+    const[lightColor, setLightColor] = useState("#FFFFFF");
+    const[lightDiameter, setLightDiameter] = useState(0.261);
+
     //on mounting update state
     //need to recolor the spot light helper every update
     useEffect(() => {
+        //on mount re update the state
+        const lightIntensity = light?._lightIntensity;
+        setLightIntensity(lightIntensity);
+
+       // const lightColor = light?._lightColor;
+        const hexString = "#" + String(light?._light.color.getHexString());
+        console.log(hexString);
+        setLightColor(hexString);
+
+        const lightDiameter = (light?._light as THREE.SpotLight).angle;
+        setLightDiameter(lightDiameter);
+        console.log(lightDiameter);
+
 
 
     },[_lightID]);
@@ -88,10 +106,63 @@ export default function SpotLightGUI({_lightID, _lightManager} : SpotLightGUIPro
             });
             light!._light.position.setZ(Number(e.target.value));
         }
+
+
+        (light?._lightHelper as _SpotLightHelper).update();
+        //nneed to recolor the spotlight helper every update
+        _lightManager.setLightHelperColor(light?._lightHelper as _SpotLightHelper, 0xFF0000);
     }
 
-    (light?._lightHelper as _SpotLightHelper).update();
-    //nneed to recolor the spotlight helper every update
+
+
+    function handleLightIntensityChange(e : React.ChangeEvent<HTMLInputElement>) : void {
+        console.log(e.target.value);
+        
+        if(light) {
+            //Set threejs
+            light._light.intensity = Number(e.target.value);
+
+            //set the class
+            light._lightIntensity = Number(e.target.value);
+        }
+        setLightIntensity(Number(e.target.value));
+
+
+        //use the setter
+    }
+
+    function handleLightColorChange(e : React.ChangeEvent<HTMLInputElement>) : void {
+        console.log("color: ", e.target.value);
+
+        let selectedColor = e.target.value;
+        let selectedColorValue = selectedColor.replace("#", "0x");
+
+        if(light) {
+            //set in class
+            light._lightColor = selectedColorValue;
+            //set in threejs
+            light._light.color.set(Number(selectedColorValue));
+        }
+
+        setLightColor(selectedColor);
+    }
+
+    function handleLightDiameterChange(e : React.ChangeEvent<HTMLInputElement>) : void {
+        console.log(e.target.value)
+        // have no internal class way to set this, so prabably wont work
+        if(light) {
+            //change in threejs
+            (light._light as THREE.SpotLight).angle = Number(e.target.value);
+
+            //set internally in class
+            light._lightAngle = Number(e.target.value);
+
+            (light._lightHelper as _SpotLightHelper).update();
+
+        }
+
+        setLightDiameter(Number(e.target.value));
+    }
 
 
     //GUI DRAG LOGIC
@@ -137,7 +208,7 @@ export default function SpotLightGUI({_lightID, _lightManager} : SpotLightGUIPro
                 <div className="innerContents flex flex-col w-[100%] [h-100%] bg-stone-950 p-5">
                     <div className="colorContainer flex w-[100%] h-[100%] items-center">
                         <label className="text-sm text-stone-200 pr-5" htmlFor="">Light Color: </label>
-                        <input type="color" />
+                        <input onChange={handleLightColorChange} value={lightColor} type="color" />
 
                     </div>
 
@@ -154,22 +225,19 @@ export default function SpotLightGUI({_lightID, _lightManager} : SpotLightGUIPro
 
                     <div className="divider w-full h-px bg-stone-300/40 my-3"></div>
 
-
-                    {/* ROTATION 
-
-                    <label className="text-sm text-stone-200" htmlFor="">Rotation X:</label>
-                    <input type="range" min={"-10"} max={"10"} value={"0"} step={"0.1"}/>
-
-                    <label className="text-sm text-stone-200" htmlFor="">Rotation Z:</label>
-                    <input type="range" min={"-10"} max={"10"} value={"0"} step={"0.1"}/>
+                     {/* DIAMETER */}
+                    <label className="text-sm text-stone-200" htmlFor="">Diameter:</label>
+                    <input onChange={(e) => handleLightDiameterChange(e)} type="range" min={"0.1"} max={"0.720"} value={lightDiameter} step={"0.01"}/>
 
                     <div className="divider w-full h-px bg-stone-300/40 my-3"></div>
-                    */}
-
 
                     {/* INTNESITY */}
                     <label className="text-sm text-stone-200" htmlFor="">Intensity:</label>
-                    <input type="range" min={"0"} max={"50"}  step={"0.1"}/>
+                    <input onChange={(e) => handleLightIntensityChange(e)} type="range" min={"0"} max={"50"} value={lightIntensity} step={"0.1"}/>
+
+                    
+
+                   
 
                 </div>
                 

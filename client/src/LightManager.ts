@@ -140,14 +140,14 @@ class LightManager {
         } else if(lightType === LightType.SpotLight) {
             console.log("creating the spotlight");
             
+            const lightIntensity = 10;
             const angle = Math.PI / 12;      // Wider cone so it's more visible
             const distance = 3;  // Longer distance
             const penumbra = 0.5;
             const decay = 0;
                        
-
             // Create spotlight with higher intensity to make it visible
-            newLight._light = new THREE.SpotLight(newLight._lightColor, newLight._lightIntensity, distance, angle, penumbra, decay);
+            newLight._light = new THREE.SpotLight(newLight._lightColor, lightIntensity, distance, angle, penumbra, decay);
 
             // Position it to the side and above, pointing at origin
             //newLight._light.position.set(3, 3, 0);  // To the side and above;
@@ -501,7 +501,7 @@ class LightManager {
         
         
 
-    private setLightHelperColor(lightHelper : _DirectionalLightHelper | _SpotLightHelper | _PointLightHelper | _RectAreaLightHelper , colorValue: number) : void {
+    public setLightHelperColor(lightHelper : _DirectionalLightHelper | _SpotLightHelper | _PointLightHelper | _RectAreaLightHelper , colorValue: number) : void {
         const color = new THREE.Color(colorValue);
 
         console.log("setting the color");

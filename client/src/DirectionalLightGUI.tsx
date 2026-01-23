@@ -150,16 +150,17 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
 
     function handleLightColorChange(evt: React.ChangeEvent<HTMLInputElement>) : void {
 
-
         //grab the color from the secletor
-        let selectedColor = (evt.target as HTMLInputElement).value;
+        let selectedColor = evt.target.value;
         let selectedColorValue = selectedColor.replace("#", "0x");
 
-        //store internally in the class
-        light!._lightColor = selectedColorValue;
+        if(light) {
+            //store internally in the class
+            light._lightColor = selectedColorValue;
+            //Set threejs and update teh state
+            light._light.color!.set(Number(selectedColorValue));
+        }
 
-        //Set threejs and update teh state
-        light?._light.color!.set(Number(selectedColorValue));
         setLightColor(selectedColor);
         //console.log("color rep is: ",light?._lightColor);
 

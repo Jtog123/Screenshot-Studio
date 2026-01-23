@@ -43,6 +43,8 @@ class Light {
     public _guiX : number = 0;
     public _guiY : number = 0;
 
+    public _lightAngle = 0;
+
 
     //public _GUI : LightGUI;
 
