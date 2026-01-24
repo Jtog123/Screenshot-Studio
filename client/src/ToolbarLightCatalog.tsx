@@ -1,26 +1,36 @@
 import * as THREE from 'three'
+import { JSX } from 'react';
 import { LightManager } from "./LightManager";
+import ActiveListItem from './ActiveListItem';
 import { LightType } from './Light';
 import { useEffect, useState } from 'react';
+import { _DirectionalLightHelper } from './LightHelper';
 
 
 interface ToolbarLightCatalogProps {
+    activeListItems: {id:number, name:string}[]
+    setActiveListItems: React.Dispatch<React.SetStateAction<{ id: number; name: string; }[]>>
     isToolbarToggled : boolean
     scene : THREE.Scene,
     lightManager : LightManager
 }
 
 //will need to take in the scene
-export default function ToolbarLightCatalog({isToolbarToggled, scene, lightManager} : ToolbarLightCatalogProps) {
+export default function ToolbarLightCatalog({activeListItems, setActiveListItems, isToolbarToggled, scene, lightManager} : ToolbarLightCatalogProps) {
 
 
     function handleDirectionalLightCreation() : void {
         //console.log("creating directional light");
         const newLight = lightManager.createLight(LightType.DirectionalLight, new THREE.Vector3(2,2,0));
 
-        //const newLight2 = lightManager.createLight(LightType.DirectionalLight, new THREE.Vector3(-2,2,0));
-        //Gui Creation happens here
+        //read in information to create list items
+        const listItemName = (newLight._lightHelper as _DirectionalLightHelper)._title;
+        const listItemID = (newLight._lightHelper as _DirectionalLightHelper)._generatedID;
 
+        setActiveListItems([...activeListItems, {id:listItemID, name:listItemName}]);
+
+        //setActiveListItems([...activeListItems, <ActiveListItem key={listItemID} itemName={listItemName}/> ])
+        //setAc
     }
 
     function handleSpotLightCreation() : void {
