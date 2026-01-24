@@ -1,4 +1,5 @@
 import {useRef, useEffect, useState} from 'react'
+import * as THREE from 'three'
 
 /*
 animation code
@@ -10,7 +11,11 @@ when its open
 
 */
 
-export default function PhoneGUI() {
+interface PhoneGUIProps {
+    phoneModel : THREE.Group
+}
+
+export default function PhoneGUI({phoneModel}:PhoneGUIProps) {
 
 
     const[phoneRotation, setPhoneRotation] = useState({
@@ -27,10 +32,28 @@ export default function PhoneGUI() {
 
     function handlePhoneRotation(e: React.ChangeEvent<HTMLInputElement>, sliderName : string) : void {
         if(sliderName === "xRot") {
+            setPhoneRotation({
+                x: Number(e.target.value),
+                y: Number(phoneRotation.y),
+                z: Number(phoneRotation.z)
+            });
+            phoneModel.rotateX(phoneRotation.x);
             console.log("rotation x")
         } else if(sliderName === "yRot") {
-            console.log("rotation y")
+            console.log("rotation y");
+            setPhoneRotation({
+                x: Number(phoneRotation.x),
+                y: Number(e.target.value),
+                z: Number(phoneRotation.z)
+            });
+            phoneModel.rotateY(phoneRotation.y);
         } else {
+            setPhoneRotation({
+                x: Number(phoneRotation.x),
+                y: Number(phoneRotation.y),
+                z: Number(e.target.value)
+            });
+            phoneModel.rotateZ(phoneRotation.z);
             console.log("rotation z")
         }
     }
@@ -58,13 +81,13 @@ export default function PhoneGUI() {
                 }`}>
                     <div className="overflow-hidden flex flex-col">
                         <label className="text-sm text-stone-200 pt-1" htmlFor="">Rotate X: </label>
-                        <input onChange={(e) => handlePhoneRotation(e, "xRot")} type="range" min={"-10"} max={"10"} value={phoneRotation.x} />
+                        <input onChange={(e) => handlePhoneRotation(e, "xRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.x} step="0.01" />
 
                         <label className="text-sm text-stone-200 pt-1" htmlFor="">Rotate Y: </label>
-                        <input onChange={(e) => handlePhoneRotation(e, "yRot")} type="range" min={"-10"} max={"10"} value={phoneRotation.y}/>
+                        <input onChange={(e) => handlePhoneRotation(e, "yRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.y} step="0.01"/>
 
                         <label className="text-sm text-stone-200 pt-1" htmlFor="">Rotate Z: </label>
-                        <input onChange={(e) => handlePhoneRotation(e, "zRot")} type="range" min={"-10"} max={"10"} value={phoneRotation.z} />
+                        <input onChange={(e) => handlePhoneRotation(e, "zRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.z} step="0.01"/>
                     </div>
                 </div>
 

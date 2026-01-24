@@ -85,7 +85,7 @@ export default function App() {
   //{scene && <Toolbar scene={scene}/>} Making sure scene is not null
   return (
     <>
-      <PhoneGUI />
+      {phone && <PhoneGUI phoneModel={phone}/>}
       {scene && lightManager && <Toolbar _scene={scene} _lightManager={lightManager} />} 
       {isPhoneLoading ? (<h1>Loading</h1>) : (scene && camera && renderer && <SceneManager _scene={scene} _camera={camera} _renderer={renderer}/>)}
     </>
