@@ -4,6 +4,7 @@ import { LightManager } from "./LightManager"
 interface ActiveListItemProps {
     itemName : string
     itemID : string // lightID for now
+    activeListItems : {id:string, name:string}[]
     setActiveListItems : React.Dispatch<React.SetStateAction<{ id: string; name: string; }[]>>
     lightManager : LightManager
 }
@@ -18,15 +19,24 @@ on toggling visiblity
 
 */
 
-export default function ActiveListItem({itemName, itemID, setActiveListItems, lightManager}:ActiveListItemProps) {
+export default function ActiveListItem({itemName, itemID, activeListItems,setActiveListItems, lightManager}:ActiveListItemProps) {
 
     const[isItemVisible, setItemVisibility] = useState(true);
 
     function toggleItemVisibility() : void {
         setItemVisibility(!isItemVisible);
-
         //hjave the lightmanager hide it
-        lightManager.toggleVisibility(String(itemID));
+        lightManager.toggleVisibility(itemID);
+
+    }
+
+    function handleItemDeletion() : void {
+        //remove it from the light manager
+        lightManager.removeLight(itemID);
+
+        //update teh state
+        const newList = activeListItems.filter((item) => item.id !== itemID);
+        setActiveListItems(newList);
 
     }
 
@@ -35,7 +45,7 @@ export default function ActiveListItem({itemName, itemID, setActiveListItems, li
             <li className="flex flex-row w-[100%] h-[15%] bg-stone-600 items-center justify-between">
                 <button onClick={toggleItemVisibility} className="bg-blue-200 ml-3 px-3 rounded-l">visible</button>
                 <label htmlFor="">{itemName}</label>
-                <button className="bg-red-500 mr-3 px-3 rounded-l">trash</button>
+                <button onClick={handleItemDeletion} className="bg-red-500 mr-3 px-3 rounded-l">trash</button>
                 
             </li>
         </>

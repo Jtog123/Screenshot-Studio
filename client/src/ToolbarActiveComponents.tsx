@@ -34,7 +34,6 @@ export default function ToolbarActiveComponents({activeListItems, setActiveListI
     console.log("items are ", activeListItems);
 
 
-
     return (
         <>
             <div className={ isToolbarToggled ? `hidden` : `flex h-[32.5%] w-[screen] bg-stone-500 items-center justify-center`}>
@@ -43,7 +42,7 @@ export default function ToolbarActiveComponents({activeListItems, setActiveListI
                     <ul className="w-[100%]">
                         {
                             activeListItems.map((item) => (
-                                <ActiveListItem key={item.id} itemID={item.id} itemName={item.name} setActiveListItems={setActiveListItems} lightManager={lightManager}  />
+                                <ActiveListItem key={item.id} itemID={item.id} itemName={item.name} activeListItems={activeListItems} setActiveListItems={setActiveListItems} lightManager={lightManager}  />
                                 
                             ))
                         }
