@@ -1,19 +1,15 @@
 import {useRef, useEffect, useState} from 'react'
 
-const buttonNames = ["Lights", "Effects", "Text"];
+
 
 interface ToolbarPanelProps {
     isToolbarToggled : boolean
+    activeTab : string
+    handleTabChange : (buttonName: string) => void
 }
 
-export default function ToolBarPanelTab({isToolbarToggled} : ToolbarPanelProps) {
-
-    const[activeTab, setActiveTab] = useState("Lights");
-
-    function handleTabChange(buttonName : string) : void {
-        setActiveTab(buttonName);
-        console.log("click button" , buttonName);
-    }
+export default function ToolBarPanelTab({isToolbarToggled, activeTab, handleTabChange} : ToolbarPanelProps) {
+    const buttonNames = ["Lights", "Effects", "Text"];
 
     return (
         <>
@@ -22,14 +18,15 @@ export default function ToolBarPanelTab({isToolbarToggled} : ToolbarPanelProps) 
             {
                 buttonNames.map((buttonName, index) => (
                    
-                    <button key={index} className={`h-[90%] w-[30%] rounded py-3 flex items-center justify-center 
+                    <button key={buttonName} className={`h-[90%] w-[30%] rounded py-3 flex items-center justify-center 
                         ${activeTab === buttonName ? "bg-yellow-600" : "bg-yellow-300"}` }   
-                        onClick={() => handleTabChange(buttonName)}>
-
-                        {buttonName}
+                            onClick={() => handleTabChange(buttonName)}>
+                            {buttonName}
                     </button>
                 ))
             }
+
+
         </div>
         </>
     )

@@ -12,6 +12,8 @@ import { LightType } from './Light'
 import SpotLightGUI from './SpotLightGUI'
 import PointLightGUI from './PointLightGUI'
 import RectAreaLightGUI from './RectLightGUI'
+import ToolbarEffectsCatalog from './ToolbarEffectsCatalog'
+import ToolbarTextEditor from './ToolbarTextEditor'
 
 interface ToolbarProps {
     _scene : THREE.Scene;
@@ -28,10 +30,15 @@ export default function Toolbar({_scene, _lightManager} : ToolbarProps) {
     //const[toolbarClasses, setToolbarClasses] = useState<string>("fixed flex flex-col h-[100%] w-[25%] bg-blue-200 z-10 right-0");
     const[isToolbarToggled, setToolbarToggled] = useState(false);
     const[activeListItems, setActiveListItems] = useState<{id:string, name:string}[]>([]);
-    //const[isGUIWindowOpen, setGUIWindow] = useState<boolean>(false);
+    const[activeTab, setActiveTab] = useState("Lights");
 
     function handleToggle() : void {
         setToolbarToggled(!isToolbarToggled);
+    }
+
+    function handleTabChange(buttonName : string) : void {
+        setActiveTab(buttonName);
+        console.log("click button" , buttonName);
     }
 
     useEffect(() => {
@@ -70,7 +77,7 @@ export default function Toolbar({_scene, _lightManager} : ToolbarProps) {
                         <div className="fixed h-screen bg-stone-950 text-white z-[1000] right-0 w-[5%] transition-all duration-300 ease-in-out">
                             <ToolbarHeader isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>
                             <ToolbarBackgroundColor isToolbarToggled={isToolbarToggled}  scene={_scene}/> 
-                            <ToolBarPanelTab isToolbarToggled={isToolbarToggled} />
+                            <ToolBarPanelTab isToolbarToggled={isToolbarToggled} activeTab={activeTab} handleTabChange={handleTabChange} />
                             <ToolbarLightCatalog activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} scene={_scene} lightManager={_lightManager}/>
                             <ToolbarActiveComponents activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} lightManager={_lightManager} />
 
@@ -80,8 +87,10 @@ export default function Toolbar({_scene, _lightManager} : ToolbarProps) {
                         <div className="fixed flex flex-col h-[100%] w-[25%] bg-stone-950 z-10 right-0 transition-all duration-300 ease-in-out">
                             <ToolbarHeader isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>
                             <ToolbarBackgroundColor isToolbarToggled={isToolbarToggled} scene={_scene}/> 
-                            <ToolBarPanelTab isToolbarToggled={isToolbarToggled} />
-                            <ToolbarLightCatalog  activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled}  scene={_scene} lightManager={_lightManager}/>
+                            <ToolBarPanelTab isToolbarToggled={isToolbarToggled} activeTab={activeTab} handleTabChange={handleTabChange} />
+                            {activeTab === "Lights" && <ToolbarLightCatalog  activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled}  scene={_scene} lightManager={_lightManager}/>}
+                            {activeTab === "Effects" && <ToolbarEffectsCatalog isToolbarToggled={isToolbarToggled} />}
+                            {activeTab === "Text" && <ToolbarTextEditor isToolbarToggled={isToolbarToggled} />}
                             <ToolbarActiveComponents activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} lightManager={_lightManager}  />
 
                             {/*Toolbar Panel Selector*/}
@@ -90,7 +99,6 @@ export default function Toolbar({_scene, _lightManager} : ToolbarProps) {
                 
             }
             
-
 
             {
                 selectedLight?.type === LightType.DirectionalLight && (
