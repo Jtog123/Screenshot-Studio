@@ -4,7 +4,7 @@ import { LightManager } from "./LightManager";
 import ActiveListItem from './ActiveListItem';
 import { LightType } from './Light';
 import { useEffect, useState } from 'react';
-import { _DirectionalLightHelper } from './LightHelper';
+import { _DirectionalLightHelper, _SpotLightHelper, _PointLightHelper, _RectAreaLightHelper } from './LightHelper';
 
 
 interface ToolbarLightCatalogProps {
@@ -42,16 +42,31 @@ export default function ToolbarLightCatalog({activeListItems, setActiveListItems
     function handleSpotLightCreation() : void {
         console.log("creating directional light");
         const newLight = lightManager.createLight(LightType.SpotLight, new THREE.Vector3(2,2,0));
+
+        const listItemName = (newLight._lightHelper as _SpotLightHelper)._title;
+        const listItemID = (newLight._lightHelper as _SpotLightHelper).name;
+
+        setActiveListItems([...activeListItems, {id:listItemID, name:listItemName}]);
         //Gui Creation happens here
 
     }
 
     function handlePointLightCreation() : void {
         const newLight = lightManager.createLight(LightType.PointLight, new THREE.Vector3(2,2,0));
+
+        const listItemName = (newLight._lightHelper as _PointLightHelper)._title;
+        const listItemID = (newLight._lightHelper as _PointLightHelper).name;
+
+        setActiveListItems([...activeListItems, {id:listItemID, name:listItemName}]);
     }
 
     function handleRectAreaLightCreation() : void {
         const newLight = lightManager.createLight(LightType.RectAreaLight, new THREE.Vector3(2,2,0));
+
+        const listItemName = (newLight._lightHelper as _RectAreaLightHelper)._title;
+        const listItemID = (newLight._lightHelper as _RectAreaLightHelper).name;
+
+        setActiveListItems([...activeListItems, {id:listItemID, name:listItemName}]);
     }
 
 

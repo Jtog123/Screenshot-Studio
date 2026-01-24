@@ -19,7 +19,7 @@ on toggling visiblity
 
 */
 
-export default function ActiveListItem({itemName, itemID, activeListItems,setActiveListItems, lightManager}:ActiveListItemProps) {
+export default function ActiveListItem({itemName, itemID, activeListItems, setActiveListItems, lightManager}:ActiveListItemProps) {
 
     const[isItemVisible, setItemVisibility] = useState(true);
 
