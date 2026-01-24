@@ -25,9 +25,9 @@ export default function Toolbar({_scene, _lightManager} : ToolbarProps) {
 
     
     const[selectedLight, setSelectedLight] = useState<{id: string, type: LightType} | null>(null);
-    const[toolbarClasses, setToolbarClasses] = useState<string>("fixed flex flex-col h-[100%] w-[25%] bg-blue-200 z-10 right-0");
+    //const[toolbarClasses, setToolbarClasses] = useState<string>("fixed flex flex-col h-[100%] w-[25%] bg-blue-200 z-10 right-0");
     const[isToolbarToggled, setToolbarToggled] = useState(false);
-    const[activeListItems, setActiveListItems] = useState<{id:number, name:string}[]>([]);
+    const[activeListItems, setActiveListItems] = useState<{id:string, name:string}[]>([]);
     //const[isGUIWindowOpen, setGUIWindow] = useState<boolean>(false);
 
     function handleToggle() : void {
@@ -57,6 +57,10 @@ export default function Toolbar({_scene, _lightManager} : ToolbarProps) {
     the toolbar will hold a container of activesceneitems
     we will pass it to lightcatalog, to create the items
     and activecomponents to display them
+
+
+    the id of the light is actually the name of the helper
+
     */
     return (
         <>  
@@ -68,7 +72,7 @@ export default function Toolbar({_scene, _lightManager} : ToolbarProps) {
                             <ToolbarBackgroundColor isToolbarToggled={isToolbarToggled}  scene={_scene}/> 
                             <ToolBarPanelTab isToolbarToggled={isToolbarToggled} />
                             <ToolbarLightCatalog activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} scene={_scene} lightManager={_lightManager}/>
-                            <ToolbarActiveComponents activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled}  />
+                            <ToolbarActiveComponents activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} lightManager={_lightManager} />
 
                             {/*Toolbar Panel Selector*/}
                         </div>
@@ -78,7 +82,7 @@ export default function Toolbar({_scene, _lightManager} : ToolbarProps) {
                             <ToolbarBackgroundColor isToolbarToggled={isToolbarToggled} scene={_scene}/> 
                             <ToolBarPanelTab isToolbarToggled={isToolbarToggled} />
                             <ToolbarLightCatalog  activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled}  scene={_scene} lightManager={_lightManager}/>
-                            <ToolbarActiveComponents activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled}  />
+                            <ToolbarActiveComponents activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} lightManager={_lightManager}  />
 
                             {/*Toolbar Panel Selector*/}
                         </div>

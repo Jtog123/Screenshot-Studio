@@ -8,12 +8,18 @@ import { _DirectionalLightHelper } from './LightHelper';
 
 
 interface ToolbarLightCatalogProps {
-    activeListItems: {id:number, name:string}[]
-    setActiveListItems: React.Dispatch<React.SetStateAction<{ id: number; name: string; }[]>>
+    activeListItems: {id:string, name:string}[]
+    setActiveListItems: React.Dispatch<React.SetStateAction<{ id: string; name: string; }[]>>
     isToolbarToggled : boolean
     scene : THREE.Scene,
     lightManager : LightManager
+
 }
+
+/*
+
+key distnction we are hiding threejs meshes not DOM components use the lightmanager
+*/
 
 //will need to take in the scene
 export default function ToolbarLightCatalog({activeListItems, setActiveListItems, isToolbarToggled, scene, lightManager} : ToolbarLightCatalogProps) {
@@ -25,7 +31,7 @@ export default function ToolbarLightCatalog({activeListItems, setActiveListItems
 
         //read in information to create list items
         const listItemName = (newLight._lightHelper as _DirectionalLightHelper)._title;
-        const listItemID = (newLight._lightHelper as _DirectionalLightHelper)._generatedID;
+        const listItemID = (newLight._lightHelper as _DirectionalLightHelper).name;
 
         setActiveListItems([...activeListItems, {id:listItemID, name:listItemName}]);
 

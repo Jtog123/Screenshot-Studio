@@ -1,11 +1,8 @@
 import ActiveListItem from "./ActiveListItem"
+import { LightManager } from "./LightManager";
 import { JSX } from "react"
+import { useEffect, useState } from 'react';
 
-interface ToolbarLightCatalogProps {
-    activeListItems: {id:number, name:string}[]
-    setActiveListItems: React.Dispatch<React.SetStateAction<{ id: number; name: string; }[]>>
-    isToolbarToggled : boolean
-}
 
 
 
@@ -23,8 +20,21 @@ on
 
 */
 
+interface ToolbarLightCatalogProps {
+    activeListItems: {id:string, name:string}[]
+    setActiveListItems: React.Dispatch<React.SetStateAction<{ id: string; name: string; }[]>>
+    isToolbarToggled : boolean
+    lightManager : LightManager
+}
 
-export default function ToolbarActiveComponents({activeListItems, setActiveListItems ,isToolbarToggled} : ToolbarLightCatalogProps) {
+
+
+export default function ToolbarActiveComponents({activeListItems, setActiveListItems, isToolbarToggled, lightManager} : ToolbarLightCatalogProps) {
+
+    console.log("items are ", activeListItems);
+
+
+
     return (
         <>
             <div className={ isToolbarToggled ? `hidden` : `flex h-[32.5%] w-[screen] bg-stone-500 items-center justify-center`}>
@@ -33,7 +43,8 @@ export default function ToolbarActiveComponents({activeListItems, setActiveListI
                     <ul className="w-[100%]">
                         {
                             activeListItems.map((item) => (
-                                <ActiveListItem key={item.id} itemName={item.name} />
+                                <ActiveListItem key={item.id} itemID={item.id} itemName={item.name} setActiveListItems={setActiveListItems} lightManager={lightManager}  />
+                                
                             ))
                         }
     

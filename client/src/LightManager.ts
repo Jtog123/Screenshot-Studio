@@ -520,18 +520,19 @@ class LightManager {
 
     }
 
-    /*
+    
     public removeLight(lightID: string) {
         const helper = this._lightHelpers.get(lightID);
-        const gui = this._lightGuis.get(lightID);
+        //const gui = this._lightGuis.get(lightID);
 
-        if(!helper || !gui) return ;
+        //if(!helper || !gui) return ;
+        if(!helper) return ;
 
         //remove light from group/scene
         this._lightGroup.remove(helper);
 
-        gui._dialogWindow.close();
-        gui._dialogWindow.remove();
+        //gui._dialogWindow.close();
+       // gui._dialogWindow.remove();
 
         //lok over later///////////////////////////////////
         let deleteLight = this.getLight(lightID) as Light;
@@ -540,7 +541,7 @@ class LightManager {
         //remove from maps
         this._lights.delete(lightID);
         this._lightHelpers.delete(lightID);
-        this._lightGuis.delete(lightID);
+        //this._lightGuis.delete(lightID);
 
         //clear the selection
         this.clearLightSelection(lightID);
@@ -564,9 +565,12 @@ class LightManager {
 
     public toggleVisibility(lightID : string) : void {
         //_selectedLightID
+        
 
         //grab the light
         const light = this._lights.get(lightID) as Light;
+
+        console.log("light is: ", light)
 
         //toggle 
         light._isVisible = !light._isVisible;
@@ -586,7 +590,7 @@ class LightManager {
             this.deselectLight(lightID);
         }
     }
-        */
+        
 
     //grab all light ids if needed - ex _DirectionalLight0
     public getLightIDs() : string[] {
