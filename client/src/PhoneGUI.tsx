@@ -30,6 +30,19 @@ export default function PhoneGUI({phoneModel}:PhoneGUIProps) {
         setPhoneGuiOpen(!isPhoneGuiOpen);
     }
 
+    function handleControlsReset() : void {
+        setPhoneRotation({
+            x: 0,
+            y: 0,
+            z: 0
+        });
+
+        (phoneModel as THREE.Group).rotation.x = 0;
+        (phoneModel as THREE.Group).rotation.y = 0;
+        (phoneModel as THREE.Group).rotation.z = 0;
+
+    }
+
     function handlePhoneRotation(e: React.ChangeEvent<HTMLInputElement>, sliderName : string) : void {
         if(sliderName === "xRot") {
             setPhoneRotation({
@@ -37,7 +50,8 @@ export default function PhoneGUI({phoneModel}:PhoneGUIProps) {
                 y: Number(phoneRotation.y),
                 z: Number(phoneRotation.z)
             });
-            phoneModel.rotateX(phoneRotation.x);
+            //phoneModel.rotateX(phoneRotation.x);
+            (phoneModel as THREE.Group).rotation.x = phoneRotation.x;
             console.log("rotation x")
         } else if(sliderName === "yRot") {
             console.log("rotation y");
@@ -46,14 +60,16 @@ export default function PhoneGUI({phoneModel}:PhoneGUIProps) {
                 y: Number(e.target.value),
                 z: Number(phoneRotation.z)
             });
-            phoneModel.rotateY(phoneRotation.y);
+            //phoneModel.rotateY(phoneRotation.y);
+            (phoneModel as THREE.Group).rotation.y = phoneRotation.y;
         } else {
             setPhoneRotation({
                 x: Number(phoneRotation.x),
                 y: Number(phoneRotation.y),
                 z: Number(e.target.value)
             });
-            phoneModel.rotateZ(phoneRotation.z);
+            (phoneModel as THREE.Group).rotation.z = phoneRotation.z;
+            //phoneModel.rotateZ(phoneRotation.z);
             console.log("rotation z")
         }
     }
@@ -88,8 +104,18 @@ export default function PhoneGUI({phoneModel}:PhoneGUIProps) {
 
                         <label className="text-sm text-stone-200 pt-1" htmlFor="">Rotate Z: </label>
                         <input onChange={(e) => handlePhoneRotation(e, "zRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.z} step="0.01"/>
+
+                        {/* RESET */}
+                        <button onClick={handleControlsReset} className="text-stone-200 h-[1/6] w-[20%] bg-stone-700/30 px-1 mt-3 rounded-xl ">Reset</button>
                     </div>
+
+
+                
                 </div>
+
+
+
+
 
             </div>
         </>

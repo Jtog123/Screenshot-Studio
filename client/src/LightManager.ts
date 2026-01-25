@@ -433,7 +433,7 @@ class LightManager {
         
 
     
-    private selectLightByID(lightID: string) {
+    public selectLightByID(lightID: string) {
         //grab the light helper
         const helper = this._lightHelpers.get(lightID);
 

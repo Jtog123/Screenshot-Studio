@@ -22,12 +22,19 @@ on toggling visiblity
 export default function ActiveListItem({itemName, itemID, activeListItems, setActiveListItems, lightManager}:ActiveListItemProps) {
 
     const[isItemVisible, setItemVisibility] = useState(true);
+    const[clickedItem, setClickedItem] = useState(null);
 
     function toggleItemVisibility() : void {
         setItemVisibility(!isItemVisible);
         //hjave the lightmanager hide it
         lightManager.toggleVisibility(itemID);
 
+    }
+
+    //NOT WORKING YET, WANt to select an item by clcking on the listItem
+    function handleListItemSelection() : void {
+        console.log(itemID);
+        const item = lightManager.selectLightByID(itemID);
     }
 
     function handleItemDeletion() : void {
@@ -42,9 +49,9 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
 
     return (
         <>
-            <li className="flex flex-row w-[100%] h-[15%] bg-stone-600 items-center justify-between">
+            <li onClick={handleListItemSelection} className="flex cursor-pointer flex-row w-[100%] h-[15%] bg-stone-600 items-center justify-between">
                 <button onClick={toggleItemVisibility} className="bg-blue-200 ml-3 px-3 rounded-l">visible</button>
-                <label htmlFor="">{itemName}</label>
+                <label onClick={handleListItemSelection} className="cursor-pointer" htmlFor="">{itemName}</label>
                 <button onClick={handleItemDeletion} className="bg-red-500 mr-3 px-3 rounded-l">trash</button>
                 
             </li>
