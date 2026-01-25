@@ -31,7 +31,7 @@ interface ToolbarLightCatalogProps {
 
 export default function ToolbarActiveComponents({activeListItems, setActiveListItems, isToolbarToggled, lightManager} : ToolbarLightCatalogProps) {
 
-    console.log("items are ", activeListItems);
+
 
 
     return (

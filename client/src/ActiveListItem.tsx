@@ -24,23 +24,41 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
     const[isItemVisible, setItemVisibility] = useState(true);
     const[clickedItem, setClickedItem] = useState(null);
 
-    function toggleItemVisibility() : void {
+
+
+    //NOT WORKING YET, WANt to select an item by clcking on the listItem
+    function handleListItemSelection() : void {
+        // if selectedLightID != null
+        // deselect the light
+        // select the new light
+        // else just select the light
+
+        if(lightManager._selectedLightID !== null) {
+            console.log("light is already selected")
+            //deselect the current selection
+            lightManager.deselectLight(lightManager._selectedLightID as string);
+            //lightManager.selectLightByID(itemID);
+        }
+        lightManager.selectLightByID(itemID);
+        //console.log(itemID);
+        //const item = lightManager.selectLightByID(itemID);
+    }
+
+    function toggleItemVisibility(e: React.MouseEvent) : void {
+        e.stopPropagation();
         setItemVisibility(!isItemVisible);
         //hjave the lightmanager hide it
         lightManager.toggleVisibility(itemID);
 
     }
 
-    //NOT WORKING YET, WANt to select an item by clcking on the listItem
-    function handleListItemSelection() : void {
-        console.log(itemID);
-        const item = lightManager.selectLightByID(itemID);
-    }
-
-    function handleItemDeletion() : void {
+    function handleItemDeletion(e: React.MouseEvent) : void {
+        if(lightManager._selectedLightID !== null) {
+            lightManager.deselectLight(lightManager._selectedLightID);
+        }
+        e.stopPropagation();
         //remove it from the light manager
         lightManager.removeLight(itemID);
-
         //update teh state
         const newList = activeListItems.filter((item) => item.id !== itemID);
         setActiveListItems(newList);
