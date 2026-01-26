@@ -4,7 +4,9 @@ import * as THREE from 'three'
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import Toolbar from "./Toolbar.js"
 import { LightManager } from "./LightManager.js";
+import { CameraManager } from "./CameraManager.js";
 import PhoneGUI from "./PhoneGUI.js";
+import CameraButton from "./CameraButton.js";
 
 export default function App() {
 
@@ -22,6 +24,7 @@ export default function App() {
   const [phone, setPhoneModel] = useState<THREE.Group | null>(null);
 
   const [lightManager, setLightManager] = useState<LightManager | null>(null);
+  const [cameraManager, setCameraManager] = useState<CameraManager | null>(null);
   const [isPhoneLoading, setIsPhoneLoading] = useState(true);
   //const sceneRef = useRef<THREE.Scene | null>(null);
 
@@ -37,7 +40,7 @@ export default function App() {
     const _scene = new THREE.Scene();
     setScene(_scene);
 
-    const _renderer = new THREE.WebGLRenderer();
+    const _renderer = new THREE.WebGLRenderer({preserveDrawingBuffer:true});
     setRenderer(_renderer);
 
     const _camera = new THREE.PerspectiveCamera(
@@ -51,6 +54,9 @@ export default function App() {
     //State variables arent set till after useEffect completes so use locals
     const _lightManager = new LightManager(_raycaster, _renderer, _camera, _scene);
     setLightManager(_lightManager);
+
+    const _cameraManager = new CameraManager(_scene, _camera ,_renderer);
+    setCameraManager(_cameraManager);
 
 
     const loader = new GLTFLoader();
@@ -88,6 +94,7 @@ export default function App() {
       {phone && <PhoneGUI phoneModel={phone}/>}
       {scene && lightManager && <Toolbar _scene={scene} _lightManager={lightManager} />} 
       {isPhoneLoading ? (<h1>Loading</h1>) : (scene && camera && renderer && <SceneManager _scene={scene} _camera={camera} _renderer={renderer}/>)}
+      {cameraManager && <CameraButton cameraManager={cameraManager}/>}
     </>
   )
 }
