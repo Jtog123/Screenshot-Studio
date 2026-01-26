@@ -11,7 +11,7 @@ import CameraButton from "./CameraButton.js";
 export default function App() {
 
   //CAMERA ARGS
-  const _fov : number = 75;
+  const _fov : number = 60; //75
   const _aspect : number = window.innerWidth / window.innerHeight;
   const _near : number = 0.1;
   const _far : number = 10000;
