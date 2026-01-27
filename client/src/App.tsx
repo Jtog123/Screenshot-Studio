@@ -6,6 +6,7 @@ import Toolbar from "./Toolbar.js"
 import { LightManager } from "./LightManager.js";
 import { CameraManager } from "./CameraManager.js";
 import PhoneGUI from "./PhoneGUI.js";
+import Overlay from "./Overlay.js";
 import CameraButton from "./CameraButton.js";
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
   const [lightManager, setLightManager] = useState<LightManager | null>(null);
   const [cameraManager, setCameraManager] = useState<CameraManager | null>(null);
   const [isPhoneLoading, setIsPhoneLoading] = useState(true);
+
   //const sceneRef = useRef<THREE.Scene | null>(null);
 
 
@@ -88,13 +90,25 @@ export default function App() {
 
   },[]);
 
+  //Automatically resize the window
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      console.log("resizing");
+      //(renderer as THREE.WebGLRenderer).setSize(window.innerWidth, window.innerHeight);
+    })
+  },[])
+
   //{scene && <Toolbar scene={scene}/>} Making sure scene is not null
   return (
     <>
-      {phone && <PhoneGUI phoneModel={phone}/>}
+      
+      {phone && cameraManager &&<PhoneGUI phoneModel={phone} cameraManager={cameraManager}/>}
       {scene && lightManager && <Toolbar _scene={scene} _lightManager={lightManager} />} 
       {isPhoneLoading ? (<h1>Loading</h1>) : (scene && camera && renderer && <SceneManager _scene={scene} _camera={camera} _renderer={renderer}/>)}
-      {cameraManager && <CameraButton cameraManager={cameraManager}/>}
+      {/*{cameraManager && <CameraButton cameraManager={cameraManager}/>}*/}
+      <Overlay/>
+      
+      
     </>
   )
 }

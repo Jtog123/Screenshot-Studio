@@ -74,7 +74,7 @@ export default function Toolbar({_scene, _lightManager} : ToolbarProps) {
             {
                 (
                     isToolbarToggled ? 
-                        <div className="fixed h-screen bg-stone-950 text-white z-[1000] right-0 w-[5%] transition-all duration-300 ease-in-out">
+                        <div className="fixed h-screen bg-stone-950 text-white z-20 right-0 w-[5%] transition-all duration-300 ease-in-out">
                             <ToolbarHeader isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>
                             <ToolbarBackgroundColor isToolbarToggled={isToolbarToggled}  scene={_scene}/> 
                             <ToolBarPanelTab isToolbarToggled={isToolbarToggled} activeTab={activeTab} handleTabChange={handleTabChange} />
@@ -84,7 +84,7 @@ export default function Toolbar({_scene, _lightManager} : ToolbarProps) {
                             {/*Toolbar Panel Selector*/}
                         </div>
                         :
-                        <div className="fixed flex flex-col h-[100%] w-[25%] bg-stone-950 z-10 right-0 transition-all duration-300 ease-in-out">
+                        <div className="fixed flex flex-col h-[100%] w-[25%] bg-stone-950 z-20 right-0 transition-all duration-300 ease-in-out">
                             <ToolbarHeader isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>
                             <ToolbarBackgroundColor isToolbarToggled={isToolbarToggled} scene={_scene}/> 
                             <ToolBarPanelTab isToolbarToggled={isToolbarToggled} activeTab={activeTab} handleTabChange={handleTabChange} />

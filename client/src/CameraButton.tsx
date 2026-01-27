@@ -13,12 +13,10 @@ export default function CameraButton({cameraManager} : CameraButtonProps) {
 
     return(
         <>
-            <div className="ButtonContainer flex items-center justify-center fixed bg-yellow-200 w-[100px] h-[100px] bottom-0 left-60">
-                <button onClick={handleImageCapture} className="w-[50px] h-[50px] rounded-4xl bg-red-200 cursor-pointer">
-                    Cap
-                </button>
+            <button onClick={handleImageCapture} className="rounded-4xl p-2 bg-red-200 cursor-pointer">
+                Cap
+            </button>
 
-            </div>
         </>
     )
 }

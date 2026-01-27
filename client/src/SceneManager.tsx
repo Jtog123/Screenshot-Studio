@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import {GLTF, GLTFLoader} from 'three/addons/loaders/GLTFLoader.js'
 import {useRef, useEffect, useState} from 'react'
+
 import App from './App'
 //import PhoneModel from './PhoneModel';
 
@@ -32,7 +33,9 @@ export default function SceneManager({_scene, _camera, _renderer}: SceneManagerP
         mountRef.current.appendChild(_renderer.domElement);
 
         //set initial camera pos
+        //_camera.position.z = 4.5;
         _camera.position.z = 5;
+        //_camera.position.y=0.5;
 
         //Grid
         const size = 20;
@@ -63,6 +66,7 @@ export default function SceneManager({_scene, _camera, _renderer}: SceneManagerP
         //Mount the app on this div
         <>
             <div ref={mountRef} className="fixed top-0 left-0 z-0">
+                
 
             </div>
         </>

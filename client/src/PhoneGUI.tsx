@@ -1,5 +1,7 @@
 import {useRef, useEffect, useState} from 'react'
 import * as THREE from 'three'
+import CameraButton from './CameraButton'
+import { CameraManager } from './CameraManager';
 
 /*
 animation code
@@ -13,9 +15,10 @@ when its open
 
 interface PhoneGUIProps {
     phoneModel : THREE.Group
+    cameraManager: CameraManager
 }
 
-export default function PhoneGUI({phoneModel}:PhoneGUIProps) {
+export default function PhoneGUI({phoneModel, cameraManager}:PhoneGUIProps) {
 
 
     const[phoneRotation, setPhoneRotation] = useState({
@@ -76,7 +79,7 @@ export default function PhoneGUI({phoneModel}:PhoneGUIProps) {
 
     return(
         <>
-            <div className="fixed flex flex-col left-[calc(100vw/2)] transform translate-x-[-50%] translate-y-[-5%] overflow-hidden w-1/4 bg-stone-950 rounded-xl bottom-0 z-2 px-4 pb-3 pt-2 backdrop-blur-md border-2 border-stone-600 shadow-[0_0_20px_rgba(120,113,108,0.3),0_0_0_4px_rgba(28,25,23,1),0_0_0_5px_rgba(168,162,158,0.5)] ring-1 ring-stone-700/50 transition-all duration-500 ease-in-out">
+            <div className="fixed flex flex-col left-[calc(100vw/2)] z-22 transform translate-x-[-175%] translate-y-[-5%] overflow-hidden w-1/4 bg-stone-950 rounded-xl bottom-0 z-2 px-4 pb-3 pt-2 backdrop-blur-md border-2 border-stone-600 shadow-[0_0_20px_rgba(120,113,108,0.3),0_0_0_4px_rgba(28,25,23,1),0_0_0_5px_rgba(168,162,158,0.5)] ring-1 ring-stone-700/50 transition-all duration-500 ease-in-out">
 
                 <div className=" flex wrapperDiv w-full h-1/6 ">
                     <div className=" flex flex-row titleDiv w-[95%] h-1/6 top-0 flex justify-center bg-stone-700/30 rounded-xl mr-2">
@@ -106,8 +109,14 @@ export default function PhoneGUI({phoneModel}:PhoneGUIProps) {
                         <input onChange={(e) => handlePhoneRotation(e, "zRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.z} step="0.01"/>
 
                         {/* RESET */}
-                        <button onClick={handleControlsReset} className="text-stone-200 h-[1/6] w-[20%] bg-stone-700/30 px-1 mt-3 rounded-xl ">Reset</button>
+                        <div className="flex  items-center justify-between pt-1">
+                            <button onClick={handleControlsReset} className="text-stone-200 h-[1/6] w-[20%] bg-stone-700/30 px-1 mt-3 rounded-xl ">Reset</button>
+                            <CameraButton cameraManager={cameraManager}/>
+                        </div>
+
                     </div>
+
+                    
 
 
                 
