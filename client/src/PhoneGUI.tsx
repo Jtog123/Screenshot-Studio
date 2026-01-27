@@ -15,10 +15,10 @@ when its open
 
 interface PhoneGUIProps {
     phoneModel : THREE.Group
-    cameraManager: CameraManager
+    _cameraManager: CameraManager
 }
 
-export default function PhoneGUI({phoneModel, cameraManager}:PhoneGUIProps) {
+export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
 
 
     const[phoneRotation, setPhoneRotation] = useState({
@@ -52,7 +52,7 @@ export default function PhoneGUI({phoneModel, cameraManager}:PhoneGUIProps) {
         } else {
             setPhoneRotation({
                 x: phoneRotation.x,
-                y: phoneRotation.x,
+                y: phoneRotation.y,
                 z: 0
             });
             (phoneModel as THREE.Group).rotation.z = 0;               
@@ -143,7 +143,7 @@ export default function PhoneGUI({phoneModel, cameraManager}:PhoneGUIProps) {
                         {/* RESET */}
                         <div className="flex  items-center justify-between pt-1">
                             {/*<button onClick={handleControlsReset} className="text-stone-200 h-[1/6] w-[20%] bg-stone-700/30 px-1 mt-3 rounded-xl ">Reset</button>*/}
-                            <CameraButton cameraManager={cameraManager}/>
+                            <CameraButton cameraManager={_cameraManager}/>
                         </div>
 
                     </div>

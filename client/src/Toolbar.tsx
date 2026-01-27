@@ -12,18 +12,20 @@ import { LightType } from './Light'
 import SpotLightGUI from './SpotLightGUI'
 import PointLightGUI from './PointLightGUI'
 import RectAreaLightGUI from './RectLightGUI'
-import ToolbarEffectsCatalog from './ToolbarEffectsCatalog'
+import ToolbarEffectsCatalog from './ToolbarCameraCatalog'
 import ToolbarTextEditor from './ToolbarTextEditor'
+import { CameraManager } from './CameraManager'
 
 interface ToolbarProps {
     _scene : THREE.Scene;
     _lightManager : LightManager;
+    _cameraManager : CameraManager
 
 }
 
 
 
-export default function Toolbar({_scene, _lightManager} : ToolbarProps) {
+export default function Toolbar({_scene, _lightManager, _cameraManager} : ToolbarProps) {
 
     
     const[selectedLight, setSelectedLight] = useState<{id: string, type: LightType} | null>(null);
@@ -89,7 +91,7 @@ export default function Toolbar({_scene, _lightManager} : ToolbarProps) {
                             <ToolbarBackgroundColor isToolbarToggled={isToolbarToggled} scene={_scene}/> 
                             <ToolBarPanelTab isToolbarToggled={isToolbarToggled} activeTab={activeTab} handleTabChange={handleTabChange} />
                             {activeTab === "Lights" && <ToolbarLightCatalog  activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled}  scene={_scene} lightManager={_lightManager}/>}
-                            {activeTab === "Effects" && <ToolbarEffectsCatalog isToolbarToggled={isToolbarToggled} />}
+                            {activeTab === "Camera" && <ToolbarEffectsCatalog isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager}/>}
                             {activeTab === "Text" && <ToolbarTextEditor isToolbarToggled={isToolbarToggled} />}
                             <ToolbarActiveComponents activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} lightManager={_lightManager}  />
 

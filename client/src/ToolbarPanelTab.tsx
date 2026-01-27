@@ -9,7 +9,7 @@ interface ToolbarPanelProps {
 }
 
 export default function ToolBarPanelTab({isToolbarToggled, activeTab, handleTabChange} : ToolbarPanelProps) {
-    const buttonNames = ["Lights", "Effects", "Text"];
+    const buttonNames = ["Lights", "Camera", "Text"];
 
     return (
         <>
