@@ -33,16 +33,36 @@ export default function PhoneGUI({phoneModel, cameraManager}:PhoneGUIProps) {
         setPhoneGuiOpen(!isPhoneGuiOpen);
     }
 
-    function handleControlsReset() : void {
-        setPhoneRotation({
-            x: 0,
-            y: 0,
-            z: 0
-        });
+    function handleControlsReset(e: React.MouseEvent, sliderName : string) : void {
 
-        (phoneModel as THREE.Group).rotation.x = 0;
-        (phoneModel as THREE.Group).rotation.y = 0;
-        (phoneModel as THREE.Group).rotation.z = 0;
+        if(sliderName === "xReset") {
+            setPhoneRotation({
+                x: 0,
+                y: phoneRotation.y,
+                z: phoneRotation.z
+            });
+            (phoneModel as THREE.Group).rotation.x = 0;
+        } else if(sliderName === "yReset") {
+            setPhoneRotation({
+                x: phoneRotation.x,
+                y: 0,
+                z: phoneRotation.z
+            });
+            (phoneModel as THREE.Group).rotation.y = 0;            
+        } else {
+            setPhoneRotation({
+                x: phoneRotation.x,
+                y: phoneRotation.x,
+                z: 0
+            });
+            (phoneModel as THREE.Group).rotation.z = 0;               
+        }
+
+
+
+
+        //(phoneModel as THREE.Group).rotation.y = 0;
+        //(phoneModel as THREE.Group).rotation.z = 0;
 
     }
 
@@ -76,10 +96,10 @@ export default function PhoneGUI({phoneModel, cameraManager}:PhoneGUIProps) {
             console.log("rotation z")
         }
     }
-
+// fixed flex flex-col left-[calc(100vw/2)] z-22 transform translate-x-[-175%] translate-y-[-5%] overflow-hidden w-1/4 bg-stone-950 rounded-xl bottom-0 z-2 px-4 pb-3 pt-2 backdrop-blur-md border-2 border-stone-600 shadow-[0_0_20px_rgba(120,113,108,0.3),0_0_0_4px_rgba(28,25,23,1),0_0_0_5px_rgba(168,162,158,0.5)] ring-1 ring-stone-700/50 transition-all duration-500 ease-in-out"
     return(
         <>
-            <div className="fixed flex flex-col left-[calc(100vw/2)] z-22 transform translate-x-[-175%] translate-y-[-5%] overflow-hidden w-1/4 bg-stone-950 rounded-xl bottom-0 z-2 px-4 pb-3 pt-2 backdrop-blur-md border-2 border-stone-600 shadow-[0_0_20px_rgba(120,113,108,0.3),0_0_0_4px_rgba(28,25,23,1),0_0_0_5px_rgba(168,162,158,0.5)] ring-1 ring-stone-700/50 transition-all duration-500 ease-in-out">
+            <div className="fixed flex flex-col left-0 z-22 transform translate-x-[1.4%] translate-y-[-1.8%] overflow-hidden w-1/4 bg-stone-950 rounded-xl bottom-0 z-2 px-4 pb-3 pt-2 backdrop-blur-md border-2 border-stone-600 shadow-[0_0_20px_rgba(120,113,108,0.3),0_0_0_4px_rgba(28,25,23,1),0_0_0_5px_rgba(168,162,158,0.5)] ring-1 ring-stone-700/50 transition-all duration-500 ease-in-out">
 
                 <div className=" flex wrapperDiv w-full h-1/6 ">
                     <div className=" flex flex-row titleDiv w-[95%] h-1/6 top-0 flex justify-center bg-stone-700/30 rounded-xl mr-2">
@@ -100,17 +120,29 @@ export default function PhoneGUI({phoneModel, cameraManager}:PhoneGUIProps) {
                 }`}>
                     <div className="overflow-hidden flex flex-col">
                         <label className="text-sm text-stone-200 pt-1" htmlFor="">Rotate X: </label>
-                        <input onChange={(e) => handlePhoneRotation(e, "xRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.x} step="0.01" />
+                        <div className="flex justify-between">
+                            <input className='w-[95%] mr-2' onChange={(e) => handlePhoneRotation(e, "xRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.x} step="0.01" />
+                            <button onClick={(e) => handleControlsReset(e, "xReset")} className='text-stone-200 bg-stone-500 rounded-4xl w-[10%] cursor-pointer'>r</button>
+                        </div>
+
 
                         <label className="text-sm text-stone-200 pt-1" htmlFor="">Rotate Y: </label>
-                        <input onChange={(e) => handlePhoneRotation(e, "yRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.y} step="0.01"/>
+                        <div className="flex justify-between">
+                            <input className='w-[95%] mr-2'  onChange={(e) => handlePhoneRotation(e, "yRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.y} step="0.01"/>
+                            <button onClick={(e) => handleControlsReset(e, "yReset")} className='text-stone-200 bg-stone-500 rounded-4xl w-[10%] cursor-pointer'>r</button>
+                        </div>
+
 
                         <label className="text-sm text-stone-200 pt-1" htmlFor="">Rotate Z: </label>
-                        <input onChange={(e) => handlePhoneRotation(e, "zRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.z} step="0.01"/>
+                        <div className="flex justify-between">
+                            <input className='w-[95%] mr-2' onChange={(e) => handlePhoneRotation(e, "zRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.z} step="0.01"/>
+                            <button onClick={(e) => handleControlsReset(e, "zReset")} className='text-stone-200 bg-stone-500 rounded-4xl w-[10%] cursor-pointer'>r</button>                            
+                        </div>
+
 
                         {/* RESET */}
                         <div className="flex  items-center justify-between pt-1">
-                            <button onClick={handleControlsReset} className="text-stone-200 h-[1/6] w-[20%] bg-stone-700/30 px-1 mt-3 rounded-xl ">Reset</button>
+                            {/*<button onClick={handleControlsReset} className="text-stone-200 h-[1/6] w-[20%] bg-stone-700/30 px-1 mt-3 rounded-xl ">Reset</button>*/}
                             <CameraButton cameraManager={cameraManager}/>
                         </div>
 

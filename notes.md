@@ -140,6 +140,8 @@ Allow users to adjust camera in the Z direction to get closer/further from the p
 
 
 
+
+
 Problem current setup is good if users want to take 1 screenshot, but users will want more than 1, they will want a whole set, how do we fix this?
 
 When items is slected in the scene and i delete it, it crashes the program
