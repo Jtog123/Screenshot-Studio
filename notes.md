@@ -103,16 +103,18 @@ Allow Light Gui To:
     - Change the type of light in the GUI - QUEUED
     - Trash the light active in the Scene - QUEUED
 
-Adjust The Phone Model Rotation with a slider - IN PROGRESS
+Adjust The Phone Model Rotation with a slider - DONE
 
-When I trash the light the light doesnt actually delete - IN PROGRESS
+When I trash the light the light doesnt actually delete - DONE
 
 Begin designing and creating UI for the toolbar - IN PROGRESS
     - Buttons and functionality to create light
     - Scene items UI, to show every item a user has added to a scene
     - Toggle lights on and off, lock positions
 
-Camera Zoom in and out Buttons - QUEUED
+Camera Zoom in and out Buttons - IN PROGRESS
+
+Phone Presets "Front View" / "3/4 View" / "Side View" / "Top Down" - IN PROGRESS
 
 Add visibility toggle to all components in the scece object.visible = !object.visible  - QUEUED
 

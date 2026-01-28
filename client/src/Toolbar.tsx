@@ -12,20 +12,21 @@ import { LightType } from './Light'
 import SpotLightGUI from './SpotLightGUI'
 import PointLightGUI from './PointLightGUI'
 import RectAreaLightGUI from './RectLightGUI'
-import ToolbarEffectsCatalog from './ToolbarCameraCatalog'
+import ToolbarCameraCatalog from './ToolbarCameraCatalog'
 import ToolbarTextEditor from './ToolbarTextEditor'
 import { CameraManager } from './CameraManager'
 
 interface ToolbarProps {
     _scene : THREE.Scene;
     _lightManager : LightManager;
+    _phoneModel : THREE.Group;
     _cameraManager : CameraManager
 
 }
 
 
 
-export default function Toolbar({_scene, _lightManager, _cameraManager} : ToolbarProps) {
+export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManager} : ToolbarProps) {
 
     
     const[selectedLight, setSelectedLight] = useState<{id: string, type: LightType} | null>(null);
@@ -91,7 +92,7 @@ export default function Toolbar({_scene, _lightManager, _cameraManager} : Toolba
                             <ToolbarBackgroundColor isToolbarToggled={isToolbarToggled} scene={_scene}/> 
                             <ToolBarPanelTab isToolbarToggled={isToolbarToggled} activeTab={activeTab} handleTabChange={handleTabChange} />
                             {activeTab === "Lights" && <ToolbarLightCatalog  activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled}  scene={_scene} lightManager={_lightManager}/>}
-                            {activeTab === "Camera" && <ToolbarEffectsCatalog isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager}/>}
+                            {activeTab === "Camera" && <ToolbarCameraCatalog isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} _phoneModel={_phoneModel}/>}
                             {activeTab === "Text" && <ToolbarTextEditor isToolbarToggled={isToolbarToggled} />}
                             <ToolbarActiveComponents activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} lightManager={_lightManager}  />
 

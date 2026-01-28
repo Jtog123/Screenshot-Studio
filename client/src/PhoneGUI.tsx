@@ -20,6 +20,8 @@ interface PhoneGUIProps {
 
 export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
 
+    //const[yRotPreset, setYRotPreset] = useState(0);
+
 
     const[phoneRotation, setPhoneRotation] = useState({
         x: 0,
@@ -27,12 +29,15 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
         z: 0
     });
 
+    const[activePreset, setActivePreset] = useState(0);
+
     const[isPhoneGuiOpen, setPhoneGuiOpen] = useState(true);
 
     function handlePhoneGuiToggle() : void {
         setPhoneGuiOpen(!isPhoneGuiOpen);
     }
 
+    //couple these to the presets??
     function handleControlsReset(e: React.MouseEvent, sliderName : string) : void {
 
         if(sliderName === "xReset") {
@@ -57,13 +62,6 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
             });
             (phoneModel as THREE.Group).rotation.z = 0;               
         }
-
-
-
-
-        //(phoneModel as THREE.Group).rotation.y = 0;
-        //(phoneModel as THREE.Group).rotation.z = 0;
-
     }
 
     function handlePhoneRotation(e: React.ChangeEvent<HTMLInputElement>, sliderName : string) : void {
@@ -96,6 +94,52 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
             console.log("rotation z")
         }
     }
+
+    function handleFrontView() : void {
+        setPhoneRotation({
+            x: phoneRotation.x,
+            y: 0,
+            z: phoneRotation.z
+        });
+        phoneModel.rotation.y = 0;
+        setActivePreset(0);
+        
+    }
+
+    function handleFifteenDegreeView() : void {
+        setPhoneRotation({
+            x: phoneRotation.x,
+            y: 0.261,
+            z: phoneRotation.z
+        });
+        phoneModel.rotation.y = 0.261;
+        setActivePreset(15);
+    }
+
+    function handleThirtyDegreeView() : void {
+        setPhoneRotation({
+            x: phoneRotation.x,
+            y: 0.523,
+            z: phoneRotation.z
+        });
+        phoneModel.rotation.y = 0.523;
+        setActivePreset(30);
+    }
+
+    //couple these controls to the GUI?
+
+    function handleFortyFiveDegreeView() : void {
+        setPhoneRotation({
+            x: phoneRotation.x,
+            y: 0.785,
+            z: phoneRotation.z
+        });
+        phoneModel.rotation.y = 0.785;
+        setActivePreset(45);
+    }
+
+
+
 // fixed flex flex-col left-[calc(100vw/2)] z-22 transform translate-x-[-175%] translate-y-[-5%] overflow-hidden w-1/4 bg-stone-950 rounded-xl bottom-0 z-2 px-4 pb-3 pt-2 backdrop-blur-md border-2 border-stone-600 shadow-[0_0_20px_rgba(120,113,108,0.3),0_0_0_4px_rgba(28,25,23,1),0_0_0_5px_rgba(168,162,158,0.5)] ring-1 ring-stone-700/50 transition-all duration-500 ease-in-out"
     return(
         <>
@@ -140,8 +184,20 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
                         </div>
 
 
+                        {/*add presets here */}
+                        <div className="flex flex-row justify-between pt-4 items-center">
+                            <label className="text-sm text-stone-200 pt-1" htmlFor="">Presets: </label>
+                            <button onClick={handleFrontView}  className={`text-stone-200 rounded-4xl w-[15%] cursor-pointer ${
+                                activePreset === 0 ? 'bg-yellow-500' : 'bg-stone-500'
+                            }`}>0</button>  
+
+                            <button onClick={handleFifteenDegreeView} className={`text-stone-200 rounded-4xl w-[15%] cursor-pointer ${activePreset === 15 ? `bg-yellow-300` : `bg-stone-500`}` }>15</button>                            
+                            <button onClick={handleThirtyDegreeView} className={`text-stone-200 rounded-4xl w-[15%] cursor-pointer ${activePreset === 30 ? `bg-yellow-300` : `bg-stone-500`}` }>30</button>                            
+                            <button onClick={handleFortyFiveDegreeView} className={`text-stone-200 rounded-4xl w-[15%] cursor-pointer ${activePreset === 45 ? `bg-yellow-300` : `bg-stone-500`}` }>45</button>                            
+                        </div>
+
                         {/* RESET */}
-                        <div className="flex  items-center justify-between pt-1">
+                        <div className="flex  items-center justify-between pt-1 mt-1">
                             {/*<button onClick={handleControlsReset} className="text-stone-200 h-[1/6] w-[20%] bg-stone-700/30 px-1 mt-3 rounded-xl ">Reset</button>*/}
                             <CameraButton cameraManager={_cameraManager}/>
                         </div>

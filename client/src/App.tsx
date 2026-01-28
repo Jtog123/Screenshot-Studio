@@ -103,7 +103,7 @@ export default function App() {
     <>
       
       {phone && cameraManager &&<PhoneGUI phoneModel={phone} _cameraManager={cameraManager}/>}
-      {scene && lightManager && cameraManager && <Toolbar _scene={scene} _lightManager={lightManager} _cameraManager={cameraManager} />} 
+      {scene && lightManager && cameraManager && phone &&<Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} />} 
       {isPhoneLoading ? (<h1>Loading</h1>) : (scene && camera && renderer && <SceneManager _scene={scene} _camera={camera} _renderer={renderer}/>)}
       {/*{cameraManager && <CameraButton cameraManager={cameraManager}/>}*/}
       <Overlay/>

@@ -106,6 +106,16 @@ Your main renderer/canvas never changes - user sees nothing
         }
         return false;
     }
+
+    public resetCamera() : void {
+        this._camera.position.y = 0;
+    }
+
+    public resetZoom() : void {
+        this._camera.position.z = 5;
+    }
+
+
   
 }
 
