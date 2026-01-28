@@ -28,6 +28,7 @@ Capture the image from this new renderer's canvas
 Dispose/destroy the temporary renderer and canvas
 Your main renderer/canvas never changes - user sees nothing
     */
+
     public captureImage() {
 
         //create Temp redner/canvas, and temp camera
@@ -69,6 +70,41 @@ Your main renderer/canvas never changes - user sees nothing
         }, 50);
 
 
+    }
+
+    public increaseCameraHeight() :  boolean {
+        console.log(this._camera.position.y)
+        if(this._camera.position.y <= 0.5) {
+            this._camera.position.y = this._camera.position.y + 0.1;
+            return true;
+        }
+        return false;
+    }
+
+
+    public decreaseCameraHeight() :  boolean {
+        if(this._camera.position.y >= -0.5) {
+            this._camera.position.y = this._camera.position.y - 0.1;
+            return true;
+        }
+        return false;
+    }
+
+
+    public zoomCameraIn() : boolean {
+        if(this._camera.position.z >= 4.0) {
+            this._camera.position.z = this._camera.position.z - 0.1;
+            return true;
+        }
+        return false;
+    }
+
+    public zoomCameraOut() : boolean{
+        if(this._camera.position.z <= 5.1) {
+            this._camera.position.z = this._camera.position.z + 0.1;
+            return true;
+        }
+        return false;
     }
   
 }

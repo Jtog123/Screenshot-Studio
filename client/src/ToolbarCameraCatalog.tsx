@@ -1,4 +1,5 @@
 import { CameraManager } from "./CameraManager"
+import {useRef, useEffect, useState} from 'react'
 
 interface ToolbarCameraProps {
     isToolbarToggled : boolean
@@ -18,7 +19,40 @@ One-click camera positions for common angles
 Huge time-saver
 */
 
-export default function ToolbarEffectsCatalog({isToolbarToggled, _cameraManager}:ToolbarCameraProps) {
+export default function ToolbarCameraCatalog({isToolbarToggled, _cameraManager}:ToolbarCameraProps) {
+
+    const[zoom, setZoom] = useState(2);
+    const[height, setHeight] = useState(6);
+
+
+    function handleCameraZoomIn() : void {
+        if( _cameraManager.zoomCameraIn()) {
+            setZoom(count => count + 1);
+        }
+
+    }
+
+    function handleCameraZoomOut() : void {
+        if(_cameraManager.zoomCameraOut()) {
+            setZoom(count => count - 1);
+        }
+
+    }
+
+    function handleCameraHeightIncrease() : void {
+        if(_cameraManager.increaseCameraHeight()) {
+            setHeight(count => count + 1);
+        }
+
+    }
+
+    function handleCameraHeightDecrease() : void {
+        if(_cameraManager.decreaseCameraHeight()) {
+            setHeight(count => count - 1);
+        }
+
+    }
+
     return (
         <>
         <div className={isToolbarToggled ? `hidden`:`flex flex-col justify-center items-center w-[screen] h-[52.5%] bg-stone-950`}>
@@ -30,14 +64,14 @@ export default function ToolbarEffectsCatalog({isToolbarToggled, _cameraManager}
 
                     <div>
                         <label className="ml-7 mr-3" htmlFor="">Zoom: </label>
-                        <label className="bg-purple-100" htmlFor="">2</label>
+                        <label className="bg-purple-100" htmlFor="">{zoom}</label>
                     </div>
 
 
                     {/* this will control the cameras z-axis we start at 5 on init, user sees it as 0  */}
                     <div className="button flex justiify-between container bg-red-200 w-[40%] p-1">
-                        <button className="w-[50%] h-[30px] rounded-4xl bg-red-400 m-1"> + </button>
-                        <button className="w-[50%] h-[30px] rounded-4xl bg-red-400 m-1"> - </button>
+                        <button onClick={handleCameraZoomIn} className="w-[50%] h-[30px] rounded-4xl bg-red-400 m-1"> + </button>
+                        <button onClick={handleCameraZoomOut} className="w-[50%] h-[30px] rounded-4xl bg-red-400 m-1"> - </button>
                     </div>
 
 
@@ -47,14 +81,14 @@ export default function ToolbarEffectsCatalog({isToolbarToggled, _cameraManager}
 
                     <div>
                         <label className="ml-7 mr-3" htmlFor="">Height: </label>
-                        <label className="bg-purple-100" htmlFor="">2</label>
+                        <label className="bg-purple-100" htmlFor="">{height}</label>
                     </div>
 
 
                     {/* this will control the cameras z-axis we start at 5 on init, user sees it as 0  */}
                     <div className="button flex justiify-between container bg-red-200 w-[40%] p-1">
-                        <button className="w-[50%] h-[30px] rounded-4xl bg-red-400 m-1"> ^ </button>
-                        <button className="w-[50%] h-[30px] rounded-4xl bg-red-400 m-1"> - </button>
+                        <button onClick={handleCameraHeightIncrease} className="w-[50%] h-[30px] rounded-4xl bg-red-400 m-1"> ^ </button>
+                        <button onClick={handleCameraHeightDecrease} className="w-[50%] h-[30px] rounded-4xl bg-red-400 m-1"> - </button>
                     </div>
 
 

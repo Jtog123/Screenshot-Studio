@@ -135,6 +135,8 @@ Allow users to adjust camera in the Y direction to allow more or less room for t
 
 Allow users to adjust camera in the Z direction to get closer/further from the phone - QUEUED
 
+Allow users to add their apps logo to the scene THREE.Sprite() - QUEUED
+
 
 
 
