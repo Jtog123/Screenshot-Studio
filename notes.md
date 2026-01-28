@@ -131,7 +131,7 @@ Create an overlay of that mimics the lens of the camera and what what scene enti
 
 On window resize app should automatically update to the new window size - QUEUED
 
-If a uer adds text automatically move the camera up one notch?  - QUEUED
+If a user adds text automatically move the camera up one notch?  - QUEUED
 
 Allow users to adjust camera in the Y direction to allow more or less room for text - QUEUED
 

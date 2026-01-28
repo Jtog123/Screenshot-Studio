@@ -1,13 +1,68 @@
+import { useState } from "react"
+
 interface ToolbarTextProps {
     isToolbarToggled : boolean
 }
 
+interface ImageComponent{
+    id: number,
+    position: string,
+    type: string
+}
+
+//change to ToolbarAssets?
+
 export default function ToolbarTextEditor({isToolbarToggled}:ToolbarTextProps) {
+
+    const[imageComponents, setImageComponents] = useState<ImageComponent[]>([]);
+
+
+    function handleImageAbovePhone() : void {
+        //_assetManager.addImageBoxAbovePhone();
+        const newImage = {
+            id: Date.now(),
+            position: "above",
+            type: "image"
+        }
+
+        setImageComponents([...imageComponents, newImage])
+    }
+
+    /*
+{imageComponents.map(img => (
+    <ImageComponent 
+        key={img.id} 
+        position={img.position}
+        onUpload={(file) => handleUpload(img.id, file)}
+    />
+))}
+    */
+
     return (
         <>
         <div className={isToolbarToggled ? `hidden`:`flex justify-center items-center w-[screen] h-[52.5%] bg-stone-950`}>
-            <div className="grid grid-cols-2 grid-rows-2 w-[90%] h-[90%] bg-yellow-300">
-                <button  className="text-md bg-purple-500"> Text 1</button>
+            <div className="flex flex-col w-[90%] h-[90%] bg-yellow-300">
+
+                <div className="abovePhone justify-between mb-5">
+                    <h1 className="w-[100%] bg-red-200">Above Phone</h1>
+                    <div className="buttonCont flex justify-between">
+                        <button  className="text-md bg-purple-500 w-[33%] cursor-pointer"> Text</button>
+                        <button onClick={handleImageAbovePhone} className="text-md bg-purple-500 w-[33%] cursor-pointer"> Image</button>
+                        <button  className="text-md bg-purple-500 w-[33%] cursor-pointer"> Text & Image</button>
+                    </div>
+
+                </div>
+
+                <div className="belowPhone justify-between">
+                    <h1 className="w-[100%] bg-red-200">Below Phone</h1>
+                    <div className="buttonCont flex justify-between">
+                        <button  className="text-md bg-purple-500 w-[33%] cursor-pointer"> Text</button>
+                        <button  className="text-md bg-purple-500 w-[33%] cursor-pointer"> Image</button>
+                        <button  className="text-md bg-purple-500 w-[33%] cursor-pointer"> Text & Image</button>
+                    </div>
+
+                </div>
+                
 
             </div>
         </div>
