@@ -53,7 +53,8 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
                 y: 0,
                 z: phoneRotation.z
             });
-            (phoneModel as THREE.Group).rotation.y = 0;            
+            (phoneModel as THREE.Group).rotation.y = 0;    
+            setActivePreset(0);        
         } else {
             setPhoneRotation({
                 x: phoneRotation.x,
@@ -83,6 +84,7 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
             });
             //phoneModel.rotateY(phoneRotation.y);
             (phoneModel as THREE.Group).rotation.y = phoneRotation.y;
+            setActivePreset(-1);
         } else {
             setPhoneRotation({
                 x: Number(phoneRotation.x),
