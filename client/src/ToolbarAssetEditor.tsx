@@ -1,5 +1,6 @@
 import { useState } from "react"
 import ImageComponent from "./ImageComponent"
+import { CameraManager } from "./CameraManager"
 
 interface ImageComponent{
     id: number,
@@ -11,6 +12,7 @@ interface ToolbarTextProps {
     imageComponents: ImageComponent[]
     setImageComponents : React.Dispatch<React.SetStateAction<ImageComponent[]>>
     isToolbarToggled : boolean
+    _cameraManager : CameraManager
 }
 
 
@@ -24,11 +26,20 @@ interface ToolbarTextProps {
 
 
 
-export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents, imageComponents}: ToolbarTextProps) {
+export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents, imageComponents, _cameraManager}: ToolbarTextProps) {
 
     function addImageComponentAbovePhone() : void {
 
-        if (imageComponents.length >= 2) {
+        const aboveCount = imageComponents.filter((item) => {
+            item.position === "above";
+        }).length
+
+        if(aboveCount === 0) {
+            //push camera down once
+            _cameraManager.decreaseCameraHeightForAboveImage()
+        }
+
+        if (aboveCount >= 2) {
             //disable the button
             console.log("to many above image components");
             return;

@@ -2,9 +2,11 @@
 import { error } from "console";
 import { ChangeEvent, useRef, useState } from "react"
 import * as THREE from 'three'
+import { CameraManager } from "./CameraManager";
 
 interface ImageComponentProps {
     _scene: THREE.Scene
+
 }
 
 
@@ -29,7 +31,7 @@ export default function ImageComponent({_scene} : ImageComponentProps) {
                     const material = new THREE.SpriteMaterial({map:texture});
                     const sprite = new THREE.Sprite(material);
                     sprite.scale.set(2, 2, 1);
-                    sprite.position.set(0, 2, 0);
+                    sprite.position.set(0, 2.5, 0);
 
                     //adjust the camera
 

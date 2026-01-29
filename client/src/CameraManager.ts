@@ -72,6 +72,11 @@ Your main renderer/canvas never changes - user sees nothing
 
     }
 
+
+    public decreaseCameraHeightForAboveImage() : void {
+        this._camera.position.y = this._camera.position.y + 0.5;
+    }
+
     public increaseCameraHeight() :  boolean {
         console.log(this._camera.position.y)
         if(this._camera.position.y <= 0.5) {
