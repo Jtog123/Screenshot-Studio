@@ -4,6 +4,7 @@ import * as THREE from 'three'
 class AssetManager {
 
     public _image : THREE.Sprite | null = null;
+    public _scene : THREE.Scene;
 
     /* REQUIREMENTS */
     //load png image files
@@ -15,6 +16,7 @@ class AssetManager {
     // store references to all added images
 
     public addImageBoxAbovePhone() : void {
+        
         /*
             const component = ({ImageComponent}) => {
                 return <ImageComponent />
@@ -28,7 +30,8 @@ class AssetManager {
 
     }
 
-    constructor() {
+    constructor(scene: THREE.Scene) {
+        this._scene = scene;
 
     }
 }

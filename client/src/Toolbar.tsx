@@ -13,20 +13,30 @@ import SpotLightGUI from './SpotLightGUI'
 import PointLightGUI from './PointLightGUI'
 import RectAreaLightGUI from './RectLightGUI'
 import ToolbarCameraCatalog from './ToolbarCameraCatalog'
-import ToolbarTextEditor from './ToolbarTextEditor'
+import ToolbarAssetEditor from './ToolbarAssetEditor'
 import { CameraManager } from './CameraManager'
+
+interface ImageComponent{
+    id: number,
+    position: string,
+    type: string
+}
 
 interface ToolbarProps {
     _scene : THREE.Scene;
     _lightManager : LightManager;
     _phoneModel : THREE.Group;
-    _cameraManager : CameraManager
+    _cameraManager : CameraManager;
+    _imageComponents : ImageComponent[];
+    _setImageComponents : React.Dispatch<React.SetStateAction<ImageComponent[]>>
 
 }
 
 
 
-export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManager} : ToolbarProps) {
+
+
+export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManager, _imageComponents, _setImageComponents} : ToolbarProps) {
 
     
     const[selectedLight, setSelectedLight] = useState<{id: string, type: LightType} | null>(null);
@@ -34,6 +44,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
     const[isToolbarToggled, setToolbarToggled] = useState(false);
     const[activeListItems, setActiveListItems] = useState<{id:string, name:string}[]>([]);
     const[activeTab, setActiveTab] = useState("Lights");
+    const[imageComponents, setImageComponents] = useState<ImageComponent[]>([]);
 
     function handleToggle() : void {
         setToolbarToggled(!isToolbarToggled);
@@ -43,6 +54,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
         setActiveTab(buttonName);
         console.log("click button" , buttonName);
     }
+
 
     useEffect(() => {
         _lightManager.addEventListener("lightSelected", (data: { id: string, type: LightType }) => {
@@ -56,7 +68,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
         })
 
         
-    }, [_lightManager])
+    }, [_lightManager]);
     
 
     /*
@@ -93,7 +105,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                             <ToolBarPanelTab isToolbarToggled={isToolbarToggled} activeTab={activeTab} handleTabChange={handleTabChange} />
                             {activeTab === "Lights" && <ToolbarLightCatalog  activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled}  scene={_scene} lightManager={_lightManager}/>}
                             {activeTab === "Camera" && <ToolbarCameraCatalog isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} _phoneModel={_phoneModel}/>}
-                            {activeTab === "Text" && <ToolbarTextEditor isToolbarToggled={isToolbarToggled} />}
+                            {activeTab === "Text" && <ToolbarAssetEditor imageComponents={_imageComponents} setImageComponents={_setImageComponents} isToolbarToggled={isToolbarToggled} />}
                             <ToolbarActiveComponents activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} lightManager={_lightManager}  />
 
                             {/*Toolbar Panel Selector*/}

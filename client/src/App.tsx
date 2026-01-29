@@ -8,6 +8,15 @@ import { CameraManager } from "./CameraManager.js";
 import PhoneGUI from "./PhoneGUI.js";
 import Overlay from "./Overlay.js";
 import CameraButton from "./CameraButton.js";
+import ImageComponent from "./ImageComponent.js";
+import { AssetManager } from "./AssetManager.js";
+
+
+interface ImageComponent{
+    id: number,
+    position: string,
+    type: string
+}
 
 export default function App() {
 
@@ -25,8 +34,14 @@ export default function App() {
   const [phone, setPhoneModel] = useState<THREE.Group | null>(null);
 
   const [lightManager, setLightManager] = useState<LightManager | null>(null);
+  const [assetManager, setAssetManager] = useState<AssetManager | null>(null);
   const [cameraManager, setCameraManager] = useState<CameraManager | null>(null);
   const [isPhoneLoading, setIsPhoneLoading] = useState(true);
+  const [imageComponents, setImageComponents] = useState<ImageComponent[]>([]);
+  
+  
+  
+
 
   //const sceneRef = useRef<THREE.Scene | null>(null);
 
@@ -59,6 +74,9 @@ export default function App() {
 
     const _cameraManager = new CameraManager(_scene, _camera ,_renderer);
     setCameraManager(_cameraManager);
+
+    const _assetManager = new AssetManager(_scene);
+    setAssetManager(_assetManager);
 
 
     const loader = new GLTFLoader();
@@ -101,12 +119,21 @@ export default function App() {
   //{scene && <Toolbar scene={scene}/>} Making sure scene is not null
   return (
     <>
-      
       {phone && cameraManager &&<PhoneGUI phoneModel={phone} _cameraManager={cameraManager}/>}
-      {scene && lightManager && cameraManager && phone &&<Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} />} 
+
+
+      {scene && lightManager && cameraManager && phone && <Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents} />} 
+
+      {scene && imageComponents.map((item) =>{
+        return <ImageComponent key={item.id} _scene={scene}/>
+      })}
+
+
+
       {isPhoneLoading ? (<h1>Loading</h1>) : (scene && camera && renderer && <SceneManager _scene={scene} _camera={camera} _renderer={renderer}/>)}
-      {/*{cameraManager && <CameraButton cameraManager={cameraManager}/>}*/}
+  
       <Overlay/>
+
       
       
     </>

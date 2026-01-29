@@ -1,8 +1,5 @@
 import { useState } from "react"
-
-interface ToolbarTextProps {
-    isToolbarToggled : boolean
-}
+import ImageComponent from "./ImageComponent"
 
 interface ImageComponent{
     id: number,
@@ -10,23 +7,45 @@ interface ImageComponent{
     type: string
 }
 
+interface ToolbarTextProps {
+    imageComponents: ImageComponent[]
+    setImageComponents : React.Dispatch<React.SetStateAction<ImageComponent[]>>
+    isToolbarToggled : boolean
+}
+
+
+
 //change to ToolbarAssets?
 
-export default function ToolbarTextEditor({isToolbarToggled}:ToolbarTextProps) {
+//work on adding a dashed box to the screen, it will be a button
 
-    const[imageComponents, setImageComponents] = useState<ImageComponent[]>([]);
+//how many image components allowed above phone at one time?
+//1 or 2?
 
 
-    function handleImageAbovePhone() : void {
-        //_assetManager.addImageBoxAbovePhone();
+
+export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents, imageComponents}: ToolbarTextProps) {
+
+    function addImageComponentAbovePhone() : void {
+
+        if (imageComponents.length >= 2) {
+            //disable the button
+            console.log("to many above image components");
+            return;
+        }
+
         const newImage = {
             id: Date.now(),
             position: "above",
             type: "image"
         }
 
+        console.log("adding component", newImage);
+
         setImageComponents([...imageComponents, newImage])
+        
     }
+
 
     /*
 {imageComponents.map(img => (
@@ -47,7 +66,7 @@ export default function ToolbarTextEditor({isToolbarToggled}:ToolbarTextProps) {
                     <h1 className="w-[100%] bg-red-200">Above Phone</h1>
                     <div className="buttonCont flex justify-between">
                         <button  className="text-md bg-purple-500 w-[33%] cursor-pointer"> Text</button>
-                        <button onClick={handleImageAbovePhone} className="text-md bg-purple-500 w-[33%] cursor-pointer"> Image</button>
+                        <button onClick={addImageComponentAbovePhone} className={imageComponents.length >= 2 ? `disabled` : `text-md bg-purple-500 w-[33%] cursor-pointer`}> Image</button>
                         <button  className="text-md bg-purple-500 w-[33%] cursor-pointer"> Text & Image</button>
                     </div>
 
