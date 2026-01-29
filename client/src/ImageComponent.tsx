@@ -21,6 +21,8 @@ export default function ImageComponent({_scene} : ImageComponentProps) {
         console.log("doing something");
         const input = e.target as HTMLInputElement;
         if(input.files && input.files[0]) {
+            //call assetManager
+
             const fileName = input.files[0];
             const url = URL.createObjectURL(fileName);
 
@@ -62,6 +64,7 @@ export default function ImageComponent({_scene} : ImageComponentProps) {
         }
     }
 
+    //call assetmanager down here?
     return (
         <>
         <div>

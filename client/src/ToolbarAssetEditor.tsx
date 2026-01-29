@@ -8,11 +8,13 @@ interface ImageComponent{
     type: string
 }
 
-interface ToolbarTextProps {
+interface ToolbarAssetProps {
     imageComponents: ImageComponent[]
     setImageComponents : React.Dispatch<React.SetStateAction<ImageComponent[]>>
     isToolbarToggled : boolean
     _cameraManager : CameraManager
+    activeListItems: {id:string, name:string}[]
+    setActiveListItems: React.Dispatch<React.SetStateAction<{ id: string; name: string; }[]>>
 }
 
 
@@ -26,18 +28,15 @@ interface ToolbarTextProps {
 
 
 
-export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents, imageComponents, _cameraManager}: ToolbarTextProps) {
+export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents, imageComponents, _cameraManager, activeListItems, setActiveListItems}: ToolbarAssetProps) {
 
     function addImageComponentAbovePhone() : void {
 
-        const aboveCount = imageComponents.filter((item) => {
-            item.position === "above";
-        }).length
+        const aboveCount = imageComponents.filter(item => 
+            item.position === "above").length
 
-        if(aboveCount === 0) {
-            //push camera down once
-            _cameraManager.decreaseCameraHeightForAboveImage()
-        }
+        console.log(aboveCount);
+
 
         if (aboveCount >= 2) {
             //disable the button
@@ -45,6 +44,13 @@ export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents
             return;
         }
 
+        if(aboveCount === 0) {
+            //push camera down once
+            _cameraManager.decreaseCameraHeightForAboveImage()
+        }
+
+        //might have to change the IDS going to need to trsh imagecomponents
+        //actually might make them into a THREE.group, where to put the group though?
         const newImage = {
             id: Date.now(),
             position: "above",
@@ -53,7 +59,12 @@ export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents
 
         console.log("adding component", newImage);
 
-        setImageComponents([...imageComponents, newImage])
+        setImageComponents([...imageComponents, newImage]);
+        //console.log(imageComponents.length);
+
+        setActiveListItems([...activeListItems, {id: String(newImage.id), name:"Image Component"}])
+
+        //add activeListItem and set it like in lightCatalog
         
     }
 
@@ -77,7 +88,7 @@ export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents
                     <h1 className="w-[100%] bg-red-200">Above Phone</h1>
                     <div className="buttonCont flex justify-between">
                         <button  className="text-md bg-purple-500 w-[33%] cursor-pointer"> Text</button>
-                        <button onClick={addImageComponentAbovePhone} className={imageComponents.length >= 2 ? `disabled` : `text-md bg-purple-500 w-[33%] cursor-pointer`}> Image</button>
+                        <button onClick={addImageComponentAbovePhone} className={imageComponents.length >= 2 ? `disabled disabled:opactiy-75` : `text-md bg-purple-500 w-[33%] cursor-pointer`}> Image</button>
                         <button  className="text-md bg-purple-500 w-[33%] cursor-pointer"> Text & Image</button>
                     </div>
 
