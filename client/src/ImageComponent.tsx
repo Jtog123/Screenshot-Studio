@@ -7,15 +7,16 @@ import { AssetManager } from "./AssetManager";
 
 interface ImageComponentProps {
     _scene: THREE.Scene
+    _camera: THREE.PerspectiveCamera
     _assetManager : AssetManager
+
 
 }
 
 
 //Image Comopnent is going to have the image
-export default function ImageComponent({_scene, _assetManager} : ImageComponentProps) {
+export default function ImageComponent({_scene,_camera ,_assetManager} : ImageComponentProps) {
     const inputFileRef = useRef<HTMLInputElement>(null);
-
     const[isImageUploaded , setIsImageUploaded] = useState(false);
 
     function handleFileUpload(e : ChangeEvent<HTMLInputElement>) : void {
@@ -25,62 +26,31 @@ export default function ImageComponent({_scene, _assetManager} : ImageComponentP
         if(input.files && input.files[0]) {
             //call assetManager
             _assetManager.createImageComponentAbovePhone(input.files[0],
-                () => {
+                (sprite) => {
+                    //onSuccess triggers this callback
                     setIsImageUploaded(true);
                     console.log("image successfully uploaded");
+
+                    const imageHeight = sprite.scale.y;
+
+                     //move the camera down based on the size of the image
+                    _camera.position.y += imageHeight * 0.45;
+
+             
                 },
                 () => {
                     setIsImageUploaded(false);
                     console.log("image failed to uploaded");
                 }
-            )
+            );
+           
+
               
-                
-           // _assetManager.createImageComponentAbovePhone(input.files[0]);
-            
-
-            //const fileName = input.files[0];
-           // const url = URL.createObjectURL(fileName);
-
-            //const loader = new THREE.TextureLoader();
-            /*
-            loader.load(
-                url,
-                (texture) => {
-                    const material = new THREE.SpriteMaterial({map:texture});
-                    const sprite = new THREE.Sprite(material);
-                    sprite.scale.set(2, 2, 1);
-                    sprite.position.set(0, 2.5, 0);
-
-                    //adjust the camera
-
-                    //set isuploaded to true
-                    setIsImageUploaded(true);
-
-                    //add it to active liste elements
-                    
-                    //add to the scene
-                    _scene.add(sprite);
-
-                    
-                    
-
-                    URL.revokeObjectURL(url);
-                },
-                undefined,
-                (error) => {
-                    console.error("Failed to load texture", error);
-                    setIsImageUploaded(false);
-                }
-            )
-            */
-
-
         }
     }
 
-    //call assetmanager down here?
-    // abtract some of the above logic into the assetmaanger class
+
+
     return (
         <>
         <div>

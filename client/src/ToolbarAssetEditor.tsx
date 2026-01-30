@@ -32,23 +32,6 @@ export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents
 
     function addImageComponentAbovePhone() : void {
 
-        const aboveCount = imageComponents.filter(item => 
-            item.position === "above").length
-
-        console.log(aboveCount);
-
-
-        if (aboveCount >= 2) {
-            //disable the button
-            console.log("to many above image components");
-            return;
-        }
-
-        if(aboveCount === 0) {
-            //push camera down once
-            _cameraManager.decreaseCameraHeightForAboveImage()
-        }
-
         //might have to change the IDS going to need to trsh imagecomponents
         //actually might make them into a THREE.group, where to put the group though?
         const newImage = {
@@ -79,6 +62,8 @@ export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents
 ))}
     */
 
+    //actually want to use 
+
     return (
         <>
         <div className={isToolbarToggled ? `hidden`:`flex justify-center items-center w-[screen] h-[52.5%] bg-stone-950`}>
@@ -87,8 +72,11 @@ export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents
                 <div className="abovePhone justify-between mb-5">
                     <h1 className="w-[100%] bg-red-200">Above Phone</h1>
                     <div className="buttonCont flex justify-between">
+
                         <button  className="text-md bg-purple-500 w-[33%] cursor-pointer"> Text</button>
-                        <button onClick={addImageComponentAbovePhone} className={imageComponents.length >= 2 ? `disabled disabled:opactiy-75` : `text-md bg-purple-500 w-[33%] cursor-pointer`}> Image</button>
+
+                        <button disabled={imageComponents.length >= 1} onClick={addImageComponentAbovePhone} className={imageComponents.length >= 1 ? `disabled:bg-purple-300 disabled:w-[33%]` : `text-md bg-purple-600 w-[33%] cursor-pointer`}> Image</button>
+
                         <button  className="text-md bg-purple-500 w-[33%] cursor-pointer"> Text & Image</button>
                     </div>
 

@@ -16,17 +16,17 @@ class CameraManager {
 
     //We are going to create a temp canvas render it onto that then discard it after we have the screenshot
     /*
-When to create it:
-Inside captureImage() when you need it
-How it works:
+    When to create it:
+    Inside captureImage() when you need it
+    How it works:
 
-Create a new WebGLRenderer (this automatically creates a canvas internally)
-Set its size to screenshot dimensions (1242x2688)
-Copy all the settings from your main renderer (antialias, etc.)
-Render your scene to this new renderer (uses the off-screen canvas)
-Capture the image from this new renderer's canvas
-Dispose/destroy the temporary renderer and canvas
-Your main renderer/canvas never changes - user sees nothing
+    Create a new WebGLRenderer (this automatically creates a canvas internally)
+    Set its size to screenshot dimensions (1242x2688)
+    Copy all the settings from your main renderer (antialias, etc.)
+    Render your scene to this new renderer (uses the off-screen canvas)
+    Capture the image from this new renderer's canvas
+    Dispose/destroy the temporary renderer and canvas
+    Your main renderer/canvas never changes - user sees nothing
     */
 
     public captureImage() {
@@ -72,10 +72,12 @@ Your main renderer/canvas never changes - user sees nothing
 
     }
 
-
+    //nneds to reset the camera position when psrites are removed might have to move this out of thid class
+    /*
     public decreaseCameraHeightForAboveImage() : void {
         this._camera.position.y = this._camera.position.y + 0.5;
     }
+        */
 
     public increaseCameraHeight() :  boolean {
         console.log(this._camera.position.y)

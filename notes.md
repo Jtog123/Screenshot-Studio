@@ -139,6 +139,14 @@ Allow users to adjust camera in the Z direction to get closer/further from the p
 
 Allow users to add their apps logo to the scene THREE.Sprite() - QUEUED
 
+ImageComponent TO DO  - QUEUED
+    -   Be able to click the image and select component
+    -   Be able to scale the image component, with GUI?
+    -   Be able to reposition image component, with GUI?
+    -   needs the raycaster
+
+
+
 
 
 

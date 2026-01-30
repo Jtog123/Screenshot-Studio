@@ -75,7 +75,7 @@ export default function App() {
     const _cameraManager = new CameraManager(_scene, _camera ,_renderer);
     setCameraManager(_cameraManager);
 
-    const _assetManager = new AssetManager(_scene);
+    const _assetManager = new AssetManager(_scene, _raycaster, _renderer, _camera);
     setAssetManager(_assetManager);
 
 
@@ -84,10 +84,13 @@ export default function App() {
     //Add the light group
     _scene.add(_lightManager._lightGroup);
 
+    //add the imagecomponentgroup
+    _scene.add(_assetManager._ImageComponentGroup);
+
     //raycaster
     _renderer.domElement.addEventListener("mousedown", (evt: MouseEvent) => {
       _lightManager.selectLight(evt);
-    //manager.selectLight(evt);
+      _assetManager.selectComponent(evt);
     });
 
     //Load the Model
@@ -124,8 +127,8 @@ export default function App() {
 
       {scene && lightManager && cameraManager && phone && <Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents} />} 
 
-      {scene && assetManager && imageComponents.map((item) => {
-        return <ImageComponent key={item.id} _scene={scene} _assetManager={assetManager}/>
+      {scene && assetManager && camera && imageComponents.map((item) => {
+        return <ImageComponent key={item.id} _scene={scene} _camera={camera} _assetManager={assetManager}/>
       })}
 
 
