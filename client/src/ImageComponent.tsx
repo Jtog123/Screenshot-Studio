@@ -3,15 +3,17 @@ import { error } from "console";
 import { ChangeEvent, useRef, useState } from "react"
 import * as THREE from 'three'
 import { CameraManager } from "./CameraManager";
+import { AssetManager } from "./AssetManager";
 
 interface ImageComponentProps {
     _scene: THREE.Scene
+    _assetManager : AssetManager
 
 }
 
 
 //Image Comopnent is going to have the image
-export default function ImageComponent({_scene} : ImageComponentProps) {
+export default function ImageComponent({_scene, _assetManager} : ImageComponentProps) {
     const inputFileRef = useRef<HTMLInputElement>(null);
 
     const[isImageUploaded , setIsImageUploaded] = useState(false);
@@ -22,11 +24,26 @@ export default function ImageComponent({_scene} : ImageComponentProps) {
         const input = e.target as HTMLInputElement;
         if(input.files && input.files[0]) {
             //call assetManager
+            _assetManager.createImageComponentAbovePhone(input.files[0],
+                () => {
+                    setIsImageUploaded(true);
+                    console.log("image successfully uploaded");
+                },
+                () => {
+                    setIsImageUploaded(false);
+                    console.log("image failed to uploaded");
+                }
+            )
+              
+                
+           // _assetManager.createImageComponentAbovePhone(input.files[0]);
+            
 
-            const fileName = input.files[0];
-            const url = URL.createObjectURL(fileName);
+            //const fileName = input.files[0];
+           // const url = URL.createObjectURL(fileName);
 
-            const loader = new THREE.TextureLoader();
+            //const loader = new THREE.TextureLoader();
+            /*
             loader.load(
                 url,
                 (texture) => {
@@ -56,15 +73,14 @@ export default function ImageComponent({_scene} : ImageComponentProps) {
                     setIsImageUploaded(false);
                 }
             )
-
-
-
+            */
 
 
         }
     }
 
     //call assetmanager down here?
+    // abtract some of the above logic into the assetmaanger class
     return (
         <>
         <div>

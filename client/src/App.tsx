@@ -124,8 +124,8 @@ export default function App() {
 
       {scene && lightManager && cameraManager && phone && <Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents} />} 
 
-      {scene && cameraManager && imageComponents.map((item) => {
-        return <ImageComponent key={item.id} _scene={scene}/>
+      {scene && assetManager && imageComponents.map((item) => {
+        return <ImageComponent key={item.id} _scene={scene} _assetManager={assetManager}/>
       })}
 
 
