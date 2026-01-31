@@ -3,15 +3,17 @@ import * as THREE from 'three'
 
 class AssetManager {
 
-    private _imageComponentsMap: Map<string, THREE.Sprite> = new Map();
+    private _assetsMap: Map<string, THREE.Sprite | THREE.Mesh> = new Map();
+    public _assetGroup: THREE.Group = new THREE.Group();
 
     public _image : THREE.Sprite | null = null;
-    public _ImageComponentGroup: THREE.Group = new THREE.Group();
+    
     public _scene : THREE.Scene;
     public _raycaster : THREE.Raycaster;
     public _renderer : THREE.WebGLRenderer
     public _camera : THREE.PerspectiveCamera
     public _selectedComponentID! : string
+    private _eventListeners : Map<string, Function[]> = new Map();
 
 
     constructor(scene: THREE.Scene, raycaster: THREE.Raycaster, renderer : THREE.WebGLRenderer, camera: THREE.PerspectiveCamera) {
@@ -19,6 +21,23 @@ class AssetManager {
         this._raycaster = raycaster;
         this._renderer = renderer;
         this._camera = camera;
+    }
+
+    public addEventListener(event: string, callback:Function) : void {
+        //if we dont hve this event add it at the event key
+        if(!this._eventListeners.has(event)) {
+            this._eventListeners.set(event, [])
+        }
+        //else we already have the event push the function to execute
+        this._eventListeners.get(event)!.push(callback)
+    }
+
+    private emit(event: string, data: any) : void {
+        const listeners = this._eventListeners.get(event);
+        if(listeners) {
+            listeners.forEach((callback) => callback(data));
+        }
+
     }
 
     public createImageComponentAbovePhone(file : File, onSuccess: (sprite:THREE.Sprite) => void, onError: () => void) : void{
@@ -33,20 +52,20 @@ class AssetManager {
             (texture) => {
                 const material = new THREE.SpriteMaterial({map:texture});
                 const sprite = new THREE.Sprite(material);
-                sprite.name = "abovePhoneSprite1";
+                sprite.name = `above_image_${Date.now()}`
                 sprite.scale.set(1, 1, 1);
                 sprite.position.set(0, 2.25, 1);
 
                 const componentID = sprite.name;
 
                 //set the map for later retrieval
-                this._imageComponentsMap.set(componentID, sprite);
+                this._assetsMap.set(componentID, sprite);
 
                 //add it to active liste elements
                     
                 //add to the scene
-                this._scene.add(sprite);
-                this._ImageComponentGroup.add(sprite);
+                //this._scene.add(sprite);
+                this._assetGroup.add(sprite);
                 URL.revokeObjectURL(url);
                 onSuccess(sprite);
             },
@@ -69,7 +88,7 @@ class AssetManager {
         ); 
 
         this._raycaster.setFromCamera(coords, this._camera);
-        const intersections = this._raycaster.intersectObjects(this._ImageComponentGroup.children, true);
+        const intersections = this._raycaster.intersectObjects(this._assetGroup.children, true);
 
         if(intersections.length > 0) {
             const selectedObject = intersections[0].object;
@@ -83,7 +102,7 @@ class AssetManager {
             });
 
             const currentComponent = allAncestors.find(ancestor =>
-                ancestor.name.startsWith("abovePhoneSprite1")
+                ancestor.name.startsWith("above_")
             )
 
             //console.log(allAncestors);
@@ -112,12 +131,23 @@ class AssetManager {
     }
 
     public selectComponentByID(componentID : string) : void {
-        const selectedComponentID = this._imageComponentsMap.get(componentID);
-
+        const selectedComponentID = this._assetsMap.get(componentID);
         this._selectedComponentID = componentID;
-
         console.log("gite em", selectedComponentID);
 
+        const component = this.getComponent(componentID);
+
+        if(!component) return;
+
+        this.emit("componentSelected", {
+            id: componentID,
+            name: component.name
+        })
+
+    }
+
+    public getComponent(componentID : string) : THREE.Sprite | THREE.Mesh | undefined {
+        return this._assetsMap.get(componentID);
     }
 
 

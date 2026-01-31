@@ -13,9 +13,8 @@ interface ImageComponentProps {
 
 }
 
-
 //Image Comopnent is going to have the image
-export default function ImageComponent({_scene,_camera ,_assetManager} : ImageComponentProps) {
+export default function ImageComponent({_scene, _camera ,_assetManager} : ImageComponentProps) {
     const inputFileRef = useRef<HTMLInputElement>(null);
     const[isImageUploaded , setIsImageUploaded] = useState(false);
 
@@ -36,7 +35,6 @@ export default function ImageComponent({_scene,_camera ,_assetManager} : ImageCo
                      //move the camera down based on the size of the image
                     _camera.position.y += imageHeight * 0.45;
 
-             
                 },
                 () => {
                     setIsImageUploaded(false);
@@ -48,7 +46,6 @@ export default function ImageComponent({_scene,_camera ,_assetManager} : ImageCo
               
         }
     }
-
 
 
     return (

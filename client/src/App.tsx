@@ -85,7 +85,7 @@ export default function App() {
     _scene.add(_lightManager._lightGroup);
 
     //add the imagecomponentgroup
-    _scene.add(_assetManager._ImageComponentGroup);
+    _scene.add(_assetManager._assetGroup);
 
     //raycaster
     _renderer.domElement.addEventListener("mousedown", (evt: MouseEvent) => {
@@ -125,7 +125,7 @@ export default function App() {
       {phone && cameraManager &&<PhoneGUI phoneModel={phone} _cameraManager={cameraManager}/>}
 
 
-      {scene && lightManager && cameraManager && phone && <Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents} />} 
+      {scene && lightManager && cameraManager && phone && assetManager && <Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents} _assetManager={assetManager} />} 
 
       {scene && assetManager && camera && imageComponents.map((item) => {
         return <ImageComponent key={item.id} _scene={scene} _camera={camera} _assetManager={assetManager}/>

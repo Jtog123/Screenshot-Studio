@@ -15,6 +15,11 @@ import RectAreaLightGUI from './RectLightGUI'
 import ToolbarCameraCatalog from './ToolbarCameraCatalog'
 import ToolbarAssetEditor from './ToolbarAssetEditor'
 import { CameraManager } from './CameraManager'
+import { AssetManager } from './AssetManager'
+
+
+
+
 
 interface ImageComponent{
     id: number,
@@ -29,6 +34,7 @@ interface ToolbarProps {
     _cameraManager : CameraManager;
     _imageComponents : ImageComponent[];
     _setImageComponents : React.Dispatch<React.SetStateAction<ImageComponent[]>>
+    _assetManager : AssetManager
 
 }
 
@@ -36,15 +42,16 @@ interface ToolbarProps {
 
 
 
-export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManager, _imageComponents, _setImageComponents} : ToolbarProps) {
+export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManager, _imageComponents, _setImageComponents, _assetManager} : ToolbarProps) {
 
     
     const[selectedLight, setSelectedLight] = useState<{id: string, type: LightType} | null>(null);
+    const[selectedComponent, setSelectedComponent] = useState<{id: string} | null>(null);
     //const[toolbarClasses, setToolbarClasses] = useState<string>("fixed flex flex-col h-[100%] w-[25%] bg-blue-200 z-10 right-0");
     const[isToolbarToggled, setToolbarToggled] = useState(false);
     const[activeListItems, setActiveListItems] = useState<{id:string, name:string}[]>([]);
     const[activeTab, setActiveTab] = useState("Lights");
-    const[imageComponents, setImageComponents] = useState<ImageComponent[]>([]);
+
 
     function handleToggle() : void {
         setToolbarToggled(!isToolbarToggled);
@@ -65,10 +72,14 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
         _lightManager.addEventListener("lightDeselected", (data: {id: string}) => {
             setSelectedLight(null);
             //setGUIWindow(false);
+        });
+
+        _assetManager.addEventListener("componentSelected", (data: {id: string}) => {
+            setSelectedComponent({id: data.id })
         })
 
         
-    }, [_lightManager]);
+    }, [_lightManager, _assetManager]);
     
 
     /*

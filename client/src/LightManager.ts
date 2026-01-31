@@ -479,25 +479,7 @@ class LightManager {
         this.emit("lightDeselected", {id: lightID});
 
     }
-        
 
-    /*
-    
-    private listenForGUIClose(lightID : string) {
-        const gui = this._lightGuis.get(lightID);
-        
-        if(!gui) return;
-
-        gui?._closeButton.addEventListener("mousedown", (evt: Event) => {
-            this.deselectLight(lightID);
-
-            //clear the selection
-            this.clearLightSelection(lightID);
-        });
-
-
-    }
-        */
         
         
 
