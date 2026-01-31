@@ -1,9 +1,13 @@
 //Allow users to add their apps logo to the scene THREE.Sprite() - QUEUED
 import * as THREE from 'three'
+import { ComponentType, SceneComponent } from './SceneComponent';
+
+
 
 class AssetManager {
 
-    private _assetsMap: Map<string, THREE.Sprite | THREE.Mesh> = new Map();
+    private _assetsMap: Map<string, SceneComponent> = new Map();
+    //private _assetsMap: Map<string, THREE.Sprite | THREE.Mesh> = new Map();
     public _assetGroup: THREE.Group = new THREE.Group();
 
     public _image : THREE.Sprite | null = null;
@@ -12,7 +16,7 @@ class AssetManager {
     public _raycaster : THREE.Raycaster;
     public _renderer : THREE.WebGLRenderer
     public _camera : THREE.PerspectiveCamera
-    public _selectedComponentID! : string
+    public _selectedComponentID : string | null = null;
     private _eventListeners : Map<string, Function[]> = new Map();
 
 
@@ -50,24 +54,35 @@ class AssetManager {
         loader.load(
             url,
             (texture) => {
-                const material = new THREE.SpriteMaterial({map:texture});
-                const sprite = new THREE.Sprite(material);
-                sprite.name = `above_image_${Date.now()}`
-                sprite.scale.set(1, 1, 1);
-                sprite.position.set(0, 2.25, 1);
+                const imageComponent = new SceneComponent(ComponentType.Image);
+                imageComponent._material = new THREE.SpriteMaterial({map:texture});
+                imageComponent._underlyingComponent = new THREE.Sprite(imageComponent._material);
+                imageComponent._underlyingComponent.name = `above_image_${Date.now()}`;
 
-                const componentID = sprite.name;
+                imageComponent._underlyingComponent.scale.set(1,1,1);
+                imageComponent._underlyingComponent.position.set(0,2.25,1);
+
+                //const material = new THREE.SpriteMaterial({map:texture});
+                //const sprite = new THREE.Sprite(material);
+                //sprite.name = `above_image_${Date.now()}`
+                //sprite.scale.set(1, 1, 1);
+                //sprite.position.set(0, 2.25, 1);
+
+                //set the underlying component
+                //imageComponent._underLyingComponent = sprite;
+
+                const componentID = imageComponent._underlyingComponent.name;
 
                 //set the map for later retrieval
-                this._assetsMap.set(componentID, sprite);
+                this._assetsMap.set(componentID, imageComponent);
 
                 //add it to active liste elements
                     
                 //add to the scene
                 //this._scene.add(sprite);
-                this._assetGroup.add(sprite);
+                this._assetGroup.add(imageComponent._underlyingComponent);
                 URL.revokeObjectURL(url);
-                onSuccess(sprite);
+                onSuccess(imageComponent._underlyingComponent);
             },
             undefined,
             (error) => {
@@ -126,27 +141,53 @@ class AssetManager {
         }
     }
 
-    public deselectComponent(componentID : string) : void {
-
-    }
 
     public selectComponentByID(componentID : string) : void {
         const selectedComponentID = this._assetsMap.get(componentID);
         this._selectedComponentID = componentID;
         console.log("gite em", selectedComponentID);
 
-        const component = this.getComponent(componentID);
+        const component = this.getComponent(componentID); //gets a sprite
 
         if(!component) return;
 
+        //scale slightly and show opactiy to show selection
+        (component?._underlyingComponent as THREE.Sprite || THREE.Mesh).scale.multiplyScalar(1.1);
+        (component?._underlyingComponent as THREE.Sprite || THREE.Mesh).material.opacity = 0.7;
+
+        
+
         this.emit("componentSelected", {
             id: componentID,
-            name: component.name
+            name: component._underlyingComponent?.name
         })
 
     }
 
+
+    public deselectComponent(componentID : string) : void {
+        const component = this._assetsMap.get(componentID);
+
+        if(!component) return;
+
+        //makr some visual point
+        (component._underlyingComponent as THREE.Sprite || THREE.Mesh).scale.multiplyScalar(1/1.1);
+
+        (component._underlyingComponent as THREE.Sprite || THREE.Mesh).material.opacity = 1.0;
+
+        this._selectedComponentID = null;
+
+        this.emit("componentDeselected", {id:componentID})
+
+    }
+
+    /*
     public getComponent(componentID : string) : THREE.Sprite | THREE.Mesh | undefined {
+        return this._assetsMap.get(componentID);
+    }
+        */
+
+     public getComponent(componentID : string) : SceneComponent | undefined {
         return this._assetsMap.get(componentID);
     }
 

@@ -308,68 +308,7 @@ class LightManager {
 
     }
 
-    /*
-    private wireGUIToLight(lightID: string, gui: LightGUI, light:Light) : void {
-        const helper = this._lightHelpers.get(lightID);
-        //position
-        gui._xPosSlider.addEventListener("input", (evt: Event) => {
-            const value = Number(gui._xPosSlider.value);
-            light._light.position.setX(value);
-
-            if(helper instanceof _SpotLightHelper) {
-                helper.update();
-
-                if(this._selectedLightID === lightID) {
-                    this.setLightHelperColor(helper, 0xFF0000);
-                }
-            }
-        });
-
-        gui._yPosSlider.addEventListener("input", (evt: Event) => {
-            const value = Number(gui._yPosSlider.value);
-            light._light.position.setY(value);
-
-            if(helper instanceof _SpotLightHelper) {
-                helper.update();
-
-                if(this._selectedLightID === lightID) {
-                    this.setLightHelperColor(helper, 0xFF0000);
-                }
-            }
-        });
-
-        gui._zPosSlider.addEventListener("input", (evt: Event) => {
-            const value = Number(gui._zPosSlider.value);
-            light._light.position.setZ(-value);
-
-            if(helper instanceof _SpotLightHelper) {
-                helper.update();
-
-                if(this._selectedLightID === lightID) {
-                    this.setLightHelperColor(helper, 0xFF0000);
-                }
-            }
-        });
-
-        //Rotation
-        if(gui instanceof DirectionalLightGUI) {
-            gui._xRotationSlider.addEventListener("input", (evt: Event) => {
-                const value = Number(gui._xRotationSlider.value);
-                light._light.rotation.x = value;
-            });
-
-            gui._zRotationSlider.addEventListener("input", (evt: Event) => {
-            const value = Number(gui._zRotationSlider.value);
-            light._light.rotation.z = value;
-            });
-        }
-
-
-
-
-
-    }
-        */
+  
         
 
     public getLightList() : [string, Light][] {
