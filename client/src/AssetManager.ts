@@ -159,7 +159,8 @@ class AssetManager {
 
         this.emit("componentSelected", {
             id: componentID,
-            name: component._underlyingComponent?.name
+            name: component._underlyingComponent?.name,
+            type: component._componentType
         })
 
     }
@@ -170,9 +171,8 @@ class AssetManager {
 
         if(!component) return;
 
-        //makr some visual point
+        //makr some visual point, write a select function in sceneComponent class??
         (component._underlyingComponent as THREE.Sprite || THREE.Mesh).scale.multiplyScalar(1/1.1);
-
         (component._underlyingComponent as THREE.Sprite || THREE.Mesh).material.opacity = 1.0;
 
         this._selectedComponentID = null;

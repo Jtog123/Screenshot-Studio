@@ -16,6 +16,8 @@ import ToolbarCameraCatalog from './ToolbarCameraCatalog'
 import ToolbarAssetEditor from './ToolbarAssetEditor'
 import { CameraManager } from './CameraManager'
 import { AssetManager } from './AssetManager'
+import { ComponentType } from './SceneComponent'
+import ImageComponentGUI from './ImageComponentGUI'
 
 
 
@@ -41,7 +43,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
 
     
     const[selectedLight, setSelectedLight] = useState<{id: string, type: LightType} | null>(null);
-    const[selectedComponent, setSelectedComponent] = useState<{id: string} | null>(null);
+    const[selectedComponent, setSelectedComponent] = useState<{id: string, type: ComponentType} | null>(null);
     //const[toolbarClasses, setToolbarClasses] = useState<string>("fixed flex flex-col h-[100%] w-[25%] bg-blue-200 z-10 right-0");
     const[isToolbarToggled, setToolbarToggled] = useState(false);
     const[activeListItems, setActiveListItems] = useState<{id:string, name:string}[]>([]);
@@ -69,8 +71,8 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
             //setGUIWindow(false);
         });
 
-        _assetManager.addEventListener("componentSelected", (data: {id: string}) => {
-            setSelectedComponent({id: data.id })
+        _assetManager.addEventListener("componentSelected", (data: {id: string, type:ComponentType}) => {
+            setSelectedComponent({id: data.id, type:data.type})
         })
 
         
@@ -134,7 +136,11 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
             }
 
             {
-                
+                selectedComponent?.type === ComponentType.Image && (
+                    <ImageComponentGUI key={selectedComponent.id} _componentID={selectedComponent.id} _assetManager={_assetManager} />
+                )
+
+
             }
 
            
