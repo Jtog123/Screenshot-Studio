@@ -75,6 +75,10 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
             setSelectedComponent({id: data.id, type:data.type})
         })
 
+        _assetManager.addEventListener("componentDeselected", (data: {id: string, type:ComponentType}) => {
+            setSelectedComponent(null);
+        })
+
         
     }, [_lightManager, _assetManager]);
     

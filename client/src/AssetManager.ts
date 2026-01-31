@@ -152,8 +152,8 @@ class AssetManager {
         if(!component) return;
 
         //scale slightly and show opactiy to show selection
-        (component?._underlyingComponent as THREE.Sprite || THREE.Mesh).scale.multiplyScalar(1.1);
-        (component?._underlyingComponent as THREE.Sprite || THREE.Mesh).material.opacity = 0.7;
+        (component?._underlyingComponent as THREE.Sprite || THREE.Mesh).scale.multiplyScalar(1.2);
+        //(component?._underlyingComponent as THREE.Sprite || THREE.Mesh).material.opacity = 0.7;
 
         
 
@@ -172,8 +172,8 @@ class AssetManager {
         if(!component) return;
 
         //makr some visual point, write a select function in sceneComponent class??
-        (component._underlyingComponent as THREE.Sprite || THREE.Mesh).scale.multiplyScalar(1/1.1);
-        (component._underlyingComponent as THREE.Sprite || THREE.Mesh).material.opacity = 1.0;
+        (component._underlyingComponent as THREE.Sprite || THREE.Mesh).scale.multiplyScalar(1/1.2);
+        //(component._underlyingComponent as THREE.Sprite || THREE.Mesh).material.opacity = 1.0;
 
         this._selectedComponentID = null;
 

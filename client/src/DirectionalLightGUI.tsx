@@ -27,7 +27,7 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
         x: 0,
         y: 2,
         z: 0
-    })
+    });
 
     //on mounting recall past state
     useEffect(() => {
