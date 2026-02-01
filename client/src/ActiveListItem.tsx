@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { LightManager } from "./LightManager"
 import { AssetManager } from "./AssetManager";
+import * as THREE from 'three'
 
 interface ActiveListItemProps {
     itemName : string
@@ -9,6 +10,7 @@ interface ActiveListItemProps {
     setActiveListItems : React.Dispatch<React.SetStateAction<{ id: string; name: string; }[]>>
     lightManager : LightManager
     assetManager : AssetManager
+    camera : THREE.PerspectiveCamera
     
 }
 
@@ -18,62 +20,93 @@ Will have to add the assetmanager in here somehow and also combine the light log
 
 */
 
-export default function ActiveListItem({itemName, itemID, activeListItems, setActiveListItems, lightManager, assetManager}:ActiveListItemProps) {
+export default function ActiveListItem({itemName, itemID, activeListItems, setActiveListItems, lightManager, assetManager, camera}:ActiveListItemProps) {
 
     const[isItemVisible, setItemVisibility] = useState(true);
-    const[clickedItem, setClickedItem] = useState(null);
-
 
 
     //NOT WORKING YET, WANt to select an item by clcking on the listItem
     function handleListItemSelection() : void {
-        //how do we check?
-        console.log("id:" ,itemID);
+
 
         if(itemID.startsWith("above_") || itemID.startsWith("below_")) {
-            console.log("now selecting component");
-            //we have an _directional light call lightManager
+            const component = assetManager.getComponent(itemID);
+
+            //if the component not visible bail out
+            if(! component?._underlyingComponent?.visible) {
+                return;
+            }
+
             if(assetManager._selectedComponentID !== null) {
                 assetManager.deselectComponent(assetManager._selectedComponentID);
             }
             assetManager.selectComponentByID(itemID);
 
         } else {
+            const light = lightManager.getLight(itemID);
+
+            if(!light?._light.visible) {
+                return;
+            }
+
             if(lightManager._selectedLightID !== null) {
                 console.log("light is already selected");
                 //deselect the current selection
                 lightManager.deselectLight(lightManager._selectedLightID as string);
-                //lightManager.selectLightByID(itemID);
             }
+
             lightManager.selectLightByID(itemID);
         }
 
-
-
-
-        //console.log(itemID);
-        //const item = lightManager.selectLightByID(itemID);
     }
 
     function toggleItemVisibility(e: React.MouseEvent) : void {
         e.stopPropagation();
         setItemVisibility(!isItemVisible);
-        //hjave the lightmanager hide it
-        lightManager.toggleVisibility(itemID);
+
+        if(itemID.startsWith("above_") || itemID.startsWith("below_")) {
+            assetManager.toggleVisibility(itemID);
+        } else {
+            //we have lights
+            lightManager.toggleVisibility(itemID);
+        }
+        
 
     }
 
-    function handleItemDeletion(e: React.MouseEvent) : void {
-        if(lightManager._selectedLightID !== null) {
-            lightManager.deselectLight(lightManager._selectedLightID);
+    //if a light Is NOT visible we should be be able to open its gui
+
+    //need to move the camera back up or down
+
+    function handleItemDeletion(e: React.MouseEvent): void {
+        e.stopPropagation();  // Stop propagation first
+        
+        if (itemID.startsWith("above_") || itemID.startsWith("below_")) {
+
+            //move the camera back up or down
+            const tempComponent = assetManager.getComponent(itemID);
+            const imageHeight = tempComponent?._underlyingComponent?.scale.y;
+
+            if(itemID.startsWith("above") && imageHeight) {
+                camera.position.y -= imageHeight * 0.45;
+            } else if(itemID.startsWith("below") && imageHeight) {
+                camera.position.y += imageHeight * 0.45;
+            }
+
+            if (assetManager._selectedComponentID === itemID) {
+                assetManager.deselectComponent(itemID);
+            }
+            assetManager.removeComponent(itemID);
+        } else {
+            // Handle light deletion
+            if (lightManager._selectedLightID === itemID) {
+                lightManager.deselectLight(itemID);
+            }
+            lightManager.removeLight(itemID);
         }
-        e.stopPropagation();
-        //remove it from the light manager
-        lightManager.removeLight(itemID);
-        //update teh state
+        
         const newList = activeListItems.filter((item) => item.id !== itemID);
         setActiveListItems(newList);
-
     }
 
     return (

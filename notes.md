@@ -146,6 +146,11 @@ ImageComponent TO DO  - QUEUED
     -   needs the raycaster
 
 
+If a light Is NOT visible we should be be able to open its gui
+
+Alot of the above and below phone logic is not needed users can just move the camera as they see fit
+and then position their assets
+
 
 
 

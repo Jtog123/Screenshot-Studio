@@ -217,6 +217,48 @@ class AssetManager {
         return this._assetsMap.get(componentID);
     }
 
+    public toggleVisibility(componentID : string) : void {
+        const component = this._assetsMap.get(componentID) as SceneComponent;
+
+        if(component) {
+            component._isVisible = !component?._isVisible;
+        }
+
+        if(component?._isVisible) {
+            (component._underlyingComponent as THREE.Sprite || THREE.Mesh).visible = true;
+        } else {
+            (component._underlyingComponent as THREE.Sprite || THREE.Mesh).visible = false;
+            this.deselectComponent(componentID);
+        }
+    }
+
+    public clearComponentSelection(componentID : string) : void {
+        if(this._selectedComponentID === componentID) {
+            this._selectedComponentID = null;
+        }
+    }
+
+    public removeComponent(componentID : string) : void {
+        const component = this._assetsMap.get(componentID);
+
+        if(!component) return;
+
+        //remove it from the group
+        this._assetGroup.remove(component._underlyingComponent as THREE.Sprite || THREE.Mesh);
+
+        //rempve from scene
+        let deleteComponent = this.getComponent(componentID);
+        if(!deleteComponent) return;
+        
+        this._scene.remove(deleteComponent._underlyingComponent as THREE.Sprite || THREE.Mesh);
+
+        this.clearComponentSelection(componentID);
+
+        this.emit("componentDeleted", {id: componentID});
+
+
+    }
+
 
 
 }
