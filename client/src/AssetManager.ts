@@ -58,28 +58,19 @@ class AssetManager {
                 imageComponent._material = new THREE.SpriteMaterial({map:texture});
                 imageComponent._underlyingComponent = new THREE.Sprite(imageComponent._material);
                 imageComponent._underlyingComponent.name = `above_image_${Date.now()}`;
+                
 
                 imageComponent._underlyingComponent.scale.set(1,1,1);
                 imageComponent._underlyingComponent.position.set(0,2.25,1);
 
-                //const material = new THREE.SpriteMaterial({map:texture});
-                //const sprite = new THREE.Sprite(material);
-                //sprite.name = `above_image_${Date.now()}`
-                //sprite.scale.set(1, 1, 1);
-                //sprite.position.set(0, 2.25, 1);
-
-                //set the underlying component
-                //imageComponent._underLyingComponent = sprite;
 
                 const componentID = imageComponent._underlyingComponent.name;
+
+                console.log("setting with", componentID);
 
                 //set the map for later retrieval
                 this._assetsMap.set(componentID, imageComponent);
 
-                //add it to active liste elements
-                    
-                //add to the scene
-                //this._scene.add(sprite);
                 this._assetGroup.add(imageComponent._underlyingComponent);
                 URL.revokeObjectURL(url);
                 onSuccess(imageComponent._underlyingComponent);
@@ -144,7 +135,9 @@ class AssetManager {
 
     public selectComponentByID(componentID : string) : void {
         const selectedComponentID = this._assetsMap.get(componentID);
+
         this._selectedComponentID = componentID;
+
         console.log("gite em", selectedComponentID);
 
         const component = this.getComponent(componentID); //gets a sprite

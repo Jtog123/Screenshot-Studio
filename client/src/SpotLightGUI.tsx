@@ -37,12 +37,12 @@ export default function SpotLightGUI({_lightID, _lightManager} : SpotLightGUIPro
 
        // const lightColor = light?._lightColor;
         const hexString = "#" + String(light?._light.color.getHexString());
-        console.log(hexString);
+       // console.log(hexString);
         setLightColor(hexString);
 
         const lightDiameter = (light?._light as THREE.SpotLight).angle;
         setLightDiameter(lightDiameter);
-        console.log(lightDiameter);
+        //console.log(lightDiameter);
 
 
 
@@ -116,7 +116,7 @@ export default function SpotLightGUI({_lightID, _lightManager} : SpotLightGUIPro
 
 
     function handleLightIntensityChange(e : React.ChangeEvent<HTMLInputElement>) : void {
-        console.log(e.target.value);
+       // console.log(e.target.value);
         
         if(light) {
             //Set threejs
@@ -132,7 +132,7 @@ export default function SpotLightGUI({_lightID, _lightManager} : SpotLightGUIPro
     }
 
     function handleLightColorChange(e : React.ChangeEvent<HTMLInputElement>) : void {
-        console.log("color: ", e.target.value);
+        //console.log("color: ", e.target.value);
 
         let selectedColor = e.target.value;
         let selectedColorValue = selectedColor.replace("#", "0x");
@@ -148,7 +148,7 @@ export default function SpotLightGUI({_lightID, _lightManager} : SpotLightGUIPro
     }
 
     function handleLightDiameterChange(e : React.ChangeEvent<HTMLInputElement>) : void {
-        console.log(e.target.value)
+        //console.log(e.target.value)
         // have no internal class way to set this, so prabably wont work
         if(light) {
             //change in threejs

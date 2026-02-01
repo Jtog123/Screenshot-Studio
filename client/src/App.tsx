@@ -13,7 +13,7 @@ import { AssetManager } from "./AssetManager.js";
 
 
 interface ImageComponent{
-    id: number,
+    id: string,
     position: string,
     type: string
 }
@@ -38,6 +38,7 @@ export default function App() {
   const [cameraManager, setCameraManager] = useState<CameraManager | null>(null);
   const [isPhoneLoading, setIsPhoneLoading] = useState(true);
   const [imageComponents, setImageComponents] = useState<ImageComponent[]>([]);
+  const [activeListItems, setActiveListItems] = useState<{id:string, name:string}[]>([]);
   
   
   
@@ -125,10 +126,10 @@ export default function App() {
       {phone && cameraManager &&<PhoneGUI phoneModel={phone} _cameraManager={cameraManager}/>}
 
 
-      {scene && lightManager && cameraManager && phone && assetManager && <Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents} _assetManager={assetManager} />} 
+      {scene && lightManager && cameraManager && phone && assetManager && <Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents} _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems} />} 
 
       {scene && assetManager && camera && imageComponents.map((item) => {
-        return <ImageComponent key={item.id} _scene={scene} _camera={camera} _assetManager={assetManager}/>
+        return <ImageComponent key={item.id} _scene={scene} _camera={camera} _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems}/>
       })}
 
 

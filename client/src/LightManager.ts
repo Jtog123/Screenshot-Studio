@@ -336,7 +336,7 @@ class LightManager {
                 allAncestors.push(parent);
             });
 
-            console.log(allAncestors);
+            //console.log(allAncestors);
 
 
             //find the hlper in the list of ancestors
@@ -425,7 +425,7 @@ class LightManager {
     public setLightHelperColor(lightHelper : _DirectionalLightHelper | _SpotLightHelper | _PointLightHelper | _RectAreaLightHelper , colorValue: number) : void {
         const color = new THREE.Color(colorValue);
 
-        console.log("setting the color");
+        //console.log("setting the color");
 
         lightHelper.traverse((child) => {
             if(child instanceof THREE.Line || child instanceof THREE.LineSegments) {

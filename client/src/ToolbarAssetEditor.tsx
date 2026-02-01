@@ -3,7 +3,7 @@ import ImageComponent from "./ImageComponent"
 import { CameraManager } from "./CameraManager"
 
 interface ImageComponent{
-    id: number,
+    id: string,
     position: string,
     type: string
 }
@@ -12,9 +12,6 @@ interface ToolbarAssetProps {
     imageComponents: ImageComponent[]
     setImageComponents : React.Dispatch<React.SetStateAction<ImageComponent[]>>
     isToolbarToggled : boolean
-    _cameraManager : CameraManager
-    activeListItems: {id:string, name:string}[]
-    setActiveListItems: React.Dispatch<React.SetStateAction<{ id: string; name: string; }[]>>
 }
 
 
@@ -28,14 +25,13 @@ interface ToolbarAssetProps {
 
 
 
-export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents, imageComponents, _cameraManager, activeListItems, setActiveListItems}: ToolbarAssetProps) {
+export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents, imageComponents}: ToolbarAssetProps) {
 
     function addImageComponentAbovePhone() : void {
 
-        //might have to change the IDS going to need to trsh imagecomponents
-        //actually might make them into a THREE.group, where to put the group though?
+        //temp id for react key
         const newImage = {
-            id: Date.now(),
+            id: `temp_${Date.now()}`,
             position: "above",
             type: "image"
         }
@@ -45,7 +41,7 @@ export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents
         setImageComponents([...imageComponents, newImage]);
         //console.log(imageComponents.length);
 
-        setActiveListItems([...activeListItems, {id: String(newImage.id), name:"Image Component"}])
+        //setActiveListItems([...activeListItems, {id: String(newImage.id), name:"Image Component"}]);
 
         //add activeListItem and set it like in lightCatalog
         

@@ -9,12 +9,14 @@ interface ImageComponentProps {
     _scene: THREE.Scene
     _camera: THREE.PerspectiveCamera
     _assetManager : AssetManager
+    activeListItems: {id:string, name:string}[]
+    setActiveListItems: React.Dispatch<React.SetStateAction<{ id: string; name: string; }[]>>
 
 
 }
 
 //Image Comopnent is going to have the image
-export default function ImageComponent({_scene, _camera ,_assetManager} : ImageComponentProps) {
+export default function ImageComponent({_scene, _camera ,_assetManager, activeListItems, setActiveListItems} : ImageComponentProps) {
     const inputFileRef = useRef<HTMLInputElement>(null);
     const[isImageUploaded , setIsImageUploaded] = useState(false);
 
@@ -34,6 +36,8 @@ export default function ImageComponent({_scene, _camera ,_assetManager} : ImageC
 
                      //move the camera down based on the size of the image
                     _camera.position.y += imageHeight * 0.45;
+
+                    setActiveListItems([...activeListItems, {id: sprite.name, name:"Image Component"}]);
 
                 },
                 () => {

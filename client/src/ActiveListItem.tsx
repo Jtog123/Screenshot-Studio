@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { LightManager } from "./LightManager"
+import { AssetManager } from "./AssetManager";
 
 interface ActiveListItemProps {
     itemName : string
@@ -7,19 +8,17 @@ interface ActiveListItemProps {
     activeListItems : {id:string, name:string}[]
     setActiveListItems : React.Dispatch<React.SetStateAction<{ id: string; name: string; }[]>>
     lightManager : LightManager
+    assetManager : AssetManager
+    
 }
 
 /*
-Key distinction we are toggling threejs meshes, not DOM components
-these visibility function are in the lightmanager class
-
-on toggling visiblity
-
+Will have to add the assetmanager in here somehow and also combine the light logic with other component logic
 
 
 */
 
-export default function ActiveListItem({itemName, itemID, activeListItems, setActiveListItems, lightManager}:ActiveListItemProps) {
+export default function ActiveListItem({itemName, itemID, activeListItems, setActiveListItems, lightManager, assetManager}:ActiveListItemProps) {
 
     const[isItemVisible, setItemVisibility] = useState(true);
     const[clickedItem, setClickedItem] = useState(null);
@@ -28,18 +27,30 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
 
     //NOT WORKING YET, WANt to select an item by clcking on the listItem
     function handleListItemSelection() : void {
-        // if selectedLightID != null
-        // deselect the light
-        // select the new light
-        // else just select the light
+        //how do we check?
+        console.log("id:" ,itemID);
 
-        if(lightManager._selectedLightID !== null) {
-            console.log("light is already selected")
-            //deselect the current selection
-            lightManager.deselectLight(lightManager._selectedLightID as string);
-            //lightManager.selectLightByID(itemID);
+        if(itemID.startsWith("above_") || itemID.startsWith("below_")) {
+            console.log("now selecting component");
+            //we have an _directional light call lightManager
+            if(assetManager._selectedComponentID !== null) {
+                assetManager.deselectComponent(assetManager._selectedComponentID);
+            }
+            assetManager.selectComponentByID(itemID);
+
+        } else {
+            if(lightManager._selectedLightID !== null) {
+                console.log("light is already selected");
+                //deselect the current selection
+                lightManager.deselectLight(lightManager._selectedLightID as string);
+                //lightManager.selectLightByID(itemID);
+            }
+            lightManager.selectLightByID(itemID);
         }
-        lightManager.selectLightByID(itemID);
+
+
+
+
         //console.log(itemID);
         //const item = lightManager.selectLightByID(itemID);
     }

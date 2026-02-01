@@ -22,7 +22,7 @@ import ImageComponentGUI from './ImageComponentGUI'
 
 
 interface ImageComponent{
-    id: number,
+    id: string,
     position: string,
     type: string
 }
@@ -35,18 +35,20 @@ interface ToolbarProps {
     _imageComponents : ImageComponent[];
     _setImageComponents : React.Dispatch<React.SetStateAction<ImageComponent[]>>
     _assetManager : AssetManager
+    activeListItems : {id:string, name:string}[]
+    setActiveListItems : React.Dispatch<React.SetStateAction<{ id: string; name: string; }[]>>
 
 }
 
 
-export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManager, _imageComponents, _setImageComponents, _assetManager} : ToolbarProps) {
+export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManager, _imageComponents, _setImageComponents,      _assetManager,activeListItems, setActiveListItems} : ToolbarProps) {
 
     
     const[selectedLight, setSelectedLight] = useState<{id: string, type: LightType} | null>(null);
     const[selectedComponent, setSelectedComponent] = useState<{id: string, type: ComponentType} | null>(null);
     //const[toolbarClasses, setToolbarClasses] = useState<string>("fixed flex flex-col h-[100%] w-[25%] bg-blue-200 z-10 right-0");
     const[isToolbarToggled, setToolbarToggled] = useState(false);
-    const[activeListItems, setActiveListItems] = useState<{id:string, name:string}[]>([]);
+    //const[activeListItems, setActiveListItems] = useState<{id:string, name:string}[]>([]);
     const[activeTab, setActiveTab] = useState("Lights");
 
 
@@ -106,7 +108,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                             <ToolbarBackgroundColor isToolbarToggled={isToolbarToggled}  scene={_scene}/> 
                             <ToolBarPanelTab isToolbarToggled={isToolbarToggled} activeTab={activeTab} handleTabChange={handleTabChange} />
                             <ToolbarLightCatalog activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} scene={_scene} lightManager={_lightManager}/>
-                            <ToolbarActiveComponents activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} lightManager={_lightManager} />
+                            <ToolbarActiveComponents activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} lightManager={_lightManager} assetManager={_assetManager} />
 
                             {/*Toolbar Panel Selector*/}
                         </div>
@@ -117,8 +119,8 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                             <ToolBarPanelTab isToolbarToggled={isToolbarToggled} activeTab={activeTab} handleTabChange={handleTabChange} />
                             {activeTab === "Lights" && <ToolbarLightCatalog  activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled}  scene={_scene} lightManager={_lightManager}/>}
                             {activeTab === "Camera" && <ToolbarCameraCatalog isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} _phoneModel={_phoneModel}/>}
-                            {activeTab === "Text" && <ToolbarAssetEditor imageComponents={_imageComponents} setImageComponents={_setImageComponents} isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems} />}
-                            <ToolbarActiveComponents activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} lightManager={_lightManager}  />
+                            {activeTab === "Text" && <ToolbarAssetEditor imageComponents={_imageComponents} setImageComponents={_setImageComponents} isToolbarToggled={isToolbarToggled} />}
+                            <ToolbarActiveComponents activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} lightManager={_lightManager} assetManager={_assetManager}  />
 
                             {/*Toolbar Panel Selector*/}
                         </div>
