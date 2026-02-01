@@ -1,6 +1,7 @@
 //Allow users to add their apps logo to the scene THREE.Sprite() - QUEUED
 import * as THREE from 'three'
 import { ComponentType, SceneComponent } from './SceneComponent';
+import { SceneNode } from 'three/webgpu';
 
 
 
@@ -85,6 +86,38 @@ class AssetManager {
             }
         );
 
+    }
+
+    public createImageComponentBelowPhone(file : File, onSuccess: (sprite:THREE.Sprite) => void, onError: () => void) : void {
+        const url = URL.createObjectURL(file);
+        const loader = new THREE.TextureLoader();
+
+        loader.load(
+            url,
+            (texture) => {
+                const imageComponent = new SceneComponent(ComponentType.Image);
+                imageComponent._material = new THREE.SpriteMaterial({map:texture});
+                imageComponent._underlyingComponent = new THREE.Sprite(imageComponent._material);
+                imageComponent._underlyingComponent.name = `below_image_${Date.now()}`;
+
+                imageComponent._underlyingComponent.scale.set(1,1,1);
+                imageComponent._underlyingComponent.position.set(0,-2.25,1);
+
+                const componentID = imageComponent._underlyingComponent.name;
+
+                this._assetsMap.set(componentID, imageComponent);
+
+                this._assetGroup.add(imageComponent._underlyingComponent);
+                URL.revokeObjectURL(url);
+                onSuccess(imageComponent._underlyingComponent);
+
+            },
+            undefined,
+            (error) => {
+                console.error("Failed to load texture", error);
+                onError();
+            }
+        )
     }
 
     public selectComponent(evt: MouseEvent): void {

@@ -6,6 +6,7 @@ import { CameraManager } from "./CameraManager";
 import { AssetManager } from "./AssetManager";
 
 interface ImageComponentProps {
+    position : string
     _scene: THREE.Scene
     _camera: THREE.PerspectiveCamera
     _assetManager : AssetManager
@@ -15,39 +16,78 @@ interface ImageComponentProps {
 
 }
 
-//Image Comopnent is going to have the image
-export default function ImageComponent({_scene, _camera ,_assetManager, activeListItems, setActiveListItems} : ImageComponentProps) {
-    const inputFileRef = useRef<HTMLInputElement>(null);
-    const[isImageUploaded , setIsImageUploaded] = useState(false);
 
-    function handleFileUpload(e : ChangeEvent<HTMLInputElement>) : void {
+//to put image below phone
+//_assetManager.createImageComponentBelowPhone(input.files[0],
+/// _camera.position.y -= imageHeight * 0.45;
+
+
+//Image Comopnent is going to have the image
+export default function ImageComponent({position, _scene, _camera ,_assetManager, activeListItems, setActiveListItems} : ImageComponentProps) {
+    const inputFileRef = useRef<HTMLInputElement>(null);
+    const[isAboveImageUploaded , setIsAboveImageUploaded] = useState(false);
+    const[isBelowImageUploaded , setIsBelowImageUploaded] = useState(false);
+
+
+    function handleImageUpload(e : ChangeEvent<HTMLInputElement>) : void {
         //after submitting we print doing something
         console.log("doing something");
         const input = e.target as HTMLInputElement;
+        
         if(input.files && input.files[0]) {
-            //call assetManager
-            _assetManager.createImageComponentAbovePhone(input.files[0],
-                (sprite) => {
-                    //onSuccess triggers this callback
-                    setIsImageUploaded(true);
-                    console.log("image successfully uploaded");
+            console.log("uploading", input.files[0]);
 
-                    const imageHeight = sprite.scale.y;
+            if(position === "above") {
+                //call assetManager
+                _assetManager.createImageComponentAbovePhone(input.files[0],
+                    (sprite) => {
+                        //onSuccess triggers this callback
+                        setIsAboveImageUploaded(true);
 
-                     //move the camera down based on the size of the image
-                    _camera.position.y += imageHeight * 0.45;
+                        //can disable button, would have to write at app level than pass to toolbarasseteditor and here
+                        //setCanDisableAboveImageButton(true);
 
-                    setActiveListItems([...activeListItems, {id: sprite.name, name:"Image Component"}]);
+                        console.log("image successfully uploaded");
 
-                },
-                () => {
-                    setIsImageUploaded(false);
-                    console.log("image failed to uploaded");
-                }
-            );
-           
+                        const imageHeight = sprite.scale.y;
 
-              
+                        //move the camera down based on the size of the image
+                        _camera.position.y += imageHeight * 0.45;
+
+                        setActiveListItems([...activeListItems, {id: sprite.name, name:"Image Component"}]);
+
+                    },
+                    () => {
+                        setIsAboveImageUploaded(false);
+                        console.log("image failed to uploaded");
+                    }
+                );
+            } else {
+                _assetManager.createImageComponentBelowPhone(input.files[0],
+                    (sprite) => {
+                        //onSuccess triggers this callback
+                        setIsBelowImageUploaded(true);
+
+                        //can disable button, would have to write at app level than pass to toolbarasseteditor and here
+                        //setCanDisableBelowImageButton(true);
+
+                        console.log("image successfully uploaded");
+
+                        const imageHeight = sprite.scale.y;
+
+                        //move the camera down based on the size of the image
+                        _camera.position.y -= imageHeight * 0.45;
+
+                        setActiveListItems([...activeListItems, {id: sprite.name, name:"Image Component"}]);
+
+                    },
+                    () => {
+                        setIsBelowImageUploaded(false);
+                        console.log("image failed to uploaded");
+                    }
+                );
+            }
+
         }
     }
 
@@ -55,13 +95,33 @@ export default function ImageComponent({_scene, _camera ,_assetManager, activeLi
     return (
         <>
         <div>
-            <input ref={inputFileRef} type="file" accept="image/*" onChange={(e) => handleFileUpload(e)} className="hidden"/>
-                <button className={isImageUploaded ? `hidden` :`fixed top-20 left-1/2 transform px-2 -translate-x-1/2 -translate-y-1/2 w-[150px] h-[100px] bg-transparent border-2 border-dashed border-white text-white z-50 cursor-pointer`}
+            <input ref={inputFileRef} type="file" accept="image/*" onChange={(e) => handleImageUpload(e)} className="hidden"/>
+                {
+                    position === "above" ?  <button className={isAboveImageUploaded ? `hidden` :` ${`fixed left-1/2 transform px-2 -translate-x-1/2 -translate-y-1/2 w-[150px] h-[100px] bg-transparent border-2 border-dashed border-white text-white z-50 cursor-pointer`} top-20 `}
                     onClick={() => inputFileRef.current?.click()}>
                     + Add Image
-                </button>
+                    </button> : <button className={isBelowImageUploaded ? `hidden` :` ${`fixed left-1/2 transform px-2 -translate-x-1/2 -translate-y-1/2 w-[150px] h-[100px] bg-transparent border-2 border-dashed border-white text-white z-50 cursor-pointer`} bottom-10 `}
+                    onClick={() => inputFileRef.current?.click()}>
+                    + Add Image
+                    </button> 
+                }
+
         </div>
 
         </>
     )
 }
+
+
+/*
+if its below image we want to render the component bottom-20 
+imageComponents.map((item) => {
+    item.position === "above" ? <button className={isImageUploaded ? `hidden` :`fixed top-20 left-1/2 transform px-2 -translate-x-1/2 -translate-y-1/2 w-[150px] h-[100px] bg-transparent border-2 border-dashed border-white text-white z-50 cursor-pointer`}
+        onClick={() => inputFileRef.current?.click()}>
+         + Add Image
+         </button> : <button className={isImageUploaded ? `hidden` :`fixed bottom-20 left-1/2 transform px-2 -translate-x-1/2 -translate-y-1/2 w-[150px] h-[100px] bg-transparent border-2 border-dashed border-white text-white z-50 cursor-pointer`}
+        onClick={() => inputFileRef.current?.click()}>
+         + Add Image
+         </button> 
+})
+*/

@@ -39,12 +39,19 @@ export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents
         console.log("adding component", newImage);
 
         setImageComponents([...imageComponents, newImage]);
-        //console.log(imageComponents.length);
-
-        //setActiveListItems([...activeListItems, {id: String(newImage.id), name:"Image Component"}]);
-
-        //add activeListItem and set it like in lightCatalog
         
+    }
+
+    function addImageComponentBelowPhone() : void {
+        const newImage = {
+            id: `temp_${Date.now()}`,
+            position: "below",
+            type: "image"
+        }
+
+        console.log("adding component", newImage);
+
+        setImageComponents([...imageComponents, newImage]);
     }
 
 
@@ -60,6 +67,12 @@ export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents
 
     //actually want to use 
 
+    
+
+    //if the component added is position Above disable above button
+    //if its position below disalble below button
+    //plus only want to disable the button after the image has been loaded
+
     return (
         <>
         <div className={isToolbarToggled ? `hidden`:`flex justify-center items-center w-[screen] h-[52.5%] bg-stone-950`}>
@@ -71,7 +84,7 @@ export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents
 
                         <button  className="text-md bg-purple-500 w-[33%] cursor-pointer"> Text</button>
 
-                        <button disabled={imageComponents.length >= 1} onClick={addImageComponentAbovePhone} className={imageComponents.length >= 1 ? `disabled:bg-purple-300 disabled:w-[33%]` : `text-md bg-purple-600 w-[33%] cursor-pointer`}> Image</button>
+                        <button onClick={addImageComponentAbovePhone} className={`text-md bg-purple-600 w-[33%] cursor-pointer`}> Image</button>
 
                         <button  className="text-md bg-purple-500 w-[33%] cursor-pointer"> Text & Image</button>
                     </div>
@@ -82,7 +95,9 @@ export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents
                     <h1 className="w-[100%] bg-red-200">Below Phone</h1>
                     <div className="buttonCont flex justify-between">
                         <button  className="text-md bg-purple-500 w-[33%] cursor-pointer"> Text</button>
-                        <button  className="text-md bg-purple-500 w-[33%] cursor-pointer"> Image</button>
+
+                        <button onClick={addImageComponentBelowPhone}  className="text-md bg-purple-500 w-[33%] cursor-pointer"> Image</button>
+
                         <button  className="text-md bg-purple-500 w-[33%] cursor-pointer"> Text & Image</button>
                     </div>
 
