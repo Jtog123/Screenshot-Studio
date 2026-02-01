@@ -10,7 +10,7 @@ interface ActiveListItemProps {
     setActiveListItems : React.Dispatch<React.SetStateAction<{ id: string; name: string; }[]>>
     lightManager : LightManager
     assetManager : AssetManager
-    camera : THREE.PerspectiveCamera
+  
     
 }
 
@@ -20,7 +20,7 @@ Will have to add the assetmanager in here somehow and also combine the light log
 
 */
 
-export default function ActiveListItem({itemName, itemID, activeListItems, setActiveListItems, lightManager, assetManager, camera}:ActiveListItemProps) {
+export default function ActiveListItem({itemName, itemID, activeListItems, setActiveListItems, lightManager, assetManager}:ActiveListItemProps) {
 
     const[isItemVisible, setItemVisibility] = useState(true);
 
@@ -29,7 +29,7 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
     function handleListItemSelection() : void {
 
 
-        if(itemID.startsWith("above_") || itemID.startsWith("below_")) {
+        if(itemID.startsWith("sprite_image_")) {
             const component = assetManager.getComponent(itemID);
 
             //if the component not visible bail out
@@ -81,17 +81,16 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
     function handleItemDeletion(e: React.MouseEvent): void {
         e.stopPropagation();  // Stop propagation first
         
-        if (itemID.startsWith("above_") || itemID.startsWith("below_")) {
+        if (itemID.startsWith("sprite_image_")) {
 
             //move the camera back up or down
             const tempComponent = assetManager.getComponent(itemID);
             const imageHeight = tempComponent?._underlyingComponent?.scale.y;
 
-            if(itemID.startsWith("above") && imageHeight) {
-                camera.position.y -= imageHeight * 0.45;
-            } else if(itemID.startsWith("below") && imageHeight) {
-                camera.position.y += imageHeight * 0.45;
-            }
+            if(imageHeight) {
+                //maybe delete this, if user moved component and camera down manually its jumps it up more
+                //camera.position.y -= imageHeight * 0.45;
+            } 
 
             if (assetManager._selectedComponentID === itemID) {
                 assetManager.deselectComponent(itemID);

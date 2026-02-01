@@ -28,12 +28,12 @@ interface ToolbarLightCatalogProps {
     isToolbarToggled : boolean
     lightManager : LightManager
     assetManager : AssetManager
-    camera : THREE.PerspectiveCamera
+
 }
 
 
 
-export default function ToolbarActiveComponents({activeListItems, setActiveListItems, isToolbarToggled, lightManager, assetManager, camera} : ToolbarLightCatalogProps) {
+export default function ToolbarActiveComponents({activeListItems, setActiveListItems, isToolbarToggled, lightManager, assetManager} : ToolbarLightCatalogProps) {
 
 
 
@@ -46,7 +46,7 @@ export default function ToolbarActiveComponents({activeListItems, setActiveListI
                     <ul className="w-[100%]">
                         {
                             activeListItems.map((item) => (
-                                <ActiveListItem key={item.id} itemID={item.id} itemName={item.name} activeListItems={activeListItems} setActiveListItems={setActiveListItems} lightManager={lightManager} assetManager={assetManager} camera={camera} />
+                                <ActiveListItem key={item.id} itemID={item.id} itemName={item.name} activeListItems={activeListItems} setActiveListItems={setActiveListItems} lightManager={lightManager} assetManager={assetManager}  />
                                 
                             ))
                         }

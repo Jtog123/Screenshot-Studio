@@ -23,10 +23,10 @@ interface ImageComponentProps {
 
 
 //Image Comopnent is going to have the image
-export default function ImageComponent({position, _scene, _camera ,_assetManager, activeListItems, setActiveListItems} : ImageComponentProps) {
+export default function ImageComponent({ _scene, _camera ,_assetManager, activeListItems, setActiveListItems} : ImageComponentProps) {
     const inputFileRef = useRef<HTMLInputElement>(null);
-    const[isAboveImageUploaded , setIsAboveImageUploaded] = useState(false);
-    const[isBelowImageUploaded , setIsBelowImageUploaded] = useState(false);
+    const[isImageUploaded , setIsImageUploaded] = useState(false);
+
 
 
     function handleImageUpload(e : ChangeEvent<HTMLInputElement>) : void {
@@ -37,56 +37,32 @@ export default function ImageComponent({position, _scene, _camera ,_assetManager
         if(input.files && input.files[0]) {
             console.log("uploading", input.files[0]);
 
-            if(position === "above") {
+           
                 //call assetManager
-                _assetManager.createImageComponentAbovePhone(input.files[0],
-                    (sprite) => {
-                        //onSuccess triggers this callback
-                        setIsAboveImageUploaded(true);
+             _assetManager.createImageComponent(input.files[0],
+                (sprite) => {
+                    //onSuccess triggers this callback
+                    setIsImageUploaded(true);
 
-                        //can disable button, would have to write at app level than pass to toolbarasseteditor and here
-                        //setCanDisableAboveImageButton(true);
+                    //can disable button, would have to write at app level than pass to toolbarasseteditor and here
+                    //setCanDisableAboveImageButton(true);
 
-                        console.log("image successfully uploaded");
+                    console.log("image successfully uploaded");
 
-                        const imageHeight = sprite.scale.y;
+                    const imageHeight = sprite.scale.y;
 
-                        //move the camera down based on the size of the image
-                        _camera.position.y += imageHeight * 0.45;
+                    //move the camera down based on the size of the image
+                    _camera.position.y += imageHeight * 0.45;
 
-                        setActiveListItems([...activeListItems, {id: sprite.name, name:"Image Component"}]);
+                    setActiveListItems([...activeListItems, {id: sprite.name, name:"Image Component"}]);
 
-                    },
-                    () => {
-                        setIsAboveImageUploaded(false);
-                        console.log("image failed to uploaded");
-                    }
-                );
-            } else {
-                _assetManager.createImageComponentBelowPhone(input.files[0],
-                    (sprite) => {
-                        //onSuccess triggers this callback
-                        setIsBelowImageUploaded(true);
-
-                        //can disable button, would have to write at app level than pass to toolbarasseteditor and here
-                        //setCanDisableBelowImageButton(true);
-
-                        console.log("image successfully uploaded");
-
-                        const imageHeight = sprite.scale.y;
-
-                        //move the camera down based on the size of the image
-                        _camera.position.y -= imageHeight * 0.45;
-
-                        setActiveListItems([...activeListItems, {id: sprite.name, name:"Image Component"}]);
-
-                    },
-                    () => {
-                        setIsBelowImageUploaded(false);
-                        console.log("image failed to uploaded");
-                    }
-                );
-            }
+                },
+                () => {
+                    setIsImageUploaded(false);
+                    console.log("image failed to uploaded");
+                }
+            );
+            
 
         }
     }
@@ -97,10 +73,7 @@ export default function ImageComponent({position, _scene, _camera ,_assetManager
         <div>
             <input ref={inputFileRef} type="file" accept="image/*" onChange={(e) => handleImageUpload(e)} className="hidden"/>
                 {
-                    position === "above" ?  <button className={isAboveImageUploaded ? `hidden` :` ${`fixed left-1/2 transform px-2 -translate-x-1/2 -translate-y-1/2 w-[150px] h-[100px] bg-transparent border-2 border-dashed border-white text-white z-50 cursor-pointer`} top-20 `}
-                    onClick={() => inputFileRef.current?.click()}>
-                    + Add Image
-                    </button> : <button className={isBelowImageUploaded ? `hidden` :` ${`fixed left-1/2 transform px-2 -translate-x-1/2 -translate-y-1/2 w-[150px] h-[100px] bg-transparent border-2 border-dashed border-white text-white z-50 cursor-pointer`} bottom-10 `}
+                    <button className={isImageUploaded ? `hidden` :` ${`fixed left-1/2 transform px-2 -translate-x-1/2 -translate-y-1/2 w-[150px] h-[100px] bg-transparent border-2 border-dashed border-white text-white z-50 cursor-pointer`} top-20 `}
                     onClick={() => inputFileRef.current?.click()}>
                     + Add Image
                     </button> 
