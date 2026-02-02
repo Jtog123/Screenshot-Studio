@@ -44,8 +44,10 @@ export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents
     function addTextComponent() : void {
         const newText = {
             id : `text_${Date.now()}`,
-            position : 'above',
-            type: "text"
+            position : "above",
+            type: "text",
+            fontSize : 16,
+            color: "#000000"
         };
 
         setTextComponents([...textComponents, newText]);

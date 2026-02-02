@@ -1,6 +1,17 @@
 import { useRef, useState } from "react"
 
-export default function TextComponent() { 
+
+interface ImageComponentProps {
+    position : string
+    textID : string
+    onSelect : (id: string) => void
+    activeListItems: {id:string, name:string}[]
+    setActiveListItems: React.Dispatch<React.SetStateAction<{ id: string; name: string; }[]>>
+
+
+}
+
+export default function TextComponent({position, textID, onSelect, activeListItems, setActiveListItems} : ImageComponentProps) { 
     const textRef = useRef<HTMLDivElement>(null);
 
 
@@ -8,8 +19,9 @@ export default function TextComponent() {
         const text = textRef.current?.textContent || ""
     }
 
-    function handleClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>, textID : string) {
-        console.log(e,"displaying the gui here?");
+    function handleClick() {
+        console.log("displaying the gui here?");
+        onSelect(textID);
     }
 
     return (
@@ -17,7 +29,7 @@ export default function TextComponent() {
             ref={textRef}
             contentEditable
             onBlur={handleBlur}
-            onClick= {(e) => handleClick(e, "hh")}
+            onClick= {handleClick}
             suppressContentEditableWarning
             className="fixed left-1/2 transform px-2 -translate-x-1/2 -translate-y-1/2 w-[150px] h-auto bg-transparent border-2 border-dashed border-white text-white z-50 cursor-text top-20"
         >

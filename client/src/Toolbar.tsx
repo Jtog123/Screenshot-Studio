@@ -37,11 +37,13 @@ interface ToolbarProps {
     _assetManager : AssetManager
     activeListItems : {id:string, name:string}[]
     setActiveListItems : React.Dispatch<React.SetStateAction<{ id: string; name: string; }[]>>
+    selectedTextComponentID: string | null;
+    setSelectedTextComponentID: React.Dispatch<React.SetStateAction<string | null>>;
     camera : THREE.PerspectiveCamera
 }
 
 
-export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManager, _imageComponents, _setImageComponents, _textComponents, _setTextComponents,  _assetManager,activeListItems, setActiveListItems, camera} : ToolbarProps) {
+export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManager, _imageComponents, _setImageComponents, _textComponents, _setTextComponents,  _assetManager,activeListItems, setActiveListItems, selectedTextComponentID,setSelectedTextComponentID ,camera} : ToolbarProps) {
 
     
     const[selectedLight, setSelectedLight] = useState<{id: string, type: LightType} | null>(null);
@@ -144,13 +146,12 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
 
             {
                 selectedComponent?.type === ComponentType.Image && (
-                    <ImageComponentGUI key={selectedComponent.id} _componentID={selectedComponent.id} _assetManager={_assetManager} />) ||
+                    <ImageComponentGUI key={selectedComponent.id} _componentID={selectedComponent.id} _assetManager={_assetManager} />) 
+            }
 
-                selectedComponent?.type === ComponentType.Text && (
-                    <TextComponentGUI key={selectedComponent.id} _componentID={selectedComponent.id} _assetManager={_assetManager} />
-                )
-
-
+            {
+                selectedTextComponentID && _assetManager && (
+                    <TextComponentGUI _componentID={selectedTextComponentID} onClose={() => setSelectedTextComponentID(null)}/>)
             }
 
            
