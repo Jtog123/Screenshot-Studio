@@ -8,15 +8,13 @@ import { CameraManager } from "./CameraManager.js";
 import PhoneGUI from "./PhoneGUI.js";
 import Overlay from "./Overlay.js";
 import CameraButton from "./CameraButton.js";
+import { ImageComponentInterface, TextComponentInterface } from "./ComponentInterfaces.js";
 import ImageComponent from "./ImageComponent.js";
+import TextComponent from "./TextComponent.js";
 import { AssetManager } from "./AssetManager.js";
 
 
-interface ImageComponent{
-    id: string,
-    position: string,
-    type: string
-}
+
 
 export default function App() {
 
@@ -37,7 +35,8 @@ export default function App() {
   const [assetManager, setAssetManager] = useState<AssetManager | null>(null);
   const [cameraManager, setCameraManager] = useState<CameraManager | null>(null);
   const [isPhoneLoading, setIsPhoneLoading] = useState(true);
-  const [imageComponents, setImageComponents] = useState<ImageComponent[]>([]);
+  const [imageComponents, setImageComponents] = useState<ImageComponentInterface[]>([]);
+  const [textComponents, setTextComponents] = useState<TextComponentInterface[]>([]);
   const [activeListItems, setActiveListItems] = useState<{id:string, name:string}[]>([]);
   
   
@@ -126,10 +125,15 @@ export default function App() {
       {phone && cameraManager &&<PhoneGUI phoneModel={phone} _cameraManager={cameraManager}/>}
 
 
-      {scene && lightManager && cameraManager && phone && assetManager && camera && <Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents} _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems} camera={camera} />} 
+      {scene && lightManager && cameraManager && phone && assetManager && camera && <Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents} _textComponents={textComponents} _setTextComponents={setTextComponents} _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems} camera={camera} />} 
 
       {scene && assetManager && camera && imageComponents.map((item) => {
         return <ImageComponent key={item.id} position={item.position} _scene={scene} _camera={camera} _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems}/>
+      })}
+
+
+      {textComponents.map((item) => {
+        return <TextComponent key={item.id} position={item.position}/>
       })}
 
 

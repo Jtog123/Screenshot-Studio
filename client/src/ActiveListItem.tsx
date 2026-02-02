@@ -64,7 +64,7 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
         e.stopPropagation();
         setItemVisibility(!isItemVisible);
 
-        if(itemID.startsWith("above_") || itemID.startsWith("below_")) {
+        if(itemID.startsWith("sprite_image_")) {
             assetManager.toggleVisibility(itemID);
         } else {
             //we have lights

@@ -1,16 +1,15 @@
 import { useState } from "react"
 import ImageComponent from "./ImageComponent"
+import { ImageComponentInterface, TextComponentInterface } from "./ComponentInterfaces"
 import { CameraManager } from "./CameraManager"
 
-interface ImageComponent{
-    id: string,
-    position: string,
-    type: string
-}
+
 
 interface ToolbarAssetProps {
-    imageComponents: ImageComponent[]
-    setImageComponents : React.Dispatch<React.SetStateAction<ImageComponent[]>>
+    imageComponents: ImageComponentInterface[]
+    setImageComponents : React.Dispatch<React.SetStateAction<TextComponentInterface[]>>
+    textComponents: ImageComponentInterface[]
+    setTextComponents : React.Dispatch<React.SetStateAction<TextComponentInterface[]>>
     isToolbarToggled : boolean
 }
 
@@ -25,9 +24,9 @@ interface ToolbarAssetProps {
 
 
 
-export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents, imageComponents}: ToolbarAssetProps) {
+export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents, imageComponents, textComponents,setTextComponents}: ToolbarAssetProps) {
 
-    function addImageComponentAbovePhone() : void {
+    function addImageComponent() : void {
 
         //temp id for react key
         const newImage = {
@@ -42,17 +41,18 @@ export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents
         
     }
 
-    function addImageComponentBelowPhone() : void {
-        const newImage = {
-            id: `temp_${Date.now()}`,
-            position: "below",
-            type: "image"
-        }
+    function addTextComponent() : void {
+        const newText = {
+            id : `text_${Date.now()}`,
+            position : 'above',
+            type: "text"
+        };
 
-        console.log("adding component", newImage);
-
-        setImageComponents([...imageComponents, newImage]);
+        setTextComponents([...textComponents, newText]);
+        
     }
+
+
 
 
     /*
@@ -79,29 +79,18 @@ export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents
             <div className="flex flex-col w-[90%] h-[90%] bg-yellow-300">
 
                 <div className="abovePhone justify-between mb-5">
-                    <h1 className="w-[100%] bg-red-200">Above Phone</h1>
+                    <h1 className="w-[100%] bg-red-200">Scene Components</h1>
                     <div className="buttonCont flex justify-between">
 
-                        <button  className="text-md bg-purple-500 w-[33%] cursor-pointer"> Text</button>
+                        <button onClick={addTextComponent}  className="text-md bg-purple-500 w-[33%] cursor-pointer"> Text</button>
 
-                        <button onClick={addImageComponentAbovePhone} className={`text-md bg-purple-600 w-[33%] cursor-pointer`}> Image</button>
+                        <button onClick={addImageComponent} className={`text-md bg-purple-600 w-[33%] cursor-pointer`}> Image</button>
 
                         <button  className="text-md bg-purple-500 w-[33%] cursor-pointer"> Text & Image</button>
                     </div>
 
                 </div>
 
-                <div className="belowPhone justify-between">
-                    <h1 className="w-[100%] bg-red-200">Below Phone</h1>
-                    <div className="buttonCont flex justify-between">
-                        <button  className="text-md bg-purple-500 w-[33%] cursor-pointer"> Text</button>
-
-                        <button onClick={addImageComponentBelowPhone}  className="text-md bg-purple-500 w-[33%] cursor-pointer"> Image</button>
-
-                        <button  className="text-md bg-purple-500 w-[33%] cursor-pointer"> Text & Image</button>
-                    </div>
-
-                </div>
                 
 
             </div>

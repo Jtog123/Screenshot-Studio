@@ -89,6 +89,13 @@ class AssetManager {
 
     }
 
+    public createTextComponent() : void {
+        //different problem as we are not dealing with THREE geometry just html
+        //probably a bit easier to handle?
+
+        
+    }
+
 
 
     public selectComponent(evt: MouseEvent): void {
@@ -148,6 +155,7 @@ class AssetManager {
 
         if(!component) return;
 
+        //may have to adjust selection logv=ic for text
         //scale slightly and show opactiy to show selection
         (component?._underlyingComponent as THREE.Sprite || THREE.Mesh).scale.multiplyScalar(1.2);
         //(component?._underlyingComponent as THREE.Sprite || THREE.Mesh).material.opacity = 0.7;

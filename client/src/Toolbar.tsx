@@ -17,23 +17,23 @@ import ToolbarAssetEditor from './ToolbarAssetEditor'
 import { CameraManager } from './CameraManager'
 import { AssetManager } from './AssetManager'
 import { ComponentType } from './SceneComponent'
+import { ImageComponentInterface } from './ComponentInterfaces'
 import ImageComponentGUI from './ImageComponentGUI'
+import TextComponentGUI from './TextComponentGUI'
+import TextComponent from './TextComponent'
 
 
 
-interface ImageComponent{
-    id: string,
-    position: string,
-    type: string
-}
 
 interface ToolbarProps {
     _scene : THREE.Scene;
     _lightManager : LightManager;
     _phoneModel : THREE.Group;
     _cameraManager : CameraManager;
-    _imageComponents : ImageComponent[];
-    _setImageComponents : React.Dispatch<React.SetStateAction<ImageComponent[]>>
+    _imageComponents : ImageComponentInterface[];
+    _setImageComponents : React.Dispatch<React.SetStateAction<ImageComponentInterface[]>>
+    _textComponents : ImageComponentInterface[];
+    _setTextComponents : React.Dispatch<React.SetStateAction<ImageComponentInterface[]>>
     _assetManager : AssetManager
     activeListItems : {id:string, name:string}[]
     setActiveListItems : React.Dispatch<React.SetStateAction<{ id: string; name: string; }[]>>
@@ -41,11 +41,12 @@ interface ToolbarProps {
 }
 
 
-export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManager, _imageComponents, _setImageComponents,      _assetManager,activeListItems, setActiveListItems, camera} : ToolbarProps) {
+export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManager, _imageComponents, _setImageComponents, _textComponents, _setTextComponents,  _assetManager,activeListItems, setActiveListItems, camera} : ToolbarProps) {
 
     
     const[selectedLight, setSelectedLight] = useState<{id: string, type: LightType} | null>(null);
     const[selectedComponent, setSelectedComponent] = useState<{id: string, type: ComponentType} | null>(null);
+
     //const[toolbarClasses, setToolbarClasses] = useState<string>("fixed flex flex-col h-[100%] w-[25%] bg-blue-200 z-10 right-0");
     const[isToolbarToggled, setToolbarToggled] = useState(false);
     //const[activeListItems, setActiveListItems] = useState<{id:string, name:string}[]>([]);
@@ -75,11 +76,11 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
 
         _assetManager.addEventListener("componentSelected", (data: {id: string, type:ComponentType}) => {
             setSelectedComponent({id: data.id, type:data.type})
-        })
+        });
 
         _assetManager.addEventListener("componentDeselected", (data: {id: string, type:ComponentType}) => {
             setSelectedComponent(null);
-        })
+        });
 
         
     }, [_lightManager, _assetManager]);
@@ -119,7 +120,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                             <ToolBarPanelTab isToolbarToggled={isToolbarToggled} activeTab={activeTab} handleTabChange={handleTabChange} />
                             {activeTab === "Lights" && <ToolbarLightCatalog  activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled}  scene={_scene} lightManager={_lightManager}/>}
                             {activeTab === "Camera" && <ToolbarCameraCatalog isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} _phoneModel={_phoneModel}/>}
-                            {activeTab === "Text" && <ToolbarAssetEditor imageComponents={_imageComponents} setImageComponents={_setImageComponents} isToolbarToggled={isToolbarToggled} />}
+                            {activeTab === "Text" && <ToolbarAssetEditor imageComponents={_imageComponents} setImageComponents={_setImageComponents} textComponents={_textComponents} setTextComponents={_setTextComponents} isToolbarToggled={isToolbarToggled} />}
                             <ToolbarActiveComponents activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} lightManager={_lightManager} assetManager={_assetManager}  />
 
                             {/*Toolbar Panel Selector*/}
@@ -143,7 +144,10 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
 
             {
                 selectedComponent?.type === ComponentType.Image && (
-                    <ImageComponentGUI key={selectedComponent.id} _componentID={selectedComponent.id} _assetManager={_assetManager} />
+                    <ImageComponentGUI key={selectedComponent.id} _componentID={selectedComponent.id} _assetManager={_assetManager} />) ||
+
+                selectedComponent?.type === ComponentType.Text && (
+                    <TextComponentGUI key={selectedComponent.id} _componentID={selectedComponent.id} _assetManager={_assetManager} />
                 )
 
 
