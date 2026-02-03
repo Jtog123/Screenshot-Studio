@@ -1,24 +1,27 @@
 import { useEffect, useRef, useState } from "react"
 import TextComponentGUI from "./TextComponentGUI";
+import { AssetManager } from "./AssetManager";
+import * as THREE from 'three'
 
 
 interface TextComponentProps {
+    
     position : string
+    assetManager : AssetManager
     onMount : (id: string, name: string) => void
     onUnmount : (id: string) => void
 
-
 }
 
-export default function TextComponent({position, onMount, onUnmount} : TextComponentProps) { 
+export default function TextComponent({position, assetManager ,onMount, onUnmount} : TextComponentProps) { 
     const [componentID] = useState(`text_${Date.now()}`);
-    const textRef = useRef<HTMLDivElement>(null);
+    //const textRef = useRef<HTMLDivElement>(null);
     const [showGUI, setShowGUI] = useState(false);
     const [text, setText] = useState("Type Here");
     const [fontSize, setFontSize] = useState(16);
     const[fontColor, setFontColor] = useState("#FFFFFF");
     const[backgroundColor, setBackgroundColor] = useState("#000000");
-    const[isBackgroundVisible, setIsBackgroundVisible] = useState(false);
+    //const[isBackgroundVisible, setIsBackgroundVisible] = useState(false);
     const[componentOpacity, setComponentOpacity ] = useState("1");
     const [borderColor, setBorderColor] = useState("#FFFFFF");
     const [borderWidth, setBorderWidth] = useState(2);
@@ -28,14 +31,53 @@ export default function TextComponent({position, onMount, onUnmount} : TextCompo
     const [posY, setPosY] = useState(80);
     const [width, setWidth] = useState(150);
     const [height, setHeight] = useState(50);
+    const [textSprite, setTextSprite] = useState<THREE.Sprite | null>(null);
 
     useEffect(() => {
-        onMount?.(componentID, "Text Component");
+        const sprite = assetManager.createTextSprite(
+            componentID, text, fontSize, fontColor, backgroundColor, width, height
+        );
+
+        sprite.name = componentID;
+        console.log(sprite.name);
+        sprite.position.set(0,2.2,0);
+        //assetManager._assetsMap.
+        assetManager._assetGroup.add(sprite);
+        setTextSprite(sprite);
+
+        onMount(componentID, "Text Component");
+
+        const handleComponentSelected = (data : any) => {
+            
+            if(data.id === componentID) {
+                setShowGUI(true);
+            }
+
+        }
+
+        const handleComponentDeselected = (data : any) => {
+            if(data.id === componentID) {
+                setShowGUI(false);
+            }
+
+        }
+
+        assetManager.addEventListener("componentSelected", handleComponentSelected);
+        assetManager.addEventListener("componentDeselected", handleComponentDeselected);
 
         return () => {
-            onUnmount?.(componentID);
+            assetManager._assetGroup.remove(sprite);
+            onUnmount(componentID);
         }
     }, []);
+
+    //update teh sprite when any attributes change
+    useEffect(() => {
+        if(textSprite) {
+            assetManager.updateTextSprite(textSprite,text,fontSize,fontColor,backgroundColor,width,height);
+        }
+    }, [text, fontSize, fontColor, backgroundColor, width, height])
+
 
 
     function handleDelete() : void {
@@ -43,42 +85,17 @@ export default function TextComponent({position, onMount, onUnmount} : TextCompo
     }
 
 
-    function handleBlur(e: React.FormEvent<HTMLDivElement>) {
-        const text = textRef.current?.textContent || "";
-        setText(text);
 
-    }
 
     function handleClick() {
         console.log("displaying the gui here?");
         setShowGUI(true);
     }
 
+
     return (
         <>
-        <div 
-            ref={textRef}
-            contentEditable
-            onBlur={handleBlur}
-            onClick= {handleClick}
-            suppressContentEditableWarning
-            className="fixed left-1/2 transform px-2 -translate-x-1/2 -translate-y-1/2 w-auto h-auto bg-transparent text-white z-50 cursor-text top-20"
-            style={{
-                fontSize:`${fontSize}px`,
-                color: fontColor,
-                backgroundColor : isBackgroundVisible ? backgroundColor : "transparent",
-                opacity: componentOpacity,
-                border: `${borderWidth}px ${borderStyle} ${borderColor}`,  
-                borderRadius: `${borderRadius}px` ,
-                left: `calc(50% + ${posX}px)`,  // Add
-                top: `${posY}px`,  // Add
-                width: `${width}px`,  // Add
-                minHeight: `${height}px` 
-            }}
-        
-        >
-            {text}
-        </div>
+
 
         {showGUI && (
             <TextComponentGUI 
@@ -111,8 +128,8 @@ export default function TextComponent({position, onMount, onUnmount} : TextCompo
                 onHeightChange={setHeight}  // Add
                 onDelete={handleDelete} 
                 onClose={() => setShowGUI(false)} 
-                isBackgroundVisible={isBackgroundVisible}
-                setIsBackgroundVisible = {setIsBackgroundVisible}
+                //isBackgroundVisible={isBackgroundVisible}
+                //setIsBackgroundVisible = {setIsBackgroundVisible}
   
             />
         )}

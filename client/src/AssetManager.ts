@@ -7,7 +7,7 @@ import { SceneNode } from 'three/webgpu';
 
 class AssetManager {
 
-    private _assetsMap: Map<string, SceneComponent> = new Map();
+    public _assetsMap: Map<string, SceneComponent> = new Map();
     //private _assetsMap: Map<string, THREE.Sprite | THREE.Mesh> = new Map();
     public _assetGroup: THREE.Group = new THREE.Group();
 
@@ -89,11 +89,76 @@ class AssetManager {
 
     }
 
-    public createTextComponent() : void {
-        //different problem as we are not dealing with THREE geometry just html
-        //probably a bit easier to handle?
+    public createTextSprite(componentID:string, text: string, fontSize: number, fontColor : string, backgroundColor : string, width : number, height : number
+    ) : THREE.Sprite {
+
+        const canvas = document.createElement("canvas");
+
+        //creates a CanvasRenderingContext2d object
+        const context = canvas.getContext("2d");
+
+        const scale = 4;
+        canvas.width = width * scale;
+        canvas.height = height * scale;
+
+        context?.scale(scale,scale);
 
         
+
+        if(backgroundColor !== "transparent" && context) {
+            context.fillStyle = backgroundColor;
+            context.fillRect(0,0, width, height);
+        }
+
+        if(context) {
+            context.font = `${fontSize }px Arial`;
+            context.fillStyle = fontColor;
+            context.textAlign = 'center';
+            context.textBaseline = 'middle';
+            context.fillText(text, width / 2, height / 2);
+        }
+
+        const textComponent = new SceneComponent(ComponentType.Text);
+        textComponent._texture = new THREE.CanvasTexture(canvas);
+        textComponent._material = new THREE.SpriteMaterial({ map: textComponent._texture, transparent: true });
+        textComponent._underlyingComponent = new THREE.Sprite(textComponent._material);
+        textComponent._underlyingComponent.name = componentID;
+        textComponent._underlyingComponent.scale.set(width/80, height/80, 1);
+        //textComponent._underlyingComponent.scale.set(width/100, height/100, 1); can create interesting effects drawing to a canvas
+       
+        this._assetsMap.set(componentID, textComponent);
+    
+        return textComponent._underlyingComponent as THREE.Sprite;
+
+
+    }
+
+    public updateTextSprite(sprite: THREE.Sprite, text:string, fontSize: number, fontColor: string, backgroundColor : string, width : number, height: number) : void {
+        const canvas = (sprite.material.map as THREE.CanvasTexture).image as HTMLCanvasElement;
+        const context = canvas.getContext("2d")!;
+
+        const scale = 4;
+
+
+        context.setTransform(1, 0, 0, 1, 0, 0);
+        context.scale(scale, scale);
+
+        context.clearRect(0,0, width, height);
+
+        if(backgroundColor !== "transparent") {
+            context.fillStyle = backgroundColor;
+            context.fillRect(0,0,width, height);
+        }
+
+        context.font = `${fontSize}px Arial`;
+        context.fillStyle = fontColor;
+        context.textAlign = "center";
+        context.textBaseline = "middle";
+        context.fillText(text, width / 2, height / 2);
+
+        (sprite.material.map as THREE.CanvasTexture).needsUpdate = true;
+
+
     }
 
 
@@ -119,7 +184,8 @@ class AssetManager {
             });
 
             const currentComponent = allAncestors.find(ancestor =>
-                ancestor.name.startsWith("sprite_image_")
+                ancestor.name.startsWith("sprite_image_") ||
+                ancestor.name.startsWith("text_")
             )
 
             //console.log(allAncestors);
@@ -145,6 +211,7 @@ class AssetManager {
 
 
     public selectComponentByID(componentID : string) : void {
+        
         const selectedComponentID = this._assetsMap.get(componentID);
 
         this._selectedComponentID = componentID;
@@ -157,7 +224,7 @@ class AssetManager {
 
         //may have to adjust selection logv=ic for text
         //scale slightly and show opactiy to show selection
-        (component?._underlyingComponent as THREE.Sprite || THREE.Mesh).scale.multiplyScalar(1.2);
+        (component?._underlyingComponent as THREE.Sprite || THREE.Mesh || THREE.CanvasTexture).scale.multiplyScalar(1.2);
         //(component?._underlyingComponent as THREE.Sprite || THREE.Mesh).material.opacity = 0.7;
 
         

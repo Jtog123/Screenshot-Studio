@@ -43,11 +43,32 @@ export default function App() {
   const [activeListItems, setActiveListItems] = useState<{id:string, name:string}[]>([]);
   
   
+  // 
   function addTextComponent() : void {
+    //const textSpriteCanvas = assetManager.createTextSprite(text: string, fontSize: number, fontColor: string, backgroundColor: string)
+    // Pass textSprite to TextComponent, render verything onto the sprite
+    /*
+        const newText = (
+        <TextComponent 
+          key={`text_${Date.now()}`} 
+          position="above"
+          textSpriteCanvas = {textSpriteCanvas}
+          onMount={(id, name) => {
+              setActiveListItems(prev => [...prev, { id, name }]);
+          }}
+          onUnmount={(id) => {
+              setActiveListItems(prev => prev.filter(item => item.id !== id));
+          }}
+        />
+    );
+    setTextComponents([...textComponents, newText]);
+    */
+
     const newText = (
         <TextComponent 
           key={`text_${Date.now()}`} 
           position="above"
+          assetManager={assetManager!}
             onMount={(id, name) => {
               setActiveListItems(prev => [...prev, { id, name }]);
           }}

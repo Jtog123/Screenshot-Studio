@@ -34,8 +34,8 @@ interface TextComponentGUIProps {
     onPosYChange: (y: number) => void;
     onWidthChange: (width: number) => void;
     onHeightChange: (height: number) => void;
-    isBackgroundVisible : boolean;
-    setIsBackgroundVisible: (isVisible : boolean) => void;
+    //isBackgroundVisible : boolean;
+    //setIsBackgroundVisible: (isVisible : boolean) => void;
 }
 
 export default function TextComponentGUI({
@@ -43,7 +43,7 @@ export default function TextComponentGUI({
         borderColor, borderWidth, borderStyle, borderRadius,
         onTextChange, onFontSizeChange, onBackgroundColorChange, onOpacityChange, onFontColorChange,
         onBorderColorChange, onBorderWidthChange, onBorderStyleChange, onBorderRadiusChange,
-        onDelete, onClose, posX, posY, width, height, onPosXChange, onPosYChange, onWidthChange, onHeightChange, isBackgroundVisible, setIsBackgroundVisible
+        onDelete, onClose, posX, posY, width, height, onPosXChange, onPosYChange, onWidthChange, onHeightChange,
     }: TextComponentGUIProps) {
 
     const [isDragging, setIsDragging] = useState(false);
@@ -73,9 +73,7 @@ export default function TextComponentGUI({
         e.preventDefault()
     }
 
-    function handleBackgroundToggle() : void {
-        setIsBackgroundVisible(!isBackgroundVisible);
-    }
+
 
     useEffect(() => {
         function handleMouseMove(e: MouseEvent): void {
@@ -198,7 +196,7 @@ export default function TextComponentGUI({
                                         <div className="flex">
                                             <label className="text-xs text-stone-300 mr-2" htmlFor="">Transparent</label>
                                             {/* toggling works but also need to toggle checkbox */}
-                                            <input type="checkbox" name="" id="" checked={!isBackgroundVisible} onChange={handleBackgroundToggle} />
+                                            <input type="checkbox" name="" id=""   />
                                         </div>
  
                                     </div>

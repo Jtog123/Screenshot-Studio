@@ -10,7 +10,8 @@ class SceneComponent {
     public _componentType : ComponentType;
     public _underlyingComponent : THREE.Sprite | THREE.Mesh | null = null;
     public _isVisible = true;
-    public _material : THREE.SpriteMaterial | null = null;
+    public _material : THREE.SpriteMaterial | THREE.SpriteMaterial | null = null;
+    public _texture : THREE.CanvasTexture | null = null;
     public _guiX : number = 0;
     public _guiY : number = 0;
     public _title : string = "";
