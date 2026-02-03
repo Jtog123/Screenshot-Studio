@@ -198,7 +198,7 @@ export default function TextComponentGUI({
                                         <div className="flex">
                                             <label className="text-xs text-stone-300 mr-2" htmlFor="">Transparent</label>
                                             {/* toggling works but also need to toggle checkbox */}
-                                            <input type="checkbox" name="" id="" checked={true} onChange={handleBackgroundToggle} />
+                                            <input type="checkbox" name="" id="" checked={!isBackgroundVisible} onChange={handleBackgroundToggle} />
                                         </div>
  
                                     </div>
