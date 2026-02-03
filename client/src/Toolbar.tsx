@@ -32,18 +32,15 @@ interface ToolbarProps {
     _cameraManager : CameraManager;
     _imageComponents : ImageComponentInterface[];
     _setImageComponents : React.Dispatch<React.SetStateAction<ImageComponentInterface[]>>
-    _textComponents : TextComponentInterface[];
-    _setTextComponents : React.Dispatch<React.SetStateAction<TextComponentInterface[]>>
     _assetManager : AssetManager
     activeListItems : {id:string, name:string}[]
     setActiveListItems : React.Dispatch<React.SetStateAction<{ id: string; name: string; }[]>>
-    selectedTextComponentID: string | null;
-    setSelectedTextComponentID: React.Dispatch<React.SetStateAction<string | null>>;
+    addTextComponent : () => void
     camera : THREE.PerspectiveCamera
 }
 
 
-export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManager, _imageComponents, _setImageComponents, _textComponents, _setTextComponents,  _assetManager,activeListItems, setActiveListItems, selectedTextComponentID,setSelectedTextComponentID ,camera} : ToolbarProps) {
+export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManager, _imageComponents, _setImageComponents,  _assetManager,activeListItems, setActiveListItems, addTextComponent ,camera} : ToolbarProps) {
 
     
     const[selectedLight, setSelectedLight] = useState<{id: string, type: LightType} | null>(null);
@@ -53,9 +50,6 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
     const[isToolbarToggled, setToolbarToggled] = useState(false);
     //const[activeListItems, setActiveListItems] = useState<{id:string, name:string}[]>([]);
     const[activeTab, setActiveTab] = useState("Lights");
-
-    //pass data
-    const textData = _textComponents.find(t => t.id === selectedTextComponentID);
 
 
     function handleToggle() : void {
@@ -125,7 +119,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                             <ToolBarPanelTab isToolbarToggled={isToolbarToggled} activeTab={activeTab} handleTabChange={handleTabChange} />
                             {activeTab === "Lights" && <ToolbarLightCatalog  activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled}  scene={_scene} lightManager={_lightManager}/>}
                             {activeTab === "Camera" && <ToolbarCameraCatalog isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} _phoneModel={_phoneModel}/>}
-                            {activeTab === "Text" && <ToolbarAssetEditor imageComponents={_imageComponents} setImageComponents={_setImageComponents} textComponents={_textComponents} setTextComponents={_setTextComponents} isToolbarToggled={isToolbarToggled} />}
+                            {activeTab === "Text" && <ToolbarAssetEditor imageComponents={_imageComponents} setImageComponents={_setImageComponents}  isToolbarToggled={isToolbarToggled} addTextComponent={addTextComponent} />}
                             <ToolbarActiveComponents activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} lightManager={_lightManager} assetManager={_assetManager}  />
 
                             {/*Toolbar Panel Selector*/}
@@ -152,10 +146,6 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                     <ImageComponentGUI key={selectedComponent.id} _componentID={selectedComponent.id} _assetManager={_assetManager} />) 
             }
 
-            {
-                selectedTextComponentID && textData && (
-                    <TextComponentGUI _componentID={selectedTextComponentID} textData={textData} onClose={() => setSelectedTextComponentID(null)}/>)
-            }
 
            
         </>

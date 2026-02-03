@@ -8,9 +8,8 @@ import { CameraManager } from "./CameraManager"
 interface ToolbarAssetProps {
     imageComponents: ImageComponentInterface[]
     setImageComponents : React.Dispatch<React.SetStateAction<ImageComponentInterface[]>>
-    
-    textComponents: TextComponentInterface[]
-    setTextComponents : React.Dispatch<React.SetStateAction<TextComponentInterface[]>>
+    addTextComponent : () => void
+
     isToolbarToggled : boolean
 }
 
@@ -25,7 +24,7 @@ interface ToolbarAssetProps {
 
 
 
-export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents, imageComponents, textComponents,setTextComponents}: ToolbarAssetProps) {
+export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents, imageComponents, addTextComponent}: ToolbarAssetProps) {
 
     function addImageComponent() : void {
 
@@ -42,6 +41,7 @@ export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents
         
     }
 
+    /*
     function addTextComponent() : void {
         const newText = {
             id : `text_${Date.now()}`,
@@ -54,6 +54,7 @@ export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents
         setTextComponents([...textComponents, newText]);
         
     }
+        */
 
 
 

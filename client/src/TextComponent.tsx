@@ -1,27 +1,41 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 
-interface ImageComponentProps {
+interface TextComponentProps {
     position : string
-    textID : string
-    onSelect : (id: string) => void
-    activeListItems: {id:string, name:string}[]
-    setActiveListItems: React.Dispatch<React.SetStateAction<{ id: string; name: string; }[]>>
+    onMount : (id: string, name: string) => void
+    onUnmount : (id: string) => void
 
 
 }
 
-export default function TextComponent({position, textID, onSelect, activeListItems, setActiveListItems} : ImageComponentProps) { 
+export default function TextComponent({position, onMount, onUnmount} : TextComponentProps) { 
+    const [componentID] = useState(`text_${Date.now()}`);
     const textRef = useRef<HTMLDivElement>(null);
+    const [showGUI, setShowGUI] = useState(false);
+
+    useEffect(() => {
+        onMount?.(componentID, "Text Component");
+
+        return () => {
+            onUnmount?.(componentID);
+        }
+    }, []);
+
+
+    function handleDelete() : void {
+        onUnmount?.(componentID);
+    }
 
 
     function handleBlur(e: React.FormEvent<HTMLDivElement>) {
-        const text = textRef.current?.textContent || ""
+        const text = textRef.current?.textContent || "";
+
     }
 
     function handleClick() {
         console.log("displaying the gui here?");
-        onSelect(textID);
+        //onSelect(textID);
     }
 
     return (

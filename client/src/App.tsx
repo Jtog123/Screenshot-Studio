@@ -12,6 +12,7 @@ import { ImageComponentInterface, TextComponentInterface } from "./ComponentInte
 import ImageComponent from "./ImageComponent.js";
 import TextComponent from "./TextComponent.js";
 import { AssetManager } from "./AssetManager.js";
+import { JSX } from "react";
 import TextComponentGUI from "./TextComponentGUI.js";
 
 
@@ -37,12 +38,26 @@ export default function App() {
   const [cameraManager, setCameraManager] = useState<CameraManager | null>(null);
   const [isPhoneLoading, setIsPhoneLoading] = useState(true);
   const [imageComponents, setImageComponents] = useState<ImageComponentInterface[]>([]);
-  const [textComponents, setTextComponents] = useState<TextComponentInterface[]>([]);
-  const [selectedTextComponentID, setSelectedTextComponentID] = useState<string | null>(null)
+  const [textComponents, setTextComponents] = useState<JSX.Element[]>([]);
+
   const [activeListItems, setActiveListItems] = useState<{id:string, name:string}[]>([]);
   
   
-  
+  function addTextComponent() : void {
+    const newText = (
+        <TextComponent 
+          key={`text_${Date.now()}`} 
+          position="above"
+            onMount={(id, name) => {
+                setActiveListItems(prev => [...prev, { id, name }]);
+          }}
+          onUnmount={(id) => {
+            setActiveListItems(prev => prev.filter(item => item.id !== id));
+          }}
+        />
+    );
+    setTextComponents([...textComponents, newText]);
+  }
   
 
   //const sceneRef = useRef<THREE.Scene | null>(null);
@@ -127,18 +142,13 @@ export default function App() {
       {phone && cameraManager &&<PhoneGUI phoneModel={phone} _cameraManager={cameraManager}/>}
 
 
-      {scene && lightManager && cameraManager && phone && assetManager && camera && <Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents} _textComponents={textComponents} _setTextComponents={setTextComponents} _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems} selectedTextComponentID={selectedTextComponentID} setSelectedTextComponentID={setSelectedTextComponentID} camera={camera} />} 
+      {scene && lightManager && cameraManager && phone && assetManager && camera && <Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents}  _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems} addTextComponent={addTextComponent} camera={camera} />} 
 
       {scene && assetManager && camera && imageComponents.map((item) => {
         return <ImageComponent key={item.id} position={item.position} _scene={scene} _camera={camera} _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems}/>
       })}
 
-
-      {textComponents.map((item) => {
-        return <TextComponent key={item.id} position={item.position} onSelect={setSelectedTextComponentID} textID={item.id}  activeListItems={activeListItems} setActiveListItems={setActiveListItems}/>
-      })}
-
-
+      {textComponents}
 
       {isPhoneLoading ? (<h1>Loading</h1>) : (scene && camera && renderer && <SceneManager _scene={scene} _camera={camera} _renderer={renderer}/>)}
   
