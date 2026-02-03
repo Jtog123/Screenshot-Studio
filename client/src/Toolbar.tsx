@@ -17,7 +17,7 @@ import ToolbarAssetEditor from './ToolbarAssetEditor'
 import { CameraManager } from './CameraManager'
 import { AssetManager } from './AssetManager'
 import { ComponentType } from './SceneComponent'
-import { ImageComponentInterface } from './ComponentInterfaces'
+import { ImageComponentInterface, TextComponentInterface } from './ComponentInterfaces'
 import ImageComponentGUI from './ImageComponentGUI'
 import TextComponentGUI from './TextComponentGUI'
 import TextComponent from './TextComponent'
@@ -32,8 +32,8 @@ interface ToolbarProps {
     _cameraManager : CameraManager;
     _imageComponents : ImageComponentInterface[];
     _setImageComponents : React.Dispatch<React.SetStateAction<ImageComponentInterface[]>>
-    _textComponents : ImageComponentInterface[];
-    _setTextComponents : React.Dispatch<React.SetStateAction<ImageComponentInterface[]>>
+    _textComponents : TextComponentInterface[];
+    _setTextComponents : React.Dispatch<React.SetStateAction<TextComponentInterface[]>>
     _assetManager : AssetManager
     activeListItems : {id:string, name:string}[]
     setActiveListItems : React.Dispatch<React.SetStateAction<{ id: string; name: string; }[]>>
@@ -53,6 +53,9 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
     const[isToolbarToggled, setToolbarToggled] = useState(false);
     //const[activeListItems, setActiveListItems] = useState<{id:string, name:string}[]>([]);
     const[activeTab, setActiveTab] = useState("Lights");
+
+    //pass data
+    const textData = _textComponents.find(t => t.id === selectedTextComponentID);
 
 
     function handleToggle() : void {
@@ -150,8 +153,8 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
             }
 
             {
-                selectedTextComponentID && _assetManager && (
-                    <TextComponentGUI _componentID={selectedTextComponentID} onClose={() => setSelectedTextComponentID(null)}/>)
+                selectedTextComponentID && textData && (
+                    <TextComponentGUI _componentID={selectedTextComponentID} textData={textData} onClose={() => setSelectedTextComponentID(null)}/>)
             }
 
            

@@ -7,8 +7,9 @@ import { CameraManager } from "./CameraManager"
 
 interface ToolbarAssetProps {
     imageComponents: ImageComponentInterface[]
-    setImageComponents : React.Dispatch<React.SetStateAction<TextComponentInterface[]>>
-    textComponents: ImageComponentInterface[]
+    setImageComponents : React.Dispatch<React.SetStateAction<ImageComponentInterface[]>>
+    
+    textComponents: TextComponentInterface[]
     setTextComponents : React.Dispatch<React.SetStateAction<TextComponentInterface[]>>
     isToolbarToggled : boolean
 }
