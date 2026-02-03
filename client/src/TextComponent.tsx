@@ -18,6 +18,7 @@ export default function TextComponent({position, onMount, onUnmount} : TextCompo
     const [fontSize, setFontSize] = useState(16);
     const[fontColor, setFontColor] = useState("#FFFFFF");
     const[backgroundColor, setBackgroundColor] = useState("#000000");
+    const[isBackgroundVisible, setIsBackgroundVisible] = useState(false);
     const[componentOpacity, setComponentOpacity ] = useState("1");
     const [borderColor, setBorderColor] = useState("#FFFFFF");
     const [borderWidth, setBorderWidth] = useState(2);
@@ -65,7 +66,7 @@ export default function TextComponent({position, onMount, onUnmount} : TextCompo
             style={{
                 fontSize:`${fontSize}px`,
                 color: fontColor,
-                backgroundColor : backgroundColor,
+                backgroundColor : isBackgroundVisible ? backgroundColor : "transparent",
                 opacity: componentOpacity,
                 border: `${borderWidth}px ${borderStyle} ${borderColor}`,  
                 borderRadius: `${borderRadius}px` ,
@@ -110,6 +111,9 @@ export default function TextComponent({position, onMount, onUnmount} : TextCompo
                 onHeightChange={setHeight}  // Add
                 onDelete={handleDelete} 
                 onClose={() => setShowGUI(false)} 
+                isBackgroundVisible={isBackgroundVisible}
+                setIsBackgroundVisible = {setIsBackgroundVisible}
+  
             />
         )}
         </>

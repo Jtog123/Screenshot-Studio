@@ -34,6 +34,8 @@ interface TextComponentGUIProps {
     onPosYChange: (y: number) => void;
     onWidthChange: (width: number) => void;
     onHeightChange: (height: number) => void;
+    isBackgroundVisible : boolean;
+    setIsBackgroundVisible: (isVisible : boolean) => void;
 }
 
 export default function TextComponentGUI({
@@ -41,7 +43,7 @@ export default function TextComponentGUI({
         borderColor, borderWidth, borderStyle, borderRadius,
         onTextChange, onFontSizeChange, onBackgroundColorChange, onOpacityChange, onFontColorChange,
         onBorderColorChange, onBorderWidthChange, onBorderStyleChange, onBorderRadiusChange,
-        onDelete, onClose, posX, posY, width, height, onPosXChange, onPosYChange, onWidthChange, onHeightChange,
+        onDelete, onClose, posX, posY, width, height, onPosXChange, onPosYChange, onWidthChange, onHeightChange, isBackgroundVisible, setIsBackgroundVisible
     }: TextComponentGUIProps) {
 
     const [isDragging, setIsDragging] = useState(false);
@@ -69,6 +71,10 @@ export default function TextComponentGUI({
             y: e.clientY - guiPosition.y
         };
         e.preventDefault()
+    }
+
+    function handleBackgroundToggle() : void {
+        setIsBackgroundVisible(!isBackgroundVisible);
     }
 
     useEffect(() => {
@@ -183,11 +189,18 @@ export default function TextComponentGUI({
                                             onChange={(e) => onFontColorChange(e.target.value)}
                                             className="w-10 h-10 cursor-pointer" />
                                     </div>
-                                    <div className="flex items-center gap-2">
+                                    <div className="flex flex-col items-center gap-2">
                                         <label className="text-xs text-stone-300">Background</label>
                                         <input type="color" value={backgroundColor} 
                                             onChange={(e) => onBackgroundColorChange(e.target.value)}
                                             className="w-10 h-10 cursor-pointer" />
+
+                                        <div className="flex">
+                                            <label className="text-xs text-stone-300 mr-2" htmlFor="">Transparent</label>
+                                            {/* toggling works but also need to toggle checkbox */}
+                                            <input type="checkbox" name="" id="" checked={true} onChange={handleBackgroundToggle} />
+                                        </div>
+ 
                                     </div>
                                 </div>
 
