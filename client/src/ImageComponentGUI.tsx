@@ -201,13 +201,6 @@ export default function ImageComponentGUI({_componentID, _assetManager} : ImageC
 
 
 
-
-
-
-
-
-
-
                 </div>
                 
             </div>

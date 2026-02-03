@@ -150,12 +150,21 @@ If a light Is NOT visible we should be be able to open its gui
 
 Text Component Requirements
     -Change Text Style
-    -Change Font Size
-    -Change Background Color
+    -Change Font Size  - DONE
+    -Change Background Color - DONE
     -Add borders
-    -Allow for Differing Opacities
+        -border color
+        -border width
+        -border style dashed, solid
+    -Allow for Differing Opacities - DONE
     -Allow for rounded corners
     -Allow for bolding specific words
+    -Change Position of Component in X,Y,Z space
+    -Width and Height of the component
+
+    -default option is no background, have to select it
+    -translucent background but able to see the text
+    -text alignment
 
 
 

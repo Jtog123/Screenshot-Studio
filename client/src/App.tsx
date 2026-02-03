@@ -49,14 +49,20 @@ export default function App() {
           key={`text_${Date.now()}`} 
           position="above"
             onMount={(id, name) => {
-                setActiveListItems(prev => [...prev, { id, name }]);
+              setActiveListItems(prev => [...prev, { id, name }]);
           }}
-          onUnmount={(id) => {
-            setActiveListItems(prev => prev.filter(item => item.id !== id));
+            onUnmount={(id) => {
+              setActiveListItems(prev => prev.filter(item => item.id !== id));
           }}
         />
     );
     setTextComponents([...textComponents, newText]);
+  }
+
+  function deleteTextComponent() : void {
+    //loop through
+    //delete the html and the list item
+
   }
   
 
