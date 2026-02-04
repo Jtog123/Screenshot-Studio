@@ -23,8 +23,7 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
     const [spriteInnerText, setSpriteInnerText] = useState("Type Here");
     const [spriteFontSize, setSpriteFontSize] = useState(16);
     const [spriteFontColor, setSpriteFontColor] = useState("#FFFFFF");
-    const [spriteBackgroundColor, setSpriteBackgroundColor] = useState("#000000");
-    const [isSpriteBackgroundTransparent, setIsSpriteBackgroundTransparent] = useState(false);
+    //const [spriteBackgroundColor, setSpriteBackgroundColor] = useState("#000000");
     const previousColorRef = useRef("#000000")
 
     const [spriteOpacity, setSpriteOpacity] = useState("1");
@@ -39,7 +38,6 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
     const [spriteWidth, setSpriteWidth] = useState(150);
     const [spriteHeight, setSpriteHeight] = useState(50);
 
-    const actualSpriteBackgroundColor = isSpriteBackgroundTransparent ? "rgba(0,0,0,0)" : spriteBackgroundColor;
 
     useEffect(() => {
         if(textSprite) {
@@ -59,11 +57,11 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
     useEffect(() => {
 
         if (textSprite) {
-            assetManager.updateTextSprite(textSprite, spriteInnerText, spriteFontSize, spriteFontColor, actualSpriteBackgroundColor, spriteWidth, spriteHeight);
+            assetManager.updateTextSprite(textSprite, spriteInnerText, spriteFontSize, spriteFontColor, spriteWidth, spriteHeight);
             //textSprite.position.set(posX, posY, posZ);
             textSprite.material.opacity = Number(spriteOpacity);
         }
-    }, [spriteInnerText, spriteFontSize, spriteFontColor, spriteBackgroundColor,isSpriteBackgroundTransparent ,spriteWidth, spriteHeight , spriteOpacity]);
+    }, [spriteInnerText, spriteFontSize, spriteFontColor, ,spriteWidth, spriteHeight , spriteOpacity]);
 
     
     // Collapsible sections state
@@ -134,17 +132,7 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
 
     }
 
-    function handleSpriteBackgroundTransparencyToggle(e: React.ChangeEvent<HTMLInputElement>) : void {
-        const checked = e.target.checked;
-        setIsSpriteBackgroundTransparent(checked);
 
-        if(checked) {
-            //save current color
-            previousColorRef.current = spriteBackgroundColor;
-        } else {
-            setSpriteBackgroundColor(previousColorRef.current);
-        }
-    }
 
 
     return (
@@ -220,6 +208,17 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
                         
                         {expandedSections.appearance && (
                             <div className="p-3 space-y-3 bg-stone-900/30">
+
+                                {/* Colors in a row */}
+                                <div className="grid grid-cols-1 gap-3 ">
+                                    <div className="flex items-center gap-2">
+                                        <label className="text-xs text-stone-300">Font</label>
+                                        <input type="color" value={spriteFontColor} 
+                                            onChange={() => console.log("hehe")}
+                                            className="w-10 h-10 cursor-pointer" />
+                                    </div>
+   
+                                </div>
                                 {/* Font Size */}
                                 <div>
                                     <label className="text-xs text-stone-300 block mb-1">Font Size: {spriteFontSize}</label>
@@ -228,30 +227,7 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
                                         className="w-full" />
                                 </div>
 
-                                {/* Colors in a row */}
-                                <div className="grid grid-cols-2 gap-3 ">
-                                    <div className="flex items-center gap-2">
-                                        <label className="text-xs text-stone-300">Font</label>
-                                        <input type="color" value={spriteFontColor} 
-                                            onChange={() => console.log("hehe")}
-                                            className="w-10 h-10 cursor-pointer" />
-                                    </div>
-                                    <div className="flex flex-col items-center gap-2 ">
-                                        <div className="flex items-center ">
-                                            <label className="text-xs text-stone-300 mr-2">Background</label>
-                                            <input type="color" value={spriteBackgroundColor} 
-                                                disabled={isSpriteBackgroundTransparent}
-                                                onChange={(e) => setSpriteBackgroundColor(e.target.value)}
-                                                className="w-10 h-10 cursor-pointer" />
-                                        </div>
- 
-                                    </div>
-                                    <div className="col-start-2 flex items-center justify-end gap-2 mr-5">
-                                            <label className="text-xs text-stone-300 mr-1 " htmlFor="">Transparent</label>
-                                            {/* toggling works but also need to toggle checkbox */}
-                                            <input type="checkbox" checked={isSpriteBackgroundTransparent} onChange={handleSpriteBackgroundTransparencyToggle} name="" id=""   />
-                                    </div>
-                                </div>
+
 
                                 {/* Opacity */}
                                 <div>
@@ -292,10 +268,7 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
                                     <div className="flex items-end gap-2">
                                         <div className="flex-1">
                                             <label className="text-xs text-stone-300 block mb-1">Color</label>
-                                            <input type="color" value={spriteBorderColor} 
-                                                disabled={isSpriteBackgroundTransparent}
-                                                onChange={() => console.log()}
-                                                className="w-full h-7 cursor-pointer" />
+                                            <input type="color" name="" id="" />
                                         </div>
                                     </div>
                                 </div>

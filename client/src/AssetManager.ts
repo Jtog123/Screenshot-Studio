@@ -89,7 +89,7 @@ class AssetManager {
 
     }
 
-    public createTextSprite(componentID:string, text: string, fontSize: number, fontColor : string, backgroundColor : string, width : number, height : number
+    public createTextSprite(componentID:string, text: string, fontSize: number, fontColor : string,  width : number, height : number
     ) : THREE.Sprite {
 
         const canvas = document.createElement("canvas");
@@ -105,10 +105,12 @@ class AssetManager {
 
         
 
+        /*
         if(backgroundColor !== "transparent" && context) {
             context.fillStyle = backgroundColor;
             context.fillRect(0,0, width, height);
         }
+            */
 
         if(context) {
             context.font = `${fontSize }px Arial`;
@@ -137,7 +139,7 @@ class AssetManager {
 
     }
 
-    public updateTextSprite(sprite: THREE.Sprite, text:string, fontSize: number, fontColor: string, backgroundColor : string, width : number, height: number) : void {
+    public updateTextSprite(sprite: THREE.Sprite, text:string, fontSize: number, fontColor: string,  width : number, height: number) : void {
         const canvas = (sprite.material.map as THREE.CanvasTexture).image as HTMLCanvasElement;
         const context = canvas.getContext("2d")!;
 
@@ -149,10 +151,12 @@ class AssetManager {
 
         context.clearRect(0,0, width, height);
 
+        /*
         if(backgroundColor !== "transparent") {
             context.fillStyle = backgroundColor;
             context.fillRect(0,0,width, height);
         }
+            */
 
         context.font = `${fontSize}px Arial`;
         context.fillStyle = fontColor;

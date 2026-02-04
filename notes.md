@@ -168,33 +168,9 @@ Text Component Requirements
 
     -text doesnt show up in scene need to create custom textSprite in asset manager?
     
-    function createTextSprite(text: string, fontSize: number, fontColor: string, backgroundColor: string) {
-    // Create canvas
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d')!;
+    -Text will stay text with no background, later allow user to add geometry shapes to the scene, layering system?
     
-    // Set canvas size
-    canvas.width = 512;
-    canvas.height = 256;
-    
-    // Draw background
-    context.fillStyle = backgroundColor;
-    context.fillRect(0, 0, canvas.width, canvas.height);
-    
-    // Draw text
-    context.font = `${fontSize}px Arial`;
-    context.fillStyle = fontColor;
-    context.textAlign = 'center';
-    context.textBaseline = 'middle';
-    context.fillText(text, canvas.width / 2, canvas.height / 2);
-    
-    // Create texture from canvas
-    const texture = new THREE.CanvasTexture(canvas);
-    const material = new THREE.SpriteMaterial({ map: texture, transparent: true });
-    const sprite = new THREE.Sprite(material);
-    
-    return sprite;
-}
+
 
 
 
