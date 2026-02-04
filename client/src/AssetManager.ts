@@ -125,6 +125,10 @@ class AssetManager {
         textComponent._underlyingComponent.name = componentID;
         textComponent._underlyingComponent.scale.set(width/80, height/80, 1);
         //textComponent._underlyingComponent.scale.set(width/100, height/100, 1); can create interesting effects drawing to a canvas
+
+        //review code made sure it makes sense
+        //also can i move that testcomponent code into toolbar or where imagecomponentcode is?
+        //we now need to figure out how to tie the gui to this component now
        
         this._assetsMap.set(componentID, textComponent);
     

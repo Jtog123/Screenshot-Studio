@@ -6,49 +6,51 @@ import * as THREE from 'three'
 
 interface TextComponentGUIProps {
     componentID: string;
-    text: string;
-    backgroundColor: string;
-    fontSize: number;
-    fontColor: string;
-    componentOpacity: string;
-    borderColor: string;
-    borderWidth: number;
-    borderStyle: "solid" | "dashed" | "dotted" | "none";
-    borderRadius: number;
-    onTextChange: (text: string) => void;
-    onFontSizeChange: (size: number) => void;
-    onBackgroundColorChange: (color: string) => void;
-    onOpacityChange: (opacity: string) => void;
-    onFontColorChange: (color: string) => void;
-    onBorderColorChange: (color: string) => void;
-    onBorderWidthChange: (width: number) => void;
-    onBorderStyleChange: (style: "solid" | "dashed" | "dotted" | "none") => void;
-    onBorderRadiusChange: (radius: number) => void;
+    assetManager: AssetManager;
+    textSprite: THREE.Sprite;
     onDelete: () => void;
     onClose: () => void;
-    posX: number;
-    posY: number;
-    width: number;
-    height: number;
-    onPosXChange: (x: number) => void;
-    onPosYChange: (y: number) => void;
-    onWidthChange: (width: number) => void;
-    onHeightChange: (height: number) => void;
-    //isBackgroundVisible : boolean;
-    //setIsBackgroundVisible: (isVisible : boolean) => void;
 }
 
-export default function TextComponentGUI({
-        componentID, text, backgroundColor, fontSize, fontColor, componentOpacity,
-        borderColor, borderWidth, borderStyle, borderRadius,
-        onTextChange, onFontSizeChange, onBackgroundColorChange, onOpacityChange, onFontColorChange,
-        onBorderColorChange, onBorderWidthChange, onBorderStyleChange, onBorderRadiusChange,
-        onDelete, onClose, posX, posY, width, height, onPosXChange, onPosYChange, onWidthChange, onHeightChange,
-    }: TextComponentGUIProps) {
+export default function TextComponentGUI({componentID, assetManager,  textSprite,onDelete, onClose}:        TextComponentGUIProps) {
 
     const [isDragging, setIsDragging] = useState(false);
-    const offset = useRef({x:0,y:0});
+    const offset = useRef({x:0, y:0});
     const [guiPosition, setGuiPosition] = useState({x: 100, y: 100});
+
+    const [text, setText] = useState("Type Here");
+    const [fontSize, setFontSize] = useState(16);
+    const [fontColor, setFontColor] = useState("#FFFFFF");
+    const [backgroundColor, setBackgroundColor] = useState("#00000000");
+    const [componentOpacity, setComponentOpacity] = useState("1");
+    const [borderColor, setBorderColor] = useState("#FFFFFF");
+    const [borderWidth, setBorderWidth] = useState(2);
+    const [borderStyle, setBorderStyle] = useState<"solid" | "dashed" | "dotted" | "none">("none");
+    const [borderRadius, setBorderRadius] = useState(0);
+    const [posX, setPosX] = useState(0);
+    const [posY, setPosY] = useState(2.2);
+    const [posZ, setPosZ] = useState(0);
+    const [width, setWidth] = useState(150);
+    const [height, setHeight] = useState(50);
+
+    useEffect(() => {
+        if(textSprite) {
+            textSprite.position.x = posX;
+            textSprite.position.y = posY;
+            textSprite.position.z = posZ;
+            setComponentOpacity(String(textSprite.material.opacity));
+        }
+    });
+
+    //update when these values change
+    useEffect(() => {
+        if (textSprite) {
+            assetManager.updateTextSprite(textSprite, text, fontSize, fontColor, backgroundColor, width, height);
+            textSprite.position.set(posX, posY, posZ);
+            textSprite.material.opacity = Number(componentOpacity);
+        }
+    }, [text, fontSize, fontColor, backgroundColor, width, height, posX, posY, posZ, componentOpacity]);
+
     
     // Collapsible sections state
     const [expandedSections, setExpandedSections] = useState({
@@ -72,6 +74,16 @@ export default function TextComponentGUI({
         };
         e.preventDefault()
     }
+
+    function handlePosXChange(e: React.ChangeEvent<HTMLInputElement>) : void {
+        console.log("moving pos x",e.target.value);
+        //set in threejs
+        textSprite.position.x = Number(e.target.value);
+
+        //update the state
+        setPosX(Number(e.target.value));
+    }
+
 
 
 
@@ -132,26 +144,26 @@ export default function TextComponentGUI({
                                 <div className="grid grid-cols-2 gap-2">
                                     <div>
                                         <label className="text-xs text-stone-300">X: {posX}px</label>
-                                        <input type="range" min="-300" max="300" value={posX}
-                                            onChange={(e) => onPosXChange(Number(e.target.value))}
+                                        <input type="range" min="-5" max="5" value={posX} step={"0.1"}
+                                            onChange={handlePosXChange}
                                             className="w-full h-1" />
                                     </div>
                                     <div>
                                         <label className="text-xs text-stone-300">Y: {posY}px</label>
                                         <input type="range" min="0" max="600" value={posY}
-                                            onChange={(e) => onPosYChange(Number(e.target.value))}
+                                            onChange={() => console.log("hehe")}
                                             className="w-full h-1" />
                                     </div>
                                     <div>
                                         <label className="text-xs text-stone-300">W: {width}px</label>
                                         <input type="range" min="50" max="500" value={width}
-                                            onChange={(e) => onWidthChange(Number(e.target.value))}
+                                            onChange={() => console.log("hehe")}
                                             className="w-full h-1" />
                                     </div>
                                     <div>
                                         <label className="text-xs text-stone-300">H: {height}px</label>
                                         <input type="range" min="30" max="300" value={height}
-                                            onChange={(e) => onHeightChange(Number(e.target.value))}
+                                            onChange={() => console.log("hehe")}
                                             className="w-full h-1" />
                                     </div>
                                 </div>
@@ -175,7 +187,7 @@ export default function TextComponentGUI({
                                 <div>
                                     <label className="text-xs text-stone-300 block mb-1">Font Size: {fontSize}px</label>
                                     <input type="range" min="6" max="72" value={fontSize}
-                                        onChange={(e) => onFontSizeChange(Number(e.target.value))}
+                                        onChange={() => console.log("hehe")}
                                         className="w-full" />
                                 </div>
 
@@ -184,13 +196,13 @@ export default function TextComponentGUI({
                                     <div className="flex items-center gap-2">
                                         <label className="text-xs text-stone-300">Font</label>
                                         <input type="color" value={fontColor} 
-                                            onChange={(e) => onFontColorChange(e.target.value)}
+                                            onChange={() => console.log("hehe")}
                                             className="w-10 h-10 cursor-pointer" />
                                     </div>
                                     <div className="flex flex-col items-center gap-2">
                                         <label className="text-xs text-stone-300">Background</label>
                                         <input type="color" value={backgroundColor} 
-                                            onChange={(e) => onBackgroundColorChange(e.target.value)}
+                                            onChange={() => console.log("hehe")}
                                             className="w-10 h-10 cursor-pointer" />
 
                                         <div className="flex">
@@ -206,7 +218,7 @@ export default function TextComponentGUI({
                                 <div>
                                     <label className="text-xs text-stone-300 block mb-1">Opacity: {componentOpacity}</label>
                                     <input type="range" min="0" max="1" step="0.01" value={componentOpacity}
-                                        onChange={(e) => onOpacityChange(e.target.value)}
+                                        onChange={() => console.log("hehe")}
                                         className="w-full" />
                                 </div>
                             </div>
@@ -230,7 +242,7 @@ export default function TextComponentGUI({
                                     <div>
                                         <label className="text-xs text-stone-300 block mb-1">Style</label>
                                         <select value={borderStyle}
-                                            onChange={(e) => onBorderStyleChange(e.target.value as any)}
+                                            onChange={() => console.log("hehe")}
                                             className="w-full px-2 py-1 bg-stone-800 text-stone-200 rounded text-xs">
                                             <option value="none">None</option>
                                             <option value="solid">Solid</option>
@@ -242,7 +254,7 @@ export default function TextComponentGUI({
                                         <div className="flex-1">
                                             <label className="text-xs text-stone-300 block mb-1">Color</label>
                                             <input type="color" value={borderColor} 
-                                                onChange={(e) => onBorderColorChange(e.target.value)}
+                                                onChange={() => console.log("hehe")}
                                                 className="w-full h-7 cursor-pointer" />
                                         </div>
                                     </div>
@@ -253,13 +265,13 @@ export default function TextComponentGUI({
                                     <div>
                                         <label className="text-xs text-stone-300 block mb-1">Width: {borderWidth}px</label>
                                         <input type="range" min="0" max="10" value={borderWidth}
-                                            onChange={(e) => onBorderWidthChange(Number(e.target.value))}
+                                            onChange={() => console.log("hehe")}
                                             className="w-full" />
                                     </div>
                                     <div>
                                         <label className="text-xs text-stone-300 block mb-1">Radius: {borderRadius}px</label>
                                         <input type="range" min="0" max="50" value={borderRadius}
-                                            onChange={(e) => onBorderRadiusChange(Number(e.target.value))}
+                                            onChange={() => console.log("hehe")}
                                             className="w-full" />
                                     </div>
                                 </div>
