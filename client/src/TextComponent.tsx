@@ -22,8 +22,7 @@ export default function TextComponent({position, assetManager ,onMount, onUnmoun
     //create temps or use literals to pass here
     useEffect(() => {
         const sprite = assetManager.createTextSprite(
-            componentID, "Type Here", 16, "#FFFFFF", 150, 50
-        );
+            componentID, "Type Here", 16, "#FFFFFF");
 
         sprite.name = componentID;
         console.log(sprite.name);
@@ -72,11 +71,6 @@ export default function TextComponent({position, assetManager ,onMount, onUnmoun
         onUnmount?.(componentID);
     }
 
-
-    function handleClick() {
-        console.log("displaying the gui here?");
-        setShowGUI(true);
-    }
 
 
     return (

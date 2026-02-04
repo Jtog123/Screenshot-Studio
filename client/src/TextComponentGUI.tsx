@@ -16,11 +16,16 @@ interface TextComponentGUIProps {
 
 export default function TextComponentGUI({componentID, assetManager,  textSprite, onDelete, onClose}:        TextComponentGUIProps) {
 
+    const component = assetManager.getComponent(componentID);
+
     const [isDragging, setIsDragging] = useState(false);
     const offset = useRef({x:0, y:0});
     const [guiPosition, setGuiPosition] = useState({x: 100, y: 100});
 
-    const [spriteInnerText, setSpriteInnerText] = useState("Type Here");
+    const [spriteInnerText, setSpriteInnerText] = useState(
+        component?._textConfig?.text ?? "Type Here"
+    );
+
     const [spriteFontSize, setSpriteFontSize] = useState(16);
     const [spriteFontColor, setSpriteFontColor] = useState("#FFFFFF");
     //const [spriteBackgroundColor, setSpriteBackgroundColor] = useState("#000000");
@@ -35,8 +40,7 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
         x: 0,
         y: 2.2,
     });
-    const [spriteWidth, setSpriteWidth] = useState(150);
-    const [spriteHeight, setSpriteHeight] = useState(50);
+
 
 
     useEffect(() => {
@@ -50,6 +54,14 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
             //textSprite.position.y = posY;
             //textSprite.position.z = posZ;
             setSpriteOpacity(String(textSprite.material.opacity));
+
+            const component = assetManager.getComponent(componentID);
+            if(component?._textConfig) {
+                setSpriteInnerText(component?._textConfig?.text);
+                setSpriteFontSize(component?._textConfig?.fontSize);
+                setSpriteFontColor(component?._textConfig?.fontColor);
+            }
+
         }
     },[]);
 
@@ -57,11 +69,14 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
     useEffect(() => {
 
         if (textSprite) {
-            assetManager.updateTextSprite(textSprite, spriteInnerText, spriteFontSize, spriteFontColor, spriteWidth, spriteHeight);
+            assetManager.updateTextSprite(textSprite, spriteInnerText, spriteFontSize, spriteFontColor, );
             //textSprite.position.set(posX, posY, posZ);
             textSprite.material.opacity = Number(spriteOpacity);
+
+
+            assetManager.updateTextSprite(textSprite, spriteInnerText, spriteFontSize, spriteFontColor);
         }
-    }, [spriteInnerText, spriteFontSize, spriteFontColor, ,spriteWidth, spriteHeight , spriteOpacity]);
+    }, [spriteInnerText, spriteFontSize, spriteFontColor ,textSprite ,spriteOpacity]);
 
     
     // Collapsible sections state
@@ -135,6 +150,8 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
 
 
 
+
+
     return (
         <>
             <div 
@@ -153,6 +170,18 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
                 </div>
 
                 <div className="px-4 py-2 space-y-2">
+
+                    {/* TEXT INPUT */}
+                    <div>
+                        <label className="text-xs text-stone-300 block mb-1">Text Content</label>
+                        <textarea 
+                            value={spriteInnerText}
+                            onChange={(e) => setSpriteInnerText(e.target.value)}
+                            className="w-full px-2 py-1 bg-stone-800 text-stone-200 rounded text-sm border border-stone-600 focus:border-stone-400 focus:outline-none resize-none"
+                            placeholder="Enter text... (Press Enter for new line)"
+                            rows={3}
+                        />
+                    </div>
                     
                     {/* POSITION & SIZE SECTION */}
                     <div className="border border-stone-700 rounded-lg overflow-hidden">
@@ -179,18 +208,7 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
                                             onChange={(e) => handleSpritePositionChange(e, "yPosSlider")}
                                             className="w-full h-1" />
                                     </div>
-                                    <div>
-                                        <label className="text-xs text-stone-300">W: {spriteWidth}</label>
-                                        <input type="range" min="50" max="500" value={spriteWidth}
-                                            onChange={() => console.log("hehe")}
-                                            className="w-full h-1" />
-                                    </div>
-                                    <div>
-                                        <label className="text-xs text-stone-300">H: {spriteHeight}</label>
-                                        <input type="range" min="30" max="300" value={spriteHeight}
-                                            onChange={() => console.log("hehe")}
-                                            className="w-full h-1" />
-                                    </div>
+
                                 </div>
                             </div>
                         )}
@@ -214,7 +232,7 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
                                     <div className="flex items-center gap-2">
                                         <label className="text-xs text-stone-300">Font</label>
                                         <input type="color" value={spriteFontColor} 
-                                            onChange={() => console.log("hehe")}
+                                            onChange={(e) => setSpriteFontColor(e.target.value)}
                                             className="w-10 h-10 cursor-pointer" />
                                     </div>
    
@@ -223,7 +241,7 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
                                 <div>
                                     <label className="text-xs text-stone-300 block mb-1">Font Size: {spriteFontSize}</label>
                                     <input type="range" min="6" max="72" value={spriteFontSize}
-                                        onChange={() => console.log("hehe")}
+                                        onChange={(e) => setSpriteFontSize(Number(e.target.value))}
                                         className="w-full" />
                                 </div>
 
@@ -233,7 +251,7 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
                                 <div>
                                     <label className="text-xs text-stone-300 block mb-1">Opacity: {spriteOpacity}</label>
                                     <input type="range" min="0" max="1" step="0.01" value={spriteOpacity}
-                                        onChange={() => console.log("hehe")}
+                                        onChange={(e) => setSpriteOpacity(e.target.value)}
                                         className="w-full" />
                                 </div>
                             </div>

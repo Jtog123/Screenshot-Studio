@@ -89,35 +89,40 @@ class AssetManager {
 
     }
 
-    public createTextSprite(componentID:string, text: string, fontSize: number, fontColor : string,  width : number, height : number
+    public createTextSprite(componentID:string, text: string, fontSize: number, fontColor : string, 
     ) : THREE.Sprite {
 
         const canvas = document.createElement("canvas");
-
         //creates a CanvasRenderingContext2d object
         const context = canvas.getContext("2d");
 
+        const vh = window.innerHeight;
+        const overlayWidth = vh * 0.462;
+
+
+        const width = overlayWidth;
+        const height = 256;
         const scale = 4;
+
         canvas.width = width * scale;
         canvas.height = height * scale;
 
         context?.scale(scale,scale);
 
-        
-
-        /*
-        if(backgroundColor !== "transparent" && context) {
-            context.fillStyle = backgroundColor;
-            context.fillRect(0,0, width, height);
-        }
-            */
-
         if(context) {
-            context.font = `${fontSize }px Arial`;
+            context.font = `${fontSize}px Arial`;
             context.fillStyle = fontColor;
             context.textAlign = 'center';
             context.textBaseline = 'middle';
-            context.fillText(text, width / 2, height / 2);
+
+            const lines = text.split("\n");
+            const lineHeight = fontSize * 1.2;
+            const totalHeight = lines.length * lineHeight;
+            const startY = (height / 2) - (totalHeight / 2) + (lineHeight / 2);
+
+            lines.forEach((line, index) => {
+                context.fillText(line, width / 2, startY + (index * lineHeight));
+            })
         }
 
         const textComponent = new SceneComponent(ComponentType.Text);
@@ -126,6 +131,10 @@ class AssetManager {
         textComponent._underlyingComponent = new THREE.Sprite(textComponent._material);
         textComponent._underlyingComponent.name = componentID;
         textComponent._underlyingComponent.scale.set(width/80, height/80, 1);
+
+        textComponent._textConfig = {
+            text, fontSize, fontColor, opacity: 1
+        }
         //textComponent._underlyingComponent.scale.set(width/100, height/100, 1); can create interesting effects drawing to a canvas
 
         //review code made sure it makes sense
@@ -139,34 +148,44 @@ class AssetManager {
 
     }
 
-    public updateTextSprite(sprite: THREE.Sprite, text:string, fontSize: number, fontColor: string,  width : number, height: number) : void {
+    public updateTextSprite(sprite: THREE.Sprite, text: string, fontSize: number, fontColor: string) : void {
         const canvas = (sprite.material.map as THREE.CanvasTexture).image as HTMLCanvasElement;
         const context = canvas.getContext("2d")!;
 
+        const vh = window.innerHeight;
+        const overlayWidth = vh * 0.462;
+        
+        const width = overlayWidth;
+        const height = 256;
         const scale = 4;
-
 
         context.setTransform(1, 0, 0, 1, 0, 0);
         context.scale(scale, scale);
-
-        context.clearRect(0,0, width, height);
-
-        /*
-        if(backgroundColor !== "transparent") {
-            context.fillStyle = backgroundColor;
-            context.fillRect(0,0,width, height);
-        }
-            */
+        context.clearRect(0, 0, width, height);
 
         context.font = `${fontSize}px Arial`;
         context.fillStyle = fontColor;
         context.textAlign = "center";
         context.textBaseline = "middle";
-        context.fillText(text, width / 2, height / 2);
+        
+        const lines = text.split('\n');
+        const lineHeight = fontSize * 1.2;
+        const totalHeight = lines.length * lineHeight;
+        const startY = (height / 2) - (totalHeight / 2) + (lineHeight / 2);
+        
+        lines.forEach((line, index) => {
+            context.fillText(line, width / 2, startY + (index * lineHeight));
+        });
+
+        const component = this.getComponent(sprite.name);
+        if(component && component._textConfig) {
+            component._textConfig.text = text;
+            component._textConfig.fontSize = fontSize;
+            component._textConfig.fontColor = fontColor;
+        }
+
 
         (sprite.material.map as THREE.CanvasTexture).needsUpdate = true;
-
-
     }
 
 

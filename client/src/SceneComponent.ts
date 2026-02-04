@@ -16,6 +16,13 @@ class SceneComponent {
     public _guiY : number = 0;
     public _title : string = "";
 
+    public _textConfig? : {
+        text: string;
+        fontSize: number;
+        fontColor : string;
+        opacity : number;
+    };
+
     constructor(componentType: ComponentType) {
         this._componentType = componentType
 
