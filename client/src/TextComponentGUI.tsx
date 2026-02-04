@@ -21,7 +21,7 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
     const [text, setText] = useState("Type Here");
     const [fontSize, setFontSize] = useState(16);
     const [fontColor, setFontColor] = useState("#FFFFFF");
-    const [backgroundColor, setBackgroundColor] = useState("#00000000");
+    const [backgroundColor, setBackgroundColor] = useState("#000000");
     const [componentOpacity, setComponentOpacity] = useState("1");
     const [borderColor, setBorderColor] = useState("#FFFFFF");
     const [borderWidth, setBorderWidth] = useState(2);
@@ -35,21 +35,22 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
 
     useEffect(() => {
         if(textSprite) {
-            textSprite.position.x = posX;
+            setPosX(textSprite.position.x);
+            //textSprite.position.x = posX;
             textSprite.position.y = posY;
             textSprite.position.z = posZ;
             setComponentOpacity(String(textSprite.material.opacity));
         }
-    });
+    },[]);
 
     //update when these values change
     useEffect(() => {
         if (textSprite) {
             assetManager.updateTextSprite(textSprite, text, fontSize, fontColor, backgroundColor, width, height);
-            textSprite.position.set(posX, posY, posZ);
+            //textSprite.position.set(posX, posY, posZ);
             textSprite.material.opacity = Number(componentOpacity);
         }
-    }, [text, fontSize, fontColor, backgroundColor, width, height, posX, posY, posZ, componentOpacity]);
+    }, [text, fontSize, fontColor, backgroundColor, width, height, componentOpacity]);
 
     
     // Collapsible sections state

@@ -41,11 +41,10 @@ export default function TextComponent({position, assetManager ,onMount, onUnmoun
         onMount(componentID, "Text Component");
 
         const handleComponentSelected = (data : any) => {
-            
             if(data.id === componentID) {
+                console.log("Setting showGUI to true");
                 setShowGUI(true);
             }
-
         }
 
         const handleComponentDeselected = (data : any) => {
@@ -78,8 +77,6 @@ export default function TextComponent({position, assetManager ,onMount, onUnmoun
     }
 
 
-
-
     function handleClick() {
         console.log("displaying the gui here?");
         setShowGUI(true);
@@ -96,7 +93,10 @@ export default function TextComponent({position, assetManager ,onMount, onUnmoun
                 assetManager={assetManager}
                 textSprite = {textSprite as THREE.Sprite}
                 onDelete={handleDelete} 
-                onClose={() => setShowGUI(false)} 
+                onClose={() => {
+                    setShowGUI(false);
+                    assetManager.deselectComponent(componentID);
+                }}
 
 
             />
