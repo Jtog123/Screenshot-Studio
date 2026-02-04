@@ -12,45 +12,58 @@ interface TextComponentGUIProps {
     onClose: () => void;
 }
 
-export default function TextComponentGUI({componentID, assetManager,  textSprite,onDelete, onClose}:        TextComponentGUIProps) {
+
+
+export default function TextComponentGUI({componentID, assetManager,  textSprite, onDelete, onClose}:        TextComponentGUIProps) {
 
     const [isDragging, setIsDragging] = useState(false);
     const offset = useRef({x:0, y:0});
     const [guiPosition, setGuiPosition] = useState({x: 100, y: 100});
 
-    const [text, setText] = useState("Type Here");
-    const [fontSize, setFontSize] = useState(16);
-    const [fontColor, setFontColor] = useState("#FFFFFF");
-    const [backgroundColor, setBackgroundColor] = useState("#000000");
-    const [componentOpacity, setComponentOpacity] = useState("1");
-    const [borderColor, setBorderColor] = useState("#FFFFFF");
-    const [borderWidth, setBorderWidth] = useState(2);
-    const [borderStyle, setBorderStyle] = useState<"solid" | "dashed" | "dotted" | "none">("none");
-    const [borderRadius, setBorderRadius] = useState(0);
-    const [posX, setPosX] = useState(0);
-    const [posY, setPosY] = useState(2.2);
-    const [posZ, setPosZ] = useState(0);
-    const [width, setWidth] = useState(150);
-    const [height, setHeight] = useState(50);
+    const [spriteInnerText, setSpriteInnerText] = useState("Type Here");
+    const [spriteFontSize, setSpriteFontSize] = useState(16);
+    const [spriteFontColor, setSpriteFontColor] = useState("#FFFFFF");
+    const [spriteBackgroundColor, setSpriteBackgroundColor] = useState("#000000");
+    const [isSpriteBackgroundTransparent, setIsSpriteBackgroundTransparent] = useState(false);
+    const previousColorRef = useRef("#000000")
+
+    const [spriteOpacity, setSpriteOpacity] = useState("1");
+    const [spriteBorderColor, setSpriteBorderColor] = useState("#FFFFFF");
+    const [spriteBorderWidth, setSpriteBorderWidth] = useState(2);
+    const [spriteBorderStyle, setSpriteBorderStyle] = useState<"solid" | "dashed" | "dotted" | "none">("none");
+    const [spriteBorderRadius, setSpriteBorderRadius] = useState(0);
+    const[spritePosition, setSpritePosition] = useState({
+        x: 0,
+        y: 2.2,
+    });
+    const [spriteWidth, setSpriteWidth] = useState(150);
+    const [spriteHeight, setSpriteHeight] = useState(50);
+
+    const actualSpriteBackgroundColor = isSpriteBackgroundTransparent ? "rgba(0,0,0,0)" : spriteBackgroundColor;
 
     useEffect(() => {
         if(textSprite) {
-            setPosX(textSprite.position.x);
+            setSpritePosition({
+                x: textSprite.position.x,
+                y: textSprite.position.y,
+            })
+            //setPosX(textSprite.position.x);
             //textSprite.position.x = posX;
-            textSprite.position.y = posY;
-            textSprite.position.z = posZ;
-            setComponentOpacity(String(textSprite.material.opacity));
+            //textSprite.position.y = posY;
+            //textSprite.position.z = posZ;
+            setSpriteOpacity(String(textSprite.material.opacity));
         }
     },[]);
 
     //update when these values change
     useEffect(() => {
+
         if (textSprite) {
-            assetManager.updateTextSprite(textSprite, text, fontSize, fontColor, backgroundColor, width, height);
+            assetManager.updateTextSprite(textSprite, spriteInnerText, spriteFontSize, spriteFontColor, actualSpriteBackgroundColor, spriteWidth, spriteHeight);
             //textSprite.position.set(posX, posY, posZ);
-            textSprite.material.opacity = Number(componentOpacity);
+            textSprite.material.opacity = Number(spriteOpacity);
         }
-    }, [text, fontSize, fontColor, backgroundColor, width, height, componentOpacity]);
+    }, [spriteInnerText, spriteFontSize, spriteFontColor, spriteBackgroundColor,isSpriteBackgroundTransparent ,spriteWidth, spriteHeight , spriteOpacity]);
 
     
     // Collapsible sections state
@@ -76,17 +89,6 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
         e.preventDefault()
     }
 
-    function handlePosXChange(e: React.ChangeEvent<HTMLInputElement>) : void {
-        console.log("moving pos x",e.target.value);
-        //set in threejs
-        textSprite.position.x = Number(e.target.value);
-
-        //update the state
-        setPosX(Number(e.target.value));
-    }
-
-
-
 
     useEffect(() => {
         function handleMouseMove(e: MouseEvent): void {
@@ -110,6 +112,40 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
             document.removeEventListener("mouseup", handleMouseUp);
         }
     }, [isDragging]);
+
+
+    function handleSpritePositionChange(e: React.ChangeEvent<HTMLInputElement>, sliderName : string) : void {
+        const moveValue = Number(e.target.value);
+        if(sliderName === "xPosSlider") {
+            setSpritePosition({
+                x: moveValue,
+                y: spritePosition.y,
+            });
+            //set in threejs
+            textSprite.position.x = moveValue;
+        } else if(sliderName === "yPosSlider") {
+            setSpritePosition({
+                x: spritePosition.x,
+                y: moveValue,
+            });
+            //set in threejs
+            textSprite.position.y = moveValue;            
+        } 
+
+    }
+
+    function handleSpriteBackgroundTransparencyToggle(e: React.ChangeEvent<HTMLInputElement>) : void {
+        const checked = e.target.checked;
+        setIsSpriteBackgroundTransparent(checked);
+
+        if(checked) {
+            //save current color
+            previousColorRef.current = spriteBackgroundColor;
+        } else {
+            setSpriteBackgroundColor(previousColorRef.current);
+        }
+    }
+
 
     return (
         <>
@@ -144,26 +180,26 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
                             <div className="p-3 space-y-2 bg-stone-900/30">
                                 <div className="grid grid-cols-2 gap-2">
                                     <div>
-                                        <label className="text-xs text-stone-300">X: {posX}px</label>
-                                        <input type="range" min="-5" max="5" value={posX} step={"0.1"}
-                                            onChange={handlePosXChange}
+                                        <label className="text-xs text-stone-300">X: {spritePosition.x}</label>
+                                        <input type="range" min="-5" max="5" value={spritePosition.x} step={"0.1"}
+                                            onChange={(e) => handleSpritePositionChange(e, "xPosSlider")}
                                             className="w-full h-1" />
                                     </div>
                                     <div>
-                                        <label className="text-xs text-stone-300">Y: {posY}px</label>
-                                        <input type="range" min="0" max="600" value={posY}
+                                        <label className="text-xs text-stone-300">Y: {spritePosition.y}</label>
+                                        <input type="range" min="-5" max="5" value={spritePosition.y} step={"0.1"}
+                                            onChange={(e) => handleSpritePositionChange(e, "yPosSlider")}
+                                            className="w-full h-1" />
+                                    </div>
+                                    <div>
+                                        <label className="text-xs text-stone-300">W: {spriteWidth}</label>
+                                        <input type="range" min="50" max="500" value={spriteWidth}
                                             onChange={() => console.log("hehe")}
                                             className="w-full h-1" />
                                     </div>
                                     <div>
-                                        <label className="text-xs text-stone-300">W: {width}px</label>
-                                        <input type="range" min="50" max="500" value={width}
-                                            onChange={() => console.log("hehe")}
-                                            className="w-full h-1" />
-                                    </div>
-                                    <div>
-                                        <label className="text-xs text-stone-300">H: {height}px</label>
-                                        <input type="range" min="30" max="300" value={height}
+                                        <label className="text-xs text-stone-300">H: {spriteHeight}</label>
+                                        <input type="range" min="30" max="300" value={spriteHeight}
                                             onChange={() => console.log("hehe")}
                                             className="w-full h-1" />
                                     </div>
@@ -186,39 +222,41 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
                             <div className="p-3 space-y-3 bg-stone-900/30">
                                 {/* Font Size */}
                                 <div>
-                                    <label className="text-xs text-stone-300 block mb-1">Font Size: {fontSize}px</label>
-                                    <input type="range" min="6" max="72" value={fontSize}
+                                    <label className="text-xs text-stone-300 block mb-1">Font Size: {spriteFontSize}</label>
+                                    <input type="range" min="6" max="72" value={spriteFontSize}
                                         onChange={() => console.log("hehe")}
                                         className="w-full" />
                                 </div>
 
                                 {/* Colors in a row */}
-                                <div className="grid grid-cols-2 gap-3">
+                                <div className="grid grid-cols-2 gap-3 ">
                                     <div className="flex items-center gap-2">
                                         <label className="text-xs text-stone-300">Font</label>
-                                        <input type="color" value={fontColor} 
+                                        <input type="color" value={spriteFontColor} 
                                             onChange={() => console.log("hehe")}
                                             className="w-10 h-10 cursor-pointer" />
                                     </div>
-                                    <div className="flex flex-col items-center gap-2">
-                                        <label className="text-xs text-stone-300">Background</label>
-                                        <input type="color" value={backgroundColor} 
-                                            onChange={() => console.log("hehe")}
-                                            className="w-10 h-10 cursor-pointer" />
-
-                                        <div className="flex">
-                                            <label className="text-xs text-stone-300 mr-2" htmlFor="">Transparent</label>
-                                            {/* toggling works but also need to toggle checkbox */}
-                                            <input type="checkbox" name="" id=""   />
+                                    <div className="flex flex-col items-center gap-2 ">
+                                        <div className="flex items-center ">
+                                            <label className="text-xs text-stone-300 mr-2">Background</label>
+                                            <input type="color" value={spriteBackgroundColor} 
+                                                disabled={isSpriteBackgroundTransparent}
+                                                onChange={(e) => setSpriteBackgroundColor(e.target.value)}
+                                                className="w-10 h-10 cursor-pointer" />
                                         </div>
  
+                                    </div>
+                                    <div className="col-start-2 flex items-center justify-end gap-2 mr-5">
+                                            <label className="text-xs text-stone-300 mr-1 " htmlFor="">Transparent</label>
+                                            {/* toggling works but also need to toggle checkbox */}
+                                            <input type="checkbox" checked={isSpriteBackgroundTransparent} onChange={handleSpriteBackgroundTransparencyToggle} name="" id=""   />
                                     </div>
                                 </div>
 
                                 {/* Opacity */}
                                 <div>
-                                    <label className="text-xs text-stone-300 block mb-1">Opacity: {componentOpacity}</label>
-                                    <input type="range" min="0" max="1" step="0.01" value={componentOpacity}
+                                    <label className="text-xs text-stone-300 block mb-1">Opacity: {spriteOpacity}</label>
+                                    <input type="range" min="0" max="1" step="0.01" value={spriteOpacity}
                                         onChange={() => console.log("hehe")}
                                         className="w-full" />
                                 </div>
@@ -242,7 +280,7 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
                                 <div className="grid grid-cols-2 gap-2">
                                     <div>
                                         <label className="text-xs text-stone-300 block mb-1">Style</label>
-                                        <select value={borderStyle}
+                                        <select value={spriteBorderStyle}
                                             onChange={() => console.log("hehe")}
                                             className="w-full px-2 py-1 bg-stone-800 text-stone-200 rounded text-xs">
                                             <option value="none">None</option>
@@ -254,8 +292,9 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
                                     <div className="flex items-end gap-2">
                                         <div className="flex-1">
                                             <label className="text-xs text-stone-300 block mb-1">Color</label>
-                                            <input type="color" value={borderColor} 
-                                                onChange={() => console.log("hehe")}
+                                            <input type="color" value={spriteBorderColor} 
+                                                disabled={isSpriteBackgroundTransparent}
+                                                onChange={() => console.log()}
                                                 className="w-full h-7 cursor-pointer" />
                                         </div>
                                     </div>
@@ -264,14 +303,14 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
                                 {/* Width and radius */}
                                 <div className="grid grid-cols-2 gap-2">
                                     <div>
-                                        <label className="text-xs text-stone-300 block mb-1">Width: {borderWidth}px</label>
-                                        <input type="range" min="0" max="10" value={borderWidth}
+                                        <label className="text-xs text-stone-300 block mb-1">Width: {spriteBorderWidth}px</label>
+                                        <input type="range" min="0" max="10" value={spriteBorderWidth}
                                             onChange={() => console.log("hehe")}
                                             className="w-full" />
                                     </div>
                                     <div>
-                                        <label className="text-xs text-stone-300 block mb-1">Radius: {borderRadius}px</label>
-                                        <input type="range" min="0" max="50" value={borderRadius}
+                                        <label className="text-xs text-stone-300 block mb-1">Radius: {spriteBorderRadius}px</label>
+                                        <input type="range" min="0" max="50" value={spriteBorderRadius}
                                             onChange={() => console.log("hehe")}
                                             className="w-full" />
                                     </div>

@@ -20,20 +20,21 @@ export default function TextComponent({position, assetManager ,onMount, onUnmoun
     const [text, setText] = useState("Type Here");
     const [fontSize, setFontSize] = useState(16);
     const[fontColor, setFontColor] = useState("#FFFFFF");
-    const[backgroundColor, setBackgroundColor] = useState("transparent");
+    //const[backgroundColor, setBackgroundColor] = useState("#00000000");
     //const[isBackgroundVisible, setIsBackgroundVisible] = useState(false);
     const [width, setWidth] = useState(150);
     const [height, setHeight] = useState(50);
     const [textSprite, setTextSprite] = useState<THREE.Sprite | null>(null);
 
+    //create temps or use literals to pass here
     useEffect(() => {
         const sprite = assetManager.createTextSprite(
-            componentID, text, fontSize, fontColor, backgroundColor, width, height
+            componentID, text, fontSize, fontColor, "#000000", width, height
         );
 
         sprite.name = componentID;
         console.log(sprite.name);
-        sprite.position.set(0,2.2,0);
+        sprite.position.set(0,2,1);
         //assetManager._assetsMap.
         assetManager._assetGroup.add(sprite);
         setTextSprite(sprite);
@@ -64,11 +65,13 @@ export default function TextComponent({position, assetManager ,onMount, onUnmoun
     }, []);
 
     //update teh sprite when any attributes change
+    /*
     useEffect(() => {
         if(textSprite) {
             assetManager.updateTextSprite(textSprite,text,fontSize,fontColor,backgroundColor,width,height);
         }
     }, [text, fontSize, fontColor, backgroundColor, width, height])
+    */
 
 
 
