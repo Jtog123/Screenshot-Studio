@@ -240,19 +240,32 @@ class AssetManager {
 
     public selectComponentByID(componentID : string) : void {
         
-        const selectedComponentID = this._assetsMap.get(componentID);
+        //const selectedComponentID = this._assetsMap.get(componentID);
+        const component = this.getComponent(componentID);
+        if(!component) return;
+
+        if(this._selectedComponentID !== componentID) {
+            const sprite = component._underlyingComponent as THREE.Sprite | THREE.Mesh;
+
+            //store original scale
+            if(!component._originalScale) {
+                component._originalScale = sprite.scale.clone();
+    
+            }
+            sprite.scale.copy(component._originalScale).multiplyScalar(1.1);
+        }
 
         this._selectedComponentID = componentID;
 
-        console.log("gite em", selectedComponentID);
+        console.log("gite em", this._selectedComponentID);
 
-        const component = this.getComponent(componentID); //gets a sprite
+        //const component = this.getComponent(componentID); //gets a sprite
 
-        if(!component) return;
+        //if(!component) return;
 
         //may have to adjust selection logv=ic for text
         //scale slightly and show opactiy to show selection
-        (component?._underlyingComponent as THREE.Sprite || THREE.Mesh || THREE.CanvasTexture).scale.multiplyScalar(1.2);
+        //(component?._underlyingComponent as THREE.Sprite || THREE.Mesh || THREE.CanvasTexture).scale.multiplyScalar(1.2);
         //(component?._underlyingComponent as THREE.Sprite || THREE.Mesh).material.opacity = 0.7;
 
         
@@ -271,9 +284,21 @@ class AssetManager {
 
         if(!component) return;
 
+
+        //restore sclae if component was actually selected
+        if(this._selectedComponentID === componentID) {
+            const sprite = component._underlyingComponent as THREE.Sprite | THREE.Mesh;
+
+            if(component._originalScale) {
+                sprite.scale.copy(component._originalScale);
+            }
+        }
+
+
         //makr some visual point, write a select function in sceneComponent class??
-        (component._underlyingComponent as THREE.Sprite || THREE.Mesh).scale.multiplyScalar(1/1.2);
-        //(component._underlyingComponent as THREE.Sprite || THREE.Mesh).material.opacity = 1.0;
+        //(component._underlyingComponent as THREE.Sprite || THREE.Mesh).scale.multiplyScalar(1/1.2);
+
+
 
         this._selectedComponentID = null;
 

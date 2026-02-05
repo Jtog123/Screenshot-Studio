@@ -181,23 +181,23 @@ export default function ImageComponentGUI({_componentID, _assetManager} : ImageC
 
 
                     <label className="text-sm text-stone-200" htmlFor="">Position X:</label>
-                    <input name="xPos" onChange={(e) => handlePosSlidersChange(e, "xPos")} type="range" min={"-10"} max={"10"} value={componentPos.x} step={"0.1"}/>
+                    <input name="xPos" className="w-full h-1" onChange={(e) => handlePosSlidersChange(e, "xPos")} type="range" min={"-10"} max={"10"} value={componentPos.x} step={"0.1"}/>
 
                     <label className="text-sm text-stone-200" htmlFor="">Position Y:</label>
-                    <input name="yPos" onChange={(e) => handlePosSlidersChange(e, "yPos")}type="range" min={"-10"} max={"10"} value={componentPos.y} step={"0.1"}/>
+                    <input name="yPos" className="w-full h-1" onChange={(e) => handlePosSlidersChange(e, "yPos")}type="range" min={"-10"} max={"10"} value={componentPos.y} step={"0.1"}/>
 
                     <label className="text-sm text-stone-200" htmlFor="">Position Z:</label>
-                    <input name="zPos" onChange={(e) => handlePosSlidersChange(e, "zPos")} type="range" min={"-10"} max={"10"} value={componentPos.z} step={"0.1"}/>
+                    <input name="zPos" className="w-full h-1" onChange={(e) => handlePosSlidersChange(e, "zPos")} type="range" min={"-10"} max={"10"} value={componentPos.z} step={"0.1"}/>
 
                     <div className="divider w-full h-px bg-stone-300/40 my-3"></div>
 
                     <label htmlFor="" className="text-sm text-stone-200"> Scale: </label>
-                    <input name="scale" onChange={(e) =>handleScaleSlidersChange(e)} type="range" min={"0.3"} value={componentScale.x} max={"3"} step={"0.1"}/>
+                    <input name="scale" className="w-full h-1" onChange={(e) =>handleScaleSlidersChange(e)} type="range" min={"0.3"} value={componentScale.x} max={"3"} step={"0.1"}/>
 
                     <div className="divider w-full h-px bg-stone-300/40 my-3"></div>
 
                     <label htmlFor="" className="text-sm text-stone-200"> Opacity: </label>
-                    <input name="opacity" onChange={(e) => handleOpacityChange(e)} type="range" min={"0.1"} value={componentOpacity} max={"1"} step={"0.01"}/>
+                    <input name="opacity" className="w-full h-1" onChange={(e) => handleOpacityChange(e)} type="range" min={"0.1"} value={componentOpacity} max={"1"} step={"0.01"}/>
 
 
 

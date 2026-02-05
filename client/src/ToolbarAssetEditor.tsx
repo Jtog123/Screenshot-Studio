@@ -89,8 +89,6 @@ export default function ToolbarAssetEditor({isToolbarToggled, setImageComponents
                         <button onClick={addTextComponent}  className="text-md bg-purple-500 w-[33%] cursor-pointer"> Text</button>
 
                         <button onClick={addImageComponent} className={`text-md bg-purple-600 w-[33%] cursor-pointer`}> Image</button>
-
-                        <button  className="text-md bg-purple-500 w-[33%] cursor-pointer"> Text & Image</button>
                     </div>
 
                 </div>

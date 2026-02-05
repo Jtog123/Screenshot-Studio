@@ -159,7 +159,7 @@ Text Component Requirements
     -Allow for Differing Opacities - DONE
     -Allow for rounded corners
     -Allow for bolding specific words
-    -Change Position of Component in X,Y,Z space
+    -Change Position of Component in X,Y,Z space - DONE
     -Width and Height of the component
 
     -default option is no background, have to select it
@@ -167,8 +167,11 @@ Text Component Requirements
     -text alignment
 
     -text doesnt show up in scene need to create custom textSprite in asset manager?
-    
+
     -Text will stay text with no background, later allow user to add geometry shapes to the scene, layering system?
+
+
+    -toggling visibility shrinks the text component and the image component
     
 
 

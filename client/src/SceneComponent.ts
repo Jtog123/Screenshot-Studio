@@ -15,6 +15,7 @@ class SceneComponent {
     public _guiX : number = 100;
     public _guiY : number = 100;
     public _title : string = "";
+    public _originalScale? : THREE. Vector3
 
     public _textConfig? : {
         text: string;

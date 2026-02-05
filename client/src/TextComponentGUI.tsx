@@ -203,19 +203,19 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
                                 <div className="grid grid-cols-1 gap-2">
                                     <div>
                                         <label className="text-xs text-stone-300">X: {spritePosition.x}</label>
-                                        <input type="range" min="-2" max="2" value={spritePosition.x} step={"0.01"}
+                                        <input type="range" min="-3" max="3" value={spritePosition.x} step={"0.01"}
                                             onChange={(e) => handleSpritePositionChange(e, "xPosSlider")}
                                             className="w-full h-1" />
                                     </div>
                                     <div>
                                         <label className="text-xs text-stone-300">Y: {spritePosition.y}</label>
-                                        <input type="range" min="-2" max="2" value={spritePosition.y} step={"0.01"}
+                                        <input type="range" min="-3" max="3" value={spritePosition.y} step={"0.01"}
                                             onChange={(e) => handleSpritePositionChange(e, "yPosSlider")}
                                             className="w-full h-1" />
                                     </div>
                                     <div>
                                         <label className="text-xs text-stone-300">Z: {spritePosition.z}</label>
-                                        <input type="range" min="-2" max="2" value={spritePosition.z} step={"0.01"}
+                                        <input type="range" min="-3" max="3" value={spritePosition.z} step={"0.01"}
                                             onChange={(e) => handleSpritePositionChange(e, "zPosSlider")}
                                             className="w-full h-1" />
                                     </div>
