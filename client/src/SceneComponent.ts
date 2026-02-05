@@ -12,8 +12,8 @@ class SceneComponent {
     public _isVisible = true;
     public _material : THREE.SpriteMaterial | THREE.SpriteMaterial | null = null;
     public _texture : THREE.CanvasTexture | null = null;
-    public _guiX : number = 0;
-    public _guiY : number = 0;
+    public _guiX : number = 100;
+    public _guiY : number = 100;
     public _title : string = "";
 
     public _textConfig? : {

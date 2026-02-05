@@ -14,31 +14,31 @@ interface TextComponentGUIProps {
 
 
 
-export default function TextComponentGUI({componentID, assetManager,  textSprite, onDelete, onClose}:        TextComponentGUIProps) {
+export default function TextComponentGUI({componentID, assetManager,  textSprite, onDelete, onClose}: TextComponentGUIProps) {
 
-    const component = assetManager.getComponent(componentID);
+    const textComponent = assetManager.getComponent(componentID);
 
     const [isDragging, setIsDragging] = useState(false);
     const offset = useRef({x:0, y:0});
-    const [guiPosition, setGuiPosition] = useState({x: 100, y: 100});
+    const [guiPosition, setGuiPosition] = useState({x: textComponent?._guiX, y: textComponent?._guiY});
 
     const [spriteInnerText, setSpriteInnerText] = useState(
-        component?._textConfig?.text ?? "Type Here"
+        textComponent?._textConfig?.text ?? "Type Here"
     );
 
-    const [spriteFontSize, setSpriteFontSize] = useState(16);
-    const [spriteFontColor, setSpriteFontColor] = useState("#FFFFFF");
-    //const [spriteBackgroundColor, setSpriteBackgroundColor] = useState("#000000");
-    const previousColorRef = useRef("#000000")
+    const [spriteFontSize, setSpriteFontSize] = useState(
+        textComponent?._textConfig?.fontSize ?? 16
+    );
+    const [spriteFontColor, setSpriteFontColor] = useState(
+        textComponent?._textConfig?.fontColor ?? "#FFFFFF"
+    );
 
     const [spriteOpacity, setSpriteOpacity] = useState("1");
-    const [spriteBorderColor, setSpriteBorderColor] = useState("#FFFFFF");
-    const [spriteBorderWidth, setSpriteBorderWidth] = useState(2);
-    const [spriteBorderStyle, setSpriteBorderStyle] = useState<"solid" | "dashed" | "dotted" | "none">("none");
-    const [spriteBorderRadius, setSpriteBorderRadius] = useState(0);
+
     const[spritePosition, setSpritePosition] = useState({
         x: 0,
         y: 2.2,
+        z: 1
     });
 
 
@@ -48,19 +48,10 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
             setSpritePosition({
                 x: textSprite.position.x,
                 y: textSprite.position.y,
+                z: textSprite.position.z
             })
-            //setPosX(textSprite.position.x);
-            //textSprite.position.x = posX;
-            //textSprite.position.y = posY;
-            //textSprite.position.z = posZ;
-            setSpriteOpacity(String(textSprite.material.opacity));
 
-            const component = assetManager.getComponent(componentID);
-            if(component?._textConfig) {
-                setSpriteInnerText(component?._textConfig?.text);
-                setSpriteFontSize(component?._textConfig?.fontSize);
-                setSpriteFontColor(component?._textConfig?.fontColor);
-            }
+            setSpriteOpacity(String(textSprite.material.opacity));
 
         }
     },[]);
@@ -70,13 +61,9 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
 
         if (textSprite) {
             assetManager.updateTextSprite(textSprite, spriteInnerText, spriteFontSize, spriteFontColor, );
-            //textSprite.position.set(posX, posY, posZ);
             textSprite.material.opacity = Number(spriteOpacity);
-
-
-            assetManager.updateTextSprite(textSprite, spriteInnerText, spriteFontSize, spriteFontColor);
         }
-    }, [spriteInnerText, spriteFontSize, spriteFontColor ,textSprite ,spriteOpacity]);
+    }, [spriteInnerText, spriteFontSize, spriteFontColor ,spriteOpacity]);
 
     
     // Collapsible sections state
@@ -96,8 +83,8 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
     function handleMouseDown(e: React.MouseEvent): void {
         setIsDragging(true);
         offset.current = {
-            x: e.clientX - guiPosition.x,
-            y: e.clientY - guiPosition.y
+            x: e.clientX - textComponent?._guiX!,
+            y: e.clientY - textComponent?._guiY!
         };
         e.preventDefault()
     }
@@ -108,6 +95,13 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
             if(!isDragging) return;
             const newX = e.clientX - offset.current.x
             const newY = e.clientY - offset.current.y
+
+            if(textComponent) {
+                textComponent._guiX = newX;
+                textComponent._guiY = newY;
+            }
+
+
             setGuiPosition({x: newX, y: newY});
         }
 
@@ -133,6 +127,7 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
             setSpritePosition({
                 x: moveValue,
                 y: spritePosition.y,
+                z: spritePosition.z
             });
             //set in threejs
             textSprite.position.x = moveValue;
@@ -140,10 +135,19 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
             setSpritePosition({
                 x: spritePosition.x,
                 y: moveValue,
+                z: spritePosition.z
             });
             //set in threejs
             textSprite.position.y = moveValue;            
-        } 
+        } else if(sliderName === "zPosSlider") {
+            setSpritePosition({
+                x: spritePosition.x,
+                y: spritePosition.y,
+                z: moveValue
+            });
+            //set in threejs
+            textSprite.position.z = moveValue;               
+        }
 
     }
 
@@ -195,17 +199,23 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
                         
                         {expandedSections.position && (
                             <div className="p-3 space-y-2 bg-stone-900/30">
-                                <div className="grid grid-cols-2 gap-2">
+                                <div className="grid grid-cols-1 gap-2">
                                     <div>
                                         <label className="text-xs text-stone-300">X: {spritePosition.x}</label>
-                                        <input type="range" min="-5" max="5" value={spritePosition.x} step={"0.1"}
+                                        <input type="range" min="-2" max="2" value={spritePosition.x} step={"0.01"}
                                             onChange={(e) => handleSpritePositionChange(e, "xPosSlider")}
                                             className="w-full h-1" />
                                     </div>
                                     <div>
                                         <label className="text-xs text-stone-300">Y: {spritePosition.y}</label>
-                                        <input type="range" min="-5" max="5" value={spritePosition.y} step={"0.1"}
+                                        <input type="range" min="-2" max="2" value={spritePosition.y} step={"0.01"}
                                             onChange={(e) => handleSpritePositionChange(e, "yPosSlider")}
+                                            className="w-full h-1" />
+                                    </div>
+                                    <div>
+                                        <label className="text-xs text-stone-300">Z: {spritePosition.z}</label>
+                                        <input type="range" min="-2" max="2" value={spritePosition.z} step={"0.01"}
+                                            onChange={(e) => handleSpritePositionChange(e, "zPosSlider")}
                                             className="w-full h-1" />
                                     </div>
 
@@ -242,7 +252,7 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
                                     <label className="text-xs text-stone-300 block mb-1">Font Size: {spriteFontSize}</label>
                                     <input type="range" min="6" max="72" value={spriteFontSize}
                                         onChange={(e) => setSpriteFontSize(Number(e.target.value))}
-                                        className="w-full" />
+                                        className="w-full h-1" />
                                 </div>
 
 
@@ -252,63 +262,13 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
                                     <label className="text-xs text-stone-300 block mb-1">Opacity: {spriteOpacity}</label>
                                     <input type="range" min="0" max="1" step="0.01" value={spriteOpacity}
                                         onChange={(e) => setSpriteOpacity(e.target.value)}
-                                        className="w-full" />
+                                        className="w-full h-1" />
                                 </div>
                             </div>
                         )}
                     </div>
 
-                    {/* BORDER SECTION */}
-                    <div className="border border-stone-700 rounded-lg overflow-hidden">
-                        <button 
-                            onClick={() => toggleSection('border')}
-                            className="w-full flex justify-between items-center px-3 py-2 bg-stone-800/50 hover:bg-stone-800 text-stone-200 text-sm"
-                        >
-                            <span>Border & Corners</span>
-                            <span>{expandedSections.border ? '▼' : '▶'}</span>
-                        </button>
-                        
-                        {expandedSections.border && (
-                            <div className="p-3 space-y-3 bg-stone-900/30">
-                                {/* Border style and color in a row */}
-                                <div className="grid grid-cols-2 gap-2">
-                                    <div>
-                                        <label className="text-xs text-stone-300 block mb-1">Style</label>
-                                        <select value={spriteBorderStyle}
-                                            onChange={() => console.log("hehe")}
-                                            className="w-full px-2 py-1 bg-stone-800 text-stone-200 rounded text-xs">
-                                            <option value="none">None</option>
-                                            <option value="solid">Solid</option>
-                                            <option value="dashed">Dashed</option>
-                                            <option value="dotted">Dotted</option>
-                                        </select>
-                                    </div>
-                                    <div className="flex items-end gap-2">
-                                        <div className="flex-1">
-                                            <label className="text-xs text-stone-300 block mb-1">Color</label>
-                                            <input type="color" name="" id="" />
-                                        </div>
-                                    </div>
-                                </div>
 
-                                {/* Width and radius */}
-                                <div className="grid grid-cols-2 gap-2">
-                                    <div>
-                                        <label className="text-xs text-stone-300 block mb-1">Width: {spriteBorderWidth}px</label>
-                                        <input type="range" min="0" max="10" value={spriteBorderWidth}
-                                            onChange={() => console.log("hehe")}
-                                            className="w-full" />
-                                    </div>
-                                    <div>
-                                        <label className="text-xs text-stone-300 block mb-1">Radius: {spriteBorderRadius}px</label>
-                                        <input type="range" min="0" max="50" value={spriteBorderRadius}
-                                            onChange={() => console.log("hehe")}
-                                            className="w-full" />
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-                    </div>
 
                 </div>
             </div>
