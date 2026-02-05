@@ -33,7 +33,9 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
         textComponent?._textConfig?.fontColor ?? "#FFFFFF"
     );
 
-    const [spriteOpacity, setSpriteOpacity] = useState("1");
+    const [spriteOpacity, setSpriteOpacity] = useState(
+        textComponent?._textConfig?.opacity ?? "1"
+    );
 
     const[spritePosition, setSpritePosition] = useState({
         x: 0,
@@ -60,7 +62,7 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
     useEffect(() => {
 
         if (textSprite) {
-            assetManager.updateTextSprite(textSprite, spriteInnerText, spriteFontSize, spriteFontColor, );
+            assetManager.updateTextSprite(textSprite, spriteInnerText, spriteFontSize, spriteFontColor, spriteOpacity);
             textSprite.material.opacity = Number(spriteOpacity);
         }
     }, [spriteInnerText, spriteFontSize, spriteFontColor ,spriteOpacity]);
@@ -100,7 +102,6 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
                 textComponent._guiX = newX;
                 textComponent._guiY = newY;
             }
-
 
             setGuiPosition({x: newX, y: newY});
         }

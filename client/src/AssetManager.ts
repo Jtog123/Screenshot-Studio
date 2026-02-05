@@ -89,7 +89,7 @@ class AssetManager {
 
     }
 
-    public createTextSprite(componentID:string, text: string, fontSize: number, fontColor : string, 
+    public createTextSprite(componentID:string, text: string, fontSize: number, fontColor : string, opacity : string
     ) : THREE.Sprite {
 
         const canvas = document.createElement("canvas");
@@ -125,7 +125,7 @@ class AssetManager {
             })
         }
 
-        const textComponent = new SceneComponent(ComponentType.Text);
+        const textComponent = new SceneComponent(ComponentType.Text); // create it from the class with the type
         textComponent._texture = new THREE.CanvasTexture(canvas);
         textComponent._material = new THREE.SpriteMaterial({ map: textComponent._texture, transparent: true });
         textComponent._underlyingComponent = new THREE.Sprite(textComponent._material);
@@ -133,7 +133,7 @@ class AssetManager {
         textComponent._underlyingComponent.scale.set(width/80, height/80, 1);
 
         textComponent._textConfig = {
-            text, fontSize, fontColor, opacity: 1
+            text, fontSize, fontColor, opacity 
         }
         //textComponent._underlyingComponent.scale.set(width/100, height/100, 1); can create interesting effects drawing to a canvas
 
@@ -148,7 +148,7 @@ class AssetManager {
 
     }
 
-    public updateTextSprite(sprite: THREE.Sprite, text: string, fontSize: number, fontColor: string) : void {
+    public updateTextSprite(sprite: THREE.Sprite, text: string, fontSize: number, fontColor: string, opacity : string) : void {
         const canvas = (sprite.material.map as THREE.CanvasTexture).image as HTMLCanvasElement;
         const context = canvas.getContext("2d")!;
 
@@ -182,6 +182,7 @@ class AssetManager {
             component._textConfig.text = text;
             component._textConfig.fontSize = fontSize;
             component._textConfig.fontColor = fontColor;
+            component._textConfig.opacity = opacity;
         }
 
 

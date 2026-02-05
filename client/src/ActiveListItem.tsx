@@ -29,7 +29,7 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
     function handleListItemSelection() : void {
 
 
-        if(itemID.startsWith("sprite_image_")) {
+        if(itemID.startsWith("sprite_image_") || itemID.startsWith("text_")) {
             const component = assetManager.getComponent(itemID);
 
             //if the component not visible bail out
@@ -64,7 +64,7 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
         e.stopPropagation();
         setItemVisibility(!isItemVisible);
 
-        if(itemID.startsWith("sprite_image_")) {
+        if(itemID.startsWith("sprite_image_") || itemID.startsWith("text_")) {
             assetManager.toggleVisibility(itemID);
         } else {
             //we have lights
@@ -78,19 +78,12 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
 
     //need to move the camera back up or down
 
+
+    //might hav to adjust this as it seems we are assuming its an image component
     function handleItemDeletion(e: React.MouseEvent): void {
         e.stopPropagation();  // Stop propagation first
         
-        if (itemID.startsWith("sprite_image_")) {
-
-            //move the camera back up or down
-            const tempComponent = assetManager.getComponent(itemID);
-            const imageHeight = tempComponent?._underlyingComponent?.scale.y;
-
-            if(imageHeight) {
-                //maybe delete this, if user moved component and camera down manually its jumps it up more
-                //camera.position.y -= imageHeight * 0.45;
-            } 
+        if (itemID.startsWith("sprite_image_") || itemID.startsWith("text_")) {
 
             if (assetManager._selectedComponentID === itemID) {
                 assetManager.deselectComponent(itemID);

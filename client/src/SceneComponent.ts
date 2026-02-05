@@ -20,7 +20,7 @@ class SceneComponent {
         text: string;
         fontSize: number;
         fontColor : string;
-        opacity : number;
+        opacity : string;
     };
 
     constructor(componentType: ComponentType) {

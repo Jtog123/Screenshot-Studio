@@ -22,9 +22,10 @@ export default function TextComponent({position, assetManager ,onMount, onUnmoun
     //create temps or use literals to pass here
     useEffect(() => {
         const sprite = assetManager.createTextSprite(
-            componentID, "Type Here", 16, "#FFFFFF");
+            componentID, "Type Here", 16, "#FFFFFF", "1");
 
         sprite.name = componentID;
+        console.log("")
         console.log(sprite.name);
         sprite.position.set(0,2,1);
         //assetManager._assetsMap.
