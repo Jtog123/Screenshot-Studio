@@ -5,6 +5,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import Toolbar from "./Toolbar.js"
 import { LightManager } from "./LightManager.js";
 import { CameraManager } from "./CameraManager.js";
+import { GradientBackground } from "./GradientBackground.js";
 import PhoneGUI from "./PhoneGUI.js";
 import Overlay from "./Overlay.js";
 import CameraButton from "./CameraButton.js";
@@ -32,6 +33,7 @@ export default function App() {
   const [raycaster, setRayCaster] = useState<THREE.Raycaster | null>(null);
   const [renderer, setRenderer] = useState<THREE.WebGLRenderer | null>(null);
   const [phone, setPhoneModel] = useState<THREE.Group | null>(null);
+  const [backgroundGradient , setBackgroundGradient] = useState<GradientBackground | null>(null);
 
   const [lightManager, setLightManager] = useState<LightManager | null>(null);
   const [assetManager, setAssetManager] = useState<AssetManager | null>(null);
@@ -103,6 +105,9 @@ export default function App() {
     const _assetManager = new AssetManager(_scene, _raycaster, _renderer, _camera);
     setAssetManager(_assetManager);
 
+    const _gradientBackground = new GradientBackground(_scene);
+    setBackgroundGradient(_gradientBackground);
+
 
     const loader = new GLTFLoader();
 
@@ -112,10 +117,13 @@ export default function App() {
     //add the imagecomponentgroup
     _scene.add(_assetManager._assetGroup);
 
+
+
     //raycaster
     _renderer.domElement.addEventListener("mousedown", (evt: MouseEvent) => {
       _lightManager.selectLight(evt);
       _assetManager.selectComponent(evt);
+
     });
 
     //Load the Model
@@ -143,6 +151,13 @@ export default function App() {
       //(renderer as THREE.WebGLRenderer).setSize(window.innerWidth, window.innerHeight);
     })
   },[])
+
+
+
+
+  ////// END TEST CODE
+
+
 
   //{scene && <Toolbar scene={scene}/>} Making sure scene is not null
   return (

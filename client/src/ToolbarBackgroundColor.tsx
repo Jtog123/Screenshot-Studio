@@ -30,7 +30,6 @@ export default function ToolbarBackgroundColor({scene, isToolbarToggled}: Toolba
     }
 
     useEffect(() => {
-
         const _scene = scene;
 
         //set initial background color

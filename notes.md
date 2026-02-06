@@ -172,8 +172,47 @@ Text Component Requirements
 
 
     -toggling visibility shrinks the text component and the image component
-    
 
+
+
+    Creating gradients
+    Similar to how we created the text sprite, except we create a large plane as a Three.Sprite and set it as the background
+    A piece of code i foud and need to test that involves vertex shaders and fragment shaders
+
+    const vertexShader = `
+        varying vec2 vUv;
+        void main() {
+            vUv = uv;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+    `;
+
+    const fragmentShader = `
+    uniform vec3 color1;
+    uniform vec3 color2;
+    varying vec2 vUv;
+    void main() {
+        gl_FragColor = vec4(mix(color1, color2, vUv.y), 1.0);
+    }
+    `;
+
+    const material = new THREE.ShaderMaterial({
+    uniforms: {
+        color1: { value: new THREE.Color("red") },
+        color2: { value: new THREE.Color("blue") }
+    },
+    vertexShader,
+    fragmentShader
+    });
+
+
+    https://www.youtube.com/watch?v=LW9d2cqIHb4
+    at 12:05 for start up code
+    12:20 for vertex shader
+
+    
+    Fragment shader = colors/appearance, 
+    Vertex shader = shape/position
 
 
 
