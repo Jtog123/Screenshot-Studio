@@ -16,10 +16,9 @@ class GradientBackground {
         `;
 
         const fragmentShader = `
-            uniform float u_time;
             varying vec2 vUv;
             void main() {
-                gl_FragColor = vec4(vUv.y, 0.9 - vUv.x, 0.0, 1.0);
+                gl_FragColor = vec4(vUv.x, 1.0 - vUv.x, 0.0, 1.0);
                 }
         `;
 
