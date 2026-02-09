@@ -85,6 +85,7 @@ export default function App() {
     setScene(_scene);
 
     const _renderer = new THREE.WebGLRenderer({preserveDrawingBuffer:true});
+    _renderer.outputColorSpace = THREE.SRGBColorSpace;
     setRenderer(_renderer);
 
     const _camera = new THREE.PerspectiveCamera(

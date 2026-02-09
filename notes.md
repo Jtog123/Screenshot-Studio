@@ -173,6 +173,8 @@ Text Component Requirements
 
     -toggling visibility shrinks the text component and the image component
 
+    -want both a left and right gradient and top bottom gradient
+
 
 
     Creating gradients

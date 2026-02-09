@@ -15,6 +15,7 @@ export default function ToolbarBackgroundColor({scene, isToolbarToggled, gradien
     
     const[backgroundColor, setBackgroundColor] = useState("#292524");
     const[isBackgroundSolid, setIsBackgroundSolid] = useState(true);
+    const[isLeftToRightGradient , setIsLeftToRightGradient] = useState(true);
 
     //takes an implicit event
     function updateBackgroundColor(evt : React.ChangeEvent<HTMLInputElement>) : void {
@@ -47,13 +48,15 @@ export default function ToolbarBackgroundColor({scene, isToolbarToggled, gradien
 
     },[]);
 
-    function handleGradientBackground() : void {
+    function handleGradientBackground(){
         console.log("gradient");
         if(isBackgroundSolid) {
             scene.background = null;
-            gradientBackground.turnGradientBackgroundOn();
-
+            gradientBackground.turnLeftRightGradientOn();
             setIsBackgroundSolid(false);
+
+            
+            
         }
 
     }
@@ -67,11 +70,22 @@ export default function ToolbarBackgroundColor({scene, isToolbarToggled, gradien
             setIsBackgroundSolid(true);
 
         }
-
-
     }
 
-    {/* the colors we set in GradientBackgroundSelector will control the gradient */}
+    function handleGradientUpDown() : void {
+        console.log("switching to up down");
+        setIsLeftToRightGradient(false);
+        gradientBackground.switchGradientDirection(isLeftToRightGradient);
+    }
+    
+    function handleGradientLeftRight() : void {
+        setIsLeftToRightGradient(true);
+        gradientBackground.switchGradientDirection(isLeftToRightGradient);
+    }
+
+
+
+    {/* if the background is not solid, then we want to enable the buttons as visible */}
 
     return (
         <>
@@ -89,11 +103,19 @@ export default function ToolbarBackgroundColor({scene, isToolbarToggled, gradien
                     
                 }
 
-
                 <div className='flex justify-around w-[50%] bg-blue-200'>
                     <button className='bg-yellow-500 text-sm cursor-pointer' onClick={handleSolidBackground}> sol </button>
                     <button className='bg-yellow-500 text-sm cursor-pointer' onClick={handleGradientBackground}> grad </button>
                 </div>
+
+                
+                {!isBackgroundSolid && (
+                    <button className='cursor-pointer' onClick={isLeftToRightGradient ? handleGradientUpDown : handleGradientLeftRight}>
+                        {isLeftToRightGradient ? "UD" : "LR"}
+                    </button>
+                    
+                )}
+               
 
             </div>
         

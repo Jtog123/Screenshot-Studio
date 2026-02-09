@@ -5,25 +5,9 @@ class GradientBackground {
 
     private _gradientPlaneMesh : THREE.Mesh | null = null;
     private _gradientMaterial : THREE.ShaderMaterial | null = null;
-    private _isGradientToggled : boolean = false;
     private _scene : THREE.Scene;
 
-    constructor(scene : THREE.Scene) {
-        this._scene = scene;
-    }
-
-
-    public turnGradientBackgroundOn(color1 : string = "#FF0000", color2 : string = "#0000FF") : void {
-        
-        const vertexShader = `
-            varying vec2 vUv;
-            void main() {
-                vUv = uv;
-                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-            }
-        `;
-
-        const fragmentShader = `
+    private leftToRightFragmentShader = `
             uniform vec3 uColor1;
             uniform vec3 uColor2;
             varying vec2 vUv;
@@ -34,9 +18,37 @@ class GradientBackground {
             }
         `;
 
+    private UpDownFragmentShader = `
+            uniform vec3 uColor1;
+            uniform vec3 uColor2;
+            varying vec2 vUv;
+
+            void main() {
+                vec3 color = mix(uColor1, uColor2, vUv.y);
+                gl_FragColor = vec4(color, 1.0);
+            }
+        `;
+
+    constructor(scene : THREE.Scene) {
+        this._scene = scene;
+    }
+
+
+    public turnLeftRightGradientOn(color1 : string = "#FF0000", color2 : string = "#0000FF") : void {
+        
+        const vertexShader = `
+            varying vec2 vUv;
+            void main() {
+                vUv = uv;
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+            }
+        `;
+
+        const fragmentShader = this.leftToRightFragmentShader;
+
         //convert colors
-        const threeColor1 = new THREE.Color(color1);
-        const threeColor2 = new THREE.Color(color2);
+        const threeColor1 = new THREE.Color(color1).convertSRGBToLinear();;
+        const threeColor2 = new THREE.Color(color2).convertSRGBToLinear();;
 
         this._gradientMaterial = new THREE.ShaderMaterial({
             vertexShader,
@@ -46,7 +58,7 @@ class GradientBackground {
                 uColor2 : {value : new THREE.Vector3(threeColor2.r, threeColor2.g , threeColor2.b)}
             },
             depthWrite : false
-        })
+        });
 
         const geometry = new THREE.PlaneGeometry(20, 20);
         this._gradientPlaneMesh = new THREE.Mesh(geometry, this._gradientMaterial);
@@ -54,10 +66,55 @@ class GradientBackground {
         this._scene.add(this._gradientPlaneMesh);
     }
 
+    public turnUpDownGradientOn(color1 : string = "#FF0000", color2 : string = "#0000FF") : void {
+        
+        const vertexShader = `
+            varying vec2 vUv;
+            void main() {
+                vUv = uv;
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+            }
+        `;
+
+        const fragmentShader = this.UpDownFragmentShader;
+
+        //convert colors
+        const threeColor1 = new THREE.Color(color1).convertSRGBToLinear();;
+        const threeColor2 = new THREE.Color(color2).convertSRGBToLinear();;
+
+        this._gradientMaterial = new THREE.ShaderMaterial({
+            vertexShader,
+            fragmentShader,
+            uniforms: {
+                uColor1 : {value : new THREE.Vector3(threeColor1.r, threeColor1.g , threeColor1.b)},
+                uColor2 : {value : new THREE.Vector3(threeColor2.r, threeColor2.g , threeColor2.b)}
+            },
+            depthWrite : false
+        });
+
+        const geometry = new THREE.PlaneGeometry(20, 20);
+        this._gradientPlaneMesh = new THREE.Mesh(geometry, this._gradientMaterial);
+        this._gradientPlaneMesh.position.set(0, 0, -2);
+        this._scene.add(this._gradientPlaneMesh);
+    }
+
+    public switchGradientDirection(isLeftToRightGradient : boolean) : void {
+        //discard the old gradient
+        this.turnGradientBackgroundOff();
+
+        if(!isLeftToRightGradient) {
+            this.turnLeftRightGradientOn();
+        } else {
+            this.turnUpDownGradientOn();
+        }
+        
+    }
+
     public updateGradientColors(color1: string, color2: string) : void {
         if(this._gradientMaterial) {
             const threeColor1 = new THREE.Color(color1);
             const threeColor2 = new THREE.Color(color2);
+            console.log(threeColor1," " ,threeColor2)
 
             this._gradientMaterial.uniforms.uColor1.value.set(threeColor1.r, threeColor1.g, threeColor1.b);
             this._gradientMaterial.uniforms.uColor2.value.set(threeColor2.r, threeColor2.g, threeColor2.b);
@@ -82,9 +139,9 @@ class GradientBackground {
             this._gradientMaterial = null;
         }
 
-
-
     }
+
+
 }
 
 export {GradientBackground}
