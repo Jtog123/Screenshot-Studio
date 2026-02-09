@@ -21,6 +21,7 @@ import { ImageComponentInterface, TextComponentInterface } from './ComponentInte
 import ImageComponentGUI from './ImageComponentGUI'
 import TextComponentGUI from './TextComponentGUI'
 import TextComponent from './TextComponent'
+import { GradientBackground } from './GradientBackground'
 
 
 
@@ -37,10 +38,11 @@ interface ToolbarProps {
     setActiveListItems : React.Dispatch<React.SetStateAction<{ id: string; name: string; }[]>>
     addTextComponent : () => void
     camera : THREE.PerspectiveCamera
+    _gradientBackground : GradientBackground
 }
 
 
-export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManager, _imageComponents, _setImageComponents,  _assetManager,activeListItems, setActiveListItems, addTextComponent ,camera} : ToolbarProps) {
+export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManager, _imageComponents, _setImageComponents,  _assetManager,activeListItems, setActiveListItems, addTextComponent ,camera, _gradientBackground} : ToolbarProps) {
 
     
     const[selectedLight, setSelectedLight] = useState<{id: string, type: LightType} | null>(null);
@@ -105,7 +107,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                     isToolbarToggled ? 
                         <div className="fixed h-screen bg-stone-950 text-white z-20 right-0 w-[5%] transition-all duration-300 ease-in-out">
                             <ToolbarHeader isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>
-                            <ToolbarBackgroundColor isToolbarToggled={isToolbarToggled}  scene={_scene}/> 
+                            <ToolbarBackgroundColor isToolbarToggled={isToolbarToggled}  scene={_scene} gradientBackground ={_gradientBackground}/> 
                             <ToolBarPanelTab isToolbarToggled={isToolbarToggled} activeTab={activeTab} handleTabChange={handleTabChange} />
                             <ToolbarLightCatalog activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} scene={_scene} lightManager={_lightManager}/>
                             <ToolbarActiveComponents activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} lightManager={_lightManager} assetManager={_assetManager} />
@@ -115,7 +117,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                         :
                         <div className="fixed flex flex-col h-[100%] w-[25%] bg-stone-950 z-20 right-0 transition-all duration-300 ease-in-out">
                             <ToolbarHeader isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>
-                            <ToolbarBackgroundColor isToolbarToggled={isToolbarToggled} scene={_scene}/> 
+                            <ToolbarBackgroundColor isToolbarToggled={isToolbarToggled} scene={_scene} gradientBackground={_gradientBackground}/> 
                             <ToolBarPanelTab isToolbarToggled={isToolbarToggled} activeTab={activeTab} handleTabChange={handleTabChange} />
                             {activeTab === "Lights" && <ToolbarLightCatalog  activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled}  scene={_scene} lightManager={_lightManager}/>}
                             {activeTab === "Camera" && <ToolbarCameraCatalog isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} _phoneModel={_phoneModel}/>}

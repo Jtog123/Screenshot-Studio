@@ -1,20 +1,20 @@
 import {useRef, useEffect, useState} from 'react'
 import GradientBackgroundSelector from './GradientBackgroundSelector';
 import * as THREE from 'three'
+import { GradientBackground } from './GradientBackground';
 
 interface ToolbarBackgroundColorProps {
     scene : THREE.Scene;
     isToolbarToggled : boolean
+    gradientBackground : GradientBackground
 }
 
 
-
-
-export default function ToolbarBackgroundColor({scene, isToolbarToggled}: ToolbarBackgroundColorProps) {
+export default function ToolbarBackgroundColor({scene, isToolbarToggled, gradientBackground}: ToolbarBackgroundColorProps) {
 
     
     const[backgroundColor, setBackgroundColor] = useState("#292524");
-    const[isSolidBackground, setIsSolidBackground] = useState(true);
+    const[isBackgroundSolid, setIsBackgroundSolid] = useState(true);
 
     //takes an implicit event
     function updateBackgroundColor(evt : React.ChangeEvent<HTMLInputElement>) : void {
@@ -35,24 +35,43 @@ export default function ToolbarBackgroundColor({scene, isToolbarToggled}: Toolba
         const _scene = scene;
 
         //set initial background color
-        let initialColorString = backgroundColor;
-        let initialColorValue = initialColorString.replace("#", "0x");
-        _scene.background = new THREE.Color(Number(initialColorValue));
+        if(isBackgroundSolid) {
+            let initialColorString = backgroundColor;
+            let initialColorValue = initialColorString.replace("#", "0x");
+            _scene.background = new THREE.Color(Number(initialColorValue));
+        }
+        //let initialColorString = backgroundColor;
+        //let initialColorValue = initialColorString.replace("#", "0x");
+        //_scene.background = new THREE.Color(Number(initialColorValue));
         
 
     },[]);
 
-
-    function handleSolidBackground() : void {
-        console.log("solid");
-         setIsSolidBackground(true);
-
-    }
-
     function handleGradientBackground() : void {
         console.log("gradient");
-        setIsSolidBackground(false);
+        if(isBackgroundSolid) {
+            scene.background = null;
+            gradientBackground.turnGradientBackgroundOn();
+
+            setIsBackgroundSolid(false);
+        }
+
     }
+
+    function handleSolidBackground() : void {
+        if(!isBackgroundSolid) {
+            console.log("solid");
+            gradientBackground.turnGradientBackgroundOff();
+            let colorValue = backgroundColor.replace("#", "0x");
+            scene.background = new THREE.Color(Number(colorValue));
+            setIsBackgroundSolid(true);
+
+        }
+
+
+    }
+
+    {/* the colors we set in GradientBackgroundSelector will control the gradient */}
 
     return (
         <>
@@ -63,10 +82,10 @@ export default function ToolbarBackgroundColor({scene, isToolbarToggled}: Toolba
 
             <div className='flex justify-center items-center w-[100%] bg-red-200'>
                 {/* conitionally render the inputs bansed on what background is selected */}
-                { isSolidBackground ? 
+                { isBackgroundSolid? 
                     <input type="color" className=" w-[40%] mr-5 rounded-xl" value={backgroundColor} onChange={updateBackgroundColor} /> 
                     : 
-                    <GradientBackgroundSelector/>
+                    <GradientBackgroundSelector gradientBackground={gradientBackground}/>
                     
                 }
 

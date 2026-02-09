@@ -33,7 +33,7 @@ export default function App() {
   const [raycaster, setRayCaster] = useState<THREE.Raycaster | null>(null);
   const [renderer, setRenderer] = useState<THREE.WebGLRenderer | null>(null);
   const [phone, setPhoneModel] = useState<THREE.Group | null>(null);
-  const [backgroundGradient , setBackgroundGradient] = useState<GradientBackground | null>(null);
+  const [gradientBackground , setGradientBackground] = useState<GradientBackground | null>(null);
 
   const [lightManager, setLightManager] = useState<LightManager | null>(null);
   const [assetManager, setAssetManager] = useState<AssetManager | null>(null);
@@ -106,7 +106,7 @@ export default function App() {
     setAssetManager(_assetManager);
 
     const _gradientBackground = new GradientBackground(_scene);
-    setBackgroundGradient(_gradientBackground);
+    setGradientBackground(_gradientBackground);
 
 
     const loader = new GLTFLoader();
@@ -165,7 +165,7 @@ export default function App() {
       {phone && cameraManager &&<PhoneGUI phoneModel={phone} _cameraManager={cameraManager}/>}
 
 
-      {scene && lightManager && cameraManager && phone && assetManager && camera && <Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents}  _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems} addTextComponent={addTextComponent} camera={camera} />} 
+      {scene && lightManager && cameraManager && phone && assetManager && camera && gradientBackground &&<Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents}  _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems} addTextComponent={addTextComponent} camera={camera} _gradientBackground={gradientBackground} />} 
 
       {scene && assetManager && camera && imageComponents.map((item) => {
         return <ImageComponent key={item.id} position={item.position} _scene={scene} _camera={camera} _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems}/>
