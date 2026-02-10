@@ -1,11 +1,20 @@
 import { useEffect } from 'react';
 import * as THREE from 'three'
 
+
+//when toggling between lr and ud gradients reemberbmer the colors that were in the inputs
+
 class GradientBackground {
 
     private _gradientPlaneMesh : THREE.Mesh | null = null;
     private _gradientMaterial : THREE.ShaderMaterial | null = null;
     private _scene : THREE.Scene;
+
+
+    public prevColor1 : string  | null = null;
+    public prevColor2 : string  | null = null;
+
+    
 
     private leftToRightFragmentShader = `
             uniform vec3 uColor1;
@@ -18,13 +27,14 @@ class GradientBackground {
             }
         `;
 
+    //invert the colors position here here    
     private UpDownFragmentShader = `
             uniform vec3 uColor1;
             uniform vec3 uColor2;
             varying vec2 vUv;
 
             void main() {
-                vec3 color = mix(uColor1, uColor2, vUv.y);
+                vec3 color = mix(uColor2, uColor1, vUv.y);
                 gl_FragColor = vec4(color, 1.0);
             }
         `;
@@ -47,8 +57,8 @@ class GradientBackground {
         const fragmentShader = this.leftToRightFragmentShader;
 
         //convert colors
-        const threeColor1 = new THREE.Color(color1).convertSRGBToLinear();;
-        const threeColor2 = new THREE.Color(color2).convertSRGBToLinear();;
+        const threeColor1 = new THREE.Color(color1).convertSRGBToLinear();
+        const threeColor2 = new THREE.Color(color2).convertSRGBToLinear();
 
         this._gradientMaterial = new THREE.ShaderMaterial({
             vertexShader,
@@ -79,8 +89,8 @@ class GradientBackground {
         const fragmentShader = this.UpDownFragmentShader;
 
         //convert colors
-        const threeColor1 = new THREE.Color(color1).convertSRGBToLinear();;
-        const threeColor2 = new THREE.Color(color2).convertSRGBToLinear();;
+        const threeColor1 = new THREE.Color(color1).convertSRGBToLinear();
+        const threeColor2 = new THREE.Color(color2).convertSRGBToLinear();
 
         this._gradientMaterial = new THREE.ShaderMaterial({
             vertexShader,
@@ -98,14 +108,19 @@ class GradientBackground {
         this._scene.add(this._gradientPlaneMesh);
     }
 
+    //pass the colors here?
     public switchGradientDirection(isLeftToRightGradient : boolean) : void {
+        //remember the current colors
+        //this.prevColor1 = color1
+        //this.prevColor2 = color2
+
         //discard the old gradient
         this.turnGradientBackgroundOff();
 
-        if(!isLeftToRightGradient) {
-            this.turnLeftRightGradientOn();
-        } else {
+        if(isLeftToRightGradient) {
             this.turnUpDownGradientOn();
+        } else {
+            this.turnLeftRightGradientOn();
         }
         
     }

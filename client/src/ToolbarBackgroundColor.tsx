@@ -1,5 +1,5 @@
 import {useRef, useEffect, useState} from 'react'
-import GradientBackgroundSelector from './GradientBackgroundSelector';
+
 import * as THREE from 'three'
 import { GradientBackground } from './GradientBackground';
 
@@ -10,12 +10,18 @@ interface ToolbarBackgroundColorProps {
 }
 
 
+
+
 export default function ToolbarBackgroundColor({scene, isToolbarToggled, gradientBackground}: ToolbarBackgroundColorProps) {
 
     
     const[backgroundColor, setBackgroundColor] = useState("#292524");
     const[isBackgroundSolid, setIsBackgroundSolid] = useState(true);
     const[isLeftToRightGradient , setIsLeftToRightGradient] = useState(true);
+
+    //??
+    const[color1 , setColor1] = useState("#FF0000");
+    const[color2 , setColor2] = useState("#0000FF");
 
     //takes an implicit event
     function updateBackgroundColor(evt : React.ChangeEvent<HTMLInputElement>) : void {
@@ -30,6 +36,18 @@ export default function ToolbarBackgroundColor({scene, isToolbarToggled, gradien
         setBackgroundColor(selectedColor);
         //console.log(backgroundColor);
 
+    }
+
+    function handleColor1Change(e : React.ChangeEvent<HTMLInputElement>) : void {
+        const newColor = e.target.value;
+        setColor1(newColor);
+        gradientBackground.updateGradientColors(newColor,color2);
+    }
+
+    function handleColor2Change(e : React.ChangeEvent<HTMLInputElement>) : void {
+        const newColor = e.target.value;
+        setColor2(newColor);
+        gradientBackground.updateGradientColors(color1,newColor);
     }
 
     useEffect(() => {
@@ -72,15 +90,21 @@ export default function ToolbarBackgroundColor({scene, isToolbarToggled, gradien
         }
     }
 
-    function handleGradientUpDown() : void {
-        console.log("switching to up down");
-        setIsLeftToRightGradient(false);
-        gradientBackground.switchGradientDirection(isLeftToRightGradient);
-    }
-    
-    function handleGradientLeftRight() : void {
-        setIsLeftToRightGradient(true);
-        gradientBackground.switchGradientDirection(isLeftToRightGradient);
+
+
+    //pass in current colrs? pass in color1 and color2 as props? to gradientcolorselector
+    // pass in setter functions to gradient background selector as props
+    function handleGradientDirectionChange() : void {
+        if(isLeftToRightGradient) {
+            setIsLeftToRightGradient(false);
+            gradientBackground.switchGradientDirection(isLeftToRightGradient);
+        } else {
+            setIsLeftToRightGradient(true);
+            gradientBackground.switchGradientDirection(isLeftToRightGradient);
+            
+        }
+
+
     }
 
 
@@ -99,7 +123,14 @@ export default function ToolbarBackgroundColor({scene, isToolbarToggled, gradien
                 { isBackgroundSolid? 
                     <input type="color" className=" w-[40%] mr-5 rounded-xl" value={backgroundColor} onChange={updateBackgroundColor} /> 
                     : 
-                    <GradientBackgroundSelector gradientBackground={gradientBackground}/>
+                    (
+                        <div className="flex">
+                            <input type="color" name="" id="" value={color1} onChange={handleColor1Change}/>
+                            <label htmlFor=""> to</label>
+                            <input type="color" name="" id="" value={color2} onChange={handleColor2Change}/>
+                        </div>
+                    )
+
                     
                 }
 
@@ -110,7 +141,7 @@ export default function ToolbarBackgroundColor({scene, isToolbarToggled, gradien
 
                 
                 {!isBackgroundSolid && (
-                    <button className='cursor-pointer' onClick={isLeftToRightGradient ? handleGradientUpDown : handleGradientLeftRight}>
+                    <button className='cursor-pointer' onClick={handleGradientDirectionChange}>
                         {isLeftToRightGradient ? "UD" : "LR"}
                     </button>
                     
