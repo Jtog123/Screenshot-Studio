@@ -19,10 +19,14 @@ class GradientBackground {
     private leftToRightFragmentShader = `
             uniform vec3 uColor1;
             uniform vec3 uColor2;
+            uniform float uGradientScale;
             varying vec2 vUv;
 
             void main() {
-                vec3 color = mix(uColor1, uColor2, vUv.x);
+                float t = (vUv.x - 0.5) * uGradientScale + 0.5;
+                t = clamp(t, 0.0, 1.0);
+
+                vec3 color = mix(uColor1, uColor2, t);
                 gl_FragColor = vec4(color, 1.0);
             }
         `;
@@ -31,10 +35,14 @@ class GradientBackground {
     private UpDownFragmentShader = `
             uniform vec3 uColor1;
             uniform vec3 uColor2;
+            uniform float uGradientScale;
             varying vec2 vUv;
 
             void main() {
-                vec3 color = mix(uColor2, uColor1, vUv.y);
+                float t = (vUv.y - 0.5) * uGradientScale + 0.5;
+                t = clamp(t, 0.0, 1.0);
+
+                vec3 color = mix(uColor2, uColor1, t);
                 gl_FragColor = vec4(color, 1.0);
             }
         `;
@@ -65,7 +73,8 @@ class GradientBackground {
             fragmentShader,
             uniforms: {
                 uColor1 : {value : new THREE.Vector3(threeColor1.r, threeColor1.g , threeColor1.b)},
-                uColor2 : {value : new THREE.Vector3(threeColor2.r, threeColor2.g , threeColor2.b)}
+                uColor2 : {value : new THREE.Vector3(threeColor2.r, threeColor2.g , threeColor2.b)},
+                uGradientScale : {value : 2.5}
             },
             depthWrite : false
         });
@@ -97,7 +106,8 @@ class GradientBackground {
             fragmentShader,
             uniforms: {
                 uColor1 : {value : new THREE.Vector3(threeColor1.r, threeColor1.g , threeColor1.b)},
-                uColor2 : {value : new THREE.Vector3(threeColor2.r, threeColor2.g , threeColor2.b)}
+                uColor2 : {value : new THREE.Vector3(threeColor2.r, threeColor2.g , threeColor2.b)},
+                uGradientScale : {value : 2.5}
             },
             depthWrite : false
         });
@@ -110,25 +120,19 @@ class GradientBackground {
 
     //pass the colors here?
     public switchGradientDirection(isLeftToRightGradient : boolean) : void {
-        //remember the current colors
-        //this.prevColor1 = color1
-        //this.prevColor2 = color2
+        if(this._gradientMaterial) {
+            this._gradientMaterial.fragmentShader = isLeftToRightGradient ? this.leftToRightFragmentShader : this.UpDownFragmentShader;
 
-        //discard the old gradient
-        this.turnGradientBackgroundOff();
-
-        if(isLeftToRightGradient) {
-            this.turnUpDownGradientOn();
-        } else {
-            this.turnLeftRightGradientOn();
+            this._gradientMaterial.needsUpdate = true;
         }
+        
         
     }
 
     public updateGradientColors(color1: string, color2: string) : void {
         if(this._gradientMaterial) {
-            const threeColor1 = new THREE.Color(color1);
-            const threeColor2 = new THREE.Color(color2);
+            const threeColor1 = new THREE.Color(color1).convertSRGBToLinear();
+            const threeColor2 = new THREE.Color(color2).convertSRGBToLinear();
             console.log(threeColor1," " ,threeColor2)
 
             this._gradientMaterial.uniforms.uColor1.value.set(threeColor1.r, threeColor1.g, threeColor1.b);

@@ -9,7 +9,7 @@ interface ToolbarBackgroundColorProps {
     gradientBackground : GradientBackground
 }
 
-
+//handled i think
 
 
 export default function ToolbarBackgroundColor({scene, isToolbarToggled, gradientBackground}: ToolbarBackgroundColorProps) {
@@ -70,11 +70,15 @@ export default function ToolbarBackgroundColor({scene, isToolbarToggled, gradien
         console.log("gradient");
         if(isBackgroundSolid) {
             scene.background = null;
-            gradientBackground.turnLeftRightGradientOn();
+            if(isLeftToRightGradient) {
+                gradientBackground.turnLeftRightGradientOn(color1, color2);
+            } else {
+                gradientBackground.turnUpDownGradientOn(color1, color2);
+            }
+
             setIsBackgroundSolid(false);
 
-            
-            
+          
         }
 
     }
@@ -82,6 +86,7 @@ export default function ToolbarBackgroundColor({scene, isToolbarToggled, gradien
     function handleSolidBackground() : void {
         if(!isBackgroundSolid) {
             console.log("solid");
+            //restore the solid background
             gradientBackground.turnGradientBackgroundOff();
             let colorValue = backgroundColor.replace("#", "0x");
             scene.background = new THREE.Color(Number(colorValue));
@@ -95,16 +100,10 @@ export default function ToolbarBackgroundColor({scene, isToolbarToggled, gradien
     //pass in current colrs? pass in color1 and color2 as props? to gradientcolorselector
     // pass in setter functions to gradient background selector as props
     function handleGradientDirectionChange() : void {
-        if(isLeftToRightGradient) {
-            setIsLeftToRightGradient(false);
-            gradientBackground.switchGradientDirection(isLeftToRightGradient);
-        } else {
-            setIsLeftToRightGradient(true);
-            gradientBackground.switchGradientDirection(isLeftToRightGradient);
-            
-        }
-
-
+        const newDirection = !isLeftToRightGradient;
+        setIsLeftToRightGradient(newDirection);
+        gradientBackground.switchGradientDirection(newDirection);
+        
     }
 
 
