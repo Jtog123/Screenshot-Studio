@@ -21,6 +21,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
     const[backgroundColor, setBackgroundColor] = useState("#292524");
     const[isBackgroundSolid, setIsBackgroundSolid] = useState(true);
     const[isLeftToRightGradient , setIsLeftToRightGradient] = useState(true);
+    const[selectedBackgroundValue, setSelectedBackgroundValue] = useState("solid");
 
     //??
     const[color1 , setColor1] = useState("#FF0000");
@@ -75,6 +76,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
 
     },[]);
 
+    /*
     function handleGradientBackground(){
         console.log("gradient");
         if(isBackgroundSolid) {
@@ -86,12 +88,12 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
             }
 
             setIsBackgroundSolid(false);
-
             
         }
 
     }
 
+    
     function handleSolidBackground() : void {
         if(!isBackgroundSolid) {
             console.log("solid");
@@ -101,6 +103,30 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
             scene.background = new THREE.Color(Number(colorValue));
             setIsBackgroundSolid(true);
 
+        }
+    }
+        */
+
+    function handleBackgroundChange() : void {
+        //if background is solid swtich to gradient
+        if(isBackgroundSolid) {
+            scene.background = null;
+            if(isLeftToRightGradient) {
+                gradientBackground.turnLeftRightGradientOn(color1, color2);
+            } else {
+                gradientBackground.turnUpDownGradientOn(color1, color2);
+            }
+
+            setIsBackgroundSolid(false);
+            setSelectedBackgroundValue("gradient");
+            
+        } else {
+            //restore the solid background
+            gradientBackground.turnGradientBackgroundOff();
+            let colorValue = backgroundColor.replace("#", "0x");
+            scene.background = new THREE.Color(Number(colorValue));
+            setIsBackgroundSolid(true);
+            setSelectedBackgroundValue("solid")
         }
     }
 
@@ -114,6 +140,53 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
         gradientBackground.switchGradientDirection(newDirection);
         
     }
+
+
+    ///////////////////////// LIGHT CREATION ////////////////////////////////
+
+    function handleDirectionalLightCreation() : void {
+        //console.log("creating directional light");
+        const newLight = lightManager.createLight(LightType.DirectionalLight, new THREE.Vector3(2,2,0));
+
+        //read in information to create list items
+        const listItemName = (newLight._lightHelper as _DirectionalLightHelper)._title;
+        const listItemID = (newLight._lightHelper as _DirectionalLightHelper).name;
+
+        setActiveListItems([...activeListItems, {id:listItemID, name:listItemName}]);
+
+        //setActiveListItems([...activeListItems, <ActiveListItem key={listItemID} itemName={listItemName}/> ])
+        //setAc
+    }
+
+    function handleSpotLightCreation() : void {
+        console.log("creating directional light");
+        const newLight = lightManager.createLight(LightType.SpotLight, new THREE.Vector3(2,2,0));
+
+        const listItemName = (newLight._lightHelper as _SpotLightHelper)._title;
+        const listItemID = (newLight._lightHelper as _SpotLightHelper).name;
+
+        setActiveListItems([...activeListItems, {id:listItemID, name:listItemName}]);
+        //Gui Creation happens here
+
+    }
+
+    function handlePointLightCreation() : void {
+        const newLight = lightManager.createLight(LightType.PointLight, new THREE.Vector3(2,2,0));
+
+        const listItemName = (newLight._lightHelper as _PointLightHelper)._title;
+        const listItemID = (newLight._lightHelper as _PointLightHelper).name;
+
+        setActiveListItems([...activeListItems, {id:listItemID, name:listItemName}]);
+    }
+
+    function handleRectAreaLightCreation() : void {
+        const newLight = lightManager.createLight(LightType.RectAreaLight, new THREE.Vector3(2,2,0));
+
+        const listItemName = (newLight._lightHelper as _RectAreaLightHelper)._title;
+        const listItemID = (newLight._lightHelper as _RectAreaLightHelper).name;
+
+        setActiveListItems([...activeListItems, {id:listItemID, name:listItemName}]);
+    }    
 
     return(
         <div className="w-[100%] bg-stone-950 flex-shrink-0 pb-2 ">
@@ -131,20 +204,31 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
             }`}>
                 <div className="overflow-hidden">
                     {/* Background Section */}
-                    <h1 className="text-stone-300 ml-5 mt-1 text-sm">Background</h1>
+                    <h1 className="text-stone-300 ml-5 mt-1 text-sm">Style</h1>
                     <div className="flex justify-between bg-stone-950 py-2">
-                        <select className="w-[35%] ml-5 h-[30px] px-1 bg-stone-300 text-stone-900 text-sm rounded-md">
+                        <select value={selectedBackgroundValue} onChange={handleBackgroundChange} className="w-[35%] ml-5 h-[30px] px-1 bg-stone-300 text-stone-900 text-sm rounded-md">
                             <option value="solid">solid</option>
                             <option value="gradient">gradient</option>
                         </select>
-                        <input type="color" className="w-[25%] h-[30px] mr-5" />
+
+                        {isBackgroundSolid ? 
+                            <input type="color" className="w-[25%] h-[30px] mr-5"  value={backgroundColor} onChange={updateBackgroundColor}/> :
+                            (
+                            <div className="flex w-[40%]  mr-5">
+                                <input className='w-[50%] h-[30px]' type="color" name="" id="" value={color1} onChange={handleColor1Change}/>
+                                <label className='text-stone-300 mx-2' htmlFor=""> to</label>
+                                <input className='w-[50%] h-[30px]' type="color" name="" id="" value={color2} onChange={handleColor2Change}/>
+                            </div>
+                            )
+                        }
+                        
                     </div>
 
                     {/* Gradient Settings */}
                     <h1 className="text-stone-200 ml-5 mt-1 text-sm">Gradient Settings</h1>
                     <div className="flex w-[50%] ml-2 justify-around mt-1">
-                        <button className="cursor-pointer w-[35%] mx-1 bg-green-300 rounded-lg py-1">LR</button>
-                        <button className="cursor-pointer w-[35%] mx-1 bg-red-500 rounded-lg py-1">UD</button>
+                        <button onClick={handleGradientDirectionChange} disabled={isBackgroundSolid ||isLeftToRightGradient  } className="cursor-pointer w-[35%] mx-1 bg-red-500 rounded-lg py-1">LR</button>
+                        <button onClick={handleGradientDirectionChange} disabled={isBackgroundSolid ||!isLeftToRightGradient } className="cursor-pointer w-[35%] mx-1 bg-red-500 rounded-lg py-1">UD</button>
                     </div>
 
                     <div className="flex flex-col ml-5 text-sm mt-1">
@@ -161,10 +245,10 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                     <h1 className="text-stone-200 ml-5 my-1 text-sm">Lighting</h1>
                     <div className="flex w-[100%] ml-5 mb-5">
                         <div className="flex justify-between w-[90%]">
-                            <button className="cursor-pointer w-[18%] bg-green-300 rounded-lg py-1">Dir</button>
-                            <button className="cursor-pointer w-[18%] bg-green-300 rounded-lg py-1">Spot</button>
-                            <button className="cursor-pointer w-[18%] bg-green-300 rounded-lg py-1">Point</button>
-                            <button className="cursor-pointer w-[18%] bg-green-300 rounded-lg py-1">Rect</button>
+                            <button onClick={handleDirectionalLightCreation} className="cursor-pointer w-[18%] bg-green-300 rounded-lg py-1">Dir</button>
+                            <button onClick={handleSpotLightCreation} className="cursor-pointer w-[18%] bg-green-300 rounded-lg py-1">Spot</button>
+                            <button onClick={handlePointLightCreation} className="cursor-pointer w-[18%] bg-green-300 rounded-lg py-1">Point</button>
+                            <button onClick={handleRectAreaLightCreation} className="cursor-pointer w-[18%] bg-green-300 rounded-lg py-1">Rect</button>
                         </div>
                     </div>
                 </div>
