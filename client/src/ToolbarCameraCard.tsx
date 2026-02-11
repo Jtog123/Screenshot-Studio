@@ -65,8 +65,8 @@ export default function ToolbarCameraCard({isToolbarToggled, _cameraManager, _ph
         
     return (
         <>
-        <div onClick={handleCameraCardExpand} className="rounded-t-xl bg-stone-950 flex-1 -mt-2 z-10 border-t-1 border-x-1 border-stone-300 transition-all duration-500 ease-in-out cursor-pointer  ">
-            <div className="flex justify-between items-center py-2">
+        <div  className="rounded-t-xl bg-stone-950 flex-1 -mt-2 z-10 border-t-1 border-x-1 border-stone-300 transition-all duration-500 ease-in-out   ">
+            <div onClick={handleCameraCardExpand} className="flex justify-between items-center py-2 cursor-pointer">
                 <h1 className="ml-5 text-stone-300">Camera</h1>
                 <button onClick={handleCameraCardExpand} className="mr-5 text-stone-300">
                      {isCameraCardExpanded ? '^' : 'v'}

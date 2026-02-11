@@ -31,10 +31,10 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
     }
 
     return (
-        <div onClick={handleImgAndTextCardExpand} className={`w-[100%] rounded-t-xl bg-stone-950 -mt-2 z-10 border-1 border-stone-300 transition-all duration-500 ease-in-out pb-1 overflox-auto  cursor-pointer `}
+        <div  className={`w-[100%] rounded-t-xl bg-stone-950 -mt-2 z-10 border-1 border-stone-300 transition-all duration-500 ease-in-out pb-1 overflox-auto  `}
         >
 
-            <div className="flex justify-between items-center py-2">
+            <div onClick={handleImgAndTextCardExpand} className="flex justify-between items-center py-2 cursor-pointer">
                 <h1 className="ml-5 text-stone-300">Image & Text</h1>
                 <button onClick={handleImgAndTextCardExpand} className="mr-5 text-stone-300">
                     {isImgAndTxtCardExpanded ? '^' : 'v'}
