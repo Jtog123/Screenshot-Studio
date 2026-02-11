@@ -40,7 +40,7 @@ export default function ToolbarActiveComponents({activeListItems, setActiveListI
 
     return (
         <>
-            <div className={ isToolbarToggled ? `hidden` : `flex h-[32.5%] w-[screen] bg-stone-500 items-center justify-center`}>
+            <div className={ isToolbarToggled ? `hidden` : `flex h-[325px] flex-shrink-0 w-[screen] bg-stone-500 items-center justify-center`}>
 
                 <div className="flex h-[90%] w-[90%] bg-red-200 overflow-auto">
                     <ul className="w-[100%]">

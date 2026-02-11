@@ -3,14 +3,14 @@ import { useState } from "react"
 export default function ToolbarImgAndTextCard() { 
 
     const[isImgAndTxtCardExpanded, setIsImgAndTextCardExpanded] = useState(false);
-    const[contentHeight, setContentHeight] = useState(0);
+    //const[contentHeight, setContentHeight] = useState(0);
 
     function handleImgAndTextCardExpand() : void {
         setIsImgAndTextCardExpanded(!isImgAndTxtCardExpanded);
     }
 
     return (
-        <div className={`w-[100%] rounded-t-xl bg-stone-950 -mt-2 z-10 border-1 border-stone-300 transition-all duration-500 ease-in-out pb-1`}
+        <div className={`w-[100%] rounded-t-xl bg-stone-950 -mt-2 z-10 border-1 border-stone-300 transition-all duration-500 ease-in-out pb-1 overflox-auto`}
         >
 
             <div className="flex justify-between items-center py-2">
@@ -27,14 +27,37 @@ export default function ToolbarImgAndTextCard() {
             }`}>
                 <div className="overflow-hidden">
                     {/* stuff here*/}
-                    <div className="flex w-[100%] justify-center pb-2">
-                        <div className="flex  w-[50%] justify-evenly bg-blue-700 ">
-                            <button className="border-1 border-stone-300 text-stone-300">Img</button>
+                    <div className="flex  w-[100%]  justify-center  pb-2">
+                        <div className="flex  w-[50%] h-[50px] justify-evenly items-center  ">
+                            <button className="cursor-pointer w-[35%] mx-1 bg-red-500 rounded-lg py-1">Img</button>
                             <label className="text-stone-300" htmlFor=""> or</label>
-                            <button className="border-1 border-stone-300 text-stone-300">Txt</button>
-
+                            <button className="cursor-pointer w-[35%] mx-1 bg-red-500 rounded-lg py-1">Txt</button>
                         </div>
                     </div>
+
+                        {/* Divider */}
+                    <div className="flex w-[100%] justify-center my-1">
+                        <div className="w-[90%] h-px bg-stone-300/40 my-2"></div>
+                    </div>
+
+                    <div className="flex justify-between items-center ">
+                        <h1 className="text-stone-300 ml-5">Manage</h1>
+                    </div>
+
+                    <div className="imageSelector flex mx-5 mb-2 py-2 ">
+                        {/* allow up to 7 images do dynamically or hard code? click upload img load async and store into and display in the div*/}
+                        <div className="flex flex-col ">
+                            <input type="checkbox" className=" mb-1" name="" id="" />
+                            <div className="h-[45px] w-[28px] border-1 border-stone-300 mb-1">
+                                <img src="/testshot.png"  alt=""/>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                   
 
 
 

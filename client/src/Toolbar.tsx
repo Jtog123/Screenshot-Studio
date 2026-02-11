@@ -108,7 +108,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
             {
                 (
                     isToolbarToggled ? 
-                        <div className="fixed h-screen bg-stone-950 text-white z-20 right-0 w-[5%] transition-all duration-300 ease-in-out ">
+                        <div className="fixed h-screen bg-stone-950 text-white z-20 right-0 w-[5%] transition-all duration-300 ease-in-out  ">
                             <ToolbarHeader isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>
                             {/* 
                             <ToolbarBackgroundColor isToolbarToggled={isToolbarToggled}  scene={_scene} gradientBackground ={_gradientBackground}/> 
@@ -120,13 +120,15 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                             {/*Toolbar Panel Selector*/}
                         </div>
                         :
-                        <div className="fixed flex flex-col h-[100%] w-[25%] bg-stone-950 z-20 right-0 transition-all duration-300 ease-in-out  ">
+                        <div className="fixed flex flex-col flex-1 min-h-0  w-[25%] h-[100%] bg-stone-200 z-20 right-0 transition-all duration-300 ease-in-out  ">
                             <ToolbarHeader isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>
-                            <ToolbarBgAndLightingCard/>
-                            
-                    
-                            <ToolbarImgAndTextCard />
-                            <ToolbarCameraCard/>
+                            <div className='flex flex-col flex-1 overflow-y-auto overflow-x-hidden'>
+                                <ToolbarBgAndLightingCard/>
+                                <ToolbarImgAndTextCard />
+                                <ToolbarCameraCard/>
+                                
+                            </div>
+
                             
 
                             {/* 
@@ -135,9 +137,10 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                             {activeTab === "Lights" && <ToolbarLightCatalog  activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled}  scene={_scene} lightManager={_lightManager}/>}
                             {activeTab === "Camera" && <ToolbarCameraCatalog isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} _phoneModel={_phoneModel}/>}
                             {activeTab === "Text" && <ToolbarAssetEditor imageComponents={_imageComponents} setImageComponents={_setImageComponents}  isToolbarToggled={isToolbarToggled} addTextComponent={addTextComponent} />}
-                            
-                            <ToolbarActiveComponents activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} lightManager={_lightManager} assetManager={_assetManager}  />
                             */}
+    
+                            <ToolbarActiveComponents activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} lightManager={_lightManager} assetManager={_assetManager}  />
+                            
                             
 
                             {/*Toolbar Panel Selector*/}
