@@ -42,6 +42,16 @@ export default function ImageComponentGUI({_componentID, _assetManager} : ImageC
             z: Number(currentZPos)
         });
 
+        const currentXScale = (imageComponent?._underlyingComponent as THREE.Sprite).scale.x;
+        const currentYScale = (imageComponent?._underlyingComponent as THREE.Sprite).scale.y;
+        const currentZScale = (imageComponent?._underlyingComponent as THREE.Sprite).scale.z;
+
+        setComponentScale({
+            x: Number(currentXScale),
+            y: Number(currentYScale),
+            z: Number(currentZScale)
+        })
+
         //opacity
         const currentOpacity = (imageComponent?._underlyingComponent as THREE.Sprite).material.opacity;
         setComponentOpacity(currentOpacity);
@@ -137,9 +147,12 @@ export default function ImageComponentGUI({_componentID, _assetManager} : ImageC
         setComponentScale({
             x: scaleFactor,
             y: scaleFactor,
-            z: componentPos.z
+            z: componentScale.z
         });
 
+        if(imageComponent && imageComponent._originalScale) {
+            imageComponent._originalScale.set(scaleFactor,scaleFactor, 1);
+        }
         //update three.js
         imageComponent?._underlyingComponent?.scale.set(scaleFactor,scaleFactor, 1);
     }
@@ -181,7 +194,7 @@ export default function ImageComponentGUI({_componentID, _assetManager} : ImageC
 
 
                     <label className="text-sm text-stone-200" htmlFor="">Position X:</label>
-                    <input name="xPos" className="w-full h-1" onChange={(e) => handlePosSlidersChange(e, "xPos")} type="range" min={"-10"} max={"10"} value={componentPos.x} step={"0.1"}/>
+                    <input name="xPos"  onChange={(e) => handlePosSlidersChange(e, "xPos")} type="range" min={"-10"} max={"10"} value={componentPos.x} step={"0.1"}/>
 
                     <label className="text-sm text-stone-200" htmlFor="">Position Y:</label>
                     <input name="yPos" className="w-full h-1" onChange={(e) => handlePosSlidersChange(e, "yPos")}type="range" min={"-10"} max={"10"} value={componentPos.y} step={"0.1"}/>

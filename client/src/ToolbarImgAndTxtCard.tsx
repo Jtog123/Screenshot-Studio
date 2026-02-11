@@ -1,12 +1,33 @@
 import { useState } from "react"
+import { ImageComponentInterface, TextComponentInterface } from "./ComponentInterfaces"
 
-export default function ToolbarImgAndTextCard() { 
+interface ToolbarImgAndTextCardProps {
+    imageComponents: ImageComponentInterface[]
+    setImageComponents : React.Dispatch<React.SetStateAction<ImageComponentInterface[]>>
+    addTextComponent : () => void
+    isToolbarToggled : boolean
+}
+
+export default function ToolbarImgAndTextCard({imageComponents, setImageComponents, addTextComponent, isToolbarToggled} : ToolbarImgAndTextCardProps) { 
 
     const[isImgAndTxtCardExpanded, setIsImgAndTextCardExpanded] = useState(false);
     //const[contentHeight, setContentHeight] = useState(0);
 
     function handleImgAndTextCardExpand() : void {
         setIsImgAndTextCardExpanded(!isImgAndTxtCardExpanded);
+    }
+
+    function addImageComponent() : void {
+
+        //temp id for react key
+        const newImage = {
+            id: `temp_${Date.now()}`,
+            position: "above",
+            type: "image"
+        }
+        console.log("adding component", newImage);
+        setImageComponents([...imageComponents, newImage]);
+        
     }
 
     return (
@@ -29,9 +50,9 @@ export default function ToolbarImgAndTextCard() {
                     {/* stuff here*/}
                     <div className="flex  w-[100%]  justify-center  pb-2">
                         <div className="flex  w-[50%] h-[50px] justify-evenly items-center  ">
-                            <button className="cursor-pointer w-[35%] mx-1 bg-red-500 rounded-lg py-1">Img</button>
+                            <button onClick={addImageComponent} className="cursor-pointer w-[35%] mx-1 bg-red-500 rounded-lg py-1">Img</button>
                             <label className="text-stone-300" htmlFor=""> or</label>
-                            <button className="cursor-pointer w-[35%] mx-1 bg-red-500 rounded-lg py-1">Txt</button>
+                            <button onClick={addTextComponent} className="cursor-pointer w-[35%] mx-1 bg-red-500 rounded-lg py-1">Txt</button>
                         </div>
                     </div>
 

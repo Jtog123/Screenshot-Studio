@@ -9,7 +9,6 @@ interface ToolbarAssetProps {
     imageComponents: ImageComponentInterface[]
     setImageComponents : React.Dispatch<React.SetStateAction<ImageComponentInterface[]>>
     addTextComponent : () => void
-
     isToolbarToggled : boolean
 }
 
