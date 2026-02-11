@@ -1,11 +1,118 @@
-import { useState } from "react"
+import * as THREE from 'three'
+import { GradientBackground } from './GradientBackground';
+import { LightManager } from "./LightManager";
+import ActiveListItem from './ActiveListItem';
+import { LightType } from './Light';
+import { useEffect, useState } from 'react';
+import { _DirectionalLightHelper, _SpotLightHelper, _PointLightHelper, _RectAreaLightHelper } from './LightHelper';
 
-export default function ToolbarBgAndLightingCard() {
+interface ToolbarBgAndLightingCardProps{
+    scene : THREE.Scene;
+    isToolbarToggled : boolean
+    gradientBackground : GradientBackground
+    activeListItems: {id:string, name:string}[]
+    setActiveListItems: React.Dispatch<React.SetStateAction<{ id: string; name: string; }[]>>
+    lightManager : LightManager
+}
+
+export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradientBackground, activeListItems, setActiveListItems, lightManager} : ToolbarBgAndLightingCardProps) {
 
     const[isBgAndLightCardExpanded, setIsBgAndLightCardExpanded] = useState(true);
+    const[backgroundColor, setBackgroundColor] = useState("#292524");
+    const[isBackgroundSolid, setIsBackgroundSolid] = useState(true);
+    const[isLeftToRightGradient , setIsLeftToRightGradient] = useState(true);
+
+    //??
+    const[color1 , setColor1] = useState("#FF0000");
+    const[color2 , setColor2] = useState("#0000FF");
 
     function handleBgAndLightCardExpand() : void {
         setIsBgAndLightCardExpanded(!isBgAndLightCardExpanded);
+    }
+
+
+    
+    //takes an implicit event
+    function updateBackgroundColor(evt : React.ChangeEvent<HTMLInputElement>) : void {
+        //value from the input
+        let selectedColor = (evt.target as HTMLInputElement).value;
+
+        //convert to number and set the background
+        let selectedColorValue = selectedColor.replace("#", "0x");
+        scene.background = new THREE.Color(Number(selectedColorValue));
+
+        //update the state
+        setBackgroundColor(selectedColor);
+        //console.log(backgroundColor);
+
+    }
+
+    function handleColor1Change(e : React.ChangeEvent<HTMLInputElement>) : void {
+        const newColor = e.target.value;
+        setColor1(newColor);
+        gradientBackground.updateGradientColors(newColor,color2);
+    }
+
+    function handleColor2Change(e : React.ChangeEvent<HTMLInputElement>) : void {
+        const newColor = e.target.value;
+        setColor2(newColor);
+        gradientBackground.updateGradientColors(color1,newColor);
+    }
+
+    useEffect(() => {
+        const _scene = scene;
+
+        //set initial background color
+        if(isBackgroundSolid) {
+            let initialColorString = backgroundColor;
+            let initialColorValue = initialColorString.replace("#", "0x");
+            _scene.background = new THREE.Color(Number(initialColorValue));
+        }
+        //let initialColorString = backgroundColor;
+        //let initialColorValue = initialColorString.replace("#", "0x");
+        //_scene.background = new THREE.Color(Number(initialColorValue));
+        
+
+    },[]);
+
+    function handleGradientBackground(){
+        console.log("gradient");
+        if(isBackgroundSolid) {
+            scene.background = null;
+            if(isLeftToRightGradient) {
+                gradientBackground.turnLeftRightGradientOn(color1, color2);
+            } else {
+                gradientBackground.turnUpDownGradientOn(color1, color2);
+            }
+
+            setIsBackgroundSolid(false);
+
+            
+        }
+
+    }
+
+    function handleSolidBackground() : void {
+        if(!isBackgroundSolid) {
+            console.log("solid");
+            //restore the solid background
+            gradientBackground.turnGradientBackgroundOff();
+            let colorValue = backgroundColor.replace("#", "0x");
+            scene.background = new THREE.Color(Number(colorValue));
+            setIsBackgroundSolid(true);
+
+        }
+    }
+
+
+
+    //pass in current colrs? pass in color1 and color2 as props? to gradientcolorselector
+    // pass in setter functions to gradient background selector as props
+    function handleGradientDirectionChange() : void {
+        const newDirection = !isLeftToRightGradient;
+        setIsLeftToRightGradient(newDirection);
+        gradientBackground.switchGradientDirection(newDirection);
+        
     }
 
     return(

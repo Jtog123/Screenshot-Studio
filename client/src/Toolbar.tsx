@@ -123,17 +123,28 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                         <div className="fixed flex flex-col flex-1 min-h-0  w-[25%] h-[100%] bg-stone-200 z-20 right-0 transition-all duration-300 ease-in-out  ">
                             <ToolbarHeader isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>
                             <div className='flex flex-col flex-1 overflow-y-auto overflow-x-hidden'>
-                                <ToolbarBgAndLightingCard/>
+                                <ToolbarBgAndLightingCard scene={_scene} isToolbarToggled={isToolbarToggled} gradientBackground={_gradientBackground}
+                                activeListItems={activeListItems} setActiveListItems={setActiveListItems}   lightManager={_lightManager}/>
+                                
+                               
                                 <ToolbarImgAndTextCard />
                                 <ToolbarCameraCard/>
                                 
                             </div>
 
+                            {/*
+                            <ToolbarBackgroundColor /> 
+
+                            <ToolbarLightCatalog  activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled}  scene={_scene} lightManager={_lightManager}/>}
+
+                             */}
                             
 
                             {/* 
                             <ToolbarBackgroundColor isToolbarToggled={isToolbarToggled} scene={_scene} gradientBackground={_gradientBackground}/> 
+
                             <ToolBarPanelTab isToolbarToggled={isToolbarToggled} activeTab={activeTab} handleTabChange={handleTabChange} />
+
                             {activeTab === "Lights" && <ToolbarLightCatalog  activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled}  scene={_scene} lightManager={_lightManager}/>}
                             {activeTab === "Camera" && <ToolbarCameraCatalog isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} _phoneModel={_phoneModel}/>}
                             {activeTab === "Text" && <ToolbarAssetEditor imageComponents={_imageComponents} setImageComponents={_setImageComponents}  isToolbarToggled={isToolbarToggled} addTextComponent={addTextComponent} />}
