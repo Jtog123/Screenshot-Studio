@@ -189,7 +189,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
     }    
 
     return(
-        <div className="w-[100%] bg-stone-950 flex-shrink-0 pb-2 ">
+        <div onClick={handleBgAndLightCardExpand} className="w-[100%] bg-stone-950 flex-shrink-0 pb-2 cursor-pointer ">
             {/* Header - always visible */}
             <div className="flex justify-between items-center py-2">
                 <h1 className="text-stone-300 ml-5">Background & Lighting</h1>

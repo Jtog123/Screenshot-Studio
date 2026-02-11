@@ -130,12 +130,12 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                                
                                 <ToolbarImgAndTextCard imageComponents={_imageComponents} setImageComponents={_setImageComponents} isToolbarToggled={isToolbarToggled} addTextComponent={addTextComponent} />
 
-                                <ToolbarCameraCard/>
+                                <ToolbarCameraCard isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} _phoneModel={_phoneModel}/>
                                 
                             </div>
 
                             {/*
-                            {activeTab === "Text" && <ToolbarAssetEditor imageComponents={_imageComponents} setImageComponents={_setImageComponents}  isToolbarToggled={isToolbarToggled} addTextComponent={addTextComponent} />}
+                            {activeTab === "Camera" && <ToolbarCameraCatalog isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} _phoneModel={_phoneModel}/>}
 
                              */}
                             
@@ -148,7 +148,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                             {activeTab === "Lights" && <ToolbarLightCatalog  activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled}  scene={_scene} lightManager={_lightManager}/>}
 
                             {activeTab === "Camera" && <ToolbarCameraCatalog isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} _phoneModel={_phoneModel}/>}
-                            
+
                             {activeTab === "Text" && <ToolbarAssetEditor imageComponents={_imageComponents} setImageComponents={_setImageComponents}  isToolbarToggled={isToolbarToggled} addTextComponent={addTextComponent} />}
                             */}
     

@@ -1,18 +1,26 @@
-
 import {useRef, useEffect, useState} from 'react'
-export default function ToolbarCameraCard() { 
+import { CameraManager } from "./CameraManager"
+import * as THREE from 'three'
+
+interface ToolbarCameraCardProps {
+    isToolbarToggled : boolean
+    _cameraManager : CameraManager
+    _phoneModel : THREE.Group
+}
+
+export default function ToolbarCameraCard({isToolbarToggled, _cameraManager, _phoneModel} : ToolbarCameraCardProps) { 
 
     const[isCameraCardExpanded, setIsCameraCardExpanded] = useState(false);
         //const[contentHeight, setContentHeight] = useState(0);
     
-    function handleImgAndTextCardExpand() : void {
+    function handleCameraCardExpand() : void {
             setIsCameraCardExpanded(!isCameraCardExpanded);
     }
 
     
     const[zoom, setZoom] = useState(2);
     const[height, setHeight] = useState(6);
-    /*
+    
 
 
     function handleCameraZoomIn() : void {
@@ -28,13 +36,39 @@ export default function ToolbarCameraCard() {
         }
 
     }
-        */
+
+
+    function handleCameraHeightIncrease() : void {
+        if(_cameraManager.increaseCameraHeight()) {
+            setHeight(count => count + 1);
+        }
+
+    }
+
+    function handleCameraHeightDecrease() : void {
+        if(_cameraManager.decreaseCameraHeight()) {
+            setHeight(count => count - 1);
+        }
+
+    }
+
+    function handleHeightReset() : void {
+        //update internally
+        _cameraManager.resetCamera();
+        setHeight(6);
+    }
+
+    function handleZoomReset() : void {
+        _cameraManager.resetZoom();
+        setZoom(2);
+    }
+        
     return (
         <>
-        <div className="rounded-t-xl bg-stone-950 flex-1 -mt-2 z-10 border-t-1 border-x-1 border-stone-300 transition-all duration-500 ease-in-out  ">
+        <div onClick={handleCameraCardExpand} className="rounded-t-xl bg-stone-950 flex-1 -mt-2 z-10 border-t-1 border-x-1 border-stone-300 transition-all duration-500 ease-in-out cursor-pointer  ">
             <div className="flex justify-between items-center py-2">
                 <h1 className="ml-5 text-stone-300">Camera</h1>
-                <button onClick={handleImgAndTextCardExpand} className="mr-5 text-stone-300">
+                <button onClick={handleCameraCardExpand} className="mr-5 text-stone-300">
                      {isCameraCardExpanded ? '^' : 'v'}
                 </button>
             </div>
@@ -53,9 +87,9 @@ export default function ToolbarCameraCard() {
                         </div>
 
                         <div className="button flex justiify-between container w-[50%] p-1 mr-5">
-                            <button  className="cursor-pointer w-[25%] mx-1 bg-red-500 rounded-lg py-1"> + </button>
-                            <button  className="cursor-pointer w-[25%] mx-1 bg-red-500 rounded-lg py-1"> - </button>
-                            <button className="cursor-pointer w-[25%] mx-1 bg-red-500 rounded-lg py-1"> r</button>
+                            <button onClick={handleCameraZoomIn}  className="cursor-pointer w-[25%] mx-1 bg-red-500 rounded-lg py-1"> + </button>
+                            <button onClick={handleCameraZoomOut} className="cursor-pointer w-[25%] mx-1 bg-red-500 rounded-lg py-1"> - </button>
+                            <button onClick={handleZoomReset} className="cursor-pointer w-[25%] mx-1 bg-red-500 rounded-lg py-1"> r</button>
                         </div>
                     </div>
 
@@ -67,9 +101,9 @@ export default function ToolbarCameraCard() {
                         </div>
 
                         <div className="button flex justiify-between container w-[50%] p-1 mr-5 pb-2">
-                            <button className="cursor-pointer w-[25%] mx-1 bg-red-500 rounded-lg py-1"> ^ </button>
-                            <button className="cursor-pointer w-[25%] mx-1 bg-red-500 rounded-lg py-1"> - </button>
-                            <button className="cursor-pointer w-[25%] mx-1 bg-red-500 rounded-lg py-1"> r</button>
+                            <button onClick={handleCameraHeightIncrease} className="cursor-pointer w-[25%] mx-1 bg-red-500 rounded-lg py-1"> ^ </button>
+                            <button onClick={handleCameraHeightDecrease} className="cursor-pointer w-[25%] mx-1 bg-red-500 rounded-lg py-1"> - </button>
+                            <button onClick={handleHeightReset} className="cursor-pointer w-[25%] mx-1 bg-red-500 rounded-lg py-1"> r</button>
                         </div>
                     </div>
 
