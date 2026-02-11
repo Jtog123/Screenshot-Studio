@@ -14,7 +14,7 @@ export default function ToolbarBgAndLightingCard() {
             <div className="flex justify-between items-center py-2">
                 <h1 className="text-stone-300 ml-5">Background & Lighting</h1>
                 <button onClick={handleBgAndLightCardExpand} className="mr-5 text-stone-300">
-                    {isBgAndLightCardExpanded ? 'v' : '^'}
+                    {isBgAndLightCardExpanded ? '^' : 'v'}
                 </button>
             </div>
 

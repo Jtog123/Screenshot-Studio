@@ -16,17 +16,27 @@ export default function ToolbarImgAndTextCard() {
             <div className="flex justify-between items-center py-2">
                 <h1 className="ml-5 text-stone-300">Image & Text</h1>
                 <button onClick={handleImgAndTextCardExpand} className="mr-5 text-stone-300">
-                    {isImgAndTxtCardExpanded ? 'v' : '^'}
+                    {isImgAndTxtCardExpanded ? '^' : 'v'}
                 </button>
             </div>
 
 
-                        {/* using grid to epxnad content*/}
+            {/* using grid to epxnad content*/}
             <div className={`grid transition-all duration-300 ease-in-out ${
                 isImgAndTxtCardExpanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
             }`}>
                 <div className="overflow-hidden">
-                    
+                    {/* stuff here*/}
+                    <div className="flex w-[100%] justify-center pb-2">
+                        <div className="flex  w-[50%] justify-evenly bg-blue-700 ">
+                            <button className="border-1 border-stone-300 text-stone-300">Img</button>
+                            <label className="text-stone-300" htmlFor=""> or</label>
+                            <button className="border-1 border-stone-300 text-stone-300">Txt</button>
+
+                        </div>
+                    </div>
+
+
 
                 </div>
             </div>
