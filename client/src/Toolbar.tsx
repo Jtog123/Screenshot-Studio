@@ -23,6 +23,8 @@ import TextComponentGUI from './TextComponentGUI'
 import TextComponent from './TextComponent'
 import { GradientBackground } from './GradientBackground'
 import ToolbarBgAndLightingCard from './ToolbarBgAndLightingCard'
+import ToolbarImgAndTextCard from './ToolbarImgAndTxtCard'
+import ToolbarCameraCard from './ToolbarCameraCard'
 
 
 
@@ -106,7 +108,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
             {
                 (
                     isToolbarToggled ? 
-                        <div className="fixed h-screen bg-stone-950 text-white z-20 right-0 w-[5%] transition-all duration-300 ease-in-out">
+                        <div className="fixed h-screen bg-stone-950 text-white z-20 right-0 w-[5%] transition-all duration-300 ease-in-out ">
                             <ToolbarHeader isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>
                             {/* 
                             <ToolbarBackgroundColor isToolbarToggled={isToolbarToggled}  scene={_scene} gradientBackground ={_gradientBackground}/> 
@@ -118,9 +120,14 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                             {/*Toolbar Panel Selector*/}
                         </div>
                         :
-                        <div className="fixed flex flex-col h-[100%] w-[25%] bg-stone-950 z-20 right-0 transition-all duration-300 ease-in-out">
+                        <div className="fixed flex flex-col h-[100%] w-[25%] bg-stone-950 z-20 right-0 transition-all duration-300 ease-in-out  ">
                             <ToolbarHeader isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>
                             <ToolbarBgAndLightingCard/>
+                            
+                    
+                            <ToolbarImgAndTextCard />
+                            <ToolbarCameraCard/>
+                            
 
                             {/* 
                             <ToolbarBackgroundColor isToolbarToggled={isToolbarToggled} scene={_scene} gradientBackground={_gradientBackground}/> 
