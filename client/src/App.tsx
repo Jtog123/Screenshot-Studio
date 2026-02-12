@@ -128,11 +128,42 @@ export default function App() {
     });
 
     //Load the Model
+    /*
     loader.loadAsync("/models/phone/iphone17CleanSceneTest.gltf").then(gltf => {
         setPhoneModel(gltf.scene);
         //no longer loading
         setIsPhoneLoading(false);
         _scene.add(gltf.scene);
+    }).catch(err => console.error('Failed to load phone model:', err))*/
+
+    loader.loadAsync("/models/phone2/iphoneAt6.glb").then(gltf => {
+        let phoneFrame : THREE.Mesh | null = null;
+        let phoneScreen : THREE.Mesh | null = null;
+
+        gltf.scene.traverse((child) => {
+        if (child instanceof THREE.Mesh) {
+            if (child.name === 'phone_screen') {
+                phoneScreen = child;
+            } else if (child.name === 'phone_frame') {
+                phoneFrame = child;
+            }
+        }
+      });
+
+        setPhoneModel(gltf.scene);
+        //no longer loading
+        setIsPhoneLoading(false);
+        //gltf.scene.scale.set(6, 6, 6);
+        _scene.add(gltf.scene);
+
+        if (phoneScreen) {
+          const texture = new THREE.TextureLoader().load('public/testshot.png');
+          texture.flipY = false;
+          
+          (phoneScreen as THREE.Mesh).material = new THREE.MeshBasicMaterial({ map: texture });
+        }
+
+
     }).catch(err => console.error('Failed to load phone model:', err))
 
     //remove on unmount

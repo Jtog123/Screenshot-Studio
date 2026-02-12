@@ -110,6 +110,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                     isToolbarToggled ? 
                         <div className="fixed h-screen bg-stone-950 text-white z-20 right-0 w-[5%] transition-all duration-300 ease-in-out  ">
                             <ToolbarHeader isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>
+                            
                             {/* 
                             <ToolbarBackgroundColor isToolbarToggled={isToolbarToggled}  scene={_scene} gradientBackground ={_gradientBackground}/> 
                             <ToolBarPanelTab isToolbarToggled={isToolbarToggled} activeTab={activeTab} handleTabChange={handleTabChange} />
