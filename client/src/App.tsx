@@ -84,7 +84,7 @@ export default function App() {
     const _scene = new THREE.Scene();
     setScene(_scene);
 
-    const _renderer = new THREE.WebGLRenderer({preserveDrawingBuffer:true});
+    const _renderer = new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});
     _renderer.outputColorSpace = THREE.SRGBColorSpace;
     setRenderer(_renderer);
 

@@ -264,6 +264,12 @@ Capture button saves current view
 -We then conditionally render a GUI based on the selected lights id
 
 
+Model fixes?
+Iphone has glitches edges look sloppy, stair stepper look?
+need to remove lower bar from UV map
+image is fuzzy still in threejs
+
+
 iphone 16 pro instructions?
 ## Exact Blender Dimensions for iPhone 16 Pro
 
