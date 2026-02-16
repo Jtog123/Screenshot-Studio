@@ -262,3 +262,54 @@ Capture button saves current view
 -in selectLightByID we emit a "lightSelected" event
 -In the toolbar component we are listening for the "lightSelectedEvent", when that happens we set the state of the selectedLight
 -We then conditionally render a GUI based on the selected lights id
+
+
+iphone 16 pro instructions?
+## Exact Blender Dimensions for iPhone 16 Pro
+
+### Frame (Rounded Rectangle):
+```
+Width (X):  0.773 units
+Height (Y): 1.627 units  
+Depth (Z):  0.083 units
+Border Radius: 0.12 units
+```
+
+### Screen (Flat Plane):
+```
+Width (X):  0.683 units
+Height (Y): 1.517 units
+Position Z: 0.042 units (slightly in front of frame)
+```
+
+### Aspect Ratio:
+Screen: **19.6:9** (iPhone 16 Pro - slightly taller than 14)
+
+---
+
+## Step-by-Step in Blender:
+
+**1. Frame:**
+- Add Cube
+- Press `S` → `X` → `0.773` → Enter
+- Press `S` → `Y` → `1.627` → Enter  
+- Press `S` → `Z` → `0.083` → Enter
+- Add Bevel Modifier: Amount = 0.12, Segments = 4
+
+**2. Screen:**
+- Add Plane
+- Press `S` → `X` → `0.3415` → Enter (half of 0.683)
+- Press `S` → `Y` → `0.7585` → Enter (half of 1.517)
+- Press `G` → `Z` → `0.042` → Enter
+
+**3. Scale for Three.js:**
+- Select both objects
+- Press `S` → `10` → Enter
+- Press `Ctrl + A` → "Scale"
+
+**4. Name & Export:**
+- Plane → "phone_screen"
+- Cube → "phone_frame"
+- Export as GLB
+
+The iPhone 16 Pro is slightly larger and has thinner bezels than the 14, so these dimensions are more accurate! 📱

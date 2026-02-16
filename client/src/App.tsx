@@ -134,18 +134,20 @@ export default function App() {
         //no longer loading
         setIsPhoneLoading(false);
         _scene.add(gltf.scene);
-    }).catch(err => console.error('Failed to load phone model:', err))*/
+    }).catch(err => console.error('Failed to load phone model:', err))
+    */
 
-    loader.loadAsync("/models/phone2/iphoneAt6.glb").then(gltf => {
-        let phoneFrame : THREE.Mesh | null = null;
+    
+    loader.loadAsync("/models/phone2/iphoneMyModel13.glb").then(gltf => {
+        let phoneBody : THREE.Mesh | null = null;
         let phoneScreen : THREE.Mesh | null = null;
 
         gltf.scene.traverse((child) => {
         if (child instanceof THREE.Mesh) {
             if (child.name === 'phone_screen') {
                 phoneScreen = child;
-            } else if (child.name === 'phone_frame') {
-                phoneFrame = child;
+            } else if (child.name === 'phone_body') {
+                phoneBody = child;
             }
         }
       });
@@ -153,18 +155,28 @@ export default function App() {
         setPhoneModel(gltf.scene);
         //no longer loading
         setIsPhoneLoading(false);
-        //gltf.scene.scale.set(6, 6, 6);
+        gltf.scene.scale.set(0.25, 0.25, 0.25);
         _scene.add(gltf.scene);
 
+        
         if (phoneScreen) {
-          const texture = new THREE.TextureLoader().load('public/testshot.png');
-          texture.flipY = false;
-          
-          (phoneScreen as THREE.Mesh).material = new THREE.MeshBasicMaterial({ map: texture });
+          const textureLoader = new THREE.TextureLoader();
+          textureLoader.load('/testshot.png', (texture) => {
+            texture.flipY = false;
+            texture.colorSpace = THREE.SRGBColorSpace; // Corrects the "washed out" red
+            texture.anisotropy = 16; // Sharper edges at angles
+
+            phoneScreen!.material = new THREE.MeshBasicMaterial({ 
+              map: texture,
+              toneMapped: false // Prevents scene lights from changing screenshot colors
+            });
+          });
         }
+          
 
 
     }).catch(err => console.error('Failed to load phone model:', err))
+    
 
     //remove on unmount
     return() => {
