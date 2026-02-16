@@ -164,7 +164,10 @@ export default function App() {
           textureLoader.load('/testshot.png', (texture) => {
             texture.flipY = false;
             texture.colorSpace = THREE.SRGBColorSpace; // Corrects the "washed out" red
-            texture.anisotropy = 16; // Sharper edges at angles
+            texture.minFilter = THREE.LinearFilter;
+            texture.magFilter = THREE.NearestFilter; // Sharpest
+            texture.anisotropy = renderer!.capabilities.getMaxAnisotropy();
+            //texture.anisotropy = 16; // Sharper edges at angles
 
             phoneScreen!.material = new THREE.MeshBasicMaterial({ 
               map: texture,
