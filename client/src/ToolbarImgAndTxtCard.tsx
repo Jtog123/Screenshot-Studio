@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { ImageComponentInterface, TextComponentInterface } from "./ComponentInterfaces"
 
 interface ToolbarImgAndTextCardProps {
@@ -11,6 +11,8 @@ interface ToolbarImgAndTextCardProps {
 export default function ToolbarImgAndTextCard({imageComponents, setImageComponents, addTextComponent, isToolbarToggled} : ToolbarImgAndTextCardProps) { 
 
     const[isImgAndTxtCardExpanded, setIsImgAndTextCardExpanded] = useState(false);
+    const screenTextureFileRef = useRef<HTMLInputElement>(null);
+    const[isScreenTextureUploaded , setIsScreenTextureUploaded] = useState(false);
     //const[contentHeight, setContentHeight] = useState(0);
 
     function handleImgAndTextCardExpand() : void {
@@ -28,6 +30,10 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
         console.log("adding component", newImage);
         setImageComponents([...imageComponents, newImage]);
         
+    }
+
+    function handleScreenTextureUpload(e : React.ChangeEvent<HTMLInputElement>) : void {
+
     }
 
     return (
@@ -61,8 +67,21 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                         <div className="w-[90%] h-px bg-stone-300/40 my-2"></div>
                     </div>
 
+                    <div className="flex justify-center items-center">
+                        <h4 className="text-stone-300 text-xs ml-5 mr-2">Add up to 7 photos</h4>
+                        <input ref={screenTextureFileRef} type="file" accept="image/*" onChange={(e) => handleScreenTextureUpload(e)} className="hidden"/>
+                            {
+                                <button className={isScreenTextureUploaded ? `hidden` :`cursor-pointer w-[20%] mx-1 bg-red-500 rounded-lg py-1`}
+                                onClick={() => screenTextureFileRef.current?.click()}>
+                                upload
+                                </button> 
+                            }
+
+                    </div>
+
+
                     <div className="flex justify-between items-center ">
-                        <h1 className="text-stone-300 ml-5">Manage</h1>
+                        
                     </div>
 
                     <div className="imageSelector flex mx-5 mb-2 py-2 ">
