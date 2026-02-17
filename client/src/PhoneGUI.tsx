@@ -33,6 +33,17 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
 
     const[isPhoneGuiOpen, setPhoneGuiOpen] = useState(true);
 
+    useEffect(() => {
+    // Sync initial rotation from the model when it mounts
+        if (phoneModel) {
+            setPhoneRotation({
+                x: phoneModel.rotation.x,
+                y: phoneModel.rotation.y,
+                z: phoneModel.rotation.z
+            });
+        }
+    }, [phoneModel]);
+
     function handlePhoneGuiToggle() : void {
         setPhoneGuiOpen(!isPhoneGuiOpen);
     }
@@ -66,6 +77,7 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
     }
 
     function handlePhoneRotation(e: React.ChangeEvent<HTMLInputElement>, sliderName : string) : void {
+        const newValue = Number(e.target.value);
         if(sliderName === "xRot") {
             setPhoneRotation({
                 x: Number(e.target.value),
@@ -73,7 +85,7 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
                 z: Number(phoneRotation.z)
             });
             //phoneModel.rotateX(phoneRotation.x);
-            (phoneModel as THREE.Group).rotation.x = phoneRotation.x;
+            (phoneModel as THREE.Group).rotation.x = newValue;
             console.log("rotation x")
         } else if(sliderName === "yRot") {
             console.log("rotation y");
@@ -83,7 +95,7 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
                 z: Number(phoneRotation.z)
             });
             //phoneModel.rotateY(phoneRotation.y);
-            (phoneModel as THREE.Group).rotation.y = phoneRotation.y;
+            (phoneModel as THREE.Group).rotation.y = newValue;
             setActivePreset(-1);
         } else {
             setPhoneRotation({
@@ -91,7 +103,7 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
                 y: Number(phoneRotation.y),
                 z: Number(e.target.value)
             });
-            (phoneModel as THREE.Group).rotation.z = phoneRotation.z;
+            (phoneModel as THREE.Group).rotation.z = newValue;
             //phoneModel.rotateZ(phoneRotation.z);
             console.log("rotation z")
         }

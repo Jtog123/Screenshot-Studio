@@ -264,10 +264,10 @@ Capture button saves current view
 -We then conditionally render a GUI based on the selected lights id
 
 
-Model fixes?
-Iphone has glitches edges look sloppy, stair stepper look?
-need to remove lower bar from UV map
-image is fuzzy still in threejs
+-Light positions: best way to not assign the same position to every light
+-Light GUI position: guis should be positioned relative to the lights, but we are mixing coordinates THREE vs Screen
+-Toolbar background color not remembering state after opening and closing
+
 
 
 iphone 16 pro instructions?

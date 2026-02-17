@@ -146,7 +146,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
 
     function handleDirectionalLightCreation() : void {
         //console.log("creating directional light");
-        const newLight = lightManager.createLight(LightType.DirectionalLight, new THREE.Vector3(2,2,0));
+        const newLight = lightManager.createLight(LightType.DirectionalLight, new THREE.Vector3(-2,2,1));
 
         //read in information to create list items
         const listItemName = (newLight._lightHelper as _DirectionalLightHelper)._title;
@@ -160,7 +160,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
 
     function handleSpotLightCreation() : void {
         console.log("creating directional light");
-        const newLight = lightManager.createLight(LightType.SpotLight, new THREE.Vector3(2,2,0));
+        const newLight = lightManager.createLight(LightType.SpotLight, new THREE.Vector3(-2,2,1));
 
         const listItemName = (newLight._lightHelper as _SpotLightHelper)._title;
         const listItemID = (newLight._lightHelper as _SpotLightHelper).name;
@@ -171,7 +171,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
     }
 
     function handlePointLightCreation() : void {
-        const newLight = lightManager.createLight(LightType.PointLight, new THREE.Vector3(2,2,0));
+        const newLight = lightManager.createLight(LightType.PointLight, new THREE.Vector3(-2,2,1));
 
         const listItemName = (newLight._lightHelper as _PointLightHelper)._title;
         const listItemID = (newLight._lightHelper as _PointLightHelper).name;
@@ -180,7 +180,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
     }
 
     function handleRectAreaLightCreation() : void {
-        const newLight = lightManager.createLight(LightType.RectAreaLight, new THREE.Vector3(2,2,0));
+        const newLight = lightManager.createLight(LightType.RectAreaLight, new THREE.Vector3(-2,2,1));
 
         const listItemName = (newLight._lightHelper as _RectAreaLightHelper)._title;
         const listItemID = (newLight._lightHelper as _RectAreaLightHelper).name;
@@ -189,7 +189,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
     }    
 
     return(
-        <div  className="w-[100%] bg-stone-950 flex-shrink-0 pb-2  ">
+        <div  className={ isToolbarToggled ? `hidden` : `w-[100%] bg-stone-950 flex-shrink-0 pb-2`}>
             {/* Header - always visible */}
             <div onClick={handleBgAndLightCardExpand}  className="flex justify-between items-center py-2 cursor-pointer">
                 <h1 className="text-stone-300 ml-5">Background & Lighting</h1>

@@ -33,6 +33,8 @@ export default function App() {
   const [raycaster, setRayCaster] = useState<THREE.Raycaster | null>(null);
   const [renderer, setRenderer] = useState<THREE.WebGLRenderer | null>(null);
   const [phone, setPhoneModel] = useState<THREE.Group | null>(null);
+  const [isSceneReady, setIsSceneReady] = useState(false);
+  //const phoneRef = useRef<THREE.Group | null>(null);
   const [gradientBackground , setGradientBackground] = useState<GradientBackground | null>(null);
 
   const [lightManager, setLightManager] = useState<LightManager | null>(null);
@@ -143,18 +145,17 @@ export default function App() {
         let phoneScreen : THREE.Mesh | null = null;
 
         gltf.scene.traverse((child) => {
-        if (child instanceof THREE.Mesh) {
+          if (child instanceof THREE.Mesh) {
             if (child.name === 'phone_screen') {
                 phoneScreen = child;
             } else if (child.name === 'phone_body') {
                 phoneBody = child;
             }
-        }
-      });
+          }
+        });
 
-        setPhoneModel(gltf.scene);
-        //no longer loading
-        setIsPhoneLoading(false);
+
+
         gltf.scene.scale.set(0.25, 0.25, 0.25);
         _scene.add(gltf.scene);
 
@@ -166,14 +167,25 @@ export default function App() {
             texture.colorSpace = THREE.SRGBColorSpace; // Corrects the "washed out" red
             texture.minFilter = THREE.LinearFilter;
             texture.magFilter = THREE.NearestFilter; // Sharpest
-            texture.anisotropy = renderer!.capabilities.getMaxAnisotropy();
+            texture.anisotropy = _renderer.capabilities.getMaxAnisotropy();
             //texture.anisotropy = 16; // Sharper edges at angles
 
             phoneScreen!.material = new THREE.MeshBasicMaterial({ 
               map: texture,
               toneMapped: false // Prevents scene lights from changing screenshot colors
             });
+
+            setPhoneModel(gltf.scene);
+            //no longer loading
+            setIsPhoneLoading(false);
+            setIsSceneReady(true);
           });
+        } else {
+            setPhoneModel(gltf.scene);
+            //no longer loading
+            setIsPhoneLoading(false);
+            setIsSceneReady(true);
+
         }
           
 
@@ -209,7 +221,7 @@ export default function App() {
   //{scene && <Toolbar scene={scene}/>} Making sure scene is not null
   return (
     <>
-      {phone && cameraManager &&<PhoneGUI phoneModel={phone} _cameraManager={cameraManager}/>}
+      {isSceneReady && phone && cameraManager &&<PhoneGUI phoneModel={phone} _cameraManager={cameraManager}/>}
 
 
       {scene && lightManager && cameraManager && phone && assetManager && camera && gradientBackground &&<Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents}  _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems} addTextComponent={addTextComponent} camera={camera} _gradientBackground={gradientBackground} />} 

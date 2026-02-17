@@ -51,20 +51,15 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
     const[selectedLight, setSelectedLight] = useState<{id: string, type: LightType} | null>(null);
     const[selectedComponent, setSelectedComponent] = useState<{id: string, type: ComponentType} | null>(null);
 
-    //const[toolbarClasses, setToolbarClasses] = useState<string>("fixed flex flex-col h-[100%] w-[25%] bg-blue-200 z-10 right-0");
     const[isToolbarToggled, setToolbarToggled] = useState(false);
-    //const[activeListItems, setActiveListItems] = useState<{id:string, name:string}[]>([]);
-    const[activeTab, setActiveTab] = useState("Lights");
+
 
 
     function handleToggle() : void {
         setToolbarToggled(!isToolbarToggled);
     }
 
-    function handleTabChange(buttonName : string) : void {
-        setActiveTab(buttonName);
-        console.log("click button" , buttonName);
-    }
+
 
 
     useEffect(() => {
@@ -108,15 +103,20 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
             {
                 (
                     isToolbarToggled ? 
-                        <div className="fixed h-screen bg-stone-950 text-white z-20 right-0 w-[5%] transition-all duration-300 ease-in-out  ">
+                        <div className="fixed h-screen bg-stone-950 text-stone-300 z-20 right-0 w-[5%] transition-all duration-300 ease-in-out  ">
                             <ToolbarHeader isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>
+                                <div className='flex flex-col flex-1 overflow-y-auto overflow-x-hidden'>
+
+                                    <ToolbarBgAndLightingCard scene={_scene} isToolbarToggled={isToolbarToggled} gradientBackground={_gradientBackground}
+                                    activeListItems={activeListItems} setActiveListItems={setActiveListItems}   lightManager={_lightManager}/>
+                                    
+                                
+                                    <ToolbarImgAndTextCard imageComponents={_imageComponents} setImageComponents={_setImageComponents} isToolbarToggled={isToolbarToggled} addTextComponent={addTextComponent} />
+
+                                    <ToolbarCameraCard isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} _phoneModel={_phoneModel}/>
+                                
+                                </div>
                             
-                            {/* 
-                            <ToolbarBackgroundColor isToolbarToggled={isToolbarToggled}  scene={_scene} gradientBackground ={_gradientBackground}/> 
-                            <ToolBarPanelTab isToolbarToggled={isToolbarToggled} activeTab={activeTab} handleTabChange={handleTabChange} />
-                            <ToolbarLightCatalog activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} scene={_scene} lightManager={_lightManager}/>
-                            <ToolbarActiveComponents activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} lightManager={_lightManager} assetManager={_assetManager} />
-                            */}
 
                             {/*Toolbar Panel Selector*/}
                         </div>
@@ -134,24 +134,8 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                                 <ToolbarCameraCard isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} _phoneModel={_phoneModel}/>
                                 
                             </div>
-
-                            {/*
-                            {activeTab === "Camera" && <ToolbarCameraCatalog isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} _phoneModel={_phoneModel}/>}
-
-                             */}
                             
 
-                            {/* 
-                            <ToolbarBackgroundColor isToolbarToggled={isToolbarToggled} scene={_scene} gradientBackground={_gradientBackground}/> 
-
-                            <ToolBarPanelTab isToolbarToggled={isToolbarToggled} activeTab={activeTab} handleTabChange={handleTabChange} />
-
-                            {activeTab === "Lights" && <ToolbarLightCatalog  activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled}  scene={_scene} lightManager={_lightManager}/>}
-
-                            {activeTab === "Camera" && <ToolbarCameraCatalog isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} _phoneModel={_phoneModel}/>}
-
-                            {activeTab === "Text" && <ToolbarAssetEditor imageComponents={_imageComponents} setImageComponents={_setImageComponents}  isToolbarToggled={isToolbarToggled} addTextComponent={addTextComponent} />}
-                            */}
     
                             <ToolbarActiveComponents activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} lightManager={_lightManager} assetManager={_assetManager}  />
                             
