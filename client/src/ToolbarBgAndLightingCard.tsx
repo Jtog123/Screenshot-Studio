@@ -3,7 +3,7 @@ import { GradientBackground } from './GradientBackground';
 import { LightManager } from "./LightManager";
 import ActiveListItem from './ActiveListItem';
 import { LightType } from './Light';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { _DirectionalLightHelper, _SpotLightHelper, _PointLightHelper, _RectAreaLightHelper } from './LightHelper';
 
 interface ToolbarBgAndLightingCardProps{
@@ -27,9 +27,20 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
     const[color1 , setColor1] = useState("#FF0000");
     const[color2 , setColor2] = useState("#0000FF");
 
+    //useRef array of THREE.Vec3 positions
+    const lightPositionRefArray = useRef<THREE.Vector3[]>([]);
+
+
     function handleBgAndLightCardExpand() : void {
         setIsBgAndLightCardExpanded(!isBgAndLightCardExpanded);
     }
+
+    // have an array of positions, or a map?
+    // upon creating a light check if the array is empty 
+    // if empty just store the first position
+    // if not empty check which position is in the array
+    // dont assign the already assigned position
+
 
 
     
@@ -132,6 +143,9 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
 
 
 
+
+
+
     //pass in current colrs? pass in color1 and color2 as props? to gradientcolorselector
     // pass in setter functions to gradient background selector as props
     function handleGradientDirectionChange() : void {
@@ -142,11 +156,62 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
     }
 
 
+
+    function generateLightPosition() : THREE.Vector3 | void {
+
+        //Max amount of lights reached
+        if(lightPositionRefArray.current.length >= 15) return;
+
+        const MIN = -2;
+        const MAX = 2;
+        const MIN_DISTANCE = 0.5; // Minimum distance between lights
+        const MAX_ATTEMPTS = 50; // Prevent infinite loops
+        
+        let attempts = 0;
+        let newPosition: THREE.Vector3;
+        let isValidPosition = false;
+        
+        while (!isValidPosition && attempts < MAX_ATTEMPTS) {
+            // Generate random position within bounds
+            newPosition = new THREE.Vector3(
+                Math.random() * (MAX - MIN) + MIN,
+                Math.random() * (MAX - MIN) + MIN,
+                1
+            );
+            
+            // Check if position is far enough from all existing lights
+            isValidPosition = true;
+            for (let i = 0; i < lightPositionRefArray.current.length; i++) {
+                const existingPos = lightPositionRefArray.current[i];
+                const distance = newPosition.distanceTo(existingPos);
+                
+                if (distance < MIN_DISTANCE) {
+                    isValidPosition = false;
+                    break;
+                }
+            }
+            
+            attempts++;
+        }
+        
+        // If we couldn't find a valid position after MAX_ATTEMPTS, just use the last generated one
+        if (!isValidPosition) {
+            console.warn('Could not find non-overlapping position, using closest available');
+        }
+        
+        lightPositionRefArray.current.push(newPosition!);
+        return newPosition!;
+    }
+
     ///////////////////////// LIGHT CREATION ////////////////////////////////
 
     function handleDirectionalLightCreation() : void {
         //console.log("creating directional light");
-        const newLight = lightManager.createLight(LightType.DirectionalLight, new THREE.Vector3(-2,2,1));
+        const lightPos = generateLightPosition() as THREE.Vector3;
+
+
+        //const newLight = lightManager.createLight(LightType.DirectionalLight, new THREE.Vector3(-2,1.75,1));
+        const newLight = lightManager.createLight(LightType.DirectionalLight, lightPos);
 
         //read in information to create list items
         const listItemName = (newLight._lightHelper as _DirectionalLightHelper)._title;
@@ -160,7 +225,8 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
 
     function handleSpotLightCreation() : void {
         console.log("creating directional light");
-        const newLight = lightManager.createLight(LightType.SpotLight, new THREE.Vector3(-2,2,1));
+        const lightPos = generateLightPosition() as THREE.Vector3;
+        const newLight = lightManager.createLight(LightType.SpotLight, lightPos);
 
         const listItemName = (newLight._lightHelper as _SpotLightHelper)._title;
         const listItemID = (newLight._lightHelper as _SpotLightHelper).name;
@@ -171,7 +237,8 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
     }
 
     function handlePointLightCreation() : void {
-        const newLight = lightManager.createLight(LightType.PointLight, new THREE.Vector3(-2,2,1));
+        const lightPos = generateLightPosition() as THREE.Vector3;
+        const newLight = lightManager.createLight(LightType.PointLight, lightPos);
 
         const listItemName = (newLight._lightHelper as _PointLightHelper)._title;
         const listItemID = (newLight._lightHelper as _PointLightHelper).name;
@@ -180,7 +247,8 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
     }
 
     function handleRectAreaLightCreation() : void {
-        const newLight = lightManager.createLight(LightType.RectAreaLight, new THREE.Vector3(-2,2,1));
+        const lightPos = generateLightPosition() as THREE.Vector3;
+        const newLight = lightManager.createLight(LightType.RectAreaLight,lightPos);
 
         const listItemName = (newLight._lightHelper as _RectAreaLightHelper)._title;
         const listItemID = (newLight._lightHelper as _RectAreaLightHelper).name;
