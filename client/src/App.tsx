@@ -229,7 +229,7 @@ export default function App() {
       {isSceneReady && phone && cameraManager &&<PhoneGUI phoneModel={phone} _cameraManager={cameraManager}/>}
 
 
-      {scene && lightManager && cameraManager && phone && assetManager && camera && gradientBackground && <Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents}  _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems} addTextComponent={addTextComponent} camera={camera} _gradientBackground={gradientBackground}  />} 
+      {scene && lightManager && cameraManager && phone && assetManager && camera && gradientBackground && _phoneScreen &&<Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents}  _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems} addTextComponent={addTextComponent} camera={camera} _gradientBackground={gradientBackground} _phoneScreen={_phoneScreen}  />} 
 
       {scene && assetManager && camera && imageComponents.map((item) => {
         return <ImageComponent key={item.id} position={item.position} _scene={scene} _camera={camera} _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems}/>

@@ -89,6 +89,10 @@ class AssetManager {
 
     }
 
+    public createScreenTexture(file : File, onSuccess: (sprite:THREE.Sprite) => void, onError: () => void) : void{
+
+    }
+
     public createTextSprite(componentID:string, text: string, fontSize: number, fontColor : string, opacity : string
     ) : THREE.Sprite {
 

@@ -42,12 +42,13 @@ interface ToolbarProps {
     addTextComponent : () => void
     camera : THREE.PerspectiveCamera
     _gradientBackground : GradientBackground
+    _phoneScreen : THREE.Mesh
     //screenTextures : ScreenTextureInterface[]
     //setScreenTextures : React.Dispatch<React.SetStateAction<ScreenTextureInterface[]>>
 }
 
 
-export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManager, _imageComponents, _setImageComponents,  _assetManager,activeListItems, setActiveListItems, addTextComponent ,camera, _gradientBackground, } : ToolbarProps) { //screenTextures, setScreenTextures
+export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManager, _imageComponents, _setImageComponents,  _assetManager,activeListItems, setActiveListItems, addTextComponent ,camera, _gradientBackground, _phoneScreen} : ToolbarProps) { //screenTextures, setScreenTextures
 
     
     const[selectedLight, setSelectedLight] = useState<{id: string, type: LightType} | null>(null);
@@ -113,7 +114,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                                     activeListItems={activeListItems} setActiveListItems={setActiveListItems}   lightManager={_lightManager}/>
                                     
                                 
-                                    <ToolbarImgAndTextCard imageComponents={_imageComponents} setImageComponents={_setImageComponents} isToolbarToggled={isToolbarToggled} addTextComponent={addTextComponent} />
+                                    <ToolbarImgAndTextCard imageComponents={_imageComponents} setImageComponents={_setImageComponents} isToolbarToggled={isToolbarToggled} addTextComponent={addTextComponent} _phoneScreen={_phoneScreen} _assetMaanger={_assetManager} />
 
                                     <ToolbarCameraCard isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} _phoneModel={_phoneModel}/>
                                 
@@ -131,7 +132,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                                 activeListItems={activeListItems} setActiveListItems={setActiveListItems}   lightManager={_lightManager}/>
                                 
                                
-                                <ToolbarImgAndTextCard imageComponents={_imageComponents} setImageComponents={_setImageComponents} isToolbarToggled={isToolbarToggled} addTextComponent={addTextComponent}  />
+                                <ToolbarImgAndTextCard imageComponents={_imageComponents} setImageComponents={_setImageComponents} isToolbarToggled={isToolbarToggled} addTextComponent={addTextComponent} _phoneScreen={_phoneScreen} _assetMaanger={_assetManager} />
 
                                 <ToolbarCameraCard isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} _phoneModel={_phoneModel}/>
                                 

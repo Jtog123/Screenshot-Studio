@@ -1,6 +1,7 @@
 import { useState, useRef } from "react"
 import { ImageComponentInterface, TextComponentInterface ,ScreenTextureInterface} from "./ComponentInterfaces"
-import ScreenTextureComponent from "./ScreenTextureComponent"
+import * as THREE from 'three'
+import { AssetManager } from "./AssetManager"
 
 
 interface ToolbarImgAndTextCardProps {
@@ -8,11 +9,13 @@ interface ToolbarImgAndTextCardProps {
     setImageComponents : React.Dispatch<React.SetStateAction<ImageComponentInterface[]>>
     addTextComponent : () => void
     isToolbarToggled : boolean
+    _phoneScreen : THREE.Mesh
+    _assetMaanger: AssetManager
     //screenTextures : ScreenTextureInterface[]
     //setScreenTextures : React.Dispatch<React.SetStateAction<ScreenTextureInterface[]>>
 }
 
-export default function ToolbarImgAndTextCard({imageComponents, setImageComponents, addTextComponent, isToolbarToggled, } : ToolbarImgAndTextCardProps) { //screenTextures, setScreenTextures
+export default function ToolbarImgAndTextCard({imageComponents, setImageComponents, addTextComponent, isToolbarToggled, _phoneScreen, _assetMaanger } : ToolbarImgAndTextCardProps) { //screenTextures, setScreenTextures
 
     const[isImgAndTxtCardExpanded, setIsImgAndTextCardExpanded] = useState(false);
     const screenTextureFileRef = useRef<HTMLInputElement>(null);
@@ -37,16 +40,62 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
         
     }
 
+    /*
+    phoneScreen is a mesh we can have this function append to an array of THREE.Meshes
+
+    if (phoneScreen) {
+              const textureLoader = new THREE.TextureLoader();
+              textureLoader.load('/testshot.png', (texture) => {
+                texture.flipY = false;
+                texture.colorSpace = THREE.SRGBColorSpace; // Corrects the "washed out" red
+                texture.minFilter = THREE.LinearFilter;
+                texture.magFilter = THREE.NearestFilter; // Sharpest
+                texture.anisotropy = _renderer.capabilities.getMaxAnisotropy();
+                //texture.anisotropy = 16; // Sharper edges at angles
+    
+                phoneScreen!.material = new THREE.MeshBasicMaterial({ 
+                  map: texture,
+                  toneMapped: false // Prevents scene lights from changing screenshot colors
+                });
+    
+                setPhoneModel(gltf.scene);
+                //no longer loading
+                setIsPhoneLoading(false);
+                setIsSceneReady(true);
+              });
+            } else {
+                setPhoneModel(gltf.scene);
+                //no longer loading
+                setIsPhoneLoading(false);
+                setIsSceneReady(true);
+    
+            }*/
+
     function handleScreenTextureUpload(e : React.ChangeEvent<HTMLInputElement>) : void {
 
         if(screenTextures.length >= 7) return;
-        //get it to work on one image then 
-        const newScreenTexture = {
-            id: `temp_${Date.now()}`,
-            type: "screenTexture"
-        }
 
-        setScreenTextures([...screenTextures, newScreenTexture])
+        const input = e.target as HTMLInputElement;
+         if(input.files && input.files[0]) {
+            //_assetManager.crea
+            console.log("uploading", input.files[0]);
+
+            const imgURL = URL.createObjectURL(input.files[0])
+
+            const newScreenTexture = {
+                id: `temp_${Date.now()}`,
+                type: "screenTexture",
+                imgPath: imgURL
+            } as ScreenTextureInterface
+
+            setScreenTextures([...screenTextures, newScreenTexture]);
+         }
+
+
+        //now we have an array of images we would want, we have to loop through and create Meshes/Textures for each of them and then on click checkmark apply them to the phone.
+
+
+        //setScreenTextures([...screenTextures, newScreenTexture]);
         console.log("setting the texture", e, screenTextures)
     }
 
@@ -100,9 +149,16 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
 
                     <div className="imageSelector flex mx-3 mb-2 py-2 ">
                         {/* screenTextures.map() */}
-                        {screenTextures.map((texture) => {
-                            return <ScreenTextureComponent/>
-                        })}
+                        {screenTextures.map((texture) => (
+                            <div key={texture.id} className="flex flex-col mx-1 ">
+                                <input type="checkbox" className=" mb-1" name="" id="" />
+                                <div className="h-[45px] w-[28px] border-1 border-stone-300 mb-1">
+                                    <img src={texture.imgPath}  alt=""/>
+                                </div>
+                            </div>
+                        )
+                            
+                        )}
                         
                         {/* allow up to 7 images do dynamically or hard code? click upload img load async and store into and display in the div
                         <div className="flex flex-col ">

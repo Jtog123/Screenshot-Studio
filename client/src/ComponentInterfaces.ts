@@ -9,8 +9,15 @@ export interface TextComponentInterface{
     position: string,
     type: string
 }
-
+/*
 export interface ScreenTextureInterface{
     id:string
     type:string
+    imgPath:File
+}
+    */
+export interface ScreenTextureInterface{
+    id:string
+    type:string
+    imgPath:string
 }
