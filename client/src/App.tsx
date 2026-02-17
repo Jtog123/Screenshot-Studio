@@ -9,7 +9,7 @@ import { GradientBackground } from "./GradientBackground.js";
 import PhoneGUI from "./PhoneGUI.js";
 import Overlay from "./Overlay.js";
 import CameraButton from "./CameraButton.js";
-import { ImageComponentInterface, TextComponentInterface } from "./ComponentInterfaces.js";
+import { ImageComponentInterface, ScreenTextureInterface, TextComponentInterface } from "./ComponentInterfaces.js";
 import ImageComponent from "./ImageComponent.js";
 import TextComponent from "./TextComponent.js";
 import { AssetManager } from "./AssetManager.js";
@@ -34,6 +34,7 @@ export default function App() {
   const [renderer, setRenderer] = useState<THREE.WebGLRenderer | null>(null);
   const [phone, setPhoneModel] = useState<THREE.Group | null>(null);
   const [isSceneReady, setIsSceneReady] = useState(false);
+
   //const phoneRef = useRef<THREE.Group | null>(null);
   const [gradientBackground , setGradientBackground] = useState<GradientBackground | null>(null);
 
@@ -42,7 +43,10 @@ export default function App() {
   const [cameraManager, setCameraManager] = useState<CameraManager | null>(null);
   const [isPhoneLoading, setIsPhoneLoading] = useState(true);
   const [imageComponents, setImageComponents] = useState<ImageComponentInterface[]>([]);
+  //const [screenTextures, setScreenTextures] = useState<ScreenTextureInterface[]>([]);
   const [textComponents, setTextComponents] = useState<JSX.Element[]>([]);
+  //phone screen to pass
+  const [_phoneScreen, setPhoneScreen] = useState<THREE.Mesh | null>(null);
 
   const [activeListItems, setActiveListItems] = useState<{id:string, name:string}[]>([]);
   
@@ -65,11 +69,7 @@ export default function App() {
     setTextComponents([...textComponents, newText]);
   }
 
-  function deleteTextComponent() : void {
-    //loop through
-    //delete the html and the list item
 
-  }
   
 
   //const sceneRef = useRef<THREE.Scene | null>(null);
@@ -148,6 +148,7 @@ export default function App() {
           if (child instanceof THREE.Mesh) {
             if (child.name === 'phone_screen') {
                 phoneScreen = child;
+                setPhoneScreen(child);
             } else if (child.name === 'phone_body') {
                 phoneBody = child;
             }
@@ -161,8 +162,9 @@ export default function App() {
 
         // allow users to add multiple photos, add to an array of some kind
         // pass it down through the toolbar to toolbarImgandText
-        
 
+
+        //pass phoneScreen down to ToolBarImg, move this logic into there
         if (phoneScreen) {
           const textureLoader = new THREE.TextureLoader();
           textureLoader.load('/testshot.png', (texture) => {
@@ -227,7 +229,7 @@ export default function App() {
       {isSceneReady && phone && cameraManager &&<PhoneGUI phoneModel={phone} _cameraManager={cameraManager}/>}
 
 
-      {scene && lightManager && cameraManager && phone && assetManager && camera && gradientBackground && <Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents}  _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems} addTextComponent={addTextComponent} camera={camera} _gradientBackground={gradientBackground} />} 
+      {scene && lightManager && cameraManager && phone && assetManager && camera && gradientBackground && <Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents}  _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems} addTextComponent={addTextComponent} camera={camera} _gradientBackground={gradientBackground}  />} 
 
       {scene && assetManager && camera && imageComponents.map((item) => {
         return <ImageComponent key={item.id} position={item.position} _scene={scene} _camera={camera} _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems}/>

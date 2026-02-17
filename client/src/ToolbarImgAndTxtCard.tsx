@@ -1,18 +1,23 @@
 import { useState, useRef } from "react"
-import { ImageComponentInterface, TextComponentInterface } from "./ComponentInterfaces"
+import { ImageComponentInterface, TextComponentInterface ,ScreenTextureInterface} from "./ComponentInterfaces"
+import ScreenTextureComponent from "./ScreenTextureComponent"
+
 
 interface ToolbarImgAndTextCardProps {
     imageComponents: ImageComponentInterface[]
     setImageComponents : React.Dispatch<React.SetStateAction<ImageComponentInterface[]>>
     addTextComponent : () => void
     isToolbarToggled : boolean
+    //screenTextures : ScreenTextureInterface[]
+    //setScreenTextures : React.Dispatch<React.SetStateAction<ScreenTextureInterface[]>>
 }
 
-export default function ToolbarImgAndTextCard({imageComponents, setImageComponents, addTextComponent, isToolbarToggled} : ToolbarImgAndTextCardProps) { 
+export default function ToolbarImgAndTextCard({imageComponents, setImageComponents, addTextComponent, isToolbarToggled, } : ToolbarImgAndTextCardProps) { //screenTextures, setScreenTextures
 
     const[isImgAndTxtCardExpanded, setIsImgAndTextCardExpanded] = useState(false);
     const screenTextureFileRef = useRef<HTMLInputElement>(null);
     const[isScreenTextureUploaded , setIsScreenTextureUploaded] = useState(false);
+    const [screenTextures, setScreenTextures] = useState<ScreenTextureInterface[]>([]);
     //const[contentHeight, setContentHeight] = useState(0);
 
     function handleImgAndTextCardExpand() : void {
@@ -34,6 +39,15 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
 
     function handleScreenTextureUpload(e : React.ChangeEvent<HTMLInputElement>) : void {
 
+        if(screenTextures.length >= 7) return;
+        //get it to work on one image then 
+        const newScreenTexture = {
+            id: `temp_${Date.now()}`,
+            type: "screenTexture"
+        }
+
+        setScreenTextures([...screenTextures, newScreenTexture])
+        console.log("setting the texture", e, screenTextures)
     }
 
     return (
@@ -84,14 +98,20 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                         
                     </div>
 
-                    <div className="imageSelector flex mx-5 mb-2 py-2 ">
-                        {/* allow up to 7 images do dynamically or hard code? click upload img load async and store into and display in the div*/}
+                    <div className="imageSelector flex mx-3 mb-2 py-2 ">
+                        {/* screenTextures.map() */}
+                        {screenTextures.map((texture) => {
+                            return <ScreenTextureComponent/>
+                        })}
+                        
+                        {/* allow up to 7 images do dynamically or hard code? click upload img load async and store into and display in the div
                         <div className="flex flex-col ">
                             <input type="checkbox" className=" mb-1" name="" id="" />
                             <div className="h-[45px] w-[28px] border-1 border-stone-300 mb-1">
                                 <img src="/testshot.png"  alt=""/>
                             </div>
                         </div>
+                        */}
 
 
                     </div>
