@@ -70,6 +70,8 @@ export default function App() {
   }
 
 
+  //everytime a user adds a new screenshot we create a new mesh, 7 possible in total,
+  // we then can toggle the meshes on and off
   
 
   //const sceneRef = useRef<THREE.Scene | null>(null);
@@ -167,7 +169,7 @@ export default function App() {
         //pass phoneScreen down to ToolBarImg, move this logic into there
         if (phoneScreen) {
           const textureLoader = new THREE.TextureLoader();
-          textureLoader.load('/testshot.png', (texture) => {
+          textureLoader.load('/iphone3.png', (texture) => {
             texture.flipY = false;
             texture.colorSpace = THREE.SRGBColorSpace; // Corrects the "washed out" red
             texture.minFilter = THREE.LinearFilter;

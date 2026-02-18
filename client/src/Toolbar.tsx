@@ -114,7 +114,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                                     activeListItems={activeListItems} setActiveListItems={setActiveListItems}   lightManager={_lightManager}/>
                                     
                                 
-                                    <ToolbarImgAndTextCard imageComponents={_imageComponents} setImageComponents={_setImageComponents} isToolbarToggled={isToolbarToggled} addTextComponent={addTextComponent} _phoneScreen={_phoneScreen} _assetMaanger={_assetManager} />
+                                    <ToolbarImgAndTextCard imageComponents={_imageComponents} setImageComponents={_setImageComponents} isToolbarToggled={isToolbarToggled} addTextComponent={addTextComponent} _phoneScreen={_phoneScreen} _assetManager={_assetManager} />
 
                                     <ToolbarCameraCard isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} _phoneModel={_phoneModel}/>
                                 
@@ -132,7 +132,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                                 activeListItems={activeListItems} setActiveListItems={setActiveListItems}   lightManager={_lightManager}/>
                                 
                                
-                                <ToolbarImgAndTextCard imageComponents={_imageComponents} setImageComponents={_setImageComponents} isToolbarToggled={isToolbarToggled} addTextComponent={addTextComponent} _phoneScreen={_phoneScreen} _assetMaanger={_assetManager} />
+                                <ToolbarImgAndTextCard imageComponents={_imageComponents} setImageComponents={_setImageComponents} isToolbarToggled={isToolbarToggled} addTextComponent={addTextComponent} _phoneScreen={_phoneScreen} _assetManager={_assetManager} />
 
                                 <ToolbarCameraCard isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} _phoneModel={_phoneModel}/>
                                 

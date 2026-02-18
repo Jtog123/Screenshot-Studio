@@ -1,3 +1,5 @@
+import * as THREE from 'three'
+
 export interface ImageComponentInterface{
     id: string,
     position: string,
@@ -20,4 +22,5 @@ export interface ScreenTextureInterface{
     id:string
     type:string
     imgPath:string
+    screenTexture:THREE.Texture
 }

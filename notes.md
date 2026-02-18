@@ -267,6 +267,8 @@ Capture button saves current view
 -Light positions: best way to not assign the same position to every light
 -Light GUI position: guis should be positioned relative to the lights, but we are mixing coordinates THREE vs Screen
 -Toolbar background color not remembering state after opening and closing
+- create a default screen for when phone loads "Your App Here"
+-***** limit inputs to images ONLY no injection ********
 
 
 

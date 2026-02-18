@@ -2,6 +2,7 @@ import { useState, useRef } from "react"
 import { ImageComponentInterface, TextComponentInterface ,ScreenTextureInterface} from "./ComponentInterfaces"
 import * as THREE from 'three'
 import { AssetManager } from "./AssetManager"
+import { texture } from "three/src/nodes/TSL.js"
 
 
 interface ToolbarImgAndTextCardProps {
@@ -10,17 +11,18 @@ interface ToolbarImgAndTextCardProps {
     addTextComponent : () => void
     isToolbarToggled : boolean
     _phoneScreen : THREE.Mesh
-    _assetMaanger: AssetManager
+    _assetManager: AssetManager
     //screenTextures : ScreenTextureInterface[]
     //setScreenTextures : React.Dispatch<React.SetStateAction<ScreenTextureInterface[]>>
 }
 
-export default function ToolbarImgAndTextCard({imageComponents, setImageComponents, addTextComponent, isToolbarToggled, _phoneScreen, _assetMaanger } : ToolbarImgAndTextCardProps) { //screenTextures, setScreenTextures
+export default function ToolbarImgAndTextCard({imageComponents, setImageComponents, addTextComponent, isToolbarToggled, _phoneScreen, _assetManager } : ToolbarImgAndTextCardProps) { //screenTextures, setScreenTextures
 
     const[isImgAndTxtCardExpanded, setIsImgAndTextCardExpanded] = useState(false);
     const screenTextureFileRef = useRef<HTMLInputElement>(null);
     const[isScreenTextureUploaded , setIsScreenTextureUploaded] = useState(false);
     const [screenTextures, setScreenTextures] = useState<ScreenTextureInterface[]>([]);
+    const [activeTextureID, setActiveTextureID] = useState<string | null>(null);
     //const[contentHeight, setContentHeight] = useState(0);
 
     function handleImgAndTextCardExpand() : void {
@@ -71,6 +73,9 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
     
             }*/
 
+    //  //everytime a user adds a new screenshot we create a new mesh, 7 possible in total,
+  // we then can toggle the meshes on and off, when a user uploads the image immediatly create the texture and store it
+  //upon clicking a checkbox we apply the the mesh to the phonescreen
     function handleScreenTextureUpload(e : React.ChangeEvent<HTMLInputElement>) : void {
 
         if(screenTextures.length >= 7) return;
@@ -80,15 +85,37 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
             //_assetManager.crea
             console.log("uploading", input.files[0]);
 
-            const imgURL = URL.createObjectURL(input.files[0])
+            const imgURL = URL.createObjectURL(input.files[0]);
 
-            const newScreenTexture = {
-                id: `temp_${Date.now()}`,
-                type: "screenTexture",
-                imgPath: imgURL
-            } as ScreenTextureInterface
+            //do we need a new textureloader for every texture/.
+            if(_phoneScreen) {
+                const textureLoader = new THREE.TextureLoader();
 
-            setScreenTextures([...screenTextures, newScreenTexture]);
+                textureLoader.load(
+                    imgURL, (texture) => {
+                        texture.flipY = false;
+                        texture.colorSpace = THREE.SRGBColorSpace; // Corrects the "washed out" red
+                        texture.minFilter = THREE.LinearFilter;
+                        texture.magFilter = THREE.NearestFilter; // Sharpest
+                        //texture.anisotropy = _renderer.capabilities.getMaxAnisotropy();  
+                        
+
+                        const newScreenTexture : ScreenTextureInterface = {
+                            id: `temp_${Date.now()}`,
+                            type: "screenTexture",
+                            imgPath: imgURL,
+                            screenTexture: texture
+                            //texture
+                        } 
+
+                        setScreenTextures(prev => [...prev, newScreenTexture]);
+                    }
+
+
+                )
+            }
+
+
          }
 
 
@@ -97,6 +124,23 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
 
         //setScreenTextures([...screenTextures, newScreenTexture]);
         console.log("setting the texture", e, screenTextures)
+    }
+
+    function handleTextureSelect(textureID : string) : void {
+        setActiveTextureID(textureID);
+
+        const selectedTexture = screenTextures.find(texture => texture.id === textureID);
+
+        if(selectedTexture && _phoneScreen) {
+            _phoneScreen.material = new THREE.MeshBasicMaterial({
+                map: selectedTexture.screenTexture,
+                toneMapped: false
+            });
+        }
+    }
+
+    function handleTextureDelete(textureID: string) : void {
+        //use filter
     }
 
     return (
@@ -149,11 +193,11 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
 
                     <div className="imageSelector flex mx-3 mb-2 py-2 ">
                         {/* screenTextures.map() */}
-                        {screenTextures.map((texture) => (
-                            <div key={texture.id} className="flex flex-col mx-1 ">
-                                <input type="checkbox" className=" mb-1" name="" id="" />
+                        {screenTextures.map((img) => (
+                            <div key={img.id} className="flex flex-col mx-1 ">
+                                <input type="radio"  className=" mb-1" name="screenshot" checked={activeTextureID === img.id} onChange={() => handleTextureSelect(img.id)} id="" />
                                 <div className="h-[45px] w-[28px] border-1 border-stone-300 mb-1">
-                                    <img src={texture.imgPath}  alt=""/>
+                                    <img src={img.imgPath}  alt=""/>
                                 </div>
                             </div>
                         )
