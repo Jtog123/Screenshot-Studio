@@ -24,3 +24,9 @@ export interface ScreenTextureInterface{
     imgPath:string
     screenTexture:THREE.Texture
 }
+
+export interface CapturedImage {
+    id: string;
+    url: string;
+    timestamp: number;
+}

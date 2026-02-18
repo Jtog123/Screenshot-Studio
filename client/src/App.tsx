@@ -9,7 +9,7 @@ import { GradientBackground } from "./GradientBackground.js";
 import PhoneGUI from "./PhoneGUI.js";
 import Overlay from "./Overlay.js";
 import CameraButton from "./CameraButton.js";
-import { ImageComponentInterface, ScreenTextureInterface, TextComponentInterface } from "./ComponentInterfaces.js";
+import { ImageComponentInterface, ScreenTextureInterface, TextComponentInterface, CapturedImage } from "./ComponentInterfaces.js";
 import ImageComponent from "./ImageComponent.js";
 import TextComponent from "./TextComponent.js";
 import { AssetManager } from "./AssetManager.js";
@@ -45,8 +45,10 @@ export default function App() {
   const [imageComponents, setImageComponents] = useState<ImageComponentInterface[]>([]);
   //const [screenTextures, setScreenTextures] = useState<ScreenTextureInterface[]>([]);
   const [textComponents, setTextComponents] = useState<JSX.Element[]>([]);
+
   //phone screen to pass
   const [_phoneScreen, setPhoneScreen] = useState<THREE.Mesh | null>(null);
+  const [capturedImages, setCapturedImages] = useState<CapturedImage[]>([]);
 
   const [activeListItems, setActiveListItems] = useState<{id:string, name:string}[]>([]);
   
@@ -104,7 +106,7 @@ export default function App() {
     const _lightManager = new LightManager(_raycaster, _renderer, _camera, _scene);
     setLightManager(_lightManager);
 
-    const _cameraManager = new CameraManager(_scene, _camera ,_renderer);
+    const _cameraManager = new CameraManager(_scene, _camera ,_renderer, setCapturedImages);
     setCameraManager(_cameraManager);
 
     const _assetManager = new AssetManager(_scene, _raycaster, _renderer, _camera);

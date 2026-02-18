@@ -16,13 +16,17 @@ interface ToolbarImgAndTextCardProps {
     //setScreenTextures : React.Dispatch<React.SetStateAction<ScreenTextureInterface[]>>
 }
 
+//array of captured images, start from app because we also need to pass to the cameramanager
+//we pass to the camera manager 
+
 export default function ToolbarImgAndTextCard({imageComponents, setImageComponents, addTextComponent, isToolbarToggled, _phoneScreen, _assetManager } : ToolbarImgAndTextCardProps) { //screenTextures, setScreenTextures
 
     const[isImgAndTxtCardExpanded, setIsImgAndTextCardExpanded] = useState(false);
     const screenTextureFileRef = useRef<HTMLInputElement>(null);
-    const[isScreenTextureUploaded , setIsScreenTextureUploaded] = useState(false);
+    const [isScreenTextureUploaded , setIsScreenTextureUploaded] = useState(false);
     const [screenTextures, setScreenTextures] = useState<ScreenTextureInterface[]>([]);
     const [activeTextureID, setActiveTextureID] = useState<string | null>(null);
+  
     //const[contentHeight, setContentHeight] = useState(0);
 
     function handleImgAndTextCardExpand() : void {
@@ -118,6 +122,9 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
 
          }
 
+         //clear input value
+         input.value = "";
+
 
         //now we have an array of images we would want, we have to loop through and create Meshes/Textures for each of them and then on click checkmark apply them to the phone.
 
@@ -140,7 +147,45 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
     }
 
     function handleTextureDelete(textureID: string) : void {
-        //use filter
+        //if a texture has been applied to the screen and we delete we have to remove it from the screen
+        // find the texture in screenTextures if the ids match
+        // remove it from the screen on the phone
+
+        const toDeleteTexture = screenTextures.find(texture => texture.id === textureID);
+        if(!toDeleteTexture) return;
+
+        toDeleteTexture?.screenTexture.dispose();
+
+        URL.revokeObjectURL(toDeleteTexture.imgPath);
+
+
+        if(_phoneScreen && activeTextureID === textureID) {
+           if (_phoneScreen.material instanceof THREE.Material) {
+                _phoneScreen.material.dispose();
+           }
+
+           //remove the phone texture
+            const textureLoader = new THREE.TextureLoader();
+            textureLoader.load('/baseAsset.png', (texture) => {
+                texture.flipY = false;
+                texture.colorSpace = THREE.SRGBColorSpace; // Corrects the "washed out" red
+                texture.minFilter = THREE.LinearFilter;
+                texture.magFilter = THREE.NearestFilter; // Sharpest
+                //texture.anisotropy = _renderer.capabilities.getMaxAnisotropy();
+    
+                _phoneScreen.material = new THREE.MeshBasicMaterial({ 
+                    map: texture,
+                    toneMapped: false // Prevents scene lights from changing screenshot colors
+                });
+
+            });
+
+            setActiveTextureID(null);
+        }
+
+        //update the state
+        setScreenTextures(prev => prev.filter(texture => texture.id !== textureID))
+
     }
 
     return (
@@ -199,7 +244,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                                 <div className="h-[45px] w-[28px] border-1 border-stone-300 mb-3">
                                     <img src={img.imgPath}  alt=""/>
                                 </div>
-                                <button className="bg-red-500 rounded-lg cursor-pointer">x</button>
+                                <button onClick={() => handleTextureDelete(img.id)} className="bg-red-500 rounded-lg cursor-pointer">x</button>
                             </div>
                         )
                             
