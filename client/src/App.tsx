@@ -169,7 +169,7 @@ export default function App() {
         //pass phoneScreen down to ToolBarImg, move this logic into there
         if (phoneScreen) {
           const textureLoader = new THREE.TextureLoader();
-          textureLoader.load('/iphone3.png', (texture) => {
+          textureLoader.load('/baseAsset.png', (texture) => {
             texture.flipY = false;
             texture.colorSpace = THREE.SRGBColorSpace; // Corrects the "washed out" red
             texture.minFilter = THREE.LinearFilter;

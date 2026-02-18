@@ -196,9 +196,10 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                         {screenTextures.map((img) => (
                             <div key={img.id} className="flex flex-col mx-1 ">
                                 <input type="radio"  className=" mb-1" name="screenshot" checked={activeTextureID === img.id} onChange={() => handleTextureSelect(img.id)} id="" />
-                                <div className="h-[45px] w-[28px] border-1 border-stone-300 mb-1">
+                                <div className="h-[45px] w-[28px] border-1 border-stone-300 mb-3">
                                     <img src={img.imgPath}  alt=""/>
                                 </div>
+                                <button className="bg-red-500 rounded-lg cursor-pointer">x</button>
                             </div>
                         )
                             
@@ -215,6 +216,19 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
 
 
                     </div>
+
+                    {/* Divider */}
+                    <div className="flex w-[100%] justify-center my-1">
+                        <div className="w-[90%] h-px bg-stone-300/40 my-2"></div>
+                    </div>
+
+                    <div className="flex justify-center items-center">
+                        <h4 className="text-stone-300 text-xs mr-2">Captured</h4>
+                        
+
+                    </div>
+
+                    {/* Export button */}
 
 
                    

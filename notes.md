@@ -269,6 +269,7 @@ Capture button saves current view
 -Toolbar background color not remembering state after opening and closing
 - create a default screen for when phone loads "Your App Here"
 -***** limit inputs to images ONLY no injection ********
+-***** Screenshot manager save all cards then export them ********
 
 
 
