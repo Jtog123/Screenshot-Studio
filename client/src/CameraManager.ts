@@ -34,7 +34,7 @@ class CameraManager {
     Your main renderer/canvas never changes - user sees nothing
     */
 
-    public captureImage() {
+    public captureImage() : void {
 
         //create Temp redner/canvas, and temp camera
         const tempRenderer = new THREE.WebGLRenderer({preserveDrawingBuffer:true});
@@ -60,10 +60,10 @@ class CameraManager {
         tempRenderer.render(this._scene, tempCamera);
 
         /*
-        //when we hit capture we dont want to immediatley download
-        // we want to store in an array called capturedImages
-        // this will be created in App and passed to cameramanager and Toolbarimgandtextcard
-        //camera manager sets images internal, toolbarimg displays them
+        from the base app have the screentextures and activeTextureID and pass it down
+        into both toolbarimgandtext and cameramaanger
+        when capturing if activeTextureID === screentexturesID
+        we have a captured image and and add it to the array
         */
 
         setTimeout(() => {
@@ -71,11 +71,15 @@ class CameraManager {
                 const url = URL.createObjectURL(blob as Blob);
                 const link = document.createElement("a");
 
+
+                //this might not work because ids dont match?
+                /*
                 this.setCapturedImages(prev => [...prev, {
                     id : `captured_${Date.now()}`,
                     url : url,
                     timestamp: Date.now()
                 }]);
+                */
 
                 //create a hyperlink ref
                 link.href = url;

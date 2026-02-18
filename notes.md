@@ -271,6 +271,12 @@ Capture button saves current view
 -***** limit inputs to images ONLY no injection ********
 -***** Screenshot manager save all cards then export them ********
 
+If I delete an image from the manager and have already captured it do i delete the captured image? NO i dontthse are seperate containers, if a user wants to delete a captured image they do that seperatley.
+There for the camera manger should set the captured image array
+After capturing the image we need to somehow trigger a state update in the toolbar,
+this state update should create a small iamge,
+set a state variable isImageCaptured, setIsImageCaptured, camera maanger will set this true, when true we create a tiny div image box for the captured image
+
 
 
 iphone 16 pro instructions?

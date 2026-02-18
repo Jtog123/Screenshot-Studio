@@ -27,6 +27,6 @@ export interface ScreenTextureInterface{
 
 export interface CapturedImage {
     id: string;
-    url: string;
+    imgPath: string;
     timestamp: number;
 }

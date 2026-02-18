@@ -269,8 +269,6 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
 
                     <div className="flex justify-center items-center">
                         <h4 className="text-stone-300 text-xs mr-2">Captured</h4>
-                        
-
                     </div>
 
                     {/* Export button */}

@@ -8,7 +8,6 @@ import { CameraManager } from "./CameraManager.js";
 import { GradientBackground } from "./GradientBackground.js";
 import PhoneGUI from "./PhoneGUI.js";
 import Overlay from "./Overlay.js";
-import CameraButton from "./CameraButton.js";
 import { ImageComponentInterface, ScreenTextureInterface, TextComponentInterface, CapturedImage } from "./ComponentInterfaces.js";
 import ImageComponent from "./ImageComponent.js";
 import TextComponent from "./TextComponent.js";

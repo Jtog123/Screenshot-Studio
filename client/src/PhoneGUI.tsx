@@ -1,6 +1,5 @@
 import {useRef, useEffect, useState} from 'react'
 import * as THREE from 'three'
-import CameraButton from './CameraButton'
 import { CameraManager } from './CameraManager';
 
 /*
@@ -152,6 +151,11 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
         setActivePreset(45);
     }
 
+    function handleImageCapture() : void {
+        console.log("Capturing the image");
+        _cameraManager.captureImage();
+    }
+
 
 
 // fixed flex flex-col left-[calc(100vw/2)] z-22 transform translate-x-[-175%] translate-y-[-5%] overflow-hidden w-1/4 bg-stone-950 rounded-xl bottom-0 z-2 px-4 pb-3 pt-2 backdrop-blur-md border-2 border-stone-600 shadow-[0_0_20px_rgba(120,113,108,0.3),0_0_0_4px_rgba(28,25,23,1),0_0_0_5px_rgba(168,162,158,0.5)] ring-1 ring-stone-700/50 transition-all duration-500 ease-in-out"
@@ -213,7 +217,10 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
                         {/* RESET */}
                         <div className="flex  items-center justify-between pt-1 mt-1">
                             {/*<button onClick={handleControlsReset} className="text-stone-200 h-[1/6] w-[20%] bg-stone-700/30 px-1 mt-3 rounded-xl ">Reset</button>*/}
-                            <CameraButton cameraManager={_cameraManager}/>
+                            {/*<CameraButton cameraManager={_cameraManager}/>*/}
+                            <button onClick={handleImageCapture} className="rounded-4xl p-2 bg-red-200 cursor-pointer">
+                                Cap
+                            </button>
                         </div>
 
                     </div>
