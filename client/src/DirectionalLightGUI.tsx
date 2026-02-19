@@ -198,9 +198,6 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
 
     
 
-
-
-    
     
     return (
         <>
@@ -234,22 +231,22 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
                             <div className="p-3 space-y-2 bg-stone-900/30">
                                 <div className="grid grid-cols-1 gap-1">
 
-                                <div>
-                                    <label className="text-sm text-stone-300" htmlFor="">X:</label>
-                                    <input name="xPos" className="w-full h-1" onChange={(e) => handlePosSlidersChange(e, "xPos")} type="range" min={"-10"} max={"10"} value={lightPos.x} step={"0.1"}/>
-                                </div>
+                                    <div>
+                                        <label className="text-sm text-stone-300" htmlFor="">X:</label>
+                                        <input name="xPos" className="w-full h-1" onChange={(e) => handlePosSlidersChange(e, "xPos")} type="range" min={"-10"} max={"10"} value={lightPos.x} step={"0.1"}/>
+                                    </div>
 
-                                <div>
-                                    <label className="text-sm text-stone-300" htmlFor="">Y:</label>
-                                    <input name="yPos" className="w-full h-1" onChange={(e) => handlePosSlidersChange(e, "yPos")}type="range" min={"-10"} max={"10"} value={lightPos.y} step={"0.1"}/>
-                                </div>
+                                    <div>
+                                        <label className="text-sm text-stone-300" htmlFor="">Y:</label>
+                                        <input name="yPos" className="w-full h-1" onChange={(e) => handlePosSlidersChange(e, "yPos")}type="range" min={"-10"} max={"10"} value={lightPos.y} step={"0.1"}/>
+                                    </div>
 
-                                <div>
-                                    <label className="text-sm text-stone-300" htmlFor="">Z:</label>
-                                    <input name="zPos" className="w-full h-1" onChange={(e) => handlePosSlidersChange(e, "zPos")} type="range" min={"-10"} max={"10"} value={lightPos.z} step={"0.1"}/>
-                                </div>
+                                    <div>
+                                        <label className="text-sm text-stone-300" htmlFor="">Z:</label>
+                                        <input name="zPos" className="w-full h-1" onChange={(e) => handlePosSlidersChange(e, "zPos")} type="range" min={"-10"} max={"10"} value={lightPos.z} step={"0.1"}/>
+                                    </div>
 
-                            </div>
+                                </div>
                             </div>
                         )}
 
