@@ -191,7 +191,7 @@ export default function ImageComponentGUI({_componentID, _assetManager} : ImageC
                 className="absolute rounded-xl right-[800px] top-[200px] min-w-[300px] min-h-[150px] max-w-[450px] overflow-auto bg-stone-950 pb-3 z-50 backdrop-blur-md border border-stone-600 shadow-[0_0_20px_rgba(120,113,108,0.3)] ring-1 ring-stone-700/50">
 
                 
-                <div onMouseDown={handleMouseDown} className="sticky top-0 flex items-center justify-between  cursor-move bg-stone-700/30 bg-red-200 w-full py-2 px-4 z-10">
+                <div onMouseDown={handleMouseDown} className="sticky top-0 flex items-center justify-between  cursor-move bg-stone-700/30  w-full py-2 px-4 z-10">
                     <div className="titlebox ">
                         <h1 className="text-stone-200  text-base font-medium">
                             {imageComponent?._title}
