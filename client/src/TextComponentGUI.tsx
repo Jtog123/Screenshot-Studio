@@ -43,6 +43,13 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
         z: 1
     });
 
+        // Collapsible sections state
+    const [expandedSections, setExpandedSections] = useState({
+        position: true,
+        appearance: true,
+        border: false
+    });
+
 
 
     useEffect(() => {
@@ -68,12 +75,7 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
     }, [spriteInnerText, spriteFontSize, spriteFontColor ,spriteOpacity]);
 
     
-    // Collapsible sections state
-    const [expandedSections, setExpandedSections] = useState({
-        position: true,
-        appearance: true,
-        border: false
-    });
+
 
     function toggleSection(section: keyof typeof expandedSections) {
         setExpandedSections(prev => ({
@@ -166,9 +168,9 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
                 {/* Header */}
                 <div 
                     onMouseDown={handleMouseDown} 
-                    className="sticky top-0 flex items-center justify-between cursor-move bg-stone-700/30 w-full py-2 px-4 z-10"
+                    className="sticky top-0 flex items-center justify-between  cursor-move bg-stone-700/30 bg-red-200 w-full py-2 px-4 z-10"
                 >
-                    <h1 className="text-stone-200 text-base font-medium">Text Component</h1>
+                    <h1 className="text-stone-200  text-base font-medium">Text Component</h1>
                     <button onClick={onClose} className="rounded px-2 py-1 bg-red-500 text-white text-sm hover:bg-red-600">
                         ✕
                     </button>
@@ -188,13 +190,13 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
                         />
                     </div>
                     
-                    {/* POSITION & SIZE SECTION */}
+                    {/* POSITION SECTION */}
                     <div className="border border-stone-700 rounded-lg overflow-hidden">
                         <button 
                             onClick={() => toggleSection('position')}
                             className="w-full flex justify-between items-center px-3 py-2 bg-stone-800/50 hover:bg-stone-800 text-stone-200 text-sm"
                         >
-                            <span>Position & Size</span>
+                            <span>Position</span>
                             <span>{expandedSections.position ? '▼' : '▶'}</span>
                         </button>
                         
