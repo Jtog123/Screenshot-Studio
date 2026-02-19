@@ -199,7 +199,7 @@ export default function ImageComponentGUI({_componentID, _assetManager} : ImageC
                     </div>
 
                     <button onClick={handleGUIWindowClose}  className="rounded px-2 py-1 bg-red-500 text-white text-sm hover:bg-red-600">
-                        x
+                        ✕
                     </button>
                 </div>
 
@@ -218,14 +218,21 @@ export default function ImageComponentGUI({_componentID, _assetManager} : ImageC
                         {expandedSections.position && (
                             <div className="p-3 space-y-2 bg-stone-900/30"> 
                                 <div className="grid grid-cols-1 gap-2">
-                                    <label className="text-xs text-stone-300" htmlFor="">X:</label>
-                                    <input name="xPos" className="w-full h-1" onChange={(e) => handlePosSlidersChange(e, "xPos")} type="range" min={"-10"} max={"10"} value={componentPos.x} step={"0.1"}/>
+                                    <div>
+                                        <label className="text-xs text-stone-300" htmlFor="">X:</label>
+                                        <input name="xPos" className="w-full h-1" onChange={(e) => handlePosSlidersChange(e, "xPos")} type="range" min={"-10"} max={"10"} value={componentPos.x} step={"0.1"}/>
+                                    </div>
 
-                                    <label className="text-xs text-stone-300" htmlFor="">Y:</label>
-                                    <input name="yPos" className="w-full h-1" onChange={(e) => handlePosSlidersChange(e, "yPos")}type="range" min={"-10"} max={"10"} value={componentPos.y} step={"0.1"}/>
+                                    <div>
+                                        <label className="text-xs text-stone-300" htmlFor="">Y:</label>
+                                        <input name="yPos" className="w-full h-1" onChange={(e) => handlePosSlidersChange(e, "yPos")}type="range" min={"-10"} max={"10"} value={componentPos.y} step={"0.1"}/>
+                                    </div>
 
-                                    <label className="text-xs text-stone-300" htmlFor="">Z:</label>
-                                    <input name="zPos" className="w-full h-1" onChange={(e) => handlePosSlidersChange(e, "zPos")} type="range" min={"-10"} max={"10"} value={componentPos.z} step={"0.1"}/>
+                                    <div>
+                                        <label className="text-xs text-stone-300" htmlFor="">Z:</label>
+                                        <input name="zPos" className="w-full h-1" onChange={(e) => handlePosSlidersChange(e, "zPos")} type="range" min={"-10"} max={"10"} value={componentPos.z} step={"0.1"}/>
+                                    </div>
+
                                 </div>
                             </div>
                         )}
@@ -248,11 +255,16 @@ export default function ImageComponentGUI({_componentID, _assetManager} : ImageC
                         {expandedSections.appearance && (
                             <div className="p-3 space-y-2 bg-stone-900/30"> 
                                 <div className="grid grid-cols-1 gap-2">
-                                    <label htmlFor="" className="text-xs text-stone-300"> Scale: </label>
-                                    <input name="scale" className="w-full h-1" onChange={(e) =>handleScaleSlidersChange(e)} type="range" min={"0.3"} value={componentScale.x} max={"3"} step={"0.1"}/>
+                                    <div>
+                                        <label htmlFor="" className="text-xs text-stone-300"> Scale: </label>
+                                        <input name="scale" className="w-full h-1" onChange={(e) =>handleScaleSlidersChange(e)} type="range" min={"0.3"} value={componentScale.x} max={"3"} step={"0.1"}/>
+                                    </div>
 
-                                    <label htmlFor="" className="text-xs text-stone-300"> Opacity: </label>
-                                    <input name="opacity" className="w-full h-1" onChange={(e) => handleOpacityChange(e)} type="range" min={"0.1"} value={componentOpacity} max={"1"} step={"0.01"}/>
+                                    <div>
+                                        <label htmlFor="" className="text-xs text-stone-300"> Opacity: </label>
+                                        <input name="opacity" className="w-full h-1" onChange={(e) => handleOpacityChange(e)} type="range" min={"0.1"} value={componentOpacity} max={"1"} step={"0.01"}/>
+                                    </div>
+
                                 </div>
                             </div>
                         )}
