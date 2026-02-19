@@ -8,13 +8,15 @@ class CameraManager {
     private _camera : THREE.PerspectiveCamera
     private setCapturedImages :  React.Dispatch<React.SetStateAction<
     CapturedImage[]>>;
+    private setImageCaptured : React.Dispatch<React.SetStateAction<boolean>>;
     //private _renderer : THREE.WebGLRenderer
 
     constructor(scene: THREE.Scene ,camera :THREE.PerspectiveCamera , renderer: THREE.WebGLRenderer, setCapturedImages: React.Dispatch<React.SetStateAction<
-        CapturedImage[]>>) {
+        CapturedImage[]>>, setImageCaptured : React.Dispatch<React.SetStateAction<boolean>>) {
         this._scene = scene;
         this._camera = camera;
         this.setCapturedImages = setCapturedImages;
+        this.setImageCaptured = setImageCaptured;
         //this._renderer = renderer;
     }
 
@@ -66,6 +68,8 @@ class CameraManager {
         we have a captured image and and add it to the array
         */
 
+        //this.setImageCaptured(false);
+
         setTimeout(() => {
             tempRenderer.domElement.toBlob((blob) => {
                 const url = URL.createObjectURL(blob as Blob);
@@ -73,24 +77,28 @@ class CameraManager {
 
 
                 //this might not work because ids dont match?
-                /*
+                
                 this.setCapturedImages(prev => [...prev, {
                     id : `captured_${Date.now()}`,
-                    url : url,
-                    timestamp: Date.now()
+                    imgPath : url,
                 }]);
-                */
+                
 
                 //create a hyperlink ref
                 link.href = url;
                 link.download = "ScreenshotStudioTestShot.png";
                 link.click();
+                //this.setImageCaptured(true);
+                
+                //URL.revokeObjectURL(url);
 
-                URL.revokeObjectURL(url);
+
             }, "image/png", 1.0);
 
             //this._camera.updateProjectionMatrix();
         }, 50);
+
+        this.setImageCaptured(false);
 
 
     }

@@ -50,6 +50,8 @@ export default function App() {
   const [capturedImages, setCapturedImages] = useState<CapturedImage[]>([]);
 
   const [activeListItems, setActiveListItems] = useState<{id:string, name:string}[]>([]);
+
+  const[isImageCaptured, setImageCaptured] = useState(false);
   
   
   // 
@@ -105,7 +107,7 @@ export default function App() {
     const _lightManager = new LightManager(_raycaster, _renderer, _camera, _scene);
     setLightManager(_lightManager);
 
-    const _cameraManager = new CameraManager(_scene, _camera ,_renderer, setCapturedImages);
+    const _cameraManager = new CameraManager(_scene, _camera ,_renderer, setCapturedImages, setImageCaptured);
     setCameraManager(_cameraManager);
 
     const _assetManager = new AssetManager(_scene, _raycaster, _renderer, _camera);
@@ -232,7 +234,7 @@ export default function App() {
       {isSceneReady && phone && cameraManager &&<PhoneGUI phoneModel={phone} _cameraManager={cameraManager}/>}
 
 
-      {scene && lightManager && cameraManager && phone && assetManager && camera && gradientBackground && _phoneScreen &&<Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents}  _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems} addTextComponent={addTextComponent} camera={camera} _gradientBackground={gradientBackground} _phoneScreen={_phoneScreen}  />} 
+      {scene && lightManager && cameraManager && phone && assetManager && camera && gradientBackground && _phoneScreen &&<Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents}  _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems} addTextComponent={addTextComponent} camera={camera} _gradientBackground={gradientBackground} _phoneScreen={_phoneScreen} capturedImages={capturedImages} setCapturedImages={setCapturedImages} />} 
 
       {scene && assetManager && camera && imageComponents.map((item) => {
         return <ImageComponent key={item.id} position={item.position} _scene={scene} _camera={camera} _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems}/>

@@ -1,5 +1,5 @@
-import { useState, useRef } from "react"
-import { ImageComponentInterface, TextComponentInterface ,ScreenTextureInterface} from "./ComponentInterfaces"
+import { useState, useRef, useEffect } from "react"
+import { ImageComponentInterface, TextComponentInterface ,ScreenTextureInterface, CapturedImage} from "./ComponentInterfaces"
 import * as THREE from 'three'
 import { AssetManager } from "./AssetManager"
 import { texture } from "three/src/nodes/TSL.js"
@@ -12,6 +12,8 @@ interface ToolbarImgAndTextCardProps {
     isToolbarToggled : boolean
     _phoneScreen : THREE.Mesh
     _assetManager: AssetManager
+    capturedImages : CapturedImage[]
+    setCapturedImages : React.Dispatch<React.SetStateAction<CapturedImage[]>>
     //screenTextures : ScreenTextureInterface[]
     //setScreenTextures : React.Dispatch<React.SetStateAction<ScreenTextureInterface[]>>
 }
@@ -19,15 +21,27 @@ interface ToolbarImgAndTextCardProps {
 //array of captured images, start from app because we also need to pass to the cameramanager
 //we pass to the camera manager 
 
-export default function ToolbarImgAndTextCard({imageComponents, setImageComponents, addTextComponent, isToolbarToggled, _phoneScreen, _assetManager } : ToolbarImgAndTextCardProps) { //screenTextures, setScreenTextures
+export default function ToolbarImgAndTextCard({imageComponents, setImageComponents, addTextComponent, isToolbarToggled, _phoneScreen, _assetManager, capturedImages, setCapturedImages } : ToolbarImgAndTextCardProps) { //screenTextures, setScreenTextures
 
     const[isImgAndTxtCardExpanded, setIsImgAndTextCardExpanded] = useState(false);
     const screenTextureFileRef = useRef<HTMLInputElement>(null);
     const [isScreenTextureUploaded , setIsScreenTextureUploaded] = useState(false);
     const [screenTextures, setScreenTextures] = useState<ScreenTextureInterface[]>([]);
     const [activeTextureID, setActiveTextureID] = useState<string | null>(null);
+    //const [capturedImages, setCapturedImages] = useState<CapturedImage[]>([]);
   
     //const[contentHeight, setContentHeight] = useState(0);
+
+    //clean up after unmount
+    useEffect(() => {
+        return() => {
+            capturedImages.forEach((img) => {
+                URL.revokeObjectURL(img.imgPath);
+            })
+        }
+    }, [capturedImages])
+
+
 
     function handleImgAndTextCardExpand() : void {
         setIsImgAndTextCardExpanded(!isImgAndTxtCardExpanded);
@@ -125,12 +139,22 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
          //clear input value
          input.value = "";
 
+    }
 
-        //now we have an array of images we would want, we have to loop through and create Meshes/Textures for each of them and then on click checkmark apply them to the phone.
+    /*
+    useEffect(() => {
+        if(isImageCaptured) {
+            //handle capturedImages
+            id: `temp_${Date.now()}`,
+        }
 
+    }, [isImageCaptured]);
+    */
 
-        //setScreenTextures([...screenTextures, newScreenTexture]);
-        console.log("setting the texture", e, screenTextures)
+    function handleCapturedImages() : void {
+       // const newCapturedImage : CapturedImage {
+
+        //}
     }
 
     function handleTextureSelect(textureID : string) : void {
@@ -188,6 +212,19 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
 
     }
 
+    function handleCapturedImageDelete(imageID : string) : void {
+        const toDeleteImg = capturedImages.find(img => img.id === imageID);
+        if(toDeleteImg) {
+            URL.revokeObjectURL(toDeleteImg.imgPath);
+        }
+
+        setCapturedImages(prev => prev.filter(img => img.id !== imageID));
+
+        
+
+        
+    }
+
     return (
         <div  className={ isToolbarToggled ? `hidden`:`w-[100%] rounded-t-xl bg-stone-950 -mt-2 z-10 border-1 border-stone-400/50 transition-all duration-500 ease-in-out pb-1 overflox-auto  `}
         >
@@ -241,7 +278,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                         {screenTextures.map((img) => (
                             <div key={img.id} className="flex flex-col mx-1 ">
                                 <input type="radio"  className=" mb-1" name="screenshot" checked={activeTextureID === img.id} onChange={() => handleTextureSelect(img.id)} id="" />
-                                <div className="h-[45px] w-[28px] border-1 border-stone-300 mb-3">
+                                <div className="h-[auto] w-[28px] border-1 border-stone-300 mb-3">
                                     <img src={img.imgPath}  alt=""/>
                                 </div>
                                 <button onClick={() => handleTextureDelete(img.id)} className="bg-red-500 rounded-lg cursor-pointer">x</button>
@@ -266,9 +303,33 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                     <div className="flex w-[100%] justify-center my-1">
                         <div className="w-[90%] h-px bg-stone-300/40 my-2"></div>
                     </div>
+                    
+                    <div className="flex justify-center items-center ">
+                        <h4 className="text-stone-300 text-xs mr-2 mb-2">Captured</h4>
+                    </div>
 
-                    <div className="flex justify-center items-center">
-                        <h4 className="text-stone-300 text-xs mr-2">Captured</h4>
+                    <div className="capturedContainer flex  mx-3 mb-2 py-2 ">
+
+
+                        {capturedImages && capturedImages.map((img) => (
+                            <div key={img.id} className="flex flex-col mx-1 ">
+                                <div className="h-[auto] w-[28px] border-1 border-stone-300 mb-3">
+                                    <img src={img.imgPath}  alt=""/>
+                                </div>
+                                <button onClick={() => handleCapturedImageDelete(img.id)}  className="bg-red-500 rounded-lg cursor-pointer">x</button>
+                            </div>      
+                        ))}
+
+                        {/* When isCaptured has been set to true}
+                        {capturedImages.map(img) => (
+                            <div key={img.id} className="flex flex-col mx-1 ">
+                                <div className="h-[45px] w-[28px] border-1 border-stone-300 mb-3">
+                                    <img src={img.imgPath}  alt=""/>
+                                </div>
+                                <button onClick={() => handleTextureDelete(img.id)} className="bg-red-500 rounded-lg cursor-pointer">x</button>
+                            </div>   
+                        )}
+                            */}
                     </div>
 
                     {/* Export button */}

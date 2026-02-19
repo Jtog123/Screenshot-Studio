@@ -28,5 +28,4 @@ export interface ScreenTextureInterface{
 export interface CapturedImage {
     id: string;
     imgPath: string;
-    timestamp: number;
 }
