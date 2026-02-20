@@ -22,6 +22,11 @@ export default function RectAreaLightGUI({_lightID, _lightManager} : RectAreaLig
         z: light?._light.position.z,
     });
 
+    const [expandedSections, setExpandedSections] = useState({
+        position: true,
+        appearance: true,
+    });
+
     const[lightIntensity, setLightIntensity] = useState(light?._lightIntensity);
     const[lightColor, setLightColor] = useState("#FFFFFF");
     const[lightWidth, setLightWidth] = useState(2);
@@ -157,60 +162,102 @@ export default function RectAreaLightGUI({_lightID, _lightManager} : RectAreaLig
         _lightManager.deselectLight(_lightID);
     }
 
+    function toggleSection(section: keyof typeof expandedSections) {
+        setExpandedSections(prev => ({
+            ...prev,
+            [section]: !prev[section]
+        }));
+    }
+
     return (
         <>
         {
             <div style={{
                 transform: `translate(${guiPosition.x}px, ${guiPosition.y}px)`}}  
-                className="absolute rounded-xl right-[800px] top-[200px] min-w-[300px] min-h-[150px] max-w-[450px] overflow-auto bg-stone-950  pb-5 z-2 backdrop-blur-md border-1 border-stone-600 shadow-[0_0_20px_rgba(120,113,108,0.3),0_0_0_4px_rgba(28,25,23,1),0_0_0_5px_rgba(168,162,158,0.5)] ring-1 ring-stone-700/50"
+                className="absolute rounded-xl right-[800px] top-[200px] min-w-[300px] min-h-[150px] max-w-[450px] overflow-auto bg-stone-950 pb-3 z-50 backdrop-blur-md border border-stone-600 shadow-[0_0_20px_rgba(120,113,108,0.3)] ring-1 ring-stone-700/50"
                 >
-                <div onMouseDown={handleMouseDown} className="dragbar flex items-center justify-between bg-stone-700/30 w-[100%] h-[1/4] py-1 pl-5 pr-2">
+                <div onMouseDown={handleMouseDown} className="sticky top-0 flex items-center justify-between cursor-move bg-stone-700/30 bg-red-200 w-full py-2 px-4 z-10">
                     <div className="titlebox ">
-                        <h1 className="title text-stone-200 text-lg">
+                        <h1 className="text-stone-200 text-base font-medium">
                             {(light?._lightHelper as _RectAreaLightHelper)._title}
                         </h1>
                     </div>
 
-                    <button onClick={handleGUIWindowClose}  className="rounded-xl right-0 mr-1 w-[10%] bg-red-500">
-                        X
+                    <button onClick={handleGUIWindowClose} className="rounded px-2 py-1 bg-red-500 text-white text-sm hover:bg-red-600">
+                        ✕
                     </button>
                 </div>
 
-                <div className="innerContents flex flex-col w-[100%] [h-100%] bg-stone-950 p-5">
-                    <div className="colorContainer flex w-[100%] h-[100%] items-center">
-                        <label className="text-sm text-stone-200 pr-5" htmlFor="">Light Color: </label>
-                        <input onChange={handleLightColorChange} value={lightColor} type="color" />
+                <div className="px-4 py-2 space-y-2">
+                    {/* POSITION SECTION */}
+                    <div className="border border-stone-700 rounded-lg overflow-hidden">
+                        <button onClick={() => toggleSection('position')}
+                            className="w-full flex justify-between items-center px-3 py-2 bg-stone-800/50 hover:bg-stone-800 text-stone-200 text-sm">
+                                <span>Position</span>
+                                <span>{expandedSections.position ? '▼' : '▶'}</span>
+                        </button>
+
+                        {expandedSections.position && (
+                            <div className="p-3 space-y-2 bg-stone-900/30">
+                                <div className="grid grid-cols-1 gap-1">
+                                    <div>
+                                        <label className="text-sm text-stone-200" htmlFor="">X:</label>
+                                        <input onChange={(e) => handlePosSliderChange(e, "xPos")} className="w-full h-1" type="range" min={"-10"} max={"10"} value={lightPosition.x} step={"0.1"}/>
+                                    </div>
+
+                                    <div>
+                                        <label className="text-sm text-stone-200" htmlFor="">Y:</label>
+                                        <input onChange={(e) => handlePosSliderChange(e, "yPos")} className="w-full h-1" type="range" min={"-10"} max={"10"} value={lightPosition.y} step={"0.1"}/>
+                                    </div>
+
+                                    <div>
+                                        <label className="text-sm text-stone-200" htmlFor="">Z:</label>
+                                        <input onChange={(e) => handlePosSliderChange(e, "zPos")} className="w-full h-1" type="range" min={"-10"} max={"10"} value={lightPosition.z} step={"0.1"}/>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
 
-                    <div className="divider w-full h-px bg-stone-300/40 my-3"></div>
+                    {/* APPEARANCE SECTION */}
+                    <div className="border border-stone-700 rounded-lg overflow-hidden">
+                        <button 
+                            onClick={() => toggleSection('appearance')}
+                            className="w-full flex justify-between items-center px-3 py-2 bg-stone-800/50 hover:bg-stone-800 text-stone-200 text-sm"
+                        >
+                            <span>Appearance</span>
+                            <span>{expandedSections.appearance ? '▼' : '▶'}</span>
+                        </button>
 
-                    <label className="text-sm text-stone-200" htmlFor="">Position X:</label>
-                    <input onChange={(e) => handlePosSliderChange(e, "xPos")} type="range" min={"-10"} max={"10"}  value={lightPosition.x} step={"0.1"}/>
+                        {expandedSections.appearance && (
+                            <div className="p-3 space-y-3 bg-stone-900/30">
+                                <div className="grid grid-cols-1 gap-3">
 
-                    <label className="text-sm text-stone-200" htmlFor="">Position Y:</label>
-                    <input onChange={(e) => handlePosSliderChange(e, "yPos")} type="range" min={"-10"} max={"10"} value={lightPosition.y} step={"0.1"}/>
+                                    <div className="flex items-center gap-2">
+                                        <label className="text-xs text-stone-300 pr-5" htmlFor="">Light Color: </label>
+                                        <input onChange={handleLightColorChange} type="color" value={lightColor} />
+                                    </div>
 
-                    <label className="text-sm text-stone-200" htmlFor="">Position Z:</label>
-                    <input onChange={(e) => handlePosSliderChange(e, "zPos")} type="range" min={"-10"} max={"10"} value={lightPosition.z} step={"0.1"}/>
+                                    <div>
+                                        <label className="text-sm text-stone-200" htmlFor="">Width:</label>
+                                        <input onChange={(e) => handleLightWidthChange(e)} className="h-1 w-full" type="range" min={"1"} max={"3.5"} value={lightWidth} step={"0.1"}/>
+                                    </div>
 
-                    <div className="divider w-full h-px bg-stone-300/40 my-3"></div>
+                                    <div>
+                                        <label className="text-sm text-stone-200" htmlFor="">Height:</label>
+                                        <input onChange={(e) => handleLightHeightChange(e)} className="h-1 w-full" type="range" min={"1"} max={"3.5"} value={lightHeight} step={"0.1"}/>
+                                    </div>
 
-                    {/* WIDTH */}
-                    <label className="text-sm text-stone-200" htmlFor="">Width: {lightWidth}</label>
-                    <input onChange={(e) => handleLightWidthChange(e)} type="range" min={"1"} max={"5"} value={lightWidth} step={"0.1"}/>
+                                    <div>
+                                        <label className="text-sm text-stone-200" htmlFor="">Intensity:</label>
+                                        <input onChange={(e) => handleLightIntensityChange(e)} className="h-1 w-full" type="range" min={"1"} max={"10"} value={lightIntensity} step={"0.1"}/>
+                                    </div>
 
-                    {/* HEIGHT */}
-                    <label className="text-sm text-stone-200" htmlFor="">Height: {lightHeight}</label>
-                    <input onChange={(e) => handleLightHeightChange(e)} type="range" min={"1"} max={"5"} value={lightHeight} step={"0.1"}/>
-
-                    <div className="divider w-full h-px bg-stone-300/40 my-3"></div>
-
-                    {/* INTENSITY */}
-                    <label className="text-sm text-stone-200" htmlFor="">Intensity: {lightIntensity}</label>
-                    <input onChange={(e) => handleLightIntensityChange(e)} type="range" min={"1"} max={"10"} value={lightIntensity} step={"0.1"}/>
-
+                                </div>
+                            </div>
+                        )}
+                    </div>
                 </div>
-                
             </div>
         }
         </>

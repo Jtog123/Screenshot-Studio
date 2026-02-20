@@ -26,6 +26,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
     //??
     const[color1 , setColor1] = useState("#FF0000");
     const[color2 , setColor2] = useState("#0000FF");
+    const[gradientScale, setGradientScale] = useState(2.5);
 
     //useRef array of THREE.Vec3 positions
     const lightPositionRefArray = useRef<THREE.Vector3[]>([]);
@@ -203,6 +204,13 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
         return newPosition!;
     }
 
+    function handleGradientScaleChange(e : React.ChangeEvent<HTMLInputElement>) : void {
+        console.log(e.target.value);
+        const scaleValue = Number(e.target.value)
+        gradientBackground.updateGradientScale(scaleValue);
+        setGradientScale(scaleValue);
+    }
+
     ///////////////////////// LIGHT CREATION ////////////////////////////////
 
     function handleDirectionalLightCreation() : void {
@@ -301,7 +309,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
 
                     <div className="flex flex-col ml-5 text-sm mt-1">
                         <label className="text-stone-200" htmlFor="">Scale</label>
-                        <input className="w-[75%]" type="range" />
+                        <input onChange={handleGradientScaleChange} value={gradientScale} max={"5"} min={"1"} step={"0.1"} className="w-[75%]" type="range" />
                     </div>
 
                     {/* Divider */}

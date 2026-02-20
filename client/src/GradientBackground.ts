@@ -129,6 +129,12 @@ class GradientBackground {
         
     }
 
+    public updateGradientScale(scaleValue : number) : void {
+        if(this._gradientMaterial) {
+            this._gradientMaterial.uniforms.uGradientScale.value = scaleValue;
+        }
+    }
+
     public updateGradientColors(color1: string, color2: string) : void {
         if(this._gradientMaterial) {
             const threeColor1 = new THREE.Color(color1).convertSRGBToLinear();
