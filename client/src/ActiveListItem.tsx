@@ -2,6 +2,8 @@ import { useState } from "react";
 import { LightManager } from "./LightManager"
 import { AssetManager } from "./AssetManager";
 import * as THREE from 'three'
+import SpotLightIcon from "./SpotLightIcon";
+import DirectionalLightIcon from "./DirectionalLightIcon";
 
 interface ActiveListItemProps {
     itemName : string
@@ -103,8 +105,15 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
 
     // Get icon based on item type
     const getIcon = () => {
+        console.log(itemID);
+        if (itemID.startsWith("_DirectionalLight")) {
+            return <DirectionalLightIcon className="  text-stone-300"/>
+        } else if (itemID.startsWith("_SpotLight")) {
+            return <SpotLightIcon className="text-stone-300"/>
+        }
         if(itemID.startsWith("sprite_image_")) return "🖼️";
         if(itemID.startsWith("text_")) return "T";
+        
         return "💡"; // Light icon
     };
 
@@ -114,8 +123,11 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
             className="group flex items-center justify-between px-2 py-1.5 rounded-md hover:bg-stone-700/50 transition-colors cursor-pointer border-x-1 border-stone-400 hover:border-stone-600/50"
         >
             {/* Left side: Icon + Name */}
-            <div className="flex items-center gap-2 flex-1 min-w-0">
-                <span className="text-sm flex-shrink-0">{getIcon()}</span>
+            <div className="flex items-center gap-2 flex-1 min-w-0 ">
+                <div className=" flex justify-center items-center px-1  w-[20%]">
+                    <span className="text-sm flex-shrink-0">{getIcon()}</span>
+                </div>
+
                 <span className="text-stone-200 text-sm truncate">{itemName}</span>
             </div>
 

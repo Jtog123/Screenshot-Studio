@@ -235,7 +235,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
     }
 
     function handleSpotLightCreation() : void {
-        console.log("creating directional light");
+
         const lightPos = generateLightPosition() as THREE.Vector3;
         const newLight = lightManager.createLight(LightType.SpotLight, lightPos);
 
@@ -324,7 +324,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                     <h1 className="text-stone-200 ml-5 my-1 text-sm">Lighting</h1>
                     <div className="flex w-[100%] ml-5 mb-5">
                         <div className="flex justify-between w-[90%]">
-                            <button onClick={handleDirectionalLightCreation} className=" flex cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-slate-700 hover:bg-slate-600 text-stone-300 rounded-lg py-1 justify-center  items-center ">
+                            <button onClick={handleDirectionalLightCreation} className=" flex cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-slate-700 hover:bg-slate-600 text-stone-300 rounded-lg py-1 justify-center  items-center   ">
                                 <DirectionalLightIcon className='w-[32px] h-[32px] '/>
                             </button>
                             <button onClick={handleSpotLightCreation} className=" flex justify-center items-center cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-slate-700 hover:bg-slate-600 text-stone-300 rounded-lg py-1">
