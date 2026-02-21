@@ -71,6 +71,7 @@ export default function ImageComponent({ _scene, _camera ,_assetManager, activeL
     return (
         <>
         <div>
+            <button className="rounded px-2 py-1 bg-red-500 text-white text-sm hover:bg-red-600">✕</button>
             <input ref={inputFileRef} type="file" accept="image/*" onChange={(e) => handleImageUpload(e)} className="hidden"/>
                 {
                     <button className={isImageUploaded ? `hidden` :` ${`fixed left-1/2 transform px-2 -translate-x-1/2 -translate-y-1/2 w-[150px] h-[100px] bg-transparent border-2 border-dashed border-white text-white z-50 cursor-pointer`} top-20 `}

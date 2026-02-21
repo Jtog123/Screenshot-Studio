@@ -1,9 +1,12 @@
 import * as THREE from 'three'
 import { GradientBackground } from './GradientBackground';
 import { LightManager } from "./LightManager";
+import DirectionalLightIcon from './DirectionalLightIcon';
+import SpotLightIcon from './SpotLightIcon';
 import ActiveListItem from './ActiveListItem';
 import { LightType } from './Light';
 import { useEffect, useState, useRef } from 'react';
+
 import { _DirectionalLightHelper, _SpotLightHelper, _PointLightHelper, _RectAreaLightHelper } from './LightHelper';
 
 interface ToolbarBgAndLightingCardProps{
@@ -321,10 +324,14 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                     <h1 className="text-stone-200 ml-5 my-1 text-sm">Lighting</h1>
                     <div className="flex w-[100%] ml-5 mb-5">
                         <div className="flex justify-between w-[90%]">
-                            <button onClick={handleDirectionalLightCreation} className="cursor-pointer w-[18%] bg-green-300 rounded-lg py-1">Dir</button>
-                            <button onClick={handleSpotLightCreation} className="cursor-pointer w-[18%] bg-green-300 rounded-lg py-1">Spot</button>
-                            <button onClick={handlePointLightCreation} className="cursor-pointer w-[18%] bg-green-300 rounded-lg py-1">Point</button>
-                            <button onClick={handleRectAreaLightCreation} className="cursor-pointer w-[18%] bg-green-300 rounded-lg py-1">Rect</button>
+                            <button onClick={handleDirectionalLightCreation} className=" flex cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-slate-700 hover:bg-slate-600 text-stone-300 rounded-lg py-1 justify-center  items-center ">
+                                <DirectionalLightIcon className='w-[32px] h-[32px] '/>
+                            </button>
+                            <button onClick={handleSpotLightCreation} className=" flex justify-center items-center cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-slate-700 hover:bg-slate-600 text-stone-300 rounded-lg py-1">
+                                <SpotLightIcon className='w-[32px] h-[32px] pt-1 ' />
+                            </button>
+                            <button onClick={handlePointLightCreation} className="cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-slate-700 hover:bg-slate-600 text-stone-300 rounded-lg py-1">Point</button>
+                            <button onClick={handleRectAreaLightCreation} className="cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-slate-700 hover:bg-slate-600 text-stone-300 rounded-lg py-1">Rect</button>
                         </div>
                     </div>
                 </div>

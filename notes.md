@@ -328,3 +328,142 @@ Screen: **19.6:9** (iPhone 16 Pro - slightly taller than 14)
 - Export as GLB
 
 The iPhone 16 Pro is slightly larger and has thinner bezels than the 14, so these dimensions are more accurate! 📱
+
+
+
+UI colors
+
+**Great question!** For ScreenshotSweet.io, here's a color palette that balances the playful name with prosumer professionalism:
+
+---
+
+## **Primary Palette - "Sweet" but Professional**
+
+### **Brand Colors:**
+
+**Primary (Sweet Accent):**
+- `#FF6B9D` - Bubblegum pink (playful, memorable)
+- Use for: CTAs, highlights, active states, logo accent
+
+**Secondary (Professional Base):**
+- `#1F2937` - Dark slate (serious, grounded)
+- Use for: Main UI, text, backgrounds
+
+**Tertiary (Balance):**
+- `#8B5CF6` - Purple (creative, premium feel)
+- Use for: Secondary actions, hover states, badges
+
+---
+
+### **UI Colors:**
+
+**Backgrounds:**
+- `#0F172A` - Deep slate (main dark bg)
+- `#1E293B` - Slate 800 (cards, panels)
+- `#334155` - Slate 700 (elevated elements)
+
+**Text:**
+- `#F8FAFC` - Off-white (primary text)
+- `#CBD5E1` - Slate 300 (secondary text)
+- `#64748B` - Slate 500 (muted text)
+
+**Accents:**
+- `#22D3EE` - Cyan (info, success)
+- `#F59E0B` - Amber (warnings)
+- `#EF4444` - Red (errors, delete)
+
+---
+
+## **"Sweet" Gradient Options:**
+
+**Hero gradient:**
+```css
+background: linear-gradient(135deg, #FF6B9D 0%, #8B5CF6 100%);
+```
+
+**Subtle UI gradient:**
+```css
+background: linear-gradient(180deg, #1E293B 0%, #0F172A 100%);
+```
+
+---
+
+## **Alternative Palettes (Different Vibes):**
+
+### **Option 2: Candy Shop**
+More playful, consumer-focused:
+- Primary: `#FF69B4` (Hot pink)
+- Secondary: `#FFB6C1` (Light pink)
+- Accent: `#87CEEB` (Sky blue)
+- Dark: `#2D1B3D` (Deep purple)
+
+### **Option 3: Modern Sweet**
+Sophisticated but fun:
+- Primary: `#EC4899` (Pink 500)
+- Secondary: `#8B5CF6` (Purple 500)
+- Accent: `#06B6D4` (Cyan 500)
+- Dark: `#18181B` (Zinc 900)
+
+### **Option 4: Minimal Sweet**
+Clean, Apple-esque:
+- Primary: `#FF2D55` (Apple pink)
+- Secondary: `#1C1C1E` (Apple dark)
+- Accent: `#5E5CE6` (Apple purple)
+- Light: `#F2F2F7` (Apple light gray)
+
+---
+
+## **My Recommendation for ScreenshotSweet:**
+
+**Go with the first palette** (Pink `#FF6B9D` + Dark Slate + Purple):
+
+**Why:**
+- Pink is sweet/playful but not childish
+- Dark slate keeps it professional
+- Purple adds creative/premium vibe
+- Works for prosumer audience (not too corporate, not too casual)
+
+**Usage example:**
+```tsx
+// Tailwind config
+colors: {
+  sweet: {
+    pink: '#FF6B9D',
+    purple: '#8B5CF6',
+    dark: '#1F2937',
+    darker: '#0F172A',
+  }
+}
+
+// Usage
+<button className="bg-sweet-pink hover:bg-sweet-purple">
+  Create Screenshot
+</button>
+```
+
+---
+
+## **Quick Visual:**
+
+```
+Toolbar:     bg-slate-900 (dark)
+Buttons:     bg-sweet-pink (pink accent)
+Hover:       bg-sweet-purple (purple)
+Text:        text-slate-100 (light)
+Borders:     border-slate-700 (subtle)
+Highlights:  text-sweet-pink (pink)
+```
+
+---
+
+## **Pro Tip:**
+
+Keep your current **stone/slate grays** for most UI, just add **pink as accent color** for:
+- Logo
+- Primary CTAs ("Capture", "Export")
+- Active selections
+- Hover states on important actions
+
+This keeps it professional with a sweet pop of personality! 🍬
+
+Want me to mock up how this would look on your toolbar? 🎨

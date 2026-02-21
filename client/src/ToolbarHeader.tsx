@@ -8,7 +8,7 @@ interface ToolbarHeaderProps {
 export default function ToolbarHeader({isToolbarToggled, setToolbarToggled} : ToolbarHeaderProps) {
     return (
         <>
-            <div className={isToolbarToggled ? `flex w-full items-center justify-center  h-[5%] bg-red-600 py-2` : `flex w-full items-center justify-between h-[5%] bg-red-600 px-3`}>
+            <div className={isToolbarToggled ? `flex w-full items-center justify-center  h-[5%] bg-[#FF6B9D] py-2` : `flex w-full items-center justify-between h-[5%] bg-[#FF6B9D] px-3`}>
                 <button onClick={setToolbarToggled} className={isToolbarToggled ? "h-[25%] bg-emerald-300 rounded-xl px-3 pb-7" : "h-[80%] w-[40px] min-w-[40px] bg-emerald-300 rounded-xl shrink-0"}>
                     {isToolbarToggled ? "←" : "→"}
                 </button>
