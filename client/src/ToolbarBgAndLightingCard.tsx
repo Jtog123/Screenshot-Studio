@@ -8,6 +8,8 @@ import { LightType } from './Light';
 import { useEffect, useState, useRef } from 'react';
 
 import { _DirectionalLightHelper, _SpotLightHelper, _PointLightHelper, _RectAreaLightHelper } from './LightHelper';
+import PointLightIcon from './PointLightIcon';
+import RectAreaIcon from './RectAreaIcon';
 
 interface ToolbarBgAndLightingCardProps{
     scene : THREE.Scene;
@@ -311,8 +313,8 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                     </div>
 
                     <div className="flex flex-col ml-5 text-sm mt-1">
-                        <label className="text-stone-200" htmlFor="">Scale</label>
-                        <input onChange={handleGradientScaleChange} value={gradientScale} max={"5"} min={"1"} step={"0.1"} className="w-[75%]" type="range" />
+                        <label className="text-stone-200 mt-1" htmlFor="">Scale</label>
+                        <input onChange={handleGradientScaleChange} value={gradientScale} max={"5"} min={"1"} step={"0.1"} className="w-[75%] h-1 my-1" type="range" />
                     </div>
 
                     {/* Divider */}
@@ -323,15 +325,21 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                     {/* Lighting */}
                     <h1 className="text-stone-200 ml-5 my-1 text-sm">Lighting</h1>
                     <div className="flex w-[100%] ml-5 mb-5">
-                        <div className="flex justify-between w-[90%]">
+                        <div className="flex justify-between w-[80%] h-auto">
                             <button onClick={handleDirectionalLightCreation} className=" flex cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-slate-700 hover:bg-slate-600 text-stone-300 rounded-lg py-1 justify-center  items-center   ">
                                 <DirectionalLightIcon className='w-[32px] h-[32px] '/>
                             </button>
+
                             <button onClick={handleSpotLightCreation} className=" flex justify-center items-center cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-slate-700 hover:bg-slate-600 text-stone-300 rounded-lg py-1">
-                                <SpotLightIcon className='w-[32px] h-[32px] pt-1 ' />
+                                <SpotLightIcon className='w-[32px] h-[32px] pt-1  ' />
                             </button>
-                            <button onClick={handlePointLightCreation} className="cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-slate-700 hover:bg-slate-600 text-stone-300 rounded-lg py-1">Point</button>
-                            <button onClick={handleRectAreaLightCreation} className="cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-slate-700 hover:bg-slate-600 text-stone-300 rounded-lg py-1">Rect</button>
+
+                            <button onClick={handlePointLightCreation} className=" flex justify-center items-center cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-slate-700 hover:bg-slate-600 text-stone-300 rounded-lg py-1">
+                                <PointLightIcon className='w-[32px] h-[32px] transition-all duration-200 ease-in hover:text-[#FF6B9D] '/>
+                            </button>
+                            <button onClick={handleRectAreaLightCreation} className=" flex justify-center items-center cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-slate-700 hover:bg-slate-600 text-stone-300 rounded-lg py-1">
+                                <RectAreaIcon className="w-[40px] h-[40px]"/>
+                            </button>
                         </div>
                     </div>
                 </div>
