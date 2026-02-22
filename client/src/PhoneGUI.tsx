@@ -2,7 +2,7 @@ import {useRef, useEffect, useState} from 'react'
 import * as THREE from 'three'
 import { CameraManager } from './CameraManager';
 import RefreshStartIcon from './refreshStartIcon';
-import RefreshHoverIcon from './RefreshHoverIcon';
+
 
 /*
 animation code
