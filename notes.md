@@ -278,6 +278,12 @@ this state update should create a small iamge,
 set a state variable isImageCaptured, setIsImageCaptured, camera maanger will set this true, when true we create a tiny div image box for the captured image
 
 
+PRESETS make input dropdown add a whole bunch of good positions for posing the phone at specific angles
+
+3 free photos make them wait 5 days to reset
+on upgrade unlock 2 phones to pose.
+
+
 
 iphone 16 pro instructions?
 ## Exact Blender Dimensions for iPhone 16 Pro

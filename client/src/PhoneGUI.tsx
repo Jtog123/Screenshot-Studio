@@ -1,6 +1,8 @@
 import {useRef, useEffect, useState} from 'react'
 import * as THREE from 'three'
 import { CameraManager } from './CameraManager';
+import RefreshStartIcon from './refreshStartIcon';
+import RefreshHoverIcon from './RefreshHoverIcon';
 
 /*
 animation code
@@ -161,13 +163,13 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
 // fixed flex flex-col left-[calc(100vw/2)] z-22 transform translate-x-[-175%] translate-y-[-5%] overflow-hidden w-1/4 bg-stone-950 rounded-xl bottom-0 z-2 px-4 pb-3 pt-2 backdrop-blur-md border-2 border-stone-600 shadow-[0_0_20px_rgba(120,113,108,0.3),0_0_0_4px_rgba(28,25,23,1),0_0_0_5px_rgba(168,162,158,0.5)] ring-1 ring-stone-700/50 transition-all duration-500 ease-in-out"
     return(
         <>
-            <div className="fixed flex flex-col left-0 z-22 transform translate-x-[1.4%] translate-y-[-1.8%] overflow-hidden w-1/4 bg-stone-950 rounded-xl bottom-0 z-2   backdrop-blur-md border-2 border-stone-600 shadow-[0_0_20px_rgba(120,113,108,0.3),0_0_0_4px_rgba(28,25,23,1),0_0_0_5px_rgba(168,162,158,0.5)] ring-1 ring-stone-700/50 transition-all duration-500 ease-in-out">
+            <div className="fixed flex flex-col left-0 z-22 transform translate-x-[1.1%] translate-y-[-1.8%] overflow-hidden w-1/4 bg-stone-950 rounded-xl bottom-0 z-2   backdrop-blur-md border-2 border-stone-600 shadow-[0_0_20px_rgba(120,113,108,0.3),0_0_0_4px_rgba(28,25,23,1),0_0_0_5px_rgba(168,162,158,0.5)] ring-1 ring-stone-700/50 transition-all duration-500 ease-in-out">
 
                 <div className="px-4 pb-2 w-[full] bg-stone-700/30">
                     <div className=" flex wrapperDiv w-full mt-2 h-1/6 ">
                         <div className=" flex  titleDiv w-[100%] h-1/6 top-0 justify-between  rounded-xl mr-2">
                             <h1 className="text-stone-200 text-base font-medium">
-                                Phone Controls
+                                Phone Rotation
                             </h1>
                             <button onClick={handlePhoneGuiToggle} className="text-stone-200 h-[1/6] bg-stone-700/30 px-1 rounded-xl cursor-pointer text-base font-medium">
                                 {isPhoneGuiOpen ? "Hide" : "Show"}
@@ -186,28 +188,36 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
                     isPhoneGuiOpen ? 'grid-rows-[1fr]': 'grid-rows-[0fr]'
                 }`}>
                     <div className="overflow-hidden flex flex-col">
-                        <label className="text-sm text-stone-200 pt-1" htmlFor="">Rotate X: </label>
-                        <div className="flex justify-between">
-                            <input className='w-[95%] mr-2' onChange={(e) => handlePhoneRotation(e, "xRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.x} step="0.01" />
-                            <button onClick={(e) => handleControlsReset(e, "xReset")} className='text-stone-200 bg-stone-500 rounded-4xl w-[10%] cursor-pointer'>r</button>
+                        <label className="text-sm text-stone-200 pt-1" htmlFor="">X: </label>
+                        <div className="flex justify-between justify-center items-center">
+                            <input className='w-[95%] mr-2 h-1' onChange={(e) => handlePhoneRotation(e, "xRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.x} step="0.01" />
+                            <button onClick={(e) => handleControlsReset(e, "xReset")} className='flex justify-center items-center text-stone-200 bg-stone-700 transition-all duration-200 hover:bg-stone-500 rounded-4xl w-[10%] cursor-pointer group'>
+                                <RefreshStartIcon className="transition-transform duration-300 group-hover:-rotate-90" />
+                            </button>
                         </div>
 
 
-                        <label className="text-sm text-stone-200 pt-1" htmlFor="">Rotate Y: </label>
-                        <div className="flex justify-between">
-                            <input className='w-[95%] mr-2'  onChange={(e) => handlePhoneRotation(e, "yRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.y} step="0.01"/>
-                            <button onClick={(e) => handleControlsReset(e, "yReset")} className='text-stone-200 bg-stone-500 rounded-4xl w-[10%] cursor-pointer'>r</button>
+                        <label className="text-sm text-stone-200 pt-1" htmlFor="">Y: </label>
+                        <div className="flex justify-between justify-center items-center">
+                            <input className='w-[95%] mr-2 h-1'  onChange={(e) => handlePhoneRotation(e, "yRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.y} step="0.01"/>
+                            <button onClick={(e) => handleControlsReset(e, "yReset")} className='flex justify-center items-center text-stone-200 bg-stone-700 transition-all duration-200 hover:bg-stone-500 rounded-4xl w-[10%] cursor-pointer group'>
+                                <RefreshStartIcon className="transition-transform duration-300 group-hover:-rotate-90" />
+                            </button>
                         </div>
 
 
-                        <label className="text-sm text-stone-200 pt-1" htmlFor="">Rotate Z: </label>
-                        <div className="flex justify-between">
-                            <input className='w-[95%] mr-2' onChange={(e) => handlePhoneRotation(e, "zRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.z} step="0.01"/>
-                            <button onClick={(e) => handleControlsReset(e, "zReset")} className='text-stone-200 bg-stone-500 rounded-4xl w-[10%] cursor-pointer'>r</button>                            
+                        <label className="text-sm text-stone-200 pt-1" htmlFor="">Z: </label>
+                        <div className="flex justify-between justify-center items-center">
+                            <input className='w-[95%] mr-2 h-1' onChange={(e) => handlePhoneRotation(e, "zRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.z} step="0.01"/>
+                            <button onClick={(e) => handleControlsReset(e, "zReset")} className='flex justify-center items-center text-stone-200 bg-stone-700 transition-all duration-200 hover:bg-stone-500 rounded-4xl w-[10%] cursor-pointer group'>
+
+                                <RefreshStartIcon className="transition-transform duration-300 group-hover:-rotate-90" />
+
+                            </button>                            
                         </div>
 
 
-                        {/*add presets here */}
+                        {/*add presets here 
                         <div className="flex flex-row justify-between pt-4 items-center">
                             <label className="text-sm text-stone-200 pt-1" htmlFor="">Presets: </label>
                             <button onClick={handleFrontView}  className={`text-stone-200 rounded-4xl w-[15%] cursor-pointer ${
@@ -218,9 +228,23 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
                             <button onClick={handleThirtyDegreeView} className={`text-stone-200 rounded-4xl w-[15%] cursor-pointer ${activePreset === 30 ? `bg-yellow-300` : `bg-stone-500`}` }>30</button>                            
                             <button onClick={handleFortyFiveDegreeView} className={`text-stone-200 rounded-4xl w-[15%] cursor-pointer ${activePreset === 45 ? `bg-yellow-300` : `bg-stone-500`}` }>45</button>                            
                         </div>
+                        */}
 
                         {/* RESET */}
-                        <div className="flex  items-center justify-between pt-1 mt-1">
+                        <div className="flex items-center justify-between pt-2 mt-1 ">
+                            <div className='flex items-center w-[70%] '>
+                                <label className='text-md text-stone-300 mr-5' htmlFor="">Presets</label>
+                                <select className="w-[50%]  h-[30px] px-1 bg-stone-300 text-stone-900 text-sm rounded-md">
+                                    <option value="gradient">-15°</option>
+                                    <option value="gradient">-30°</option>
+                                    <option value="gradient">-45°</option>
+                                    <option value="solid">0°</option>
+                                    <option value="gradient">15°</option>
+                                    <option value="gradient">30°</option>
+                                    <option value="gradient">45°</option>
+                                </select>
+                            </div>
+
                             {/*<button onClick={handleControlsReset} className="text-stone-200 h-[1/6] w-[20%] bg-stone-700/30 px-1 mt-3 rounded-xl ">Reset</button>*/}
                             {/*<CameraButton cameraManager={_cameraManager}/>*/}
                             <button onClick={handleImageCapture} className="rounded-4xl p-2 bg-red-200 cursor-pointer">
