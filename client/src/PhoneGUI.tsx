@@ -35,6 +35,8 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
         z: 0
     });
 
+    const[selectedValue, setSelectedValue] = useState("0")
+
     const[activePreset, setActivePreset] = useState(0);
 
     const[isPhoneGuiOpen, setPhoneGuiOpen] = useState(true);
@@ -163,6 +165,68 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
         _cameraManager.captureImage();
     }
 
+    function handlePhonePresetsChange(e: React.ChangeEvent<HTMLSelectElement>) : void {
+        console.log(typeof e.target.value);
+        const inputValue = e.target.value;
+        if(inputValue === "-15") {
+            setPhoneRotation({
+                x: phoneRotation.x,
+                y: -0.261,
+                z: phoneRotation.z
+            });
+            phoneModel.rotation.y = -0.261;
+            setSelectedValue("-15");
+        } else if(inputValue === "-30") {
+            setPhoneRotation({
+                x: phoneRotation.x,
+                y: -0.523,
+                z: phoneRotation.z
+            });
+            phoneModel.rotation.y = -0.523;
+            setSelectedValue("-30");            
+        } else if(inputValue === "-45") {
+            setPhoneRotation({
+                x: phoneRotation.x,
+                y: -0.785,
+                z: phoneRotation.z
+            });
+            phoneModel.rotation.y = -0.785;
+            setSelectedValue("-45");
+        } else if(inputValue === "0") {
+             setPhoneRotation({
+                x: phoneRotation.x,
+                y: 0,
+                z: phoneRotation.z
+            });
+            phoneModel.rotation.y = 0;
+            setSelectedValue("0");           
+        } else if(inputValue === "15") {
+            setPhoneRotation({
+                x: phoneRotation.x,
+                y: 0.261,
+                z: phoneRotation.z
+            });
+            phoneModel.rotation.y = 0.261;
+            setSelectedValue("15");
+        } else if(inputValue === "30") {
+            setPhoneRotation({
+                x: phoneRotation.x,
+                y: 0.523,
+                z: phoneRotation.z
+            });
+            phoneModel.rotation.y = 0.523;
+            setSelectedValue("30");            
+        } else if(inputValue === "45") {
+            setPhoneRotation({
+                x: phoneRotation.x,
+                y: 0.785,
+                z: phoneRotation.z
+            });
+            phoneModel.rotation.y = 0.785;
+            setSelectedValue("45");   
+        }
+    }
+
 
 
 // fixed flex flex-col left-[calc(100vw/2)] z-22 transform translate-x-[-175%] translate-y-[-5%] overflow-hidden w-1/4 bg-stone-950 rounded-xl bottom-0 z-2 px-4 pb-3 pt-2 backdrop-blur-md border-2 border-stone-600 shadow-[0_0_20px_rgba(120,113,108,0.3),0_0_0_4px_rgba(28,25,23,1),0_0_0_5px_rgba(168,162,158,0.5)] ring-1 ring-stone-700/50 transition-all duration-500 ease-in-out"
@@ -248,14 +312,15 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
                 <div className="flex items-center w-[100%] justify-between pt-2 mt-1 ">
                     <div className='flex items-center w-[70%] ml-4   '>
                         <label className='text-md text-stone-300 mr-5' htmlFor="">Presets</label>
-                        <select className="w-[50%] h-[30px] px-1 bg-stone-300 text-stone-900 text-sm rounded-md">
-                            <option value="gradient">-15°</option>
-                            <option value="gradient">-30°</option>
-                            <option value="gradient">-45°</option>
-                            <option value="solid">0°</option>
-                            <option value="gradient">15°</option>
-                            <option value="gradient">30°</option>
-                            <option value="gradient">45°</option>
+                        <select value={selectedValue} onChange={handlePhonePresetsChange} className="w-[50%] h-[30px] px-1  text-stone-300 text-sm rounded-md bg-stone-700/30">
+                        
+                            <option value="-45">-45°</option>
+                            <option value="-30">-30°</option>
+                            <option value="-15">-15°</option>
+                            <option value="0">0°</option>
+                            <option value="15">15°</option>
+                            <option value="30">30°</option>
+                            <option value="45">45°</option>
                         </select>
                     </div>
 
@@ -263,8 +328,8 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
                     {/*<CameraButton cameraManager={_cameraManager}/>*/}
                     <div className='w-[20%] flex justify-end  mr-3 items-center   '>
                         <button onClick={handleImageCapture} className="rounded-xl bg-[#FF6B9D] hover:bg-[#D946EF] cursor-pointer mb-2 group transition-colors duration-200">
-                            <CameraIcon className='text-stone-950 h-[48px] w-[48px] group-hover:hidden' />
-                            <CameraHoverIcon className='text-stone-950 h-[48px] w-[48px]  hidden group-hover:block  group-hover:scale-110 
+                            <CameraIcon className='text-stone-950 h-[40px] w-[40px] group-hover:hidden' />
+                            <CameraHoverIcon className='text-stone-950 h-[40px] w-[40px]  hidden group-hover:block  group-hover:scale-110 
                             transition-transform 
                             duration-300' />
                         </button>
