@@ -2,6 +2,9 @@ import {useRef, useEffect, useState} from 'react'
 import * as THREE from 'three'
 import { CameraManager } from './CameraManager';
 import RefreshStartIcon from './refreshStartIcon';
+import EyeOpenIcon from './EyeOpenIcon';
+import EyeMidIcon from './EyeMidIcon';
+import EyeClosedIcon from './EyeClosedIcon';
 
 
 /*
@@ -167,12 +170,17 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
 
                 <div className="px-4 pb-2 w-[full] bg-stone-700/30">
                     <div className=" flex wrapperDiv w-full mt-2 h-1/6 ">
-                        <div className=" flex  titleDiv w-[100%] h-1/6 top-0 justify-between  rounded-xl mr-2">
+                        <div className=" flex titleDiv w-[100%] h-1/6 top-0 justify-between rounded-xl ">
                             <h1 className="text-stone-200 text-base font-medium">
                                 Phone Rotation
                             </h1>
-                            <button onClick={handlePhoneGuiToggle} className="text-stone-200 h-[1/6] bg-stone-700/30 px-1 rounded-xl cursor-pointer text-base font-medium">
-                                {isPhoneGuiOpen ? "Hide" : "Show"}
+                            <button onClick={handlePhoneGuiToggle} className="h-[1/6] transition-all duration-200 ease-in bg-stone-700 hover:bg-stone-500  px-1 rounded-xl cursor-pointer text-base font-medium group">
+                                {isPhoneGuiOpen ? 
+                                <>                                
+                                    <EyeOpenIcon className='text-stone-300 group-hover:hidden'/> 
+                                    <EyeMidIcon className='text-stone-300 hidden group-hover:block'/>
+                                </>
+                                : <EyeClosedIcon className="text-stone-300"/>}
                             </button>
 
                         </div>
