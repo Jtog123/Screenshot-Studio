@@ -1,4 +1,5 @@
 import {useRef, useEffect, useState} from 'react'
+import ToolbarHeaderArrow from './ToolbarHeaderArrow'
 
 interface ToolbarHeaderProps {
     isToolbarToggled : boolean
@@ -9,11 +10,13 @@ export default function ToolbarHeader({isToolbarToggled, setToolbarToggled} : To
     return (
         <>
             <div className={isToolbarToggled ? `flex w-full items-center justify-center  h-[5%] bg-[#FF6B9D] py-2` : `flex w-full items-center justify-between h-[5%] bg-[#FF6B9D] px-3`}>
-                <button onClick={setToolbarToggled} className={isToolbarToggled ? "h-[25%] bg-emerald-300 rounded-xl px-3 pb-7" : "h-[80%] w-[40px] min-w-[40px] bg-emerald-300 rounded-xl shrink-0"}>
-                    {isToolbarToggled ? "←" : "→"}
+                <button onClick={setToolbarToggled} className="flex justify-center cursor-pointer items-center h-[30px] w-[40px] bg-[#D946EF] transition-colors duration-200 hover:bg-[#C026D3] rounded-xl group">
+                    <ToolbarHeaderArrow className={`text-stone-950 transition-transform duration-500 ${
+                        isToolbarToggled ? 'rotate-180' : 'rotate-0'
+                    }`}/> 
                 </button>
 
-                <h1 className={isToolbarToggled ? "hidden" : "h-[80%] w-[1/3] bg-emerald-300 rounded-xl flex items-center justify-center"}>
+                <h1 className={isToolbarToggled ? "hidden" : "h-[80%] w-[1/3] bg-[#FF6B9D] rounded-xl flex items-center justify-center"}>
                     Logo here
                 </h1>
             </div>

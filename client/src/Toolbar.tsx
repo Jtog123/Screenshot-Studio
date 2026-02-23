@@ -126,7 +126,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                             {/*Toolbar Panel Selector*/}
                         </div>
                         :
-                        <div className="fixed flex flex-col flex-1 min-h-0  w-[25%] h-[100%] bg-stone-950 z-20 right-0 transition-all duration-300 ease-in-out  ">
+                        <div className="fixed flex flex-col flex-1 min-h-0  w-[20%] h-[100%] bg-stone-950 z-20 right-0 transition-all duration-300 ease-in-out  ">
                             <ToolbarHeader isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>
                             <div className='flex flex-col flex-1 overflow-y-auto overflow-x-hidden'>
 

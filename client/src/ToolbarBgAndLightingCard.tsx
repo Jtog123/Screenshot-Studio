@@ -287,7 +287,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                     {/* Background Section */}
                     <h1 className="text-stone-300 ml-5 mt-1 text-sm">Style</h1>
                     <div className="flex justify-between bg-stone-950 py-2">
-                        <select value={selectedBackgroundValue} onChange={handleBackgroundChange} className="w-[35%] ml-5 h-[30px] px-1 bg-stone-300 text-stone-900 text-sm rounded-md">
+                        <select value={selectedBackgroundValue} onChange={handleBackgroundChange} className="w-[35%] ml-5 h-[30px] px-1 bg-stone-700/30 text-stone-300 text-sm rounded-md">
                             <option value="solid">solid</option>
                             <option value="gradient">gradient</option>
                         </select>
