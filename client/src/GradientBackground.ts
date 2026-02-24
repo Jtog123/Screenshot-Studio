@@ -52,7 +52,7 @@ class GradientBackground {
     }
 
 
-    public turnLeftRightGradientOn(color1 : string = "#FF0000", color2 : string = "#0000FF") : void {
+    public turnLeftRightGradientOn(color1 : string = "#D946EF ", color2 : string = "#000000") : void {
         
         const vertexShader = `
             varying vec2 vUv;
@@ -85,7 +85,7 @@ class GradientBackground {
         this._scene.add(this._gradientPlaneMesh);
     }
 
-    public turnUpDownGradientOn(color1 : string = "#FF0000", color2 : string = "#0000FF") : void {
+    public turnUpDownGradientOn(color1 : string = "#D946EF", color2 : string = "#000000") : void {
         
         const vertexShader = `
             varying vec2 vUv;

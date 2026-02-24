@@ -37,8 +37,8 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
     const[selectedBackgroundValue, setSelectedBackgroundValue] = useState("solid");
 
     //??
-    const[color1 , setColor1] = useState("#FF0000");
-    const[color2 , setColor2] = useState("#0000FF");
+    const[color1 , setColor1] = useState("#D946EF");
+    const[color2 , setColor2] = useState("#000000");
     const[gradientScale, setGradientScale] = useState(2.5);
 
     //useRef array of THREE.Vec3 positions
