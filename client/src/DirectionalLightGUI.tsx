@@ -233,17 +233,17 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
 
                                     <div>
                                         <label className="text-sm text-stone-300" htmlFor="">X:</label>
-                                        <input name="xPos" className="w-full h-1" onChange={(e) => handlePosSlidersChange(e, "xPos")} type="range" min={"-10"} max={"10"} value={lightPos.x} step={"0.1"}/>
+                                        <input name="xPos" className="w-full h-1 accent-[#D946EF]" onChange={(e) => handlePosSlidersChange(e, "xPos")} type="range" min={"-10"} max={"10"} value={lightPos.x} step={"0.1"}/>
                                     </div>
 
                                     <div>
                                         <label className="text-sm text-stone-300" htmlFor="">Y:</label>
-                                        <input name="yPos" className="w-full h-1" onChange={(e) => handlePosSlidersChange(e, "yPos")}type="range" min={"-10"} max={"10"} value={lightPos.y} step={"0.1"}/>
+                                        <input name="yPos" className="w-full h-1 accent-[#D946EF]" onChange={(e) => handlePosSlidersChange(e, "yPos")}type="range" min={"-10"} max={"10"} value={lightPos.y} step={"0.1"}/>
                                     </div>
 
                                     <div>
                                         <label className="text-sm text-stone-300" htmlFor="">Z:</label>
-                                        <input name="zPos" className="w-full h-1" onChange={(e) => handlePosSlidersChange(e, "zPos")} type="range" min={"-10"} max={"10"} value={lightPos.z} step={"0.1"}/>
+                                        <input name="zPos" className="w-full h-1 accent-[#D946EF]" onChange={(e) => handlePosSlidersChange(e, "zPos")} type="range" min={"-10"} max={"10"} value={lightPos.z} step={"0.1"}/>
                                     </div>
 
                                 </div>
@@ -275,7 +275,7 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
                                     <div>
                                         {/* INTNESITY */}
                                         <label className="text-xs text-stone-300 pr-5" htmlFor="">Intensity:</label>
-                                        <input onChange={(e) => handleLightIntensityChange(e)} className="w-full h-1" type="range" min={"0"} max={"50"} value={intensity} step={"0.1"}/>
+                                        <input onChange={(e) => handleLightIntensityChange(e)} className="w-full h-1 accent-[#D946EF]" type="range" min={"0"} max={"50"} value={intensity} step={"0.1"}/>
                                     </div>
 
                                 </div>

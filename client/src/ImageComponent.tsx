@@ -79,6 +79,7 @@ export default function ImageComponent({ _scene, _camera ,_assetManager, activeL
             <input ref={inputFileRef} type="file" accept="image/*" onChange={(e) => handleImageUpload(e)} className="hidden"/>
                 {
                     
+                    
                     <button className={isImageUploaded || imageInputClosed ? `hidden` :` ${`fixed left-1/2 transform px-2 -translate-x-1/2 -translate-y-1/2 w-[150px] h-[100px] bg-transparent border-2 border-dashed border-white text-white z-50 cursor-pointer`} top-20 `}
                     onClick={() => inputFileRef.current?.click()}>
                         <div className="flex ">
@@ -86,7 +87,7 @@ export default function ImageComponent({ _scene, _camera ,_assetManager, activeL
                                 e.stopPropagation();
                                 setImageInputClosed(true);
 
-                            } } className="absolute top-0 left-0 w-[24px] h-[24px] rounded-lg bg-red-500 cursor-pointer">x</button>
+                            } } className="absolute -top-3 -left-3 w-6 h-6 rounded-lg bg-stone-700 hover:bg-red-500 text-stone-300 hover:text-white flex items-center justify-center text-sm transition-all duration-200 border border-stone-600">x</button>
                             <div className="flex w-[100%] justify-center items-center">
                                 <ImageIcon className="w-[48px] h-[48px] text-stone-200"/> 
                                 <label htmlFor="">+ </label>

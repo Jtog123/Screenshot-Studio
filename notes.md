@@ -475,7 +475,8 @@ This keeps it professional with a sweet pop of personality! 🍬
 Want me to mock up how this would look on your toolbar? 🎨
 
 MVP
-- Add Fonts to text component
+- Add Fonts to text component, GOOGLE FONTS
 - Allow users to have custom background images?
-- Delete image component if no added image
+- Delete image component if no added image - DONE
 - Automatically adjust app background on resize
+- all inputs only allow imgs pngs and jpgs

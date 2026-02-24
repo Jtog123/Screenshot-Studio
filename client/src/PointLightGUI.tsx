@@ -203,17 +203,17 @@ export default function PointLightGUI({_lightID, _lightManager} : PointLightGUIP
                                 <div className="grid grid-cols-1 gap-1">
                                     <div>
                                         <label className="text-sm text-stone-200" htmlFor="">X:</label>
-                                        <input onChange={(e) => handlePosSliderChange(e, "xPos")} className="w-full h-1" type="range" min={"-10"} max={"10"} value={lightPosition.x} step={"0.1"}/>
+                                        <input onChange={(e) => handlePosSliderChange(e, "xPos")} className="w-full h-1 accent-[#D946EF]" type="range" min={"-10"} max={"10"} value={lightPosition.x} step={"0.1"}/>
                                     </div>
 
                                     <div>
                                         <label className="text-sm text-stone-200" htmlFor="">Y:</label>
-                                        <input onChange={(e) => handlePosSliderChange(e, "yPos")} className="w-full h-1" type="range" min={"-10"} max={"10"} value={lightPosition.y} step={"0.1"}/>
+                                        <input onChange={(e) => handlePosSliderChange(e, "yPos")} className="w-full h-1 accent-[#D946EF]" type="range" min={"-10"} max={"10"} value={lightPosition.y} step={"0.1"}/>
                                     </div>
 
                                     <div>
                                         <label className="text-sm text-stone-200" htmlFor="">Z:</label>
-                                        <input onChange={(e) => handlePosSliderChange(e, "zPos")} className="w-full h-1" type="range" min={"-10"} max={"10"} value={lightPosition.z} step={"0.1"}/>
+                                        <input onChange={(e) => handlePosSliderChange(e, "zPos")} className="w-full h-1 accent-[#D946EF]" type="range" min={"-10"} max={"10"} value={lightPosition.z} step={"0.1"}/>
                                     </div>
                                 </div>
                             </div>
@@ -241,12 +241,12 @@ export default function PointLightGUI({_lightID, _lightManager} : PointLightGUIP
 
                                     <div>
                                         <label className="text-sm text-stone-200" htmlFor="">Distance:</label>
-                                        <input onChange={(e) => handleLightDistanceChange(e)} className="h-1 w-full" type="range" min={"1"} max={"50"} value={lightDistance} step={"1"}/>
+                                        <input onChange={(e) => handleLightDistanceChange(e)} className="h-1 w-full accent-[#D946EF]" type="range" min={"1"} max={"50"} value={lightDistance} step={"1"}/>
                                     </div>
 
                                     <div>
                                         <label className="text-sm text-stone-200" htmlFor="">Intensity:</label>
-                                        <input onChange={(e) => handleLightIntensityChange(e)} className="h-1 w-full" type="range" min={"0"} max={"50"} value={lightIntensity} step={"0.1"}/>
+                                        <input onChange={(e) => handleLightIntensityChange(e)} className="h-1 w-full accent-[#D946EF]" type="range" min={"0"} max={"50"} value={lightIntensity} step={"0.1"}/>
                                     </div>
 
                                 </div>

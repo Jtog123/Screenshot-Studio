@@ -202,17 +202,17 @@ export default function RectAreaLightGUI({_lightID, _lightManager} : RectAreaLig
                                 <div className="grid grid-cols-1 gap-1">
                                     <div>
                                         <label className="text-sm text-stone-200" htmlFor="">X:</label>
-                                        <input onChange={(e) => handlePosSliderChange(e, "xPos")} className="w-full h-1" type="range" min={"-10"} max={"10"} value={lightPosition.x} step={"0.1"}/>
+                                        <input onChange={(e) => handlePosSliderChange(e, "xPos")} className="w-full h-1 accent-[#D946EF]" type="range" min={"-10"} max={"10"} value={lightPosition.x} step={"0.1"}/>
                                     </div>
 
                                     <div>
                                         <label className="text-sm text-stone-200" htmlFor="">Y:</label>
-                                        <input onChange={(e) => handlePosSliderChange(e, "yPos")} className="w-full h-1" type="range" min={"-10"} max={"10"} value={lightPosition.y} step={"0.1"}/>
+                                        <input onChange={(e) => handlePosSliderChange(e, "yPos")} className="w-full h-1 accent-[#D946EF]" type="range" min={"-10"} max={"10"} value={lightPosition.y} step={"0.1"}/>
                                     </div>
 
                                     <div>
                                         <label className="text-sm text-stone-200" htmlFor="">Z:</label>
-                                        <input onChange={(e) => handlePosSliderChange(e, "zPos")} className="w-full h-1" type="range" min={"-10"} max={"10"} value={lightPosition.z} step={"0.1"}/>
+                                        <input onChange={(e) => handlePosSliderChange(e, "zPos")} className="w-full h-1 accent-[#D946EF]" type="range" min={"-10"} max={"10"} value={lightPosition.z} step={"0.1"}/>
                                     </div>
                                 </div>
                             </div>
@@ -240,17 +240,17 @@ export default function RectAreaLightGUI({_lightID, _lightManager} : RectAreaLig
 
                                     <div>
                                         <label className="text-sm text-stone-200" htmlFor="">Width:</label>
-                                        <input onChange={(e) => handleLightWidthChange(e)} className="h-1 w-full" type="range" min={"1"} max={"3.5"} value={lightWidth} step={"0.1"}/>
+                                        <input onChange={(e) => handleLightWidthChange(e)} className="h-1 w-full accent-[#D946EF]" type="range" min={"1"} max={"3.5"} value={lightWidth} step={"0.1"}/>
                                     </div>
 
                                     <div>
                                         <label className="text-sm text-stone-200" htmlFor="">Height:</label>
-                                        <input onChange={(e) => handleLightHeightChange(e)} className="h-1 w-full" type="range" min={"1"} max={"3.5"} value={lightHeight} step={"0.1"}/>
+                                        <input onChange={(e) => handleLightHeightChange(e)} className="h-1 w-full accent-[#D946EF]" type="range" min={"1"} max={"3.5"} value={lightHeight} step={"0.1"}/>
                                     </div>
 
                                     <div>
                                         <label className="text-sm text-stone-200" htmlFor="">Intensity:</label>
-                                        <input onChange={(e) => handleLightIntensityChange(e)} className="h-1 w-full" type="range" min={"1"} max={"10"} value={lightIntensity} step={"0.1"}/>
+                                        <input onChange={(e) => handleLightIntensityChange(e)} className="h-1 w-full accent-[#D946EF]" type="range" min={"1"} max={"10"} value={lightIntensity} step={"0.1"}/>
                                     </div>
 
                                 </div>
