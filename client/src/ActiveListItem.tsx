@@ -107,9 +107,9 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
     const getIcon = () => {
         console.log(itemID);
         if (itemID.startsWith("_DirectionalLight")) {
-            return <DirectionalLightIcon className="  text-stone-300"/>
+            return <DirectionalLightIcon className=" w-[24px] h-[24px] text-stone-300"/>
         } else if (itemID.startsWith("_SpotLight")) {
-            return <SpotLightIcon className="text-stone-300"/>
+            return <SpotLightIcon className=" w-[24px] h-[24px] text-stone-300"/>
         }
         if(itemID.startsWith("sprite_image_")) return "🖼️";
         if(itemID.startsWith("text_")) return "T";
