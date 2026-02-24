@@ -4,6 +4,7 @@ import { ChangeEvent, useRef, useState } from "react"
 import * as THREE from 'three'
 import { CameraManager } from "./CameraManager";
 import { AssetManager } from "./AssetManager";
+import ImageIcon from "./ImageIcon";
 
 interface ImageComponentProps {
     position : string
@@ -26,6 +27,7 @@ interface ImageComponentProps {
 export default function ImageComponent({ _scene, _camera ,_assetManager, activeListItems, setActiveListItems} : ImageComponentProps) {
     const inputFileRef = useRef<HTMLInputElement>(null);
     const[isImageUploaded , setIsImageUploaded] = useState(false);
+    const[imageInputClosed , setImageInputClosed] = useState(false);
 
 
 
@@ -67,16 +69,32 @@ export default function ImageComponent({ _scene, _camera ,_assetManager, activeL
         }
     }
 
+    
+
 
     return (
         <>
         <div>
-            <button className="rounded px-2 py-1 bg-red-500 text-white text-sm hover:bg-red-600">✕</button>
+            
             <input ref={inputFileRef} type="file" accept="image/*" onChange={(e) => handleImageUpload(e)} className="hidden"/>
                 {
-                    <button className={isImageUploaded ? `hidden` :` ${`fixed left-1/2 transform px-2 -translate-x-1/2 -translate-y-1/2 w-[150px] h-[100px] bg-transparent border-2 border-dashed border-white text-white z-50 cursor-pointer`} top-20 `}
+                    
+                    <button className={isImageUploaded || imageInputClosed ? `hidden` :` ${`fixed left-1/2 transform px-2 -translate-x-1/2 -translate-y-1/2 w-[150px] h-[100px] bg-transparent border-2 border-dashed border-white text-white z-50 cursor-pointer`} top-20 `}
                     onClick={() => inputFileRef.current?.click()}>
-                    + Add Image
+                        <div className="flex ">
+                            <button onClick={(e) => {
+                                e.stopPropagation();
+                                setImageInputClosed(true);
+
+                            } } className="absolute top-0 left-0 w-[24px] h-[24px] rounded-lg bg-red-500 cursor-pointer">x</button>
+                            <div className="flex w-[100%] justify-center items-center">
+                                <ImageIcon className="w-[48px] h-[48px] text-stone-200"/> 
+                                <label htmlFor="">+ </label>
+                            </div>
+
+                        </div>
+
+                        
                     </button> 
                 }
 
