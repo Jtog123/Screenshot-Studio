@@ -287,12 +287,34 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                     {/* Gradient Settings */}
                     <h1 className="text-stone-200 ml-5 mt-1 text-sm">Gradient Settings</h1>
                     <div className="flex w-[50%] ml-2 justify-around mt-1">
-                        <button onClick={handleGradientDirectionChange} disabled={isBackgroundSolid || isLeftToRightGradient  } className={` flex justify-center items-center cursor-pointer w-[50px] h-[35px] mx-1 bg-stone-700 rounded-lg py-1 transition-all ease-in duration-200 ${!isBackgroundSolid && isLeftToRightGradient && `bg-stone-500 text-[#D946EF]`} `}>
-                            <LeftRightGradIcon className='' />
+                        <button 
+                            onClick={handleGradientDirectionChange} 
+                            className={`flex justify-center items-center w-[50px] h-[35px] mx-1 rounded-lg py-1 transition-all duration-200
+                                ${!isBackgroundSolid && isLeftToRightGradient 
+                                    ? 'bg-stone-500 pointer-events-none' 
+                                    : 'bg-stone-700 hover:bg-stone-600 cursor-pointer'
+                                }
+                                ${isBackgroundSolid ? 'opacity-50 pointer-events-none' : ''}
+                            `}
+                        >
+                            <LeftRightGradIcon 
+                                className={!isBackgroundSolid && isLeftToRightGradient ? 'text-[#D946EF]' : 'text-stone-300'} 
+                            />
                         </button>
 
-                        <button onClick={handleGradientDirectionChange} disabled={isBackgroundSolid ||!isLeftToRightGradient } className="flex justify-center items-center cursor-pointer w-[50px] h-[35px] mx-1 bg-stone-700 rounded-lg py-1 transition-all ease-in duration-200 hover:bg-stone-500 hover:text-[#D946EF] transition-colors duration-200">
-                            <UpDownGradIcon className='' />
+                        <button 
+                            onClick={handleGradientDirectionChange} 
+                            className={`flex justify-center items-center w-[50px] h-[35px] mx-1 rounded-lg py-1 transition-all duration-200
+                                ${!isBackgroundSolid && !isLeftToRightGradient 
+                                    ? 'bg-stone-500 pointer-events-none' 
+                                    : 'bg-stone-700 hover:bg-stone-600 cursor-pointer'
+                                }
+                                ${isBackgroundSolid ? 'opacity-50 pointer-events-none' : ''}
+                            `}
+                        >
+                            <UpDownGradIcon 
+                                className={!isBackgroundSolid && !isLeftToRightGradient ? 'text-[#D946EF]' : 'text-stone-300'} 
+                            />
                         </button>
                     </div>
 
