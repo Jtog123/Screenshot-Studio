@@ -3,6 +3,9 @@ import { ImageComponentInterface, TextComponentInterface ,ScreenTextureInterface
 import * as THREE from 'three'
 import { AssetManager } from "./AssetManager"
 import { texture } from "three/src/nodes/TSL.js"
+import ImageIcon from "./ImageIcon"
+import TextIcon from "./TextIcon"
+import UploadIcon from "./UploadIcon"
 
 
 interface ToolbarImgAndTextCardProps {
@@ -245,9 +248,17 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                     {/* stuff here*/}
                     <div className="flex  w-[100%]  justify-center  pb-2">
                         <div className="flex  w-[50%] h-[50px] justify-evenly items-center  ">
-                            <button onClick={addImageComponent} className="cursor-pointer w-[35%] mx-1 bg-red-500 rounded-lg py-1">Img</button>
-                            <label className="text-stone-300" htmlFor=""> or</label>
-                            <button onClick={addTextComponent} className="cursor-pointer w-[35%] mx-1 bg-red-500 rounded-lg py-1">Txt</button>
+                            <button onClick={addImageComponent} className="flex justify-center items-center transition-all ease-in duration-200 text-stone-300 hover:bg-stone-500 hover:text-[#D946EF] cursor-pointer w-[45px] h-[35px] p-2 mx-1 bg-stone-700 rounded-lg py-1 ">
+                                <ImageIcon  className=""/>
+                            </button>
+
+                            <div className="flex justify-center ">
+                                <div className=" h-[40px] w-px bg-stone-300/40 "></div>
+                            </div>
+
+                            <button onClick={addTextComponent} className="flex justify-center items-center transition-all ease-in duration-200 text-stone-300 hover:bg-stone-500 hover:text-[#D946EF] cursor-pointer w-[45px] h-[35px] p-2 mx-1 bg-stone-700 rounded-lg py-1 ">
+                                <TextIcon className=""/>
+                            </button>
                         </div>
                     </div>
 
@@ -260,9 +271,9 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                         <h4 className="text-stone-300 text-xs ml-5 mr-2">Add up to 7 photos</h4>
                         <input ref={screenTextureFileRef} type="file" accept="image/*" onChange={(e) => handleScreenTextureUpload(e)} className="hidden"/>
                             {
-                                <button className={isScreenTextureUploaded ? `hidden` :`cursor-pointer w-[20%] mx-1 bg-red-500 rounded-lg py-1`}
+                                <button className={isScreenTextureUploaded ? `hidden` :`flex justify-center items-center transition-all ease-in duration-200 text-stone-300 hover:bg-stone-500 hover:text-[#D946EF] cursor-pointer w-[35px] h-[30px] p-2 mx-1 bg-stone-700 rounded-lg py-1`}
                                 onClick={() => screenTextureFileRef.current?.click()}>
-                                upload
+                                    <UploadIcon className=""/>
                                 </button> 
                             }
 
