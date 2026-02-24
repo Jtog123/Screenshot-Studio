@@ -473,3 +473,9 @@ Keep your current **stone/slate grays** for most UI, just add **pink as accent c
 This keeps it professional with a sweet pop of personality! 🍬
 
 Want me to mock up how this would look on your toolbar? 🎨
+
+MVP
+- Add Fonts to text component
+- Allow users to have custom background images?
+- Delete image component if no added image
+- Automatically adjust app background on resize

@@ -1,6 +1,11 @@
 import {useRef, useEffect, useState} from 'react'
 import { CameraManager } from "./CameraManager"
+import RefreshStartIcon from './refreshStartIcon'
 import * as THREE from 'three'
+import CameraZoomInIcon from './CameraZoomInIcon'
+import CameraZoomOutIcon from './CameraZoomOutIcon'
+import CameraUpIcon from './CameraUpIcon'
+import CameraDownIcon from './CameraDownIcon'
 
 interface ToolbarCameraCardProps {
     isToolbarToggled : boolean
@@ -80,16 +85,22 @@ export default function ToolbarCameraCard({isToolbarToggled, _cameraManager, _ph
                 <div className="overflow-hidden">
                     {/* stuff here*/}
                     
-                    <div className="ZoomInOut flex bg-stone-950 h-[1/8] w-[100%] justify-between items-center">
+                    <div className="ZoomInOut flex bg-stone-950 h-[1/8] w-[100%] justify-between items-center ">
                         <div className="flex justify-between">
                             <label className="ml-5 mr-3 text-md text-stone-300" htmlFor="">Zoom: </label>
                             <label className="text-stone-300 " htmlFor="">{zoom}</label>
                         </div>
 
                         <div className="button flex justiify-between container w-[50%] p-1 mr-5">
-                            <button onClick={handleCameraZoomIn}  className="cursor-pointer w-[25%] mx-1 bg-red-500 rounded-lg py-1"> + </button>
-                            <button onClick={handleCameraZoomOut} className="cursor-pointer w-[25%] mx-1 bg-red-500 rounded-lg py-1"> - </button>
-                            <button onClick={handleZoomReset} className="cursor-pointer w-[25%] mx-1 bg-red-500 rounded-lg py-1"> r</button>
+                            <button onClick={handleCameraZoomIn}  className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 text-stone-300 bg-stone-700 transition-all duration-200 hover:bg-stone-500 rounded-lg py-1"> 
+                                <CameraZoomInIcon className="text-stone-300"/>
+                            </button>
+                            <button onClick={handleCameraZoomOut} className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 text-stone-300 bg-stone-700 transition-all duration-200 hover:bg-stone-500 rounded-lg py-1"> 
+                                <CameraZoomOutIcon className=''/>
+                            </button>
+                            <button onClick={handleZoomReset} className="flex justify-center items-center text-stone-300 bg-stone-700 transition-all duration-200 hover:bg-stone-500 rounded-xl h-[30px] w-[30px] cursor-pointer group">
+                                <RefreshStartIcon className="transition-transform duration-300 group-hover:-rotate-90" />
+                            </button>
                         </div>
                     </div>
 
@@ -101,9 +112,17 @@ export default function ToolbarCameraCard({isToolbarToggled, _cameraManager, _ph
                         </div>
 
                         <div className="button flex justiify-between container w-[50%] p-1 mr-5 pb-2">
-                            <button onClick={handleCameraHeightIncrease} className="cursor-pointer w-[25%] mx-1 bg-red-500 rounded-lg py-1"> ^ </button>
-                            <button onClick={handleCameraHeightDecrease} className="cursor-pointer w-[25%] mx-1 bg-red-500 rounded-lg py-1"> - </button>
-                            <button onClick={handleHeightReset} className="cursor-pointer w-[25%] mx-1 bg-red-500 rounded-lg py-1"> r</button>
+                            <button onClick={handleCameraHeightIncrease} className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 text-stone-300 bg-stone-700 transition-all duration-200 hover:bg-stone-500 rounded-lg py-1">
+                                 <CameraUpIcon className=''/>
+                            </button>
+
+                            <button onClick={handleCameraHeightDecrease} className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 text-stone-300 bg-stone-700 transition-all duration-200 hover:bg-stone-500 rounded-lg py-1">
+                                 <CameraDownIcon className=''/>
+                            </button>
+
+                            <button onClick={handleHeightReset} className="flex justify-center items-center text-stone-200 bg-stone-700 transition-all duration-200 hover:bg-stone-500 rounded-xl h-[30px] w-[30px] cursor-pointer group">
+                                <RefreshStartIcon className="transition-transform duration-300 group-hover:-rotate-90" />
+                            </button>
                         </div>
                     </div>
 

@@ -4,6 +4,8 @@ import { AssetManager } from "./AssetManager";
 import * as THREE from 'three'
 import SpotLightIcon from "./SpotLightIcon";
 import DirectionalLightIcon from "./DirectionalLightIcon";
+import TextIcon from "./TextIcon";
+import ImageIcon from "./ImageIcon";
 
 interface ActiveListItemProps {
     itemName : string
@@ -111,8 +113,8 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
         } else if (itemID.startsWith("_SpotLight")) {
             return <SpotLightIcon className=" w-[24px] h-[24px] text-stone-300"/>
         }
-        if(itemID.startsWith("sprite_image_")) return "🖼️";
-        if(itemID.startsWith("text_")) return "T";
+        if(itemID.startsWith("sprite_image_")) return <ImageIcon className="w-[20px] h-[20px] text-stone-300"/>;
+        if(itemID.startsWith("text_")) return <TextIcon className="w-[20px] h-[20px] text-stone-300"/>;
         
         return "💡"; // Light icon
     };
