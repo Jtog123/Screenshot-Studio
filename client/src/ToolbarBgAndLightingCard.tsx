@@ -10,6 +10,8 @@ import { useEffect, useState, useRef } from 'react';
 import { _DirectionalLightHelper, _SpotLightHelper, _PointLightHelper, _RectAreaLightHelper } from './LightHelper';
 import PointLightIcon from './PointLightIcon';
 import RectAreaIcon from './RectAreaIcon';
+import LeftRightGradIcon from './LeftRightGradientIcon';
+import UpDownGradIcon from './UpDownGradientIcon';
 
 interface ToolbarBgAndLightingCardProps{
     scene : THREE.Scene;
@@ -19,6 +21,12 @@ interface ToolbarBgAndLightingCardProps{
     setActiveListItems: React.Dispatch<React.SetStateAction<{ id: string; name: string; }[]>>
     lightManager : LightManager
 }
+
+/*
+Use a binary selected gradient logic if gradient is toggled by the input on
+LR gradient is selected and the button highlighted but the button is disabled so we cant click it again, when we click up 
+down gradient we elect that button and highlight it but diabled the buttons functionality
+*/
 
 export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradientBackground, activeListItems, setActiveListItems, lightManager} : ToolbarBgAndLightingCardProps) {
 
@@ -93,36 +101,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
 
     },[]);
 
-    /*
-    function handleGradientBackground(){
-        console.log("gradient");
-        if(isBackgroundSolid) {
-            scene.background = null;
-            if(isLeftToRightGradient) {
-                gradientBackground.turnLeftRightGradientOn(color1, color2);
-            } else {
-                gradientBackground.turnUpDownGradientOn(color1, color2);
-            }
 
-            setIsBackgroundSolid(false);
-            
-        }
-
-    }
-
-    
-    function handleSolidBackground() : void {
-        if(!isBackgroundSolid) {
-            console.log("solid");
-            //restore the solid background
-            gradientBackground.turnGradientBackgroundOff();
-            let colorValue = backgroundColor.replace("#", "0x");
-            scene.background = new THREE.Color(Number(colorValue));
-            setIsBackgroundSolid(true);
-
-        }
-    }
-        */
 
     function handleBackgroundChange() : void {
         //if background is solid swtich to gradient
@@ -308,13 +287,18 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                     {/* Gradient Settings */}
                     <h1 className="text-stone-200 ml-5 mt-1 text-sm">Gradient Settings</h1>
                     <div className="flex w-[50%] ml-2 justify-around mt-1">
-                        <button onClick={handleGradientDirectionChange} disabled={isBackgroundSolid ||isLeftToRightGradient  } className="cursor-pointer w-[35%] mx-1 bg-red-500 rounded-lg py-1">LR</button>
-                        <button onClick={handleGradientDirectionChange} disabled={isBackgroundSolid ||!isLeftToRightGradient } className="cursor-pointer w-[35%] mx-1 bg-red-500 rounded-lg py-1">UD</button>
+                        <button onClick={handleGradientDirectionChange} disabled={isBackgroundSolid || isLeftToRightGradient  } className={` flex justify-center items-center cursor-pointer w-[50px] h-[35px] mx-1 bg-stone-700 rounded-lg py-1 transition-all ease-in duration-200 ${!isBackgroundSolid && isLeftToRightGradient && `bg-stone-500 text-[#D946EF]`} `}>
+                            <LeftRightGradIcon className='' />
+                        </button>
+
+                        <button onClick={handleGradientDirectionChange} disabled={isBackgroundSolid ||!isLeftToRightGradient } className="flex justify-center items-center cursor-pointer w-[50px] h-[35px] mx-1 bg-stone-700 rounded-lg py-1 transition-all ease-in duration-200 hover:bg-stone-500 hover:text-[#D946EF] transition-colors duration-200">
+                            <UpDownGradIcon className='' />
+                        </button>
                     </div>
 
                     <div className="flex flex-col ml-5 text-sm mt-1">
                         <label className="text-stone-200 mt-1" htmlFor="">Scale</label>
-                        <input onChange={handleGradientScaleChange} value={gradientScale} max={"5"} min={"1"} step={"0.1"} className="w-[75%] h-1 my-1" type="range" />
+                        <input onChange={handleGradientScaleChange} disabled={isBackgroundSolid} value={gradientScale} max={"5"} min={"1"} step={"0.1"} className="w-[75%] h-1 my-1 accent-[#D946EF] disabled:accent-[#D946EF]" type="range" />
                     </div>
 
                     {/* Divider */}
@@ -332,18 +316,18 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                    
                     <div className="flex w-[100%] justify-center mt-2 mb-5">
                         <div className="flex justify-between w-[80%] h-auto">
-                            <button onClick={handleDirectionalLightCreation} className=" flex cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-stone-700 hover:bg-stone-500 text-stone-300 rounded-lg py-1 justify-center  items-center   ">
+                            <button onClick={handleDirectionalLightCreation} className=" flex cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-stone-700 hover:bg-stone-500 text-stone-300 hover:text-[#D946EF] transition-colors duration-200 rounded-lg py-1 justify-center  items-center ">
                                 <DirectionalLightIcon className='w-[48px] h-[48px]  '/>
                             </button>
 
-                            <button onClick={handleSpotLightCreation} className=" flex justify-center items-center cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-stone-700 hover:bg-stone-500 text-stone-300 rounded-lg py-1">
+                            <button onClick={handleSpotLightCreation} className=" flex justify-center items-center cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-stone-700 hover:bg-stone-500 hover:bg-stone-500 text-stone-300 hover:text-[#D946EF] transition-colors duration-200 rounded-lg py-1">
                                 <SpotLightIcon className='w-[32px] h-[32px]  ' />
                             </button>
 
-                            <button onClick={handlePointLightCreation} className=" flex justify-center items-center cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-stone-700 hover:bg-stone-500 text-stone-300 rounded-lg py-1">
-                                <PointLightIcon className='w-[32px] h-[32px] transition-all duration-200 ease-in hover:text-[#FF6B9D] '/>
+                            <button onClick={handlePointLightCreation} className=" flex justify-center items-center cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-stone-700 hover:bg-stone-500 hover:bg-stone-500 text-stone-300 hover:text-[#D946EF] transition-colors duration-200 rounded-lg py-1">
+                                <PointLightIcon className='w-[32px] h-[32px] transition-all duration-200 ease-in  '/>
                             </button>
-                            <button onClick={handleRectAreaLightCreation} className=" flex justify-center items-center cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-stone-700 hover:bg-stone-500 text-stone-300 rounded-lg py-1">
+                            <button onClick={handleRectAreaLightCreation} className=" flex justify-center items-center cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-stone-700 hover:bg-stone-500 hover:bg-stone-500 text-stone-300 hover:text-[#D946EF] transition-colors duration-200 rounded-lg py-1">
                                 <RectAreaIcon className="w-[40px] h-[40px]"/>
                             </button>
                         </div>
