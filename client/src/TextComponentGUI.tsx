@@ -10,11 +10,14 @@ interface TextComponentGUIProps {
     textSprite: THREE.Sprite;
     onDelete: () => void;
     onClose: () => void;
+    selectedTextGUIFont: string;
+    setSelectedTextGUIFont: React.Dispatch<React.SetStateAction<string>>;
+    fonts : string[];
 }
 
 
 
-export default function TextComponentGUI({componentID, assetManager,  textSprite, onDelete, onClose}: TextComponentGUIProps) {
+export default function TextComponentGUI({componentID, assetManager, selectedTextGUIFont, setSelectedTextGUIFont, fonts ,textSprite, onDelete, onClose}: TextComponentGUIProps) {
 
     const textComponent = assetManager.getComponent(componentID);
 
@@ -50,6 +53,19 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
         border: false
     });
 
+    //const[selectedTextGUIFont, setSelectedTextGUIFont] = useState("Roboto");
+
+    /*
+    const fonts = [
+        'Roboto',
+        'Open Sans', 
+        'Playfair Display',
+        'Inter',
+        'Lato'
+    ];
+    */
+ 
+
 
 
     useEffect(() => {
@@ -65,14 +81,28 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
         }
     },[]);
 
-    //update when these values change
-    useEffect(() => {
-
-        if (textSprite) {
-            assetManager.updateTextSprite(textSprite, spriteInnerText, spriteFontSize, spriteFontColor, spriteOpacity);
-            textSprite.material.opacity = Number(spriteOpacity);
+      //update when these values change
+        useEffect(() => {
+        if(textSprite) {
+            // ✅ Make it async and await
+            const updateSprite = async () => {
+                await assetManager.updateTextSprite(
+                    textSprite,
+                    spriteInnerText,
+                    spriteFontSize,
+                    spriteFontColor,
+                    spriteOpacity,
+                    selectedTextGUIFont
+                );
+                textSprite.material.opacity = Number(spriteOpacity);
+            };
+            
+            updateSprite();
         }
-    }, [spriteInnerText, spriteFontSize, spriteFontColor ,spriteOpacity]);
+    }, [spriteInnerText, spriteFontSize, spriteFontColor, spriteOpacity, selectedTextGUIFont]);
+
+  
+   
 
     
 
@@ -151,6 +181,12 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
             //set in threejs
             textSprite.position.z = moveValue;               
         }
+
+    }
+
+    function handleTextGUIFontChange(e : ChangeEvent<HTMLSelectElement>) : void {
+        console.log(e.target.value)
+        setSelectedTextGUIFont(e.target.value)
 
     }
 
@@ -242,11 +278,20 @@ export default function TextComponentGUI({componentID, assetManager,  textSprite
 
                                 {/* Colors in a row */}
                                 <div className="grid grid-cols-1 gap-3 ">
-                                    <div className="flex items-center gap-2">
-                                        <label className="text-xs text-stone-300">Font</label>
-                                        <input type="color" value={spriteFontColor} 
-                                            onChange={(e) => setSpriteFontColor(e.target.value)}
-                                            className="w-10 h-10 cursor-pointer" />
+                                    <div className="flex justify-between items-center gap-2 ">
+                                        <div className="flex items-center">
+                                            <label className="text-xs mr-3  text-stone-300">Font</label>
+                                            <input type="color" value={spriteFontColor} 
+                                                onChange={(e) => setSpriteFontColor(e.target.value)}
+                                                className="w-10 h-10 cursor-pointer" />
+                                        </div>
+
+                                        <select value={selectedTextGUIFont} onChange={handleTextGUIFontChange} className="w-[150px] h-[25px] bg-stone-700/30 text-stone-300 text-sm rounded-md" name="" id="">
+                                            {fonts.map(font => (
+                                                <option key={font} value={font}>{font}</option>
+                                            ))}
+                                        </select>
+                                        
                                     </div>
    
                                 </div>

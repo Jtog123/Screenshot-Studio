@@ -1,3 +1,16 @@
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/700.css';
+import '@fontsource/open-sans/400.css';
+import '@fontsource/open-sans/700.css';
+import '@fontsource/playfair-display/400.css';
+import '@fontsource/playfair-display/700.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/lato/400.css';
+import '@fontsource/lato/700.css';
+
+
+
 import SceneManager from "./SceneManager.js"
 import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
@@ -14,6 +27,7 @@ import TextComponent from "./TextComponent.js";
 import { AssetManager } from "./AssetManager.js";
 import { JSX } from "react";
 import TextComponentGUI from "./TextComponentGUI.js";
+import TestFonts from './TestFonts.js';
 
 
 
@@ -52,15 +66,33 @@ export default function App() {
   const [activeListItems, setActiveListItems] = useState<{id:string, name:string}[]>([]);
 
   const[isImageCaptured, setImageCaptured] = useState(false);
+
+  const[fontsLoaded, setFontsLoaded] = useState(false);
+
+  useEffect(() => {
+    document.fonts.ready.then(() => {
+      setTimeout(() => {
+        setFontsLoaded(true);
+      },100)
+    })
+  })
+
+
   
   
   // 
   function addTextComponent() : void {
+    if(!fontsLoaded) {
+      return;
+    }
+
     const newText = (
         <TextComponent 
           key={`text_${Date.now()}`} 
           position="above"
           assetManager={assetManager!}
+
+
             onMount={(id, name) => {
               setActiveListItems(prev => [...prev, { id, name }]);
           }}
@@ -246,6 +278,7 @@ export default function App() {
   
       <Overlay/>
 
+      
       
       
     </>

@@ -93,8 +93,16 @@ class AssetManager {
 
     }
 
-    public createTextSprite(componentID:string, text: string, fontSize: number, fontColor : string, opacity : string
-    ) : THREE.Sprite {
+    public async createTextSprite(componentID:string, text: string, fontSize: number, fontColor : string, opacity : string, fontFamily: string
+    ) : Promise<THREE.Sprite>  {
+
+            // ✅ Force the font to actually load by trying to use it
+        await document.fonts.load(`${fontSize}px ${fontFamily}`);
+        
+        // ✅ Verify it loaded
+        const isLoaded = document.fonts.check(`${fontSize}px ${fontFamily}`);
+        console.log(`${fontFamily} at ${fontSize}px loaded:`, isLoaded);
+           
 
         const canvas = document.createElement("canvas");
         //creates a CanvasRenderingContext2d object
@@ -114,7 +122,7 @@ class AssetManager {
         context?.scale(scale,scale);
 
         if(context) {
-            context.font = `${fontSize}px Arial`;
+            context.font = `${fontSize}px ${fontFamily}`;
             context.fillStyle = fontColor;
             context.textAlign = 'center';
             context.textBaseline = 'middle';
@@ -137,7 +145,7 @@ class AssetManager {
         textComponent._underlyingComponent.scale.set(width/80, height/80, 1);
 
         textComponent._textConfig = {
-            text, fontSize, fontColor, opacity 
+            text, fontSize, fontColor, opacity, fontFamily
         }
         //textComponent._underlyingComponent.scale.set(width/100, height/100, 1); can create interesting effects drawing to a canvas
 
@@ -152,7 +160,10 @@ class AssetManager {
 
     }
 
-    public updateTextSprite(sprite: THREE.Sprite, text: string, fontSize: number, fontColor: string, opacity : string) : void {
+    public async updateTextSprite(sprite: THREE.Sprite, text: string, fontSize: number, fontColor: string, opacity : string, selectedFont:string) : Promise<void> {
+
+        await document.fonts.load(`${fontSize}px ${selectedFont}`);
+         
         const canvas = (sprite.material.map as THREE.CanvasTexture).image as HTMLCanvasElement;
         const context = canvas.getContext("2d")!;
 
@@ -167,7 +178,7 @@ class AssetManager {
         context.scale(scale, scale);
         context.clearRect(0, 0, width, height);
 
-        context.font = `${fontSize}px Arial`;
+        context.font = `${fontSize}px ${selectedFont}`;
         context.fillStyle = fontColor;
         context.textAlign = "center";
         context.textBaseline = "middle";
@@ -187,6 +198,7 @@ class AssetManager {
             component._textConfig.fontSize = fontSize;
             component._textConfig.fontColor = fontColor;
             component._textConfig.opacity = opacity;
+            component._textConfig.fontFamily = selectedFont
         }
 
 
