@@ -67,24 +67,16 @@ export default function App() {
 
   const[isImageCaptured, setImageCaptured] = useState(false);
 
-  const[fontsLoaded, setFontsLoaded] = useState(false);
+  //const[fontsLoaded, setFontsLoaded] = useState(false);
 
-  useEffect(() => {
-    document.fonts.ready.then(() => {
-      setTimeout(() => {
-        setFontsLoaded(true);
-      },100)
-    })
-  })
+
 
 
   
   
   // 
   function addTextComponent() : void {
-    if(!fontsLoaded) {
-      return;
-    }
+
 
     const newText = (
         <TextComponent 
