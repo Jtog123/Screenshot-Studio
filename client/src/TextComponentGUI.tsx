@@ -3,6 +3,7 @@ import { SceneComponent } from "./SceneComponent";
 import {useRef, useEffect, useState, ChangeEvent} from 'react'
 import { TextComponentInterface } from "./ComponentInterfaces";
 import * as THREE from 'three'
+import MenuKarrotIcon from "./MenuKarrotIcon";
 
 interface TextComponentGUIProps {
     componentID: string;
@@ -238,7 +239,7 @@ export default function TextComponentGUI({componentID, assetManager, selectedTex
                             className="w-full flex justify-between items-center px-3 py-2 bg-stone-800/50 hover:bg-stone-800 text-stone-200 text-sm"
                         >
                             <span>Position</span>
-                            <span>{expandedSections.position ? '▼' : '▶'}</span>
+                            <span>{<MenuKarrotIcon className={`text-stone-300 w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-100 ${expandedSections.position ? `` : `rotate-180`}`}/>}</span>
                         </button>
                         
                         {expandedSections.position && (
@@ -248,19 +249,19 @@ export default function TextComponentGUI({componentID, assetManager, selectedTex
                                         <label className="text-xs text-stone-300">X: {spritePosition.x}</label>
                                         <input type="range" min="-3" max="3" value={spritePosition.x} step={"0.01"}
                                             onChange={(e) => handleSpritePositionChange(e, "xPosSlider")}
-                                            className="w-full h-1" />
+                                            className="w-full h-1 accent-[#D946EF]" />
                                     </div>
                                     <div>
                                         <label className="text-xs text-stone-300">Y: {spritePosition.y}</label>
                                         <input type="range" min="-3" max="3" value={spritePosition.y} step={"0.01"}
                                             onChange={(e) => handleSpritePositionChange(e, "yPosSlider")}
-                                            className="w-full h-1" />
+                                            className="w-full h-1 accent-[#D946EF]" />
                                     </div>
                                     <div>
                                         <label className="text-xs text-stone-300">Z: {spritePosition.z}</label>
                                         <input type="range" min="-3" max="3" value={spritePosition.z} step={"0.01"}
                                             onChange={(e) => handleSpritePositionChange(e, "zPosSlider")}
-                                            className="w-full h-1" />
+                                            className="w-full h-1 accent-[#D946EF]" />
                                     </div>
 
                                 </div>
@@ -275,7 +276,7 @@ export default function TextComponentGUI({componentID, assetManager, selectedTex
                             className="w-full flex justify-between items-center px-3 py-2 bg-stone-800/50 hover:bg-stone-800 text-stone-200 text-sm"
                         >
                             <span>Appearance</span>
-                            <span>{expandedSections.appearance ? '▼' : '▶'}</span>
+                            <span>{<MenuKarrotIcon className={`text-stone-300 w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-100 ${expandedSections.appearance ? `` : `rotate-180`}`}/>}</span>
                         </button>
                         
                         {expandedSections.appearance && (
@@ -317,7 +318,7 @@ export default function TextComponentGUI({componentID, assetManager, selectedTex
                                     <label className="text-xs text-stone-300 block mb-1">Font Size: {spriteFontSize}</label>
                                     <input type="range" min="6" max="72" value={spriteFontSize}
                                         onChange={(e) => setSpriteFontSize(Number(e.target.value))}
-                                        className="w-full h-1" />
+                                        className="w-full h-1 accent-[#D946EF]" />
                                 </div>
 
 
@@ -327,7 +328,7 @@ export default function TextComponentGUI({componentID, assetManager, selectedTex
                                     <label className="text-xs text-stone-300 block mb-1">Opacity: {spriteOpacity}</label>
                                     <input type="range" min="0" max="1" step="0.01" value={spriteOpacity}
                                         onChange={(e) => setSpriteOpacity(e.target.value)}
-                                        className="w-full h-1" />
+                                        className="w-full h-1 accent-[#D946EF]" />
                                 </div>
                             </div>
                         )}

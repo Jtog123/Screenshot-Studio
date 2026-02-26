@@ -6,6 +6,7 @@ import CameraZoomInIcon from './CameraZoomInIcon'
 import CameraZoomOutIcon from './CameraZoomOutIcon'
 import CameraUpIcon from './CameraUpIcon'
 import CameraDownIcon from './CameraDownIcon'
+import MenuKarrotIcon from './MenuKarrotIcon'
 
 interface ToolbarCameraCardProps {
     isToolbarToggled : boolean
@@ -74,7 +75,7 @@ export default function ToolbarCameraCard({isToolbarToggled, _cameraManager, _ph
             <div onClick={handleCameraCardExpand} className="flex justify-between items-center py-2 cursor-pointer">
                 <h1 className="ml-5 text-stone-300">Camera</h1>
                 <button onClick={handleCameraCardExpand} className="mr-5 text-stone-300">
-                     {isCameraCardExpanded ? '^' : 'v'}
+                    <MenuKarrotIcon className={`text-stone-300 w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-300 ${isCameraCardExpanded ? `` : `rotate-180`}`} />
                 </button>
             </div>
 

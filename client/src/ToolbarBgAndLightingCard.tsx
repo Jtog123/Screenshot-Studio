@@ -12,6 +12,7 @@ import PointLightIcon from './PointLightIcon';
 import RectAreaIcon from './RectAreaIcon';
 import LeftRightGradIcon from './LeftRightGradientIcon';
 import UpDownGradIcon from './UpDownGradientIcon';
+import MenuKarrotIcon from './MenuKarrotIcon';
 
 interface ToolbarBgAndLightingCardProps{
     scene : THREE.Scene;
@@ -254,7 +255,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
             <div onClick={handleBgAndLightCardExpand}  className="flex justify-between items-center py-2 cursor-pointer">
                 <h1 className="text-stone-300 ml-5">Background & Lighting</h1>
                 <button onClick={handleBgAndLightCardExpand} className="mr-5 text-stone-300">
-                    {isBgAndLightCardExpanded ? '^' : 'v'}
+                    <MenuKarrotIcon className={`text-stone-300 w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-300 ${isBgAndLightCardExpanded ? `` : `rotate-180`}`} />
                 </button>
             </div>
 

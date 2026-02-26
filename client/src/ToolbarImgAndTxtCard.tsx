@@ -6,6 +6,7 @@ import { texture } from "three/src/nodes/TSL.js"
 import ImageIcon from "./ImageIcon"
 import TextIcon from "./TextIcon"
 import UploadIcon from "./UploadIcon"
+import MenuKarrotIcon from "./MenuKarrotIcon"
 
 
 interface ToolbarImgAndTextCardProps {
@@ -233,9 +234,9 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
         >
 
             <div onClick={handleImgAndTextCardExpand} className="flex justify-between items-center py-2 cursor-pointer">
-                <h1 className="ml-5 text-stone-300">Image & Text</h1>
+                <h1 className="ml-5 text-stone-300" style={{fontFamily: ''}}>Image & Text</h1>
                 <button onClick={handleImgAndTextCardExpand} className="mr-5 text-stone-300">
-                    {isImgAndTxtCardExpanded ? '^' : 'v'}
+                    <MenuKarrotIcon className={`text-stone-300 w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-300 ${isImgAndTxtCardExpanded ? `` : `rotate-180`}`} />
                 </button>
             </div>
 

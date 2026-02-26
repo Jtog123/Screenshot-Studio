@@ -9,6 +9,8 @@ import ImageIcon from "./ImageIcon";
 import EyeOpenIcon from "./EyeOpenIcon";
 import EyeClosedIcon from "./EyeClosedIcon";
 import EyeMidIcon from "./EyeMidIcon";
+import PointLightIcon from "./PointLightIcon";
+import RectAreaIcon from "./RectAreaIcon";
 
 interface ActiveListItemProps {
     itemName : string
@@ -115,9 +117,15 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
             return <DirectionalLightIcon className=" w-[24px] h-[24px] text-stone-300"/>
         } else if (itemID.startsWith("_SpotLight")) {
             return <SpotLightIcon className=" w-[24px] h-[24px] text-stone-300"/>
-        }
-        if(itemID.startsWith("sprite_image_")) return <ImageIcon className="w-[20px] h-[20px] text-stone-300"/>;
-        if(itemID.startsWith("text_")) return <TextIcon className="w-[20px] h-[20px] text-stone-300"/>;
+        } else if (itemID.startsWith("_PointLight")) {
+            return <PointLightIcon className=" w-[24px] h-[24px] text-stone-300" />
+        } else if (itemID.startsWith("_RectAreaLight")) {
+            return <RectAreaIcon className=" w-[24px] h-[24px] text-stone-300" />
+        } else if(itemID.startsWith("sprite_image_")) {
+            return <ImageIcon className="w-[20px] h-[20px] text-stone-300"/>;
+        } else if(itemID.startsWith("text_")) {
+            return <TextIcon className="w-[20px] h-[20px] text-stone-300"/>;
+        } 
         
         return "💡"; // Light icon
     };
