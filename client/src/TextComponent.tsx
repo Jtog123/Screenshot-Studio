@@ -20,12 +20,14 @@ export default function TextComponent({position, assetManager ,onMount, onUnmoun
     const [showGUI, setShowGUI] = useState(false);
     const [textSprite, setTextSprite] = useState<THREE.Sprite | null>(null);
     const [localFont, setLocalFont] = useState("Roboto");
+    const [fontWeight , setFontWeight] = useState("400")
+    const [isBold, setIsBold] = useState(false);
 
     //create temps or use literals to pass here
     useEffect(() => {
         const initTextSprite = async() => {
             const sprite = await assetManager.createTextSprite(
-            componentID, "Type Here", 16, "#FFFFFF", "1", localFont);
+            componentID, "Type Here", 16, "#FFFFFF", "1", localFont, fontWeight);
 
             sprite.name = componentID;
             console.log(sprite.name);
@@ -97,9 +99,12 @@ export default function TextComponent({position, assetManager ,onMount, onUnmoun
                 componentID={componentID} 
                 assetManager={assetManager}
                 textSprite = {textSprite as THREE.Sprite}
-                selectedTextGUIFont={localFont} // ✅ Pass local font
-                setSelectedTextGUIFont={setLocalFont} // ✅ Set local font
+                selectedTextGUIFont={localFont} 
+                setSelectedTextGUIFont={setLocalFont} 
                 fonts={['Roboto', 'Open Sans', 'Playfair Display', 'Inter', 'Lato']}
+                fontWeight={fontWeight}
+                isBold={isBold}
+                setIsBold={setIsBold}
                 onDelete={handleDelete} 
                 onClose={() => {
                     setShowGUI(false);

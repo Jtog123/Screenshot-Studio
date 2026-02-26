@@ -240,11 +240,11 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
                             <h1 className="text-stone-200 text-base font-medium">
                                 Phone Rotation
                             </h1>
-                            <button onClick={handlePhoneGuiToggle} className=" flex  justify-center items-center h-[24px] w-[34px] transition-all duration-200 ease-in bg-stone-700 hover:bg-stone-500  px-1 rounded-xl cursor-pointer text-base font-medium ">
+                            <button onClick={handlePhoneGuiToggle} className=" flex  justify-center items-center h-[24px] w-[34px] transition-all duration-200 ease-in bg-stone-700 hover:bg-stone-500  px-1 rounded-xl cursor-pointer text-base font-medium group ">
                                 {isPhoneGuiOpen ? 
                                 <>                                
-                                    <EyeOpenIcon className='text-stone-300 hover:hidden'/> 
-                                    <EyeMidIcon className='text-stone-300 hidden hover:block'/>
+                                    <EyeOpenIcon className='text-stone-300 group-hover:hidden'/> 
+                                    <EyeMidIcon className='text-stone-300 hidden group-hover:block'/>
                                 </>
                                 : <EyeClosedIcon className="text-stone-300"/>}
                             </button>

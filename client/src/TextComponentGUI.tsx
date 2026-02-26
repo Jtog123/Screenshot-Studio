@@ -13,11 +13,14 @@ interface TextComponentGUIProps {
     selectedTextGUIFont: string;
     setSelectedTextGUIFont: React.Dispatch<React.SetStateAction<string>>;
     fonts : string[];
+    fontWeight:string;
+    isBold: boolean;
+    setIsBold: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 
 
-export default function TextComponentGUI({componentID, assetManager, selectedTextGUIFont, setSelectedTextGUIFont, fonts ,textSprite, onDelete, onClose}: TextComponentGUIProps) {
+export default function TextComponentGUI({componentID, assetManager, selectedTextGUIFont ,onDelete, onClose,  setSelectedTextGUIFont, fonts ,textSprite, fontWeight, isBold, setIsBold}: TextComponentGUIProps) {
 
     const textComponent = assetManager.getComponent(componentID);
 
@@ -92,14 +95,15 @@ export default function TextComponentGUI({componentID, assetManager, selectedTex
                     spriteFontSize,
                     spriteFontColor,
                     spriteOpacity,
-                    selectedTextGUIFont
+                    selectedTextGUIFont,
+                    isBold ? "700" : "400"
                 );
                 textSprite.material.opacity = Number(spriteOpacity);
             };
             
             updateSprite();
         }
-    }, [spriteInnerText, spriteFontSize, spriteFontColor, spriteOpacity, selectedTextGUIFont]);
+    }, [spriteInnerText, spriteFontSize, spriteFontColor, spriteOpacity, selectedTextGUIFont, isBold]);
 
   
    
@@ -186,7 +190,8 @@ export default function TextComponentGUI({componentID, assetManager, selectedTex
 
     function handleTextGUIFontChange(e : ChangeEvent<HTMLSelectElement>) : void {
         console.log(e.target.value)
-        setSelectedTextGUIFont(e.target.value)
+        setSelectedTextGUIFont(e.target.value);
+        setIsBold(false);
 
     }
 
@@ -286,11 +291,23 @@ export default function TextComponentGUI({componentID, assetManager, selectedTex
                                                 className="w-10 h-10 cursor-pointer" />
                                         </div>
 
-                                        <select value={selectedTextGUIFont} onChange={handleTextGUIFontChange} className="w-[150px] h-[25px] bg-stone-700/30 text-stone-300 text-sm rounded-md" name="" id="">
-                                            {fonts.map(font => (
-                                                <option key={font} value={font}>{font}</option>
-                                            ))}
-                                        </select>
+                                        <div className="flex items-center justify-start flex-col  ">
+                                            <select value={selectedTextGUIFont} onChange={handleTextGUIFontChange} className="w-[150px] h-[24px] bg-stone-700/30 text-stone-300 text-sm rounded-md mt-2 mb-2" name="" id="">
+                                                {fonts.map(font => (
+                                                    <option key={font} value={font}>{font}</option>
+                                                ))}
+                                            </select>
+                                            <div className="flex w-[100%] h-[24px]">
+                                                <button onClick={() => setIsBold(!isBold)}     className={`flex justify-center items-center cursor-pointer transition-all ease-in duration-200 w-[30px] h-[24px] rounded-lg mr-1 font-bold
+        ${isBold 
+            ? 'bg-[#D946EF] text-white' 
+            : 'bg-stone-700 hover:bg-stone-500 text-stone-300'
+        }
+    `}>B</button>
+                                            </div>
+
+                                        </div>
+
                                         
                                     </div>
    

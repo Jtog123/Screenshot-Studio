@@ -93,13 +93,13 @@ class AssetManager {
 
     }
 
-    public async createTextSprite(componentID:string, text: string, fontSize: number, fontColor : string, opacity : string, fontFamily: string
+    public async createTextSprite(componentID:string, text: string, fontSize: number, fontColor : string, opacity : string, fontFamily: string, fontWeight:string
     ) : Promise<THREE.Sprite>  {
 
-            // ✅ Force the font to actually load by trying to use it
+         
         await document.fonts.load(`${fontSize}px ${fontFamily}`);
         
-        // ✅ Verify it loaded
+        
         const isLoaded = document.fonts.check(`${fontSize}px ${fontFamily}`);
         console.log(`${fontFamily} at ${fontSize}px loaded:`, isLoaded);
            
@@ -122,7 +122,7 @@ class AssetManager {
         context?.scale(scale,scale);
 
         if(context) {
-            context.font = `${fontSize}px ${fontFamily}`;
+            context.font = `${fontWeight} ${fontSize}px ${fontFamily}`;
             context.fillStyle = fontColor;
             context.textAlign = 'center';
             context.textBaseline = 'middle';
@@ -160,9 +160,9 @@ class AssetManager {
 
     }
 
-    public async updateTextSprite(sprite: THREE.Sprite, text: string, fontSize: number, fontColor: string, opacity : string, selectedFont:string) : Promise<void> {
+    public async updateTextSprite(sprite: THREE.Sprite, text: string, fontSize: number, fontColor: string, opacity : string, selectedFont:string, fontWeight:string) : Promise<void> {
 
-        await document.fonts.load(`${fontSize}px ${selectedFont}`);
+        await document.fonts.load(`${fontWeight} ${fontSize}px ${selectedFont}`);
          
         const canvas = (sprite.material.map as THREE.CanvasTexture).image as HTMLCanvasElement;
         const context = canvas.getContext("2d")!;
@@ -178,7 +178,7 @@ class AssetManager {
         context.scale(scale, scale);
         context.clearRect(0, 0, width, height);
 
-        context.font = `${fontSize}px ${selectedFont}`;
+        context.font = `${fontWeight} ${fontSize}px ${selectedFont}`;
         context.fillStyle = fontColor;
         context.textAlign = "center";
         context.textBaseline = "middle";
