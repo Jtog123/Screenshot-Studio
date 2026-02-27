@@ -212,7 +212,7 @@ export default function TextComponentGUI({componentID, assetManager, selectedTex
                     onMouseDown={handleMouseDown} 
                     className="sticky top-0 flex items-center justify-between  cursor-move bg-stone-700/30 bg-red-200 w-full py-2 px-4 z-10"
                 >
-                    <h1 className="text-stone-200  text-base font-medium">Text Component</h1>
+                    <h1 className="text-stone-200  text-base font-medium" style={{ fontFamily: 'lato' }} >Text Component</h1>
                     <button onClick={onClose} className="rounded px-2 py-1 bg-red-500 text-white text-sm hover:bg-red-600">
                         ✕
                     </button>
@@ -222,7 +222,7 @@ export default function TextComponentGUI({componentID, assetManager, selectedTex
 
                     {/* TEXT INPUT */}
                     <div>
-                        <label className="text-xs text-stone-300 block mb-1">Text Content</label>
+                        <label style={{ fontFamily: 'lato' }}  className="text-xs text-stone-300 block mb-1">Text Content</label>
                         <textarea 
                             value={spriteInnerText}
                             onChange={(e) => setSpriteInnerText(e.target.value)}
@@ -238,7 +238,7 @@ export default function TextComponentGUI({componentID, assetManager, selectedTex
                             onClick={() => toggleSection('position')}
                             className="w-full flex justify-between items-center px-3 py-2 bg-stone-800/50 hover:bg-stone-800 text-stone-200 text-sm"
                         >
-                            <span>Position</span>
+                            <span style={{ fontFamily: 'lato' }} >Position</span>
                             <span>{<MenuKarrotIcon className={`text-stone-300 w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-100 ${expandedSections.position ? `` : `rotate-180`}`}/>}</span>
                         </button>
                         
@@ -246,19 +246,19 @@ export default function TextComponentGUI({componentID, assetManager, selectedTex
                             <div className="p-3 space-y-2 bg-stone-900/30">
                                 <div className="grid grid-cols-1 gap-2">
                                     <div>
-                                        <label className="text-xs text-stone-300">X: {spritePosition.x}</label>
+                                        <label className="text-xs text-stone-300" style={{ fontFamily: 'lato' }} >X: {spritePosition.x}</label>
                                         <input type="range" min="-3" max="3" value={spritePosition.x} step={"0.01"}
                                             onChange={(e) => handleSpritePositionChange(e, "xPosSlider")}
                                             className="w-full h-1 accent-[#D946EF]" />
                                     </div>
                                     <div>
-                                        <label className="text-xs text-stone-300">Y: {spritePosition.y}</label>
+                                        <label className="text-xs text-stone-300" style={{ fontFamily: 'lato' }} >Y: {spritePosition.y}</label>
                                         <input type="range" min="-3" max="3" value={spritePosition.y} step={"0.01"}
                                             onChange={(e) => handleSpritePositionChange(e, "yPosSlider")}
                                             className="w-full h-1 accent-[#D946EF]" />
                                     </div>
                                     <div>
-                                        <label className="text-xs text-stone-300">Z: {spritePosition.z}</label>
+                                        <label className="text-xs text-stone-300" style={{ fontFamily: 'lato' }} >Z: {spritePosition.z}</label>
                                         <input type="range" min="-3" max="3" value={spritePosition.z} step={"0.01"}
                                             onChange={(e) => handleSpritePositionChange(e, "zPosSlider")}
                                             className="w-full h-1 accent-[#D946EF]" />
@@ -275,7 +275,7 @@ export default function TextComponentGUI({componentID, assetManager, selectedTex
                             onClick={() => toggleSection('appearance')}
                             className="w-full flex justify-between items-center px-3 py-2 bg-stone-800/50 hover:bg-stone-800 text-stone-200 text-sm"
                         >
-                            <span>Appearance</span>
+                            <span style={{ fontFamily: 'lato' }} >Appearance</span>
                             <span>{<MenuKarrotIcon className={`text-stone-300 w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-100 ${expandedSections.appearance ? `` : `rotate-180`}`}/>}</span>
                         </button>
                         
@@ -286,7 +286,7 @@ export default function TextComponentGUI({componentID, assetManager, selectedTex
                                 <div className="grid grid-cols-1 gap-3 ">
                                     <div className="flex justify-between items-center gap-2 ">
                                         <div className="flex items-center">
-                                            <label className="text-xs mr-3  text-stone-300">Font</label>
+                                            <label className="text-xs mr-3  text-stone-300" style={{ fontFamily: 'lato' }} >Font</label>
                                             <input type="color" value={spriteFontColor} 
                                                 onChange={(e) => setSpriteFontColor(e.target.value)}
                                                 className="w-10 h-10 cursor-pointer" />
@@ -299,7 +299,7 @@ export default function TextComponentGUI({componentID, assetManager, selectedTex
                                                 ))}
                                             </select>
                                             <div className="flex w-[100%] h-[24px]">
-                                                <button onClick={() => setIsBold(!isBold)}     className={`flex justify-center items-center cursor-pointer transition-all ease-in duration-200 w-[30px] h-[24px] rounded-lg mr-1 font-bold
+                                                <button onClick={() => setIsBold(!isBold)} style={{ fontFamily: 'lato' }}     className={`flex justify-center items-center cursor-pointer transition-all ease-in duration-200 w-[30px] h-[24px] rounded-lg mr-1 font-bold
         ${isBold 
             ? 'bg-[#D946EF] text-white' 
             : 'bg-stone-700 hover:bg-stone-500 text-stone-300'
@@ -315,7 +315,7 @@ export default function TextComponentGUI({componentID, assetManager, selectedTex
                                 </div>
                                 {/* Font Size */}
                                 <div>
-                                    <label className="text-xs text-stone-300 block mb-1">Font Size: {spriteFontSize}</label>
+                                    <label className="text-xs text-stone-300 block mb-1" style={{ fontFamily: 'lato' }} >Font Size: {spriteFontSize}</label>
                                     <input type="range" min="6" max="72" value={spriteFontSize}
                                         onChange={(e) => setSpriteFontSize(Number(e.target.value))}
                                         className="w-full h-1 accent-[#D946EF]" />
@@ -325,7 +325,7 @@ export default function TextComponentGUI({componentID, assetManager, selectedTex
 
                                 {/* Opacity */}
                                 <div>
-                                    <label className="text-xs text-stone-300 block mb-1">Opacity: {spriteOpacity}</label>
+                                    <label className="text-xs text-stone-300 block mb-1" style={{ fontFamily: 'lato' }} >Opacity: {spriteOpacity}</label>
                                     <input type="range" min="0" max="1" step="0.01" value={spriteOpacity}
                                         onChange={(e) => setSpriteOpacity(e.target.value)}
                                         className="w-full h-1 accent-[#D946EF]" />

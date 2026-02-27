@@ -208,7 +208,7 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
 
                 <div onMouseDown={handleMouseDown} className="sticky top-0 flex items-center justify-between  cursor-move bg-stone-700/30 bg-red-200 w-full py-2 px-4 z-10">
                     <div className="titlebox ">
-                        <h1 className="text-stone-200  text-base font-medium">
+                        <h1 className="text-stone-200  text-base font-medium" style={{ fontFamily: 'lato' }} >
                             {(light?._lightHelper as _DirectionalLightHelper)._title}
                         </h1>
                     </div>
@@ -223,7 +223,7 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
                     <div className="border border-stone-700 rounded-lg overflow-hidden">
                         <button onClick={() => toggleSection('position')}
                             className="w-full flex justify-between items-center px-3 py-2 bg-stone-800/50 hover:bg-stone-800 text-stone-200 text-sm">
-                                <span>Position</span>
+                                <span style={{ fontFamily: 'lato' }} >Position</span>
                                 <span>{expandedSections.position ? '▼' : '▶'}</span>
                         </button>
 
@@ -232,17 +232,17 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
                                 <div className="grid grid-cols-1 gap-1">
 
                                     <div>
-                                        <label className="text-sm text-stone-300" htmlFor="">X:</label>
+                                        <label className="text-xs text-stone-300" style={{ fontFamily: 'lato' }}  htmlFor="">X:</label>
                                         <input name="xPos" className="w-full h-1 accent-[#D946EF]" onChange={(e) => handlePosSlidersChange(e, "xPos")} type="range" min={"-10"} max={"10"} value={lightPos.x} step={"0.1"}/>
                                     </div>
 
                                     <div>
-                                        <label className="text-sm text-stone-300" htmlFor="">Y:</label>
+                                        <label className="text-xs text-stone-300" style={{ fontFamily: 'lato' }}  htmlFor="">Y:</label>
                                         <input name="yPos" className="w-full h-1 accent-[#D946EF]" onChange={(e) => handlePosSlidersChange(e, "yPos")}type="range" min={"-10"} max={"10"} value={lightPos.y} step={"0.1"}/>
                                     </div>
 
                                     <div>
-                                        <label className="text-sm text-stone-300" htmlFor="">Z:</label>
+                                        <label className="text-xs text-stone-300" style={{ fontFamily: 'lato' }}  htmlFor="">Z:</label>
                                         <input name="zPos" className="w-full h-1 accent-[#D946EF]" onChange={(e) => handlePosSlidersChange(e, "zPos")} type="range" min={"-10"} max={"10"} value={lightPos.z} step={"0.1"}/>
                                     </div>
 
@@ -258,7 +258,7 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
                             onClick={() => toggleSection('appearance')}
                             className="w-full flex justify-between items-center px-3 py-2 bg-stone-800/50 hover:bg-stone-800 text-stone-200 text-sm"
                         >
-                            <span>Appearance</span>
+                            <span style={{ fontFamily: 'lato' }} >Appearance</span>
                             <span>{expandedSections.appearance ? '▼' : '▶'}</span>
                         </button>
 
@@ -267,14 +267,14 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
 
                                 <div className="grid grid-cols-1 gap-3 ">
                                     <div className="flex items-center gap-2">
-                                        <label className="text-xs text-stone-300 pr-5" htmlFor="">Light Color: </label>
+                                        <label className="text-xs text-stone-300 pr-5" htmlFor="" style={{ fontFamily: 'lato' }} >Light Color: </label>
                                         <input onChange={handleLightColorChange} type="color" value={lightColor} />
 
                                     </div>
 
                                     <div>
                                         {/* INTNESITY */}
-                                        <label className="text-xs text-stone-300 pr-5" htmlFor="">Intensity:</label>
+                                        <label className="text-xs text-stone-300 pr-5" htmlFor="" style={{ fontFamily: 'lato' }} >Intensity:</label>
                                         <input onChange={(e) => handleLightIntensityChange(e)} className="w-full h-1 accent-[#D946EF]" type="range" min={"0"} max={"50"} value={intensity} step={"0.1"}/>
                                     </div>
 

@@ -192,7 +192,7 @@ export default function ImageComponentGUI({_componentID, _assetManager} : ImageC
                 className="absolute rounded-xl right-[800px] top-[200px] min-w-[300px] min-h-[150px] max-w-[450px] overflow-auto bg-stone-950 pb-3 z-50 backdrop-blur-md border border-stone-600 shadow-[0_0_20px_rgba(120,113,108,0.3)] ring-1 ring-stone-700/50">
 
                 
-                <div onMouseDown={handleMouseDown} className="sticky top-0 flex items-center justify-between  cursor-move bg-stone-700/30  w-full py-2 px-4 z-10">
+                <div onMouseDown={handleMouseDown} style={{ fontFamily: 'lato' }}  className="sticky top-0 flex items-center justify-between  cursor-move bg-stone-700/30  w-full py-2 px-4 z-10">
                     <div className="titlebox ">
                         <h1 className="text-stone-200  text-base font-medium">
                             {imageComponent?._title}
@@ -212,7 +212,7 @@ export default function ImageComponentGUI({_componentID, _assetManager} : ImageC
                             onClick={() => toggleSection('position')}
                             className="w-full flex justify-between items-center px-3 py-2 bg-stone-800/50 hover:bg-stone-800 text-stone-200 text-sm"
                         >
-                            <span>Position</span>
+                            <span style={{ fontFamily: 'lato' }} >Position</span>
                             <span>{<MenuKarrotIcon className={`text-stone-300 w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-100 ${expandedSections.position ? `` : `rotate-180`}`}/>}</span>
 
                         </button>
@@ -221,17 +221,17 @@ export default function ImageComponentGUI({_componentID, _assetManager} : ImageC
                             <div className="p-3 space-y-2 bg-stone-900/30"> 
                                 <div className="grid grid-cols-1 gap-2">
                                     <div>
-                                        <label className="text-xs text-stone-300" htmlFor="">X:</label>
+                                        <label className="text-xs text-stone-300" style={{ fontFamily: 'lato' }}  htmlFor="">X:</label>
                                         <input name="xPos" className="w-full h-1 accent-[#D946EF]" onChange={(e) => handlePosSlidersChange(e, "xPos")} type="range" min={"-10"} max={"10"} value={componentPos.x} step={"0.1"}/>
                                     </div>
 
                                     <div>
-                                        <label className="text-xs text-stone-300" htmlFor="">Y:</label>
+                                        <label className="text-xs text-stone-300" style={{ fontFamily: 'lato' }}  htmlFor="">Y:</label>
                                         <input name="yPos" className="w-full h-1 accent-[#D946EF]" onChange={(e) => handlePosSlidersChange(e, "yPos")}type="range" min={"-10"} max={"10"} value={componentPos.y} step={"0.1"}/>
                                     </div>
 
                                     <div>
-                                        <label className="text-xs text-stone-300" htmlFor="">Z:</label>
+                                        <label className="text-xs text-stone-300" style={{ fontFamily: 'lato' }}  htmlFor="">Z:</label>
                                         <input name="zPos" className="w-full h-1 accent-[#D946EF]" onChange={(e) => handlePosSlidersChange(e, "zPos")} type="range" min={"-10"} max={"10"} value={componentPos.z} step={"0.1"}/>
                                     </div>
 
@@ -250,7 +250,7 @@ export default function ImageComponentGUI({_componentID, _assetManager} : ImageC
                             onClick={() => toggleSection("appearance")}
                             className="w-full flex justify-between items-center px-3 py-2 bg-stone-800/50 hover:bg-stone-800 text-stone-200 text-sm"
                         >
-                            <span>Appearance</span>
+                            <span style={{ fontFamily: 'lato' }} >Appearance</span>
 
                             <span>{<MenuKarrotIcon className={`text-stone-300 w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-100 ${expandedSections.appearance ? `` : `rotate-180`}`}/>}</span>
                         </button>
@@ -259,12 +259,12 @@ export default function ImageComponentGUI({_componentID, _assetManager} : ImageC
                             <div className="p-3 space-y-2 bg-stone-900/30"> 
                                 <div className="grid grid-cols-1 gap-2">
                                     <div>
-                                        <label htmlFor="" className="text-xs text-stone-300"> Scale: </label>
+                                        <label htmlFor="" className="text-xs text-stone-300" style={{ fontFamily: 'lato' }} > Scale: </label>
                                         <input name="scale" className="w-full h-1 accent-[#D946EF]" onChange={(e) =>handleScaleSlidersChange(e)} type="range" min={"0.3"} value={componentScale.x} max={"3"} step={"0.1"}/>
                                     </div>
 
                                     <div>
-                                        <label htmlFor="" className="text-xs text-stone-300"> Opacity: </label>
+                                        <label htmlFor="" className="text-xs text-stone-300" style={{ fontFamily: 'lato' }} > Opacity: </label>
                                         <input name="opacity" className="w-full h-1 accent-[#D946EF]" onChange={(e) => handleOpacityChange(e)} type="range" min={"0.1"} value={componentOpacity} max={"1"} step={"0.01"}/>
                                     </div>
 

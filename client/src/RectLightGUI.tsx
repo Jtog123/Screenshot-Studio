@@ -178,7 +178,7 @@ export default function RectAreaLightGUI({_lightID, _lightManager} : RectAreaLig
                 >
                 <div onMouseDown={handleMouseDown} className="sticky top-0 flex items-center justify-between cursor-move bg-stone-700/30 bg-red-200 w-full py-2 px-4 z-10">
                     <div className="titlebox ">
-                        <h1 className="text-stone-200 text-base font-medium">
+                        <h1 className="text-stone-200 text-base font-medium" style={{ fontFamily: 'lato' }} >
                             {(light?._lightHelper as _RectAreaLightHelper)._title}
                         </h1>
                     </div>
@@ -193,7 +193,7 @@ export default function RectAreaLightGUI({_lightID, _lightManager} : RectAreaLig
                     <div className="border border-stone-700 rounded-lg overflow-hidden">
                         <button onClick={() => toggleSection('position')}
                             className="w-full flex justify-between items-center px-3 py-2 bg-stone-800/50 hover:bg-stone-800 text-stone-200 text-sm">
-                                <span>Position</span>
+                                <span style={{ fontFamily: 'lato' }} >Position</span>
                                 <span>{expandedSections.position ? '▼' : '▶'}</span>
                         </button>
 
@@ -201,17 +201,17 @@ export default function RectAreaLightGUI({_lightID, _lightManager} : RectAreaLig
                             <div className="p-3 space-y-2 bg-stone-900/30">
                                 <div className="grid grid-cols-1 gap-1">
                                     <div>
-                                        <label className="text-sm text-stone-200" htmlFor="">X:</label>
+                                        <label className="text-xs text-stone-200" style={{ fontFamily: 'lato' }}  htmlFor="">X:</label>
                                         <input onChange={(e) => handlePosSliderChange(e, "xPos")} className="w-full h-1 accent-[#D946EF]" type="range" min={"-10"} max={"10"} value={lightPosition.x} step={"0.1"}/>
                                     </div>
 
                                     <div>
-                                        <label className="text-sm text-stone-200" htmlFor="">Y:</label>
+                                        <label className="text-xs text-stone-200" style={{ fontFamily: 'lato' }}  htmlFor="">Y:</label>
                                         <input onChange={(e) => handlePosSliderChange(e, "yPos")} className="w-full h-1 accent-[#D946EF]" type="range" min={"-10"} max={"10"} value={lightPosition.y} step={"0.1"}/>
                                     </div>
 
                                     <div>
-                                        <label className="text-sm text-stone-200" htmlFor="">Z:</label>
+                                        <label className="text-xs text-stone-200" style={{ fontFamily: 'lato' }}  htmlFor="">Z:</label>
                                         <input onChange={(e) => handlePosSliderChange(e, "zPos")} className="w-full h-1 accent-[#D946EF]" type="range" min={"-10"} max={"10"} value={lightPosition.z} step={"0.1"}/>
                                     </div>
                                 </div>
@@ -225,7 +225,7 @@ export default function RectAreaLightGUI({_lightID, _lightManager} : RectAreaLig
                             onClick={() => toggleSection('appearance')}
                             className="w-full flex justify-between items-center px-3 py-2 bg-stone-800/50 hover:bg-stone-800 text-stone-200 text-sm"
                         >
-                            <span>Appearance</span>
+                            <span style={{ fontFamily: 'lato' }} >Appearance</span>
                             <span>{expandedSections.appearance ? '▼' : '▶'}</span>
                         </button>
 
@@ -234,22 +234,22 @@ export default function RectAreaLightGUI({_lightID, _lightManager} : RectAreaLig
                                 <div className="grid grid-cols-1 gap-3">
 
                                     <div className="flex items-center gap-2">
-                                        <label className="text-xs text-stone-300 pr-5" htmlFor="">Light Color: </label>
+                                        <label className="text-xs text-stone-300 pr-5" style={{ fontFamily: 'lato' }}  htmlFor="">Light Color: </label>
                                         <input onChange={handleLightColorChange} type="color" value={lightColor} />
                                     </div>
 
                                     <div>
-                                        <label className="text-sm text-stone-200" htmlFor="">Width:</label>
+                                        <label className="text-xs text-stone-200" style={{ fontFamily: 'lato' }}  htmlFor="">Width:</label>
                                         <input onChange={(e) => handleLightWidthChange(e)} className="h-1 w-full accent-[#D946EF]" type="range" min={"1"} max={"3.5"} value={lightWidth} step={"0.1"}/>
                                     </div>
 
                                     <div>
-                                        <label className="text-sm text-stone-200" htmlFor="">Height:</label>
+                                        <label className="text-xs text-stone-200" style={{ fontFamily: 'lato' }}  htmlFor="">Height:</label>
                                         <input onChange={(e) => handleLightHeightChange(e)} className="h-1 w-full accent-[#D946EF]" type="range" min={"1"} max={"3.5"} value={lightHeight} step={"0.1"}/>
                                     </div>
 
                                     <div>
-                                        <label className="text-sm text-stone-200" htmlFor="">Intensity:</label>
+                                        <label className="text-xs text-stone-200" style={{ fontFamily: 'lato' }}  htmlFor="">Intensity:</label>
                                         <input onChange={(e) => handleLightIntensityChange(e)} className="h-1 w-full accent-[#D946EF]" type="range" min={"1"} max={"10"} value={lightIntensity} step={"0.1"}/>
                                     </div>
 
