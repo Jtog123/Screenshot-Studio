@@ -127,7 +127,7 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
             return <TextIcon className="w-[20px] h-[20px] text-stone-300"/>;
         } 
         
-        return "💡"; // Light icon
+        
     };
 
     return (
@@ -141,7 +141,7 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
                     <span className="text-sm flex-shrink-0">{getIcon()}</span>
                 </div>
 
-                <span className="text-stone-200 text-sm truncate">{itemName}</span>
+                <span className="text-stone-200 text-sm truncate ">{itemName}</span>
             </div>
 
             {/* Right side: Actions (show on hover) */}

@@ -73,7 +73,7 @@ export default function ToolbarCameraCard({isToolbarToggled, _cameraManager, _ph
         <>
         <div  className={isToolbarToggled ? `hidden` : `rounded-t-xl bg-stone-950 flex-1 -mt-2 z-10 border-t-1 border-x-1 border-stone-400/50 transition-all duration-500 ease-in-out `}>
             <div onClick={handleCameraCardExpand} className="flex justify-between items-center py-2 cursor-pointer">
-                <h1 className="ml-5 text-stone-300">Camera</h1>
+                <h1 className="ml-5 text-stone-300 text-sm" style={{ fontFamily: 'lato' }}>Camera</h1>
                 <button onClick={handleCameraCardExpand} className="mr-5 text-stone-300">
                     <MenuKarrotIcon className={`text-stone-300 w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-300 ${isCameraCardExpanded ? `` : `rotate-180`}`} />
                 </button>
@@ -88,8 +88,8 @@ export default function ToolbarCameraCard({isToolbarToggled, _cameraManager, _ph
                     
                     <div className="ZoomInOut flex bg-stone-950 h-[1/8] w-[100%] justify-between items-center ">
                         <div className="flex justify-between">
-                            <label className="ml-5 mr-3 text-md text-stone-300" htmlFor="">Zoom: </label>
-                            <label className="text-stone-300 " htmlFor="">{zoom}</label>
+                            <label className="ml-5 mr-3 text-md text-stone-300 text-sm" style={{ fontFamily: 'lato' }} htmlFor="">Zoom: </label>
+                            <label className="text-stone-300 text-sm " style={{ fontFamily: 'lato' }} htmlFor="">{zoom}</label>
                         </div>
 
                         <div className="button flex justiify-between container w-[50%] p-1 mr-5">
@@ -108,8 +108,8 @@ export default function ToolbarCameraCard({isToolbarToggled, _cameraManager, _ph
                     {/* HEIGHT */}
                     <div className="CameraUpDown flex  h-[1/8] w-[100%] justify-between items-center">
                         <div className="flex justify-between">
-                            <label className="text-stone-300 ml-5 mr-3" htmlFor="">Height: </label>
-                            <label className="text-stone-300" htmlFor="">{height}</label>
+                            <label className="text-stone-300 ml-5 mr-3 text-sm" style={{ fontFamily: 'lato' }} htmlFor="">Height: </label>
+                            <label className="text-stone-300 text-sm" htmlFor="">{height}</label>
                         </div>
 
                         <div className="button flex justiify-between container w-[50%] p-1 mr-5 pb-2">

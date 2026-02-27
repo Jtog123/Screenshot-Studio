@@ -480,3 +480,5 @@ MVP
 - Delete image component if no added image - DONE
 - Automatically adjust app background on resize
 - all inputs only allow imgs pngs and jpgs
+
+npm install @fontsource/poppins

@@ -253,7 +253,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
         <div  className={ isToolbarToggled ? `hidden` : `w-[100%] bg-stone-950 flex-shrink-0 pb-2`}>
             {/* Header - always visible */}
             <div onClick={handleBgAndLightCardExpand}  className="flex justify-between items-center py-2 cursor-pointer">
-                <h1 className="text-stone-300 ml-5">Background & Lighting</h1>
+                <h1 className="text-stone-300 ml-5 text-sm" style={{ fontFamily: 'lato' }}>Background & Lighting</h1>
                 <button onClick={handleBgAndLightCardExpand} className="mr-5 text-stone-300">
                     <MenuKarrotIcon className={`text-stone-300 w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-300 ${isBgAndLightCardExpanded ? `` : `rotate-180`}`} />
                 </button>
@@ -265,10 +265,10 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
             }`}>
                 <div className="overflow-hidden">
                     {/* Background Section */}
-                    <h1 className="text-stone-300 ml-5 mt-1 text-sm">Style</h1>
+                    <h1 className="text-stone-300 ml-5 mt-1 text-xs" style={{ fontFamily: 'lato' }}>Style</h1>
                     <div className="flex justify-between bg-stone-950 py-2">
                         <select value={selectedBackgroundValue} onChange={handleBackgroundChange} className="w-[35%] ml-5 h-[30px] px-1 bg-stone-700/30 text-stone-300 text-sm rounded-md">
-                            <option value="solid">solid</option>
+                            <option value="solid" >solid</option>
                             <option value="gradient">gradient</option>
                         </select>
 
@@ -276,7 +276,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                             <input type="color" className="w-[25%] h-[30px] mr-5"  value={backgroundColor} onChange={updateBackgroundColor}/> :
                             (
                             <div className="flex w-[40%]  mr-5">
-                                <input className='w-[50%] h-[30px]' type="color" name="" id="" value={color1} onChange={handleColor1Change}/>
+                                <input className='w-[50%] h-[30px]'  type="color" name="" id="" value={color1} onChange={handleColor1Change}/>
                                 <label className='text-stone-300 mx-2' htmlFor=""> to</label>
                                 <input className='w-[50%] h-[30px]' type="color" name="" id="" value={color2} onChange={handleColor2Change}/>
                             </div>
@@ -286,7 +286,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                     </div>
 
                     {/* Gradient Settings */}
-                    <h1 className="text-stone-200 ml-5 mt-1 text-sm">Gradient Settings</h1>
+                    <h1 className="text-stone-200 ml-5 mt-1 text-xs" style={{ fontFamily: 'lato' }}>Gradient Settings</h1>
                     <div className="flex w-[50%] ml-2 justify-around mt-1">
                         <button 
                             onClick={handleGradientDirectionChange} 
@@ -320,7 +320,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                     </div>
 
                     <div className="flex flex-col ml-5 text-sm mt-1">
-                        <label className="text-stone-200 mt-1" htmlFor="">Scale</label>
+                        <label className="text-stone-200 mt-1 text-xs"  style={{ fontFamily: 'lato' }} htmlFor="">Scale</label>
                         <input onChange={handleGradientScaleChange} disabled={isBackgroundSolid} value={gradientScale} max={"5"} min={"1"} step={"0.1"} className="w-[75%] h-1 my-1 accent-[#D946EF] disabled:accent-[#D946EF]" type="range" />
                     </div>
 
@@ -332,7 +332,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                     {/* Lighting */}
                     <div className='flex w-[100%] justify-center'>
                         <div className='flex  w-[90%] justify-center '>
-                            <h1 className="text-stone-200  my-1 text-sm">Lighting</h1>
+                            <h1 className="text-stone-200  my-1 text-sm"  style={{ fontFamily: 'lato' }}>Lighting</h1>
                         </div>
                     </div>
 

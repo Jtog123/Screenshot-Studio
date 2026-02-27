@@ -234,7 +234,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
         >
 
             <div onClick={handleImgAndTextCardExpand} className="flex justify-between items-center py-2 cursor-pointer">
-                <h1 className="ml-5 text-stone-300" style={{fontFamily: ''}}>Image & Text</h1>
+                <h1 className="ml-5 text-stone-200 text-sm"  style={{ fontFamily: 'lato' }}>Image & Text</h1>
                 <button onClick={handleImgAndTextCardExpand} className="mr-5 text-stone-300">
                     <MenuKarrotIcon className={`text-stone-300 w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-300 ${isImgAndTxtCardExpanded ? `` : `rotate-180`}`} />
                 </button>
@@ -269,7 +269,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                     </div>
 
                     <div className="flex justify-center items-center">
-                        <h4 className="text-stone-300 text-xs ml-5 mr-2">Add up to 7 photos</h4>
+                        <h4 className="text-stone-300 text-xs ml-5 mr-2"  style={{ fontFamily: 'lato' }}>Add up to 7 photos</h4>
                         <input ref={screenTextureFileRef} type="file" accept="image/*" onChange={(e) => handleScreenTextureUpload(e)} className="hidden"/>
                             {
                                 <button className={isScreenTextureUploaded ? `hidden` :`flex justify-center items-center transition-all ease-in duration-200 text-stone-300 hover:bg-stone-500 hover:text-[#D946EF] cursor-pointer w-[35px] h-[30px] p-2 mx-1 bg-stone-700 rounded-lg py-1`}
@@ -317,7 +317,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                     </div>
                     
                     <div className="flex justify-center items-center ">
-                        <h4 className="text-stone-300 text-xs mr-2 mb-2">Captured</h4>
+                        <h4 className="text-stone-300 text-xs mr-2 mb-2"  style={{ fontFamily: 'lato' }}>Captured</h4>
                     </div>
 
                     <div className="capturedContainer flex  mx-3 mb-2 py-2 ">

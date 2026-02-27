@@ -237,7 +237,7 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
                 <div className="px-4 pb-2 w-[full] bg-stone-700/30 ">
                     <div className=" flex wrapperDiv w-full mt-2 h-1/6 ">
                         <div className=" flex titleDiv w-[100%] h-1/6 top-0  justify-between rounded-xl ">
-                            <h1 className="text-stone-200 text-base font-medium">
+                            <h1 className="text-stone-200 text-base font-medium" style={{ fontFamily: 'lato' }}>
                                 Phone Rotation
                             </h1>
                             <button onClick={handlePhoneGuiToggle} className=" flex  justify-center items-center h-[24px] w-[34px] transition-all duration-200 ease-in bg-stone-700 hover:bg-stone-500  px-1 rounded-xl cursor-pointer text-base font-medium group ">
@@ -262,7 +262,7 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
                     isPhoneGuiOpen ? 'grid-rows-[1fr]': 'grid-rows-[0fr]'
                 }`}>
                     <div className="overflow-hidden flex flex-col ">
-                        <label className="text-sm text-stone-200 pt-1 mt-1" htmlFor="">X: </label>
+                        <label className="text-sm text-stone-200 pt-1 mt-1 " style={{ fontFamily: 'lato' }} htmlFor="">X: </label>
                         <div className="flex justify-between justify-center items-center">
                             <input className='w-[95%] mr-2 h-1 accent-[#D946EF]' onChange={(e) => handlePhoneRotation(e, "xRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.x} step="0.01" />
                             <button onClick={(e) => handleControlsReset(e, "xReset")} className='flex justify-center items-center text-stone-200 bg-stone-700 transition-all duration-200  h-[24px] w-[40px] hover:bg-stone-500 rounded-4xl ] cursor-pointer group'>
@@ -271,7 +271,7 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
                         </div>
 
 
-                        <label className="text-sm text-stone-200 pt-1" htmlFor="">Y: </label>
+                        <label className="text-sm text-stone-200 pt-1 " style={{ fontFamily: 'lato' }} htmlFor="">Y: </label>
                         <div className="flex justify-between justify-center items-center">
                             <input className='w-[95%] mr-2 h-1 accent-[#D946EF]'  onChange={(e) => handlePhoneRotation(e, "yRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.y} step="0.01"/>
                             <button onClick={(e) => handleControlsReset(e, "yReset")} className='flex justify-center items-center text-stone-200 bg-stone-700 transition-all duration-200 hover:bg-stone-500 rounded-4xl h-[24px] w-[40px] cursor-pointer group'>
@@ -280,7 +280,7 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
                         </div>
 
 
-                        <label className="text-sm text-stone-200 pt-1" htmlFor="">Z: </label>
+                        <label className="text-sm text-stone-200 pt-1" style={{ fontFamily: 'lato' }} htmlFor="">Z: </label>
                         <div className="flex justify-between justify-center items-center">
                             <input className='w-[95%] mr-2 h-1 accent-[#D946EF]' onChange={(e) => handlePhoneRotation(e, "zRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.z} step="0.01"/>
                             
@@ -311,7 +311,7 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
                 {/* PRESET */}
                 <div className="flex items-center w-[100%] justify-between pt-2 mt-1 ">
                     <div className='flex items-center w-[70%] ml-4   '>
-                        <label className='text-md text-stone-300 mr-5' htmlFor="">Presets</label>
+                        <label className='text-md text-stone-300 mr-5 ' style={{ fontFamily: 'lato' }} htmlFor="">Presets</label>
                         <select value={selectedValue} onChange={handlePhonePresetsChange} className="w-[50%] h-[30px] px-1  text-stone-300 text-sm rounded-md bg-stone-700/30 cursor-pointer">
                         
                             <option value="-45">-45°</option>
