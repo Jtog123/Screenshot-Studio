@@ -482,3 +482,19 @@ MVP
 - all inputs only allow imgs pngs and jpgs
 
 npm install @fontsource/poppins
+
+
+.NET tuts
+Official Documentation:
+Main Docs:
+
+ASP.NET Core Web API Tutorial: https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api
+ASP.NET Core Overview: https://learn.microsoft.com/en-us/aspnet/core/
+Building Web APIs: https://learn.microsoft.com/en-us/aspnet/core/web-api/
+
+Key Topics You'll Need:
+
+Routing: https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/routing
+CORS (critical for React): https://learn.microsoft.com/en-us/aspnet/core/security/cors
+Controllers: https://learn.microsoft.com/en-us/aspnet/core/web-api/#controllers
+Entity Framework Core (if using database): https://learn.microsoft.com/en-us/ef/core/
