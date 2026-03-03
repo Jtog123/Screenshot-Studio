@@ -2,15 +2,15 @@ import { useState } from "react";
 import { LightManager } from "./LightManager"
 import { AssetManager } from "./AssetManager";
 import * as THREE from 'three'
-import SpotLightIcon from "./SpotLightIcon";
-import DirectionalLightIcon from "./DirectionalLightIcon";
-import TextIcon from "./TextIcon";
-import ImageIcon from "./ImageIcon";
-import EyeOpenIcon from "./EyeOpenIcon";
-import EyeClosedIcon from "./EyeClosedIcon";
-import EyeMidIcon from "./EyeMidIcon";
-import PointLightIcon from "./PointLightIcon";
-import RectAreaIcon from "./RectAreaIcon";
+import SpotLightIcon from "./IconAssets/SpotLightIcon";
+import DirectionalLightIcon from "./IconAssets/DirectionalLightIcon";
+import TextIcon from "./IconAssets/TextIcon";
+import ImageIcon from "./IconAssets/ImageIcon";
+import EyeOpenIcon from "./IconAssets/EyeOpenIcon";
+import EyeClosedIcon from "./IconAssets/EyeClosedIcon";
+import EyeMidIcon from "./IconAssets/EyeMidIcon";
+import PointLightIcon from "./IconAssets/PointLightIcon";
+import RectAreaIcon from "./IconAssets/RectAreaIcon";
 
 interface ActiveListItemProps {
     itemName : string

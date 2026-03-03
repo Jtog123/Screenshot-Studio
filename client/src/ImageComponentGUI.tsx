@@ -3,7 +3,7 @@ import { AssetManager } from "./AssetManager";
 import { SceneComponent } from "./SceneComponent";
 import {useRef, useEffect, useState} from 'react'
 import * as THREE from 'three'
-import MenuKarrotIcon from "./MenuKarrotIcon";
+import MenuKarrotIcon from "./IconAssets/MenuKarrotIcon";
 
 interface ImageComponentGUIProps {
      _componentID : string;

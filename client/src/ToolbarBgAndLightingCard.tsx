@@ -1,18 +1,18 @@
 import * as THREE from 'three'
 import { GradientBackground } from './GradientBackground';
 import { LightManager } from "./LightManager";
-import DirectionalLightIcon from './DirectionalLightIcon';
-import SpotLightIcon from './SpotLightIcon';
+import DirectionalLightIcon from './IconAssets/DirectionalLightIcon';
+import SpotLightIcon from './IconAssets/SpotLightIcon';
 import ActiveListItem from './ActiveListItem';
 import { LightType } from './Light';
 import { useEffect, useState, useRef } from 'react';
 
 import { _DirectionalLightHelper, _SpotLightHelper, _PointLightHelper, _RectAreaLightHelper } from './LightHelper';
-import PointLightIcon from './PointLightIcon';
-import RectAreaIcon from './RectAreaIcon';
-import LeftRightGradIcon from './LeftRightGradientIcon';
-import UpDownGradIcon from './UpDownGradientIcon';
-import MenuKarrotIcon from './MenuKarrotIcon';
+import PointLightIcon from './IconAssets/PointLightIcon';
+import RectAreaIcon from './IconAssets/RectAreaIcon';
+import LeftRightGradIcon from './IconAssets/LeftRightGradientIcon';
+import UpDownGradIcon from './IconAssets/UpDownGradientIcon';
+import MenuKarrotIcon from './IconAssets/MenuKarrotIcon';
 
 interface ToolbarBgAndLightingCardProps{
     scene : THREE.Scene;

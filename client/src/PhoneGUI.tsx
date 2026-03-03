@@ -1,12 +1,12 @@
 import {useRef, useEffect, useState} from 'react'
 import * as THREE from 'three'
 import { CameraManager } from './CameraManager';
-import RefreshStartIcon from './refreshStartIcon';
-import EyeOpenIcon from './EyeOpenIcon';
-import EyeMidIcon from './EyeMidIcon';
-import EyeClosedIcon from './EyeClosedIcon';
-import CameraIcon from './CameraIcon';
-import CameraHoverIcon from './CameraHoverIcon';
+import RefreshStartIcon from './IconAssets/RefreshStartIcon';
+import EyeOpenIcon from './IconAssets/EyeOpenIcon';
+import EyeMidIcon from './IconAssets/EyeMidIcon';
+import EyeClosedIcon from './IconAssets/EyeClosedIcon';
+import CameraIcon from './IconAssets/CameraIcon';
+import CameraHoverIcon from './IconAssets/CameraHoverIcon';
 
 
 /*
@@ -232,7 +232,7 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
 // fixed flex flex-col left-[calc(100vw/2)] z-22 transform translate-x-[-175%] translate-y-[-5%] overflow-hidden w-1/4 bg-stone-950 rounded-xl bottom-0 z-2 px-4 pb-3 pt-2 backdrop-blur-md border-2 border-stone-600 shadow-[0_0_20px_rgba(120,113,108,0.3),0_0_0_4px_rgba(28,25,23,1),0_0_0_5px_rgba(168,162,158,0.5)] ring-1 ring-stone-700/50 transition-all duration-500 ease-in-out"
     return(
         <>
-            <div className="fixed flex flex-col left-0 z-22 transform translate-x-[1.1%] translate-y-[-1.8%] overflow-hidden w-1/4 bg-stone-950 rounded-xl bottom-0 z-2   backdrop-blur-md border-2 border-stone-600 shadow-[0_0_20px_rgba(120,113,108,0.3),0_0_0_4px_rgba(28,25,23,1),0_0_0_5px_rgba(168,162,158,0.5)] ring-1 ring-stone-700/50 transition-all duration-500 ease-in-out">
+            <div className="fixed flex flex-col left-0 z-19 transform translate-x-[1.1%] translate-y-[-1.8%] overflow-hidden w-1/4 bg-stone-950 rounded-xl bottom-0 z-2   backdrop-blur-md border-2 border-stone-600 shadow-[0_0_20px_rgba(120,113,108,0.3),0_0_0_4px_rgba(28,25,23,1),0_0_0_5px_rgba(168,162,158,0.5)] ring-1 ring-stone-700/50 transition-all duration-500 ease-in-out">
 
                 <div className="px-4 pb-2 w-[full] bg-stone-700/30 ">
                     <div className=" flex wrapperDiv w-full mt-2 h-1/6 ">

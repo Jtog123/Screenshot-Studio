@@ -1,12 +1,12 @@
 import {useRef, useEffect, useState} from 'react'
 import { CameraManager } from "./CameraManager"
-import RefreshStartIcon from './refreshStartIcon'
+import RefreshStartIcon from './IconAssets/RefreshStartIcon'
 import * as THREE from 'three'
-import CameraZoomInIcon from './CameraZoomInIcon'
-import CameraZoomOutIcon from './CameraZoomOutIcon'
-import CameraUpIcon from './CameraUpIcon'
-import CameraDownIcon from './CameraDownIcon'
-import MenuKarrotIcon from './MenuKarrotIcon'
+import CameraZoomInIcon from './IconAssets/CameraZoomInIcon'
+import CameraZoomOutIcon from './IconAssets/CameraZoomOutIcon'
+import CameraUpIcon from './IconAssets/CameraUpIcon'
+import CameraDownIcon from './IconAssets/CameraDownIcon'
+import MenuKarrotIcon from './IconAssets/MenuKarrotIcon'
 
 interface ToolbarCameraCardProps {
     isToolbarToggled : boolean

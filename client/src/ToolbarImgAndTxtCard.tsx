@@ -3,10 +3,10 @@ import { ImageComponentInterface, TextComponentInterface ,ScreenTextureInterface
 import * as THREE from 'three'
 import { AssetManager } from "./AssetManager"
 import { texture } from "three/src/nodes/TSL.js"
-import ImageIcon from "./ImageIcon"
-import TextIcon from "./TextIcon"
-import UploadIcon from "./UploadIcon"
-import MenuKarrotIcon from "./MenuKarrotIcon"
+import ImageIcon from "./IconAssets/ImageIcon"
+import TextIcon from "./IconAssets/TextIcon"
+import UploadIcon from "./IconAssets/UploadIcon"
+import MenuKarrotIcon from "./IconAssets/MenuKarrotIcon"
 
 
 interface ToolbarImgAndTextCardProps {

@@ -4,7 +4,7 @@ import { ChangeEvent, useRef, useState } from "react"
 import * as THREE from 'three'
 import { CameraManager } from "./CameraManager";
 import { AssetManager } from "./AssetManager";
-import ImageIcon from "./ImageIcon";
+import ImageIcon from "./IconAssets/ImageIcon";
 
 interface ImageComponentProps {
     position : string

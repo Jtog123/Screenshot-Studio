@@ -3,7 +3,7 @@ import { SceneComponent } from "./SceneComponent";
 import {useRef, useEffect, useState, ChangeEvent} from 'react'
 import { TextComponentInterface } from "./ComponentInterfaces";
 import * as THREE from 'three'
-import MenuKarrotIcon from "./MenuKarrotIcon";
+import MenuKarrotIcon from "./IconAssets/MenuKarrotIcon";
 
 interface TextComponentGUIProps {
     componentID: string;
