@@ -1,3 +1,6 @@
+import { NavLink } from "react-router"
+
+
 export default function NavigationBar() {
     return(
         <>
@@ -9,13 +12,14 @@ export default function NavigationBar() {
                     <h1>Screenshot Sweet</h1>
                 </div>
 
-                <div className="navigationLinks flex items-center w-[77%] h-[100%] justify-around bg-green-600">
-                    <a  className="text-stone-300" href="">Home</a>
-                    <a  className="text-stone-300" href="">Sign In</a>
-                    <a  className="text-stone-300" href="">About</a>
-                    <a  className="text-stone-300" href="">Pricing</a>
-                    <a  className="text-stone-300" href="">Contact</a>
-
+                <div className="navigationLinks flex justify-center  w-[77%] h-[100%]  bg-green-600">
+                    <nav className="flex  justify-around items-center w-[80%] h-[100%] ">
+                        <NavLink to="/" end> Home </NavLink>
+                        <NavLink to="/editor" end> Sign In </NavLink>
+                        <NavLink to="/About" end> About </NavLink>
+                        <NavLink to="/Pricing" end> Pricing </NavLink>
+                        <NavLink to="/Contact" end> Contact </NavLink>
+                    </nav>
 
                 </div>
                
