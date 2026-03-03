@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "x4D4XGe7uKY=",
+  "dgSpecHash": "iU3Q2WMYy7o=",
   "success": true,
-  "projectFilePath": "/Users/jamestogher/Documents/ScreenshotStudio/server/ScreenshotStudio/ScreenshotStudio.csproj",
+  "projectFilePath": "/Users/jamestogher/Documents/ScreenshotStudio/server/ScreenshotSweetAPI/ScreenshotSweetAPI.csproj",
   "expectedPackageFiles": [
     "/Users/jamestogher/.nuget/packages/microsoft.aspnetcore.openapi/10.0.3/microsoft.aspnetcore.openapi.10.0.3.nupkg.sha512",
     "/Users/jamestogher/.nuget/packages/microsoft.openapi/2.0.0/microsoft.openapi.2.0.0.nupkg.sha512"

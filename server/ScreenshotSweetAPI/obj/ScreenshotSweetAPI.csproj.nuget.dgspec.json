@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/jamestogher/Documents/ScreenshotStudio/server/ScreenshotStudio/ScreenshotStudio.csproj": {}
+    "/Users/jamestogher/Documents/ScreenshotStudio/server/ScreenshotSweetAPI/ScreenshotSweetAPI.csproj": {}
   },
   "projects": {
-    "/Users/jamestogher/Documents/ScreenshotStudio/server/ScreenshotStudio/ScreenshotStudio.csproj": {
+    "/Users/jamestogher/Documents/ScreenshotStudio/server/ScreenshotSweetAPI/ScreenshotSweetAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/jamestogher/Documents/ScreenshotStudio/server/ScreenshotStudio/ScreenshotStudio.csproj",
-        "projectName": "ScreenshotStudio",
-        "projectPath": "/Users/jamestogher/Documents/ScreenshotStudio/server/ScreenshotStudio/ScreenshotStudio.csproj",
+        "projectUniqueName": "/Users/jamestogher/Documents/ScreenshotStudio/server/ScreenshotSweetAPI/ScreenshotSweetAPI.csproj",
+        "projectName": "ScreenshotSweetAPI",
+        "projectPath": "/Users/jamestogher/Documents/ScreenshotStudio/server/ScreenshotSweetAPI/ScreenshotSweetAPI.csproj",
         "packagesPath": "/Users/jamestogher/.nuget/packages/",
-        "outputPath": "/Users/jamestogher/Documents/ScreenshotStudio/server/ScreenshotStudio/obj/",
+        "outputPath": "/Users/jamestogher/Documents/ScreenshotStudio/server/ScreenshotSweetAPI/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/jamestogher/.nuget/NuGet/NuGet.Config"

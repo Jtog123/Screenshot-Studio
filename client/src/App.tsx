@@ -243,11 +243,22 @@ export default function App() {
 
   //Automatically resize the window
   useEffect(() => {
-    window.addEventListener("resize", () => {
-      console.log("resizing");
-      //(renderer as THREE.WebGLRenderer).setSize(window.innerWidth, window.innerHeight);
-    })
-  },[])
+    const handleResize = () => {
+      if(camera && renderer) {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+      }
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+        window.removeEventListener("resize", handleResize);
+    };
+
+  },[camera, renderer]);
 
 
 
