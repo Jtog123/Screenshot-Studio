@@ -25,6 +25,8 @@ namespace ScreenshotStudio.Models
 
         public DateTimeOffset? LastLogin{get; set;}
 
+        //SCreenshots need screenshot model?
+
         //Hashed Password, start with google OAuth, then add this
         //StripeCustomerId
         //UserProjects

@@ -2,6 +2,35 @@ import { NavLink } from "react-router"
 
 
 export default function NavigationBar() {
+
+    /*
+    -triggers a redirect to the backend
+    -the backend triggers a redirect to google
+    -user signs authenticates
+    -google returns a callback (google redirects back to backend with an auth code)
+    -that function stores user data who just signed in?
+        1. Receives authorization code from Google
+        2. Exchanges code for access token (backend calls Google's API)
+        3. Uses access token to get user info (email, name, etc.)
+        4. **Stores user data** (in database)
+        5. **Creates auth session** (cookie or JWT)
+        6. **Redirects to frontend** (back to your React app)
+    -redirect to frontend/editor 
+    */
+    function handleAuthRedirect() {
+        window.location.href = "https://localhost:7271/api/googleauth";
+    }
+
+    /*
+
+    soemthing like this
+    router.get('/auth/google/callback', passport.authenticate('google', {failureRedirect: '/auth/failure'}), (req, res) => {
+        res.redirect('http://localhost:3000'); 
+        
+        // Redirect to the client-side route
+})
+    */
+
     return(
         <>
             <div className="fixed flex h-[10%] w-[100%] bg-red-300 z-21">
@@ -15,7 +44,7 @@ export default function NavigationBar() {
                 <div className="navigationLinks flex justify-center  w-[77%] h-[100%]  bg-green-600">
                     <nav className="flex  justify-around items-center w-[80%] h-[100%] ">
                         <NavLink to="/" end> Home </NavLink>
-                        <NavLink to="/editor" end> Sign In </NavLink>
+                        <NavLink to="" onClick={handleAuthRedirect} end> Sign In </NavLink>
                         <NavLink to="/About" end> About </NavLink>
                         <NavLink to="/Pricing" end> Pricing </NavLink>
                         <NavLink to="/Contact" end> Contact </NavLink>
