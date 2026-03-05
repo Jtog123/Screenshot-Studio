@@ -1,13 +1,33 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Google;
 
-[ApiController]
-[Route("api/[controller]")]
-public class GoogleAuthController : ControllerBase
+
+namespace ScreenshotStudio.Controllers
 {
-    //route will be api/googleauth
+        //route will be api/googleauth
+    [ApiController]
+    [Route("api/[controller]")]
+    public class GoogleAuthController : ControllerBase
+    {
+        [HttpGet("login")]
+        public IActionResult Login()
+        {
+            var properties = new AuthenticationProperties
+            {
+                RedirectUri = "http://localhost:5173/editor"
+            };
+
+            return Challenge(properties, GoogleDefaults.AuthenticationScheme);
+        }
+
+
     
+    }
 }
+
+
 
 /*
 

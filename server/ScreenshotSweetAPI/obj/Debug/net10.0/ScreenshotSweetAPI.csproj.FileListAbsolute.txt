@@ -33,3 +33,11 @@
 /Users/jamestogher/Documents/ScreenshotStudio/server/ScreenshotSweetAPI/obj/Debug/net10.0/ScreenshotSweetAPI.pdb
 /Users/jamestogher/Documents/ScreenshotStudio/server/ScreenshotSweetAPI/obj/Debug/net10.0/ScreenshotSweetAPI.genruntimeconfig.cache
 /Users/jamestogher/Documents/ScreenshotStudio/server/ScreenshotSweetAPI/obj/Debug/net10.0/ref/ScreenshotSweetAPI.dll
+/Users/jamestogher/Documents/ScreenshotStudio/server/ScreenshotSweetAPI/bin/Debug/net10.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/jamestogher/Documents/ScreenshotStudio/server/ScreenshotSweetAPI/bin/Debug/net10.0/Microsoft.IdentityModel.Abstractions.dll
+/Users/jamestogher/Documents/ScreenshotStudio/server/ScreenshotSweetAPI/bin/Debug/net10.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/jamestogher/Documents/ScreenshotStudio/server/ScreenshotSweetAPI/bin/Debug/net10.0/Microsoft.IdentityModel.Logging.dll
+/Users/jamestogher/Documents/ScreenshotStudio/server/ScreenshotSweetAPI/bin/Debug/net10.0/Microsoft.IdentityModel.Protocols.dll
+/Users/jamestogher/Documents/ScreenshotStudio/server/ScreenshotSweetAPI/bin/Debug/net10.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/jamestogher/Documents/ScreenshotStudio/server/ScreenshotSweetAPI/bin/Debug/net10.0/Microsoft.IdentityModel.Tokens.dll
+/Users/jamestogher/Documents/ScreenshotStudio/server/ScreenshotSweetAPI/bin/Debug/net10.0/System.IdentityModel.Tokens.Jwt.dll

@@ -1,4 +1,8 @@
+using System.Reflection.Metadata;
 using System.Reflection.PortableExecutable;
+using System.Xml.Linq;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.VisualBasic;
 
@@ -9,14 +13,21 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowedOrigins", cfg =>
     {
-        cfg.WithOrigins(builder.Configuration["AllowedOrigins"]);
-        cfg.AllowAnyHeader();
-        cfg.AllowAnyMethod();
+        cfg.WithOrigins(builder.Configuration["AllowedOrigins"])
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials();
     });
 
 });
 
-builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+})
+.AddCookie()
+.AddGoogle(googleOptions =>
 {
     googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
     googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
