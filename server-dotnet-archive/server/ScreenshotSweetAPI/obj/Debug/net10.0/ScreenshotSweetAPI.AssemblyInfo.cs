@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ScreenshotSweetAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+62b6bcd41edaaeff5d10f29a014eca2001795d35")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dac9dab7264b00bc66af1f809d77a9edd0cdce60")]
 [assembly: System.Reflection.AssemblyProductAttribute("ScreenshotSweetAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ScreenshotSweetAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

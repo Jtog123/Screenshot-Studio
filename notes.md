@@ -498,3 +498,9 @@ Routing: https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/routing
 CORS (critical for React): https://learn.microsoft.com/en-us/aspnet/core/security/cors
 Controllers: https://learn.microsoft.com/en-us/aspnet/core/web-api/#controllers
 Entity Framework Core (if using database): https://learn.microsoft.com/en-us/ef/core/
+
+
+We are not storing any user data in cookies, that would be a security risk, In the cookie we keep a signature to look up a user in the database'
+
+
+OK, Im 

@@ -6,16 +6,18 @@ using Microsoft.AspNetCore.Authentication.Google;
 
 namespace ScreenshotStudio.Controllers
 {
-        //route will be api/googleauth
+    //route will be api/googleauth
     [ApiController]
     [Route("api/[controller]")]
     public class GoogleAuthController : ControllerBase
     {
         [HttpGet("login")]
+        //route now api/googleauth/login
         public IActionResult Login()
         {
             var properties = new AuthenticationProperties
             {
+                //redirects to the editor
                 RedirectUri = "http://localhost:5173/editor"
             };
 

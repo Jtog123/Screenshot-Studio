@@ -26,11 +26,22 @@ builder.Services.AddAuthentication(options =>
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
 })
-.AddCookie()
+.AddCookie(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.Cookie.Secure = true;
+    options.Cookie.SameSite = SameSiteMode.Lax;
+    options.ExpireTimeSpan = TimeSpan.FromDays(7);
+    options.SlidingExpiration = true; // extend a session on user activity
+})
 .AddGoogle(googleOptions =>
 {
     googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
     googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+
+    googleOptions.Scope.Add("https://www.googleapis.com/auth/userinfo.profile");
+    googleOptions.Scope.Add("https://www.googleapis.com/auth/userinfo.email");
+    googleOptions.SaveTokens = true;
 });
 
 builder.Services.AddControllers();

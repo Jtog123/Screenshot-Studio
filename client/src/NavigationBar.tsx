@@ -18,7 +18,7 @@ export default function NavigationBar() {
     -redirect to frontend/editor 
     */
     function handleAuthRedirect() {
-        window.location.href = "https://localhost:7271/api/googleauth";
+        window.location.href = "https://localhost:7271/api/googleauth/login";
     }
 
     /*
