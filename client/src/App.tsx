@@ -6,10 +6,10 @@ export default function App() {
     return (
         <>
         <BrowserRouter>
-        <Routes>
-            <Route path="/" element={<HomePage/>}></Route>
-            <Route path="/editor" element={<Editor/>}></Route>
-        </Routes>
+            <Routes>
+                <Route path="/" element={<HomePage/>}></Route>
+                <Route path="/editor" element={<Editor/>}></Route>
+            </Routes>
             
         </BrowserRouter>
             

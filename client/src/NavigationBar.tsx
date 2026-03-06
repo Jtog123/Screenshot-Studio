@@ -18,7 +18,10 @@ export default function NavigationBar() {
     -redirect to frontend/editor 
     */
     function handleAuthRedirect() {
-       // window.location.href = "https://localhost:7271/api/googleauth/login";
+        //route that takes me to the google sign in page, as specified by my server
+        window.location.href = "http://localhost:5050/auth/google";
+
+       /*
        fetch("http://localhost:5050/", {
         method: "GET",
         credentials: "include",
@@ -34,6 +37,7 @@ export default function NavigationBar() {
        .catch(err => {
         console.error("error", err);
        })
+        */
     }
 
     /*
@@ -43,7 +47,7 @@ export default function NavigationBar() {
         res.redirect('http://localhost:3000'); 
         
         // Redirect to the client-side route
-})
+    })
     */
 
     return(

@@ -9,14 +9,14 @@ interface ToolbarHeaderProps {
 export default function ToolbarHeader({isToolbarToggled, setToolbarToggled} : ToolbarHeaderProps) {
     return (
         <>
-            <div className={isToolbarToggled ? `flex w-full items-center justify-center  h-[5%] bg-[#FF6B9D] py-2` : `flex w-full items-center justify-between h-[5%] bg-[#FF6B9D] px-3`}>
-                <button onClick={setToolbarToggled} className="flex justify-center cursor-pointer items-center h-[30px] w-[40px] bg-[#D946EF] transition-colors duration-200 hover:bg-[#C026D3] rounded-xl group">
-                    <ToolbarHeaderArrow className={`text-stone-950 transition-transform duration-500 ${
+            <div className={isToolbarToggled ? `flex w-full items-center justify-center  h-[5%] bg-[#FF6B9D] py-2` : `flex w-full items-center justify-between h-[5%] bg-velvet-accent px-3`}>
+                <button onClick={setToolbarToggled} className="flex justify-center cursor-pointer items-center h-[30px] w-[40px] bg-velvet-accent transition-colors duration-300 hover:bg-cocoa-light rounded-xl group">
+                    <ToolbarHeaderArrow className={`text-cream transition-transform duration-500 text-cream-dark ${
                         isToolbarToggled ? 'rotate-180' : 'rotate-0'
                     }`}/> 
                 </button>
 
-                <h1 className={isToolbarToggled ? "hidden" : "h-[80%] w-[1/3] bg-[#FF6B9D] rounded-xl flex items-center justify-center"}>
+                <h1 className={isToolbarToggled ? "hidden" : "h-[80%] w-[1/3]  text-cream rounded-xl flex items-center justify-center"}>
                     Logo here
                 </h1>
             </div>

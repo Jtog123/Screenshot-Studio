@@ -32,7 +32,7 @@ down gradient we elect that button and highlight it but diabled the buttons func
 export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradientBackground, activeListItems, setActiveListItems, lightManager} : ToolbarBgAndLightingCardProps) {
 
     const[isBgAndLightCardExpanded, setIsBgAndLightCardExpanded] = useState(true);
-    const[backgroundColor, setBackgroundColor] = useState("#292524");
+    const[backgroundColor, setBackgroundColor] = useState("#2D0610");
     const[isBackgroundSolid, setIsBackgroundSolid] = useState(true);
     const[isLeftToRightGradient , setIsLeftToRightGradient] = useState(true);
     const[selectedBackgroundValue, setSelectedBackgroundValue] = useState("solid");
@@ -250,7 +250,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
     }    
 
     return(
-        <div  className={ isToolbarToggled ? `hidden` : `w-[100%] bg-stone-950 flex-shrink-0 pb-2`}>
+        <div  className={ isToolbarToggled ? `hidden` : `w-[100%] bg-velvet-darkest flex-shrink-0 pb-2`}>
             {/* Header - always visible */}
             <div onClick={handleBgAndLightCardExpand}  className="flex justify-between items-center py-2 cursor-pointer">
                 <h1 className="text-stone-300 ml-5 text-sm" style={{ fontFamily: 'lato' }}>Background & Lighting</h1>
@@ -266,7 +266,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                 <div className="overflow-hidden">
                     {/* Background Section */}
                     <h1 className="text-stone-300 ml-5 mt-1 text-xs" style={{ fontFamily: 'lato' }}>Style</h1>
-                    <div className="flex justify-between bg-stone-950 py-2">
+                    <div className="flex justify-between bg-velvet-darkest py-2">
                         <select value={selectedBackgroundValue} onChange={handleBackgroundChange} className="w-[35%] ml-5 h-[30px] px-1 bg-stone-700/30 text-stone-300 text-sm rounded-md">
                             <option value="solid" >solid</option>
                             <option value="gradient">gradient</option>
@@ -321,7 +321,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
 
                     <div className="flex flex-col ml-5 text-sm mt-1">
                         <label className="text-stone-200 mt-1 text-xs"  style={{ fontFamily: 'lato' }} htmlFor="">Scale</label>
-                        <input onChange={handleGradientScaleChange} disabled={isBackgroundSolid} value={gradientScale} max={"5"} min={"1"} step={"0.1"} className="w-[75%] h-1 my-1 accent-[#D946EF] disabled:accent-[#D946EF]" type="range" />
+                        <input onChange={handleGradientScaleChange} disabled={isBackgroundSolid} value={gradientScale} max={"5"} min={"1"} step={"0.1"} className="w-[75%] h-1 my-1 accent-[#6B1F2D] disabled:accent-[#D946EF]" type="range" />
                     </div>
 
                     {/* Divider */}
