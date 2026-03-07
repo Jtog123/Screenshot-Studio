@@ -254,8 +254,8 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
             {/* Header - always visible */}
             <div onClick={handleBgAndLightCardExpand}  className="flex justify-between items-center py-2 cursor-pointer">
                 <h1 className="text-cream-dark ml-5 text-sm" style={{ fontFamily: 'lato' }}>Background & Lighting</h1>
-                <button onClick={handleBgAndLightCardExpand} className="mr-5 text-stone-300">
-                    <MenuKarrotIcon className={`text-stone-300 w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-300 ${isBgAndLightCardExpanded ? `` : `rotate-180`}`} />
+                <button onClick={handleBgAndLightCardExpand} className="mr-5 text-cream">
+                    <MenuKarrotIcon className={`text-cream w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-300 ${isBgAndLightCardExpanded ? `` : `rotate-180`}`} />
                 </button>
             </div>
 
@@ -267,17 +267,17 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                     {/* Background Section */}
                     <h1 className="text-cream-dark ml-5 mt-1 text-xs" style={{ fontFamily: 'lato' }}>Style</h1>
                     <div className="flex justify-between bg-velvet-darkest py-2">
-                        <select value={selectedBackgroundValue} onChange={handleBackgroundChange} className="w-[35%] ml-5 h-[30px] px-1 bg-stone-700/30 text-cream-dark text-sm rounded-md">
+                        <select value={selectedBackgroundValue} onChange={handleBackgroundChange} className="w-[35%] ml-5 h-[30px] px-1 bg-velvet-accent text-cream text-sm rounded-md">
                             <option value="solid" >solid</option>
                             <option value="gradient">gradient</option>
                         </select>
 
                         {isBackgroundSolid ? 
-                            <input type="color" className="w-[25%] h-[30px] mr-5"  value={backgroundColor} onChange={updateBackgroundColor}/> :
+                            <input type="color" className="w-[60px] h-[30px] mr-5  rounded-lg"  value={backgroundColor} onChange={updateBackgroundColor}/> :
                             (
                             <div className="flex w-[40%]  mr-5">
                                 <input className='w-[50%] h-[30px]'  type="color" name="" id="" value={color1} onChange={handleColor1Change}/>
-                                <label className='text-cream-dark mx-2' htmlFor=""> | </label>
+                                <label className='text-cream/40 mx-2' htmlFor=""> | </label>
                                 <input className='w-[50%] h-[30px]' type="color" name="" id="" value={color2} onChange={handleColor2Change}/>
                             </div>
                             )
@@ -321,12 +321,12 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
 
                     <div className="flex flex-col ml-5 text-sm mt-1">
                         <label className={ isBackgroundSolid ? `text-cream-dark/40 mt-1 text-xs` : `text-cream-dark mt-1 text-xs`}  style={{ fontFamily: 'lato' }} htmlFor="">Scale</label>
-                        <input onChange={handleGradientScaleChange} disabled={isBackgroundSolid} value={gradientScale} max={"5"} min={"1"} step={"0.1"} className={isBackgroundSolid ? `w-[75%] h-1 my-1 accent-[#4A0A1C] opacity-40` : ` w-[75%] h-1 my-1 accent-[#E8DED0] `} type="range" />
+                        <input onChange={handleGradientScaleChange} disabled={isBackgroundSolid} value={gradientScale} max={"5"} min={"1"} step={"0.1"} className={isBackgroundSolid ? `w-[75%] h-1 my-1 accent-[#4A0A1C] opacity-40` : ` w-[75%] h-1 my-1 accent-[#C14A5C] `} type="range" />
                     </div>
 
                     {/* Divider */}
                     <div className="flex w-[100%] justify-center my-1">
-                        <div className="w-[90%] h-px bg-velvet-accent my-3"></div>
+                        <div className="w-[90%] h-px bg-cream/40 my-3"></div>
                     </div>
 
                     {/* Lighting */}

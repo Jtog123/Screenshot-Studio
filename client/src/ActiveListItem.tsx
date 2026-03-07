@@ -114,17 +114,17 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
     const getIcon = () => {
         console.log(itemID);
         if (itemID.startsWith("_DirectionalLight")) {
-            return <DirectionalLightIcon className=" w-[24px] h-[24px] text-stone-300"/>
+            return <DirectionalLightIcon className=" w-[24px] h-[24px] text-cream"/>
         } else if (itemID.startsWith("_SpotLight")) {
-            return <SpotLightIcon className=" w-[24px] h-[24px] text-stone-300"/>
+            return <SpotLightIcon className=" w-[24px] h-[24px] text-cream"/>
         } else if (itemID.startsWith("_PointLight")) {
-            return <PointLightIcon className=" w-[24px] h-[24px] text-stone-300" />
+            return <PointLightIcon className=" w-[24px] h-[24px] text-cream" />
         } else if (itemID.startsWith("_RectAreaLight")) {
-            return <RectAreaIcon className=" w-[24px] h-[24px] text-stone-300" />
+            return <RectAreaIcon className=" w-[24px] h-[24px] text-cream" />
         } else if(itemID.startsWith("sprite_image_")) {
-            return <ImageIcon className="w-[20px] h-[20px] text-stone-300"/>;
+            return <ImageIcon className="w-[20px] h-[20px] text-cream"/>;
         } else if(itemID.startsWith("text_")) {
-            return <TextIcon className="w-[20px] h-[20px] text-stone-300"/>;
+            return <TextIcon className="w-[20px] h-[20px] text-cream"/>;
         } 
         
         
@@ -133,7 +133,7 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
     return (
         <li 
             onClick={handleListItemSelection} 
-            className="group/item flex items-center justify-between px-2 py-1.5 rounded-md hover:bg-stone-700/50 transition-colors cursor-pointer border-x-1 border-stone-400 hover:border-stone-600/50"
+            className="group/item flex items-center justify-between px-2 py-1.5 rounded-md hover:bg-velvet-noir/40 transition-colors cursor-pointer border-x-1 border-cream/40 hover:border-cream/70"
         >
             {/* Left side: Icon + Name */}
             <div className="flex items-center gap-2 flex-1 min-w-0 ">
@@ -141,7 +141,7 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
                     <span className="text-sm flex-shrink-0">{getIcon()}</span>
                 </div>
 
-                <span className="text-stone-200 text-sm truncate ">{itemName}</span>
+                <span className="text-cream/80 text-sm truncate ">{itemName}</span>
             </div>
 
             {/* Right side: Actions (show on hover) */}
@@ -149,7 +149,7 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
                 {/* Visibility toggle */}
                 <button 
                     onClick={toggleItemVisibility}
-                    className={`group/eye p-1 rounded hover:bg-stone-600 transition-colors group ${
+                    className={`group/eye p-1 rounded hover:bg-velvet-noir/40 transition-colors group ${
                         isItemVisible ? 'text-stone-300' : 'text-stone-600'
                     }`}
                     

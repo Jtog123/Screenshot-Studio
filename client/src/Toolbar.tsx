@@ -25,6 +25,7 @@ import { GradientBackground } from './GradientBackground'
 import ToolbarBgAndLightingCard from './ToolbarBgAndLightingCard'
 import ToolbarImgAndTextCard from './ToolbarImgAndTxtCard'
 import ToolbarCameraCard from './ToolbarCameraCard'
+import ToolbarFooter from './ToolbarFooter'
 
 
 
@@ -108,7 +109,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
             {
                 (
                     isToolbarToggled ? 
-                        <div className="fixed h-screen bg-velvet-dark text-stone-300 z-19 right-0 w-[5%] transition-all duration-300 ease-in-out ">
+                        <div className="fixed flex flex-col h-screen bg-velvet-darkest text-stone-300 z-19 right-0 w-[5%] transition-all duration-300 ease-in-out ">
                             <ToolbarHeader isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>
                                 <div className='flex flex-col flex-1 overflow-y-auto overflow-x-hidden '>
 
@@ -122,11 +123,14 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                                 
                                 </div>
                             
+                            <div className='h-40px] w-[100%]'></div>
+                            <ToolbarFooter isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>
+                            
 
                             {/*Toolbar Panel Selector*/}
                         </div>
                         :
-                        <div className="fixed flex flex-col flex-1 min-h-0 bg-velvet-dark w-[20%] h-[100%] z-19 right-0 transition-all duration-300 ease-in-out z-19  ">
+                        <div className="fixed flex flex-col flex-1 min-h-0 bg-velvet-darkest w-[20%] h-[100%] z-19 right-0 transition-all duration-300 ease-in-out z-19  ">
                             <ToolbarHeader isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>
                             <div className='flex flex-col flex-1 overflow-y-auto overflow-x-hidden '>
 
@@ -144,7 +148,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
     
                             <ToolbarActiveComponents activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} lightManager={_lightManager} assetManager={_assetManager}  />
                             
-                            
+                            <ToolbarFooter isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>
 
                             {/*Toolbar Panel Selector*/}
                         </div>
