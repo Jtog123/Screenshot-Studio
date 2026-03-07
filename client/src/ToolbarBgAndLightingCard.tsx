@@ -253,7 +253,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
         <div  className={ isToolbarToggled ? `hidden` : `w-[100%] bg-velvet-darkest flex-shrink-0 pb-2`}>
             {/* Header - always visible */}
             <div onClick={handleBgAndLightCardExpand}  className="flex justify-between items-center py-2 cursor-pointer">
-                <h1 className="text-stone-300 ml-5 text-sm" style={{ fontFamily: 'lato' }}>Background & Lighting</h1>
+                <h1 className="text-cream-dark ml-5 text-sm" style={{ fontFamily: 'lato' }}>Background & Lighting</h1>
                 <button onClick={handleBgAndLightCardExpand} className="mr-5 text-stone-300">
                     <MenuKarrotIcon className={`text-stone-300 w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-300 ${isBgAndLightCardExpanded ? `` : `rotate-180`}`} />
                 </button>
@@ -265,9 +265,9 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
             }`}>
                 <div className="overflow-hidden">
                     {/* Background Section */}
-                    <h1 className="text-stone-300 ml-5 mt-1 text-xs" style={{ fontFamily: 'lato' }}>Style</h1>
+                    <h1 className="text-cream-dark ml-5 mt-1 text-xs" style={{ fontFamily: 'lato' }}>Style</h1>
                     <div className="flex justify-between bg-velvet-darkest py-2">
-                        <select value={selectedBackgroundValue} onChange={handleBackgroundChange} className="w-[35%] ml-5 h-[30px] px-1 bg-stone-700/30 text-stone-300 text-sm rounded-md">
+                        <select value={selectedBackgroundValue} onChange={handleBackgroundChange} className="w-[35%] ml-5 h-[30px] px-1 bg-stone-700/30 text-cream-dark text-sm rounded-md">
                             <option value="solid" >solid</option>
                             <option value="gradient">gradient</option>
                         </select>
@@ -277,7 +277,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                             (
                             <div className="flex w-[40%]  mr-5">
                                 <input className='w-[50%] h-[30px]'  type="color" name="" id="" value={color1} onChange={handleColor1Change}/>
-                                <label className='text-stone-300 mx-2' htmlFor=""> to</label>
+                                <label className='text-cream-dark mx-2' htmlFor=""> | </label>
                                 <input className='w-[50%] h-[30px]' type="color" name="" id="" value={color2} onChange={handleColor2Change}/>
                             </div>
                             )
@@ -286,7 +286,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                     </div>
 
                     {/* Gradient Settings */}
-                    <h1 className="text-stone-200 ml-5 mt-1 text-xs" style={{ fontFamily: 'lato' }}>Gradient Settings</h1>
+                    <h1 className="text-cream-dark ml-5 mt-1 text-xs" style={{ fontFamily: 'lato' }}>Gradient Settings</h1>
                     <div className="flex w-[50%] ml-2 justify-around mt-1">
                         <button 
                             onClick={handleGradientDirectionChange} 
@@ -299,7 +299,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                             `}
                         >
                             <LeftRightGradIcon 
-                                className={!isBackgroundSolid && isLeftToRightGradient ? 'text-[#D946EF]' : 'text-stone-300'} 
+                                className={!isBackgroundSolid && isLeftToRightGradient ? 'text-[#D946EF]' : 'text-cream-dark'} 
                             />
                         </button>
 
@@ -320,26 +320,26 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                     </div>
 
                     <div className="flex flex-col ml-5 text-sm mt-1">
-                        <label className="text-stone-200 mt-1 text-xs"  style={{ fontFamily: 'lato' }} htmlFor="">Scale</label>
-                        <input onChange={handleGradientScaleChange} disabled={isBackgroundSolid} value={gradientScale} max={"5"} min={"1"} step={"0.1"} className="w-[75%] h-1 my-1 accent-[#6B1F2D] disabled:accent-[#D946EF]" type="range" />
+                        <label className={ isBackgroundSolid ? `text-cream-dark/40 mt-1 text-xs` : `text-cream-dark mt-1 text-xs`}  style={{ fontFamily: 'lato' }} htmlFor="">Scale</label>
+                        <input onChange={handleGradientScaleChange} disabled={isBackgroundSolid} value={gradientScale} max={"5"} min={"1"} step={"0.1"} className={isBackgroundSolid ? `w-[75%] h-1 my-1 accent-[#4A0A1C] opacity-40` : ` w-[75%] h-1 my-1 accent-[#E8DED0] `} type="range" />
                     </div>
 
                     {/* Divider */}
                     <div className="flex w-[100%] justify-center my-1">
-                        <div className="w-[90%] h-px bg-stone-300/40 my-3"></div>
+                        <div className="w-[90%] h-px bg-velvet-accent my-3"></div>
                     </div>
 
                     {/* Lighting */}
                     <div className='flex w-[100%] justify-center'>
                         <div className='flex  w-[90%] justify-center '>
-                            <h1 className="text-stone-200  my-1 text-sm"  style={{ fontFamily: 'lato' }}>Lighting</h1>
+                            <h1 className="text-cream-dark  my-1 text-sm"  style={{ fontFamily: 'lato' }}>Lighting</h1>
                         </div>
                     </div>
 
                    
                     <div className="flex w-[100%] justify-center mt-2 mb-5">
                         <div className="flex justify-between w-[80%] h-auto">
-                            <button onClick={handleDirectionalLightCreation} className=" flex cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-stone-700 hover:bg-stone-500 text-stone-300 hover:text-[#D946EF] transition-colors duration-200 rounded-lg py-1 justify-center  items-center ">
+                            <button onClick={handleDirectionalLightCreation} className=" flex cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-velvet-accent hover:bg-velvet text-cream-dark hover:text-cream-light transition-colors duration-200 rounded-lg py-1 justify-center  items-center ">
                                 <DirectionalLightIcon className='w-[48px] h-[48px]  '/>
                             </button>
 

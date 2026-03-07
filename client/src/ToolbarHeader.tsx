@@ -10,8 +10,8 @@ export default function ToolbarHeader({isToolbarToggled, setToolbarToggled} : To
     return (
         <>
             <div className={isToolbarToggled ? `flex w-full items-center justify-center  h-[5%] bg-[#FF6B9D] py-2` : `flex w-full items-center justify-between h-[5%] bg-velvet-accent px-3`}>
-                <button onClick={setToolbarToggled} className="flex justify-center cursor-pointer items-center h-[30px] w-[40px] bg-velvet-accent transition-colors duration-300 hover:bg-cocoa-light rounded-xl group">
-                    <ToolbarHeaderArrow className={`text-cream transition-transform duration-500 text-cream-dark ${
+                <button onClick={setToolbarToggled} className="flex justify-center cursor-pointer items-center h-[30px] w-[40px] bg-velvet-accent transition-colors duration-300 hover:bg-velvet  rounded-xl group">
+                    <ToolbarHeaderArrow className={`transition-transform duration-300 text-cream-dark group-hover:text-velvet-darkest ${
                         isToolbarToggled ? 'rotate-180' : 'rotate-0'
                     }`}/> 
                 </button>

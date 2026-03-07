@@ -230,7 +230,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
     }
 
     return (
-        <div  className={ isToolbarToggled ? `hidden`:`w-[100%] rounded-t-xl bg-stone-950 -mt-2 z-10 border-1 border-stone-400/50 transition-all duration-500 ease-in-out pb-1 overflox-auto  `}
+        <div  className={ isToolbarToggled ? `hidden`:`w-[100%] rounded-t-xl bg-velvet-darkest -mt-2 z-10 border-1 border-velvet-accent transition-all duration-500 ease-in-out pb-1 overflox-auto  `}
         >
 
             <div onClick={handleImgAndTextCardExpand} className="flex justify-between items-center py-2 cursor-pointer">
