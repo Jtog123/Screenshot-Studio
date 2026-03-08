@@ -292,8 +292,8 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                             onClick={handleGradientDirectionChange} 
                             className={`flex justify-center items-center w-[50px] h-[35px] mx-1 rounded-lg py-1 transition-all ease-in duration-200
                                 ${!isBackgroundSolid && isLeftToRightGradient 
-                                    ? 'bg-crust-light pointer-events-none' 
-                                    : 'bg-crust-graham/50 hover:bg-orange-juicy cursor-pointer'
+                                    ? 'bg-orange-juicy/50 pointer-events-none' 
+                                    : 'bg-crust-graham/50 hover:bg-orange-juicy/50 cursor-pointer'
                                 }
                                 ${isBackgroundSolid ? ' opacity-50 pointer-events-none' : ''}
                             `}
@@ -307,8 +307,8 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                             onClick={handleGradientDirectionChange} 
                             className={`flex justify-center items-center w-[50px] h-[35px] mx-1 rounded-lg py-1 transition-all ease-in duration-200
                                 ${!isBackgroundSolid && !isLeftToRightGradient 
-                                    ? 'bg-crust-light pointer-events-none' 
-                                    : 'bg-crust-graham/30 hover:bg-orange-juicy cursor-pointer'
+                                    ? 'bg-orange-juicy/50 pointer-events-none' 
+                                    : 'bg-crust-graham/30 hover:bg-orange-juicy/50 cursor-pointer'
                                 }
                                 ${isBackgroundSolid ? 'opacity-50 pointer-events-none' : ''}
                             `}
@@ -320,7 +320,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                     </div>
 
                     <div className="flex flex-col ml-5 text-sm mt-1">
-                        <label className={ isBackgroundSolid ? `text-espresso mt-1 text-xs` : `text-cream-dark mt-1 text-xs`}  style={{ fontFamily: 'lato' }} htmlFor="">Scale</label>
+                        <label className={ isBackgroundSolid ? `text-espresso mt-1 text-xs` : `text-espresso mt-1 text-xs`}  style={{ fontFamily: 'lato' }} htmlFor="">Scale</label>
                         <input onChange={handleGradientScaleChange} disabled={isBackgroundSolid} value={gradientScale} max={"5"} min={"1"} step={"0.1"} className={isBackgroundSolid ? `w-[75%] h-1 my-1 accent-[] opacity-40` : ` w-[75%] h-1 my-1 accent-[#C05400] `} type="range" />
                     </div>
 
