@@ -19,6 +19,95 @@
 
     --color-emerald-luxury: #0F4C3A;
     --color-emerald-luxury-hover: #083426; 
+
+
+        /* ===== Background / Environment (dark cocoa) ===== */
+
+    --color-cocoa-black: #1A0A0C;        /* deepest background */
+    --color-dark-cocoa: #2B0F14;         /* environment / stage */
+
+    /* ===== Primary UI (red velvet cake layers) ===== */
+
+    --color-red-velvet: #7A1E2C;         /* main UI panels */
+    --color-red-velvet-rich: #8E2636;    /* hover / elevated surfaces */
+    --color-red-velvet-soft: #9F3446;    /* lighter cards */
+
+    /* ===== Frosting (light UI surfaces & text) ===== */
+
+    --color-frosting: #FFFBF5;           /* primary text */
+    --color-frosting-soft: #F5F0E8;      /* secondary text / backgrounds */
+    --color-frosting-shadow: #E8DED0;    /* muted labels / borders */
+
+    /* ===== Interaction Accent (cherry syrup) ===== */
+
+    --color-cherry-syrup: #E23A56;       /* sliders / active states */
+    --color-cherry-glaze: #F04C68;       /* hover accent */
+
+    /* ===== Depth / Edges (chocolate tones) ===== */
+
+    --color-cocoa-edge: #4A1A1F;         /* borders */
+    --color-cocoa-muted: #5A2328;        /* separators */
+
+
+    /********CREAMSICLE*********/
+
+        /* Neutrals/Creams */
+    --color-whipped-pure: #FFFEF9;
+    --color-whipped-light: #FFF9F0;
+    --color-cream-vanilla: #FFF4E6;
+    --color-cream-custard: #FFEFD4;
+    --color-cream-butter: #FFE8C2;
+    --color-cream-golden: #FFE0AD;
+    --color-crust-light: #F5D6A0;
+    --color-crust-graham: #E5C485;
+    
+    /* Accent/Orange */
+    --color-orange-bright: #FFB84D;
+    --color-orange-vibrant: #FFA733;
+    --color-orange-juicy: #FF9D1F;
+    --color-orange-tangy: #FF8C0A;
+    --color-orange-deep: #F77A00;
+    --color-orange-zest: #E86D00;
+    --color-orange-rind: #D65F00;
+    --color-orange-caramel: #C05400;
+
+       /* Text/Dark */
+    --color-espresso: #2C1810;
+    --color-chocolate: #3D2315;
+    --color-mocha: #52301C;
+    --color-coffee: #6B4423;
+    --color-caramel-dark: #7D5328;
+    --color-amber: #8F602E;
+    --color-toffee: #A57039;
+    --color-pecan: #B88347;
+
+    /****** another velvet colorway
+
+      /* Red Velvets */
+    --color-velvet-crimson: #C41E3A;
+    --color-velvet-rouge: #B01830;
+    --color-velvet-ruby: #9D1428;
+    --color-velvet-wine: #8A1020;
+    --color-velvet-burgundy: #6E0C1A;
+    --color-velvet-garnet: #5A0914;
+    --color-velvet-oxblood: #47070F;
+    --color-velvet-midnight: #2D0409;
+    
+    /* Cream Frosting */
+    --color-cream-pure: #FFFEF8;
+    --color-cream-white: #FFF9F0;
+    --color-cream-ivory: #FFF4E8;
+    --color-cream-vanilla: #FFEEDC;
+    --color-cream-butter: #FFE8CE;
+    --color-cream-sand: #FFE0BB;
+    --color-cream-beige: #F5D5A8;
+    --color-cream-caramel: #E8C895;
+    
+    /* Metallic Accent */
+    --color-gold-rose: #D4AF77;
+    --color-gold-warm: #C9A55D;
+    --color-gold-antique: #B8924A;
+
 }
 
 body { 

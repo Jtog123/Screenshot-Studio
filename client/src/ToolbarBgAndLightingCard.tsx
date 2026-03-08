@@ -250,12 +250,12 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
     }    
 
     return(
-        <div  className={ isToolbarToggled ? `hidden` : `w-[100%] bg-velvet-darkest flex-shrink-0 pb-2`}>
+        <div  className={ isToolbarToggled ? `hidden` : `w-[100%] bg-cream-vanilla flex-shrink-0 pb-2`}>
             {/* Header - always visible */}
             <div onClick={handleBgAndLightCardExpand}  className="flex justify-between items-center py-2 cursor-pointer">
-                <h1 className="text-cream-dark ml-5 text-sm" style={{ fontFamily: 'lato' }}>Background & Lighting</h1>
-                <button onClick={handleBgAndLightCardExpand} className="mr-5 text-cream">
-                    <MenuKarrotIcon className={`text-cream w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-300 ${isBgAndLightCardExpanded ? `` : `rotate-180`}`} />
+                <h1 className="text-espresso ml-5 text-sm" style={{ fontFamily: 'lato' }}>Background & Lighting</h1>
+                <button onClick={handleBgAndLightCardExpand} className="mr-5 text-espresso">
+                    <MenuKarrotIcon className={`text-espresso w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-300 ${isBgAndLightCardExpanded ? `` : `rotate-180`}`} />
                 </button>
             </div>
 
@@ -265,9 +265,9 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
             }`}>
                 <div className="overflow-hidden">
                     {/* Background Section */}
-                    <h1 className="text-cream-dark ml-5 mt-1 text-xs" style={{ fontFamily: 'lato' }}>Style</h1>
-                    <div className="flex justify-between bg-velvet-darkest py-2">
-                        <select value={selectedBackgroundValue} onChange={handleBackgroundChange} className="w-[35%] ml-5 h-[30px] px-1 bg-velvet-accent text-cream text-sm rounded-md">
+                    <h1 className="text-espresso ml-5 mt-1 text-xs" style={{ fontFamily: 'lato' }}>Style</h1>
+                    <div className="flex justify-between bg-cream-vanilla py-2">
+                        <select value={selectedBackgroundValue} onChange={handleBackgroundChange} className="w-[35%] ml-5 h-[30px] px-1 bg-cream-golden text-espresso text-sm rounded-md">
                             <option value="solid" >solid</option>
                             <option value="gradient">gradient</option>
                         </select>
@@ -286,14 +286,14 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                     </div>
 
                     {/* Gradient Settings */}
-                    <h1 className="text-cream-dark ml-5 mt-1 mb-2 text-xs" style={{ fontFamily: 'lato' }}>Gradient Settings</h1>
+                    <h1 className="text-espresso ml-5 mt-1 mb-2 text-xs" style={{ fontFamily: 'lato' }}>Gradient Settings</h1>
                     <div className="flex w-[50%] ml-2 justify-around mt-1 ">
                         <button 
                             onClick={handleGradientDirectionChange} 
-                            className={`flex justify-center items-center w-[50px] h-[35px] mx-1 rounded-lg py-1 transition-all duration-200
+                            className={`flex justify-center items-center w-[50px] h-[35px] mx-1 rounded-lg py-1 transition-all ease-in duration-200
                                 ${!isBackgroundSolid && isLeftToRightGradient 
-                                    ? 'bg-velvet-accent pointer-events-none' 
-                                    : 'bg-cocoa-light hover:bg-velvet-accent cursor-pointer'
+                                    ? 'bg-crust-light pointer-events-none' 
+                                    : 'bg-crust-graham/50 hover:bg-orange-juicy cursor-pointer'
                                 }
                                 ${isBackgroundSolid ? ' opacity-50 pointer-events-none' : ''}
                             `}
@@ -305,10 +305,10 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
 
                         <button 
                             onClick={handleGradientDirectionChange} 
-                            className={`flex justify-center items-center w-[50px] h-[35px] mx-1 rounded-lg py-1 transition-all duration-200
+                            className={`flex justify-center items-center w-[50px] h-[35px] mx-1 rounded-lg py-1 transition-all ease-in duration-200
                                 ${!isBackgroundSolid && !isLeftToRightGradient 
-                                    ? 'bg-velvet-accent pointer-events-none' 
-                                    : 'bg-cocoa-light hover:bg-velvet-accent cursor-pointer'
+                                    ? 'bg-crust-light pointer-events-none' 
+                                    : 'bg-crust-graham/30 hover:bg-orange-juicy cursor-pointer'
                                 }
                                 ${isBackgroundSolid ? 'opacity-50 pointer-events-none' : ''}
                             `}
@@ -320,19 +320,19 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                     </div>
 
                     <div className="flex flex-col ml-5 text-sm mt-1">
-                        <label className={ isBackgroundSolid ? `text-cream-dark/40 mt-1 text-xs` : `text-cream-dark mt-1 text-xs`}  style={{ fontFamily: 'lato' }} htmlFor="">Scale</label>
-                        <input onChange={handleGradientScaleChange} disabled={isBackgroundSolid} value={gradientScale} max={"5"} min={"1"} step={"0.1"} className={isBackgroundSolid ? `w-[75%] h-1 my-1 accent-[#4A0A1C] opacity-40` : ` w-[75%] h-1 my-1 accent-[#C14A5C] `} type="range" />
+                        <label className={ isBackgroundSolid ? `text-espresso mt-1 text-xs` : `text-cream-dark mt-1 text-xs`}  style={{ fontFamily: 'lato' }} htmlFor="">Scale</label>
+                        <input onChange={handleGradientScaleChange} disabled={isBackgroundSolid} value={gradientScale} max={"5"} min={"1"} step={"0.1"} className={isBackgroundSolid ? `w-[75%] h-1 my-1 accent-[] opacity-40` : ` w-[75%] h-1 my-1 accent-[#C05400] `} type="range" />
                     </div>
 
                     {/* Divider */}
                     <div className="flex w-[100%] justify-center my-1">
-                        <div className="w-[90%] h-px bg-cream/40 my-3"></div>
+                        <div className="w-[90%] h-px bg-orange-juicy/80 my-3"></div>
                     </div>
 
                     {/* Lighting */}
                     <div className='flex w-[100%] justify-center'>
                         <div className='flex  w-[90%] justify-center '>
-                            <h1 className="text-cream-dark  my-1 text-sm"  style={{ fontFamily: 'lato' }}>Lighting</h1>
+                            <h1 className="text-espresso  my-1 text-sm"  style={{ fontFamily: 'lato' }}>Lighting</h1>
                         </div>
                     </div>
 
