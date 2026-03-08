@@ -286,16 +286,16 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                     </div>
 
                     {/* Gradient Settings */}
-                    <h1 className="text-cream-dark ml-5 mt-1 text-xs" style={{ fontFamily: 'lato' }}>Gradient Settings</h1>
-                    <div className="flex w-[50%] ml-2 justify-around mt-1">
+                    <h1 className="text-cream-dark ml-5 mt-1 mb-2 text-xs" style={{ fontFamily: 'lato' }}>Gradient Settings</h1>
+                    <div className="flex w-[50%] ml-2 justify-around mt-1 ">
                         <button 
                             onClick={handleGradientDirectionChange} 
                             className={`flex justify-center items-center w-[50px] h-[35px] mx-1 rounded-lg py-1 transition-all duration-200
                                 ${!isBackgroundSolid && isLeftToRightGradient 
-                                    ? 'bg-stone-500 pointer-events-none' 
-                                    : 'bg-stone-700 hover:bg-stone-600 cursor-pointer'
+                                    ? 'bg-velvet-accent pointer-events-none' 
+                                    : 'bg-cocoa-light hover:bg-velvet-accent cursor-pointer'
                                 }
-                                ${isBackgroundSolid ? 'opacity-50 pointer-events-none' : ''}
+                                ${isBackgroundSolid ? ' opacity-50 pointer-events-none' : ''}
                             `}
                         >
                             <LeftRightGradIcon 
@@ -307,8 +307,8 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                             onClick={handleGradientDirectionChange} 
                             className={`flex justify-center items-center w-[50px] h-[35px] mx-1 rounded-lg py-1 transition-all duration-200
                                 ${!isBackgroundSolid && !isLeftToRightGradient 
-                                    ? 'bg-stone-500 pointer-events-none' 
-                                    : 'bg-stone-700 hover:bg-stone-600 cursor-pointer'
+                                    ? 'bg-velvet-accent pointer-events-none' 
+                                    : 'bg-cocoa-light hover:bg-velvet-accent cursor-pointer'
                                 }
                                 ${isBackgroundSolid ? 'opacity-50 pointer-events-none' : ''}
                             `}
@@ -343,14 +343,14 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                                 <DirectionalLightIcon className='w-[48px] h-[48px]  '/>
                             </button>
 
-                            <button onClick={handleSpotLightCreation} className=" flex justify-center items-center cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-stone-700 hover:bg-stone-500 hover:bg-stone-500 text-stone-300 hover:text-[#D946EF] transition-colors duration-200 rounded-lg py-1">
+                            <button onClick={handleSpotLightCreation} className=" flex justify-center items-center cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-velvet-accent hover:bg-velvet text-cream-dark hover:text-cream-light hover:text-[#D946EF] transition-colors duration-200 rounded-lg py-1">
                                 <SpotLightIcon className='w-[32px] h-[32px]  ' />
                             </button>
 
-                            <button onClick={handlePointLightCreation} className=" flex justify-center items-center cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-stone-700 hover:bg-stone-500 hover:bg-stone-500 text-stone-300 hover:text-[#D946EF] transition-colors duration-200 rounded-lg py-1">
+                            <button onClick={handlePointLightCreation} className=" flex justify-center items-center cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-velvet-accent hover:bg-velvet text-cream-dark hover:text-cream-light transition-colors duration-200 rounded-lg py-1">
                                 <PointLightIcon className='w-[32px] h-[32px] transition-all duration-200 ease-in  '/>
                             </button>
-                            <button onClick={handleRectAreaLightCreation} className=" flex justify-center items-center cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-stone-700 hover:bg-stone-500 hover:bg-stone-500 text-stone-300 hover:text-[#D946EF] transition-colors duration-200 rounded-lg py-1">
+                            <button onClick={handleRectAreaLightCreation} className=" flex justify-center items-center cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-velvet-accent hover:bg-velvet text-cream-dark hover:text-cream-light transition-colors duration-200 rounded-lg py-1">
                                 <RectAreaIcon className="w-[40px] h-[40px]"/>
                             </button>
                         </div>

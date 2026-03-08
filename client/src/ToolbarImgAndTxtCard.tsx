@@ -249,7 +249,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                     {/* stuff here*/}
                     <div className="flex  w-[100%]  justify-center  pb-2">
                         <div className="flex  w-[50%] h-[50px] justify-evenly items-center  ">
-                            <button onClick={addImageComponent} className="flex justify-center items-center transition-all ease-in duration-200 text-cream hover:bg-stone-500 hover:text-[#D946EF] cursor-pointer w-[45px] h-[35px] p-2 mx-1 bg-stone-700 rounded-lg py-1 ">
+                            <button onClick={addImageComponent} className="flex justify-center items-center transition-all ease-in duration-200 bg-velvet-accent hover:bg-velvet text-cream-dark hover:text-cream-light  cursor-pointer w-[45px] h-[35px] p-2 mx-1  rounded-lg py-1 ">
                                 <ImageIcon  className=""/>
                             </button>
 
@@ -257,7 +257,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                                 <div className=" h-[40px] w-px bg-cream/40 "></div>
                             </div>
 
-                            <button onClick={addTextComponent} className="flex justify-center items-center transition-all ease-in duration-200 text-cream hover:bg-stone-500 hover:text-[#D946EF] cursor-pointer w-[45px] h-[35px] p-2 mx-1 bg-stone-700 rounded-lg py-1 ">
+                            <button onClick={addTextComponent} className="flex justify-center items-center transition-all ease-in duration-200 bg-velvet-accent hover:bg-velvet text-cream-dark hover:text-cream-light  cursor-pointer w-[45px] h-[35px] p-2 mx-1  rounded-lg py-1 ">
                                 <TextIcon className=""/>
                             </button>
                         </div>
@@ -272,7 +272,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                         <h4 className="text-cream text-xs ml-5 mr-2"  style={{ fontFamily: 'lato' }}>Add up to 7 photos</h4>
                         <input ref={screenTextureFileRef} type="file" accept="image/*" onChange={(e) => handleScreenTextureUpload(e)} className="hidden"/>
                             {
-                                <button className={isScreenTextureUploaded ? `hidden` :`flex justify-center items-center transition-all ease-in duration-200 text-cream hover:bg-stone-500 hover:text-[#D946EF] cursor-pointer w-[35px] h-[30px] p-2 mx-1 bg-stone-700 rounded-lg py-1`}
+                                <button className={isScreenTextureUploaded ? `hidden` :`flex justify-center items-center transition-all ease-in duration-200 bg-velvet-accent hover:bg-velvet text-cream-dark hover:text-cream-light  cursor-pointer w-[35px] h-[30px] p-2 mx-1 bg-stone-700 rounded-lg py-1`}
                                 onClick={() => screenTextureFileRef.current?.click()}>
                                     <UploadIcon className=""/>
                                 </button> 

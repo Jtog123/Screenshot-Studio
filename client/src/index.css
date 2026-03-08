@@ -16,6 +16,9 @@
     --color-cocoa-dark: #3D1F1F;
     --color-cocoa: #5C2E2E;
     --color-cocoa-light: #7A4545;
+
+    --color-emerald-luxury: #0F4C3A;
+    --color-emerald-luxury-hover: #083426; 
 }
 
 body { 

@@ -93,13 +93,13 @@ export default function ToolbarCameraCard({isToolbarToggled, _cameraManager, _ph
                         </div>
 
                         <div className="button flex justiify-between container w-[50%] p-1 mr-5">
-                            <button onClick={handleCameraZoomIn}  className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 text-stone-300 bg-stone-700 transition-all duration-200 hover:bg-stone-500 rounded-lg py-1"> 
+                            <button onClick={handleCameraZoomIn}  className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 bg-velvet-accent hover:bg-velvet text-cream-dark hover:text-cream-light transition-all duration-200  rounded-lg py-1"> 
                                 <CameraZoomInIcon className="text-stone-300"/>
                             </button>
-                            <button onClick={handleCameraZoomOut} className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 text-stone-300 bg-stone-700 transition-all duration-200 hover:bg-stone-500 rounded-lg py-1"> 
+                            <button onClick={handleCameraZoomOut} className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 bg-velvet-accent hover:bg-velvet text-cream-dark hover:text-cream-light  transition-all duration-200  rounded-lg py-1"> 
                                 <CameraZoomOutIcon className=''/>
                             </button>
-                            <button onClick={handleZoomReset} className="flex justify-center items-center text-stone-300 bg-stone-700 transition-all duration-200 hover:bg-stone-500 rounded-xl h-[30px] w-[30px] cursor-pointer group">
+                            <button onClick={handleZoomReset} className="flex justify-center items-center bg-velvet-accent hover:bg-velvet text-cream-dark hover:text-cream-light  transition-all duration-200  rounded-xl h-[30px] w-[30px] cursor-pointer group">
                                 <RefreshStartIcon className="transition-transform duration-300 group-hover:-rotate-90" />
                             </button>
                         </div>
@@ -113,15 +113,15 @@ export default function ToolbarCameraCard({isToolbarToggled, _cameraManager, _ph
                         </div>
 
                         <div className="button flex justiify-between container w-[50%] p-1 mr-5 pb-2">
-                            <button onClick={handleCameraHeightIncrease} className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 text-stone-300 bg-stone-700 transition-all duration-200 hover:bg-stone-500 rounded-lg py-1">
+                            <button onClick={handleCameraHeightIncrease} className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 bg-velvet-accent hover:bg-velvet text-cream-dark hover:text-cream-light  transition-all duration-200  rounded-lg py-1">
                                  <CameraUpIcon className=''/>
                             </button>
 
-                            <button onClick={handleCameraHeightDecrease} className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 text-stone-300 bg-stone-700 transition-all duration-200 hover:bg-stone-500 rounded-lg py-1">
+                            <button onClick={handleCameraHeightDecrease} className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 bg-velvet-accent hover:bg-velvet text-cream-dark hover:text-cream-light  transition-all duration-200  rounded-lg py-1">
                                  <CameraDownIcon className=''/>
                             </button>
 
-                            <button onClick={handleHeightReset} className="flex justify-center items-center text-stone-200 bg-stone-700 transition-all duration-200 hover:bg-stone-500 rounded-xl h-[30px] w-[30px] cursor-pointer group">
+                            <button onClick={handleHeightReset} className="flex justify-center items-center bg-velvet-accent hover:bg-velvet text-cream-dark hover:text-cream-light  transition-all duration-200 rounded-xl h-[30px] w-[30px] cursor-pointer group">
                                 <RefreshStartIcon className="transition-transform duration-300 group-hover:-rotate-90" />
                             </button>
                         </div>
