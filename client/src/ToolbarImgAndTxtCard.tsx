@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react"
 import { ImageComponentInterface, TextComponentInterface ,ScreenTextureInterface, CapturedImage} from "./ComponentInterfaces"
 import * as THREE from 'three'
 import { AssetManager } from "./AssetManager"
-import { texture } from "three/src/nodes/TSL.js"
+import { div, texture } from "three/src/nodes/TSL.js"
 import ImageIcon from "./IconAssets/ImageIcon"
 import TextIcon from "./IconAssets/TextIcon"
 import UploadIcon from "./IconAssets/UploadIcon"
@@ -230,13 +230,13 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
     }
 
     return (
-        <div  className={ isToolbarToggled ? `hidden`:`w-[100%] rounded-t-xl bg-velvet-darkest -mt-2 z-10 border-1 border-cream/40 transition-all duration-500 ease-in-out pb-1 overflox-auto  `}
+        <div  className={ isToolbarToggled ? `hidden`:`w-[100%] rounded-t-xl bg-cream-vanilla -mt-2 z-10 border-1 border-orange-juicy/80 transition-all duration-500 ease-in-out pb-1 overflox-auto  `}
         >
 
             <div onClick={handleImgAndTextCardExpand} className="flex justify-between items-center py-2 cursor-pointer">
-                <h1 className="ml-5 text-cream text-sm"  style={{ fontFamily: 'lato' }}>Image & Text</h1>
+                <h1 className="ml-5 text-espresso text-sm"  style={{ fontFamily: 'lato' }}>Image & Text</h1>
                 <button onClick={handleImgAndTextCardExpand} className="mr-5 text-cream">
-                    <MenuKarrotIcon className={`text-cream w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-300 ${isImgAndTxtCardExpanded ? `` : `rotate-180`}`} />
+                    <MenuKarrotIcon className={`text-orange-caramel w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-300 ${isImgAndTxtCardExpanded ? `` : `rotate-180`}`} />
                 </button>
             </div>
 
@@ -249,7 +249,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                     {/* stuff here*/}
                     <div className="flex  w-[100%]  justify-center  pb-2">
                         <div className="flex  w-[50%] h-[50px] justify-evenly items-center  ">
-                            <button onClick={addImageComponent} className="flex justify-center items-center transition-all ease-in duration-200 bg-velvet-accent hover:bg-velvet text-cream-dark hover:text-cream-light  cursor-pointer w-[45px] h-[35px] p-2 mx-1  rounded-lg py-1 ">
+                            <button onClick={addImageComponent} className="flex justify-center items-center transition-all ease-in duration-200 bg-crust-graham/70 hover:bg-orange-juicy/50 text-espresso hover:text-cream-light  cursor-pointer w-[36px] h-[36px] p-1 mx-1  rounded-lg py-1 ">
                                 <ImageIcon  className=""/>
                             </button>
 
@@ -257,7 +257,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                                 <div className=" h-[40px] w-px bg-cream/40 "></div>
                             </div>
 
-                            <button onClick={addTextComponent} className="flex justify-center items-center transition-all ease-in duration-200 bg-velvet-accent hover:bg-velvet text-cream-dark hover:text-cream-light  cursor-pointer w-[45px] h-[35px] p-2 mx-1  rounded-lg py-1 ">
+                            <button onClick={addTextComponent} className="flex justify-center items-center transition-all ease-in duration-200 bg-crust-graham/70 hover:bg-orange-juicy/50 text-espresso hover:text-cream-light  cursor-pointer w-[36px] h-[36px] p-1 mx-1  rounded-lg py-1 ">
                                 <TextIcon className=""/>
                             </button>
                         </div>
@@ -265,14 +265,14 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
 
                         {/* Divider */}
                     <div className="flex w-[100%] justify-center my-1">
-                        <div className="w-[90%] h-px bg-cream/40 my-2"></div>
+                        <div className="w-[80%] h-px bg-orange-juicy/80 my-2"></div>
                     </div>
 
                     <div className="flex justify-center items-center">
-                        <h4 className="text-cream text-xs ml-5 mr-2"  style={{ fontFamily: 'lato' }}>Add up to 7 photos</h4>
+                        <h4 className="text-espresso text-xs ml-5 mr-2"  style={{ fontFamily: 'lato' }}>Add up to 7 photos</h4>
                         <input ref={screenTextureFileRef} type="file" accept="image/*" onChange={(e) => handleScreenTextureUpload(e)} className="hidden"/>
                             {
-                                <button className={isScreenTextureUploaded ? `hidden` :`flex justify-center items-center transition-all ease-in duration-200 bg-velvet-accent hover:bg-velvet text-cream-dark hover:text-cream-light  cursor-pointer w-[35px] h-[30px] p-2 mx-1 bg-stone-700 rounded-lg py-1`}
+                                <button className={isScreenTextureUploaded ? `hidden` :`flex justify-center items-center transition-all ease-in duration-200 bg-crust-graham/70 hover:bg-orange-juicy/50 text-espresso hover:text-cream-light  cursor-pointer w-[35px] h-[30px] p-2 mx-1  rounded-lg py-1`}
                                 onClick={() => screenTextureFileRef.current?.click()}>
                                     <UploadIcon className=""/>
                                 </button> 
@@ -290,10 +290,10 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                         {screenTextures.map((img) => (
                             <div key={img.id} className="flex flex-col mx-1 ">
                                 <input type="radio"  className=" mb-1" name="screenshot" checked={activeTextureID === img.id} onChange={() => handleTextureSelect(img.id)} id="" />
-                                <div className="h-[auto] w-[28px] border-1 border-cream/40 mb-3">
+                                <div className="h-[auto] w-[28px] border-1 border-orange-juicy/80 mb-3">
                                     <img src={img.imgPath}  alt=""/>
                                 </div>
-                                <button onClick={() => handleTextureDelete(img.id)} className="bg-red-500 rounded-lg cursor-pointer">x</button>
+                                <button onClick={() => handleTextureDelete(img.id)} className=" transition-all ease-in duration-200 bg-velvet-crimson rounded-lg cursor-pointer hover:bg-red-400 text-espresso hover:text-cream-light">x</button>
                             </div>
                         )
                             
@@ -313,24 +313,31 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
 
                     {/* Divider */}
                     <div className="flex w-[100%] justify-center my-1">
-                        <div className="w-[90%] h-px bg-cream/40 my-2"></div>
+                        <div className="w-[80%] h-px bg-orange-juicy/80 my-2"></div>
                     </div>
                     
                     <div className="flex justify-center items-center ">
-                        <h4 className="text-cream text-xs mr-2 mb-2"  style={{ fontFamily: 'lato' }}>Captured</h4>
+                        <h4 className="text-espresso text-xs mr-2 mb-2"  style={{ fontFamily: 'lato' }}>Captured</h4>
                     </div>
+
+
 
                     <div className="capturedContainer flex  mx-3 mb-2 py-2 ">
 
 
-                        {capturedImages && capturedImages.map((img) => (
+
+                        {capturedImages.length !== 0 ?  capturedImages.map((img) => (
                             <div key={img.id} className="flex flex-col mx-1 ">
-                                <div className="h-[auto] w-[28px] border-1 border-stone-300 mb-3">
+                                <div className="h-[auto] w-[28px] border-1 border-orange-juicy/80 mb-3">
                                     <img src={img.imgPath}  alt=""/>
                                 </div>
                                 <button onClick={() => handleCapturedImageDelete(img.id)}  className="bg-red-500 rounded-lg cursor-pointer">x</button>
                             </div>      
-                        ))}
+                        )) :
+                            <div className="flex w-[100%] justify-center items-center"> 
+                                <h1 className="text-espresso/50 text-xs">No screenshots taken</h1>
+                            </div>
+                        }
 
                         {/* When isCaptured has been set to true}
                         {capturedImages.map(img) => (

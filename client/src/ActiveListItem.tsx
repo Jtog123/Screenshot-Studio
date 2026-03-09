@@ -114,17 +114,17 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
     const getIcon = () => {
         console.log(itemID);
         if (itemID.startsWith("_DirectionalLight")) {
-            return <DirectionalLightIcon className=" w-[24px] h-[24px] text-cream"/>
+            return <DirectionalLightIcon className=" w-[24px] h-[24px] text-orange-caramel"/>
         } else if (itemID.startsWith("_SpotLight")) {
-            return <SpotLightIcon className=" w-[24px] h-[24px] text-cream"/>
+            return <SpotLightIcon className=" w-[24px] h-[24px] text-orange-caramel"/>
         } else if (itemID.startsWith("_PointLight")) {
-            return <PointLightIcon className=" w-[24px] h-[24px] text-cream" />
+            return <PointLightIcon className=" w-[24px] h-[24px] text-orange-caramel" />
         } else if (itemID.startsWith("_RectAreaLight")) {
-            return <RectAreaIcon className=" w-[24px] h-[24px] text-cream" />
+            return <RectAreaIcon className=" w-[24px] h-[24px] text-orange-caramel" />
         } else if(itemID.startsWith("sprite_image_")) {
-            return <ImageIcon className="w-[20px] h-[20px] text-cream"/>;
+            return <ImageIcon className="w-[20px] h-[20px] text-orange-caramel"/>;
         } else if(itemID.startsWith("text_")) {
-            return <TextIcon className="w-[20px] h-[20px] text-cream"/>;
+            return <TextIcon className="w-[20px] h-[20px] text-orange-caramel"/>;
         } 
         
         
@@ -133,7 +133,7 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
     return (
         <li 
             onClick={handleListItemSelection} 
-            className="group/item flex items-center justify-between px-2 py-1.5 rounded-md hover:bg-velvet-noir/40 transition-colors cursor-pointer border-x-1 border-cream/40 hover:border-cream/70"
+            className="group/item flex items-center justify-between px-2 py-1.5 rounded-md bg-orange-bright/20 hover:bg-espresso/10 transition-colors cursor-pointer border-x-1 border-orange-caramel/80 hover:border-cream/70"
         >
             {/* Left side: Icon + Name */}
             <div className="flex items-center gap-2 flex-1 min-w-0 ">
@@ -141,7 +141,7 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
                     <span className="text-sm flex-shrink-0">{getIcon()}</span>
                 </div>
 
-                <span className="text-cream/80 text-sm truncate ">{itemName}</span>
+                <span className="text-espresso/80 text-sm truncate ">{itemName}</span>
             </div>
 
             {/* Right side: Actions (show on hover) */}
@@ -149,7 +149,7 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
                 {/* Visibility toggle */}
                 <button 
                     onClick={toggleItemVisibility}
-                    className={`group/eye p-1 rounded hover:bg-velvet-noir/40 transition-colors group ${
+                    className={`group/eye p-1 rounded hover:bg-espresso/20 transition-colors group ${
                         isItemVisible ? 'text-stone-300' : 'text-stone-600'
                     }`}
                     
@@ -157,12 +157,12 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
                         {isItemVisible ? 
                             // Eye icon
                             <>
-                            <EyeOpenIcon className="text-stone-300 w-[20px] h-[20px] group-hover/eye:hidden  "/>
-                            <EyeMidIcon className="text-stone-300 w-[20px] h-[20px] hidden hidden group-hover/eye:block" />
+                            <EyeOpenIcon className="text-orange-deep w-[20px] h-[20px] group-hover/eye:hidden  "/>
+                            <EyeMidIcon className="text-orange-deep w-[20px] h-[20px] hidden hidden group-hover/eye:block" />
                             </>
                          : 
                             // Eye-off icon
-                            <EyeClosedIcon className="text-stone-300 w-[20px] h-[20px]  "/>
+                            <EyeClosedIcon className="text-orange-deep w-[20px] h-[20px]  "/>
                         }
                     
                 </button>
@@ -170,7 +170,7 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
                 {/* Delete button */}
                 <button 
                     onClick={handleItemDeletion}
-                    className="p-1 rounded hover:bg-red-600/20 text-stone-400 hover:text-red-400 transition-colors"
+                    className="p-1 rounded hover:bg-red-600/20 text-velvet-rouge hover:text-red-400 transition-colors"
                     title="Delete"
                 >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

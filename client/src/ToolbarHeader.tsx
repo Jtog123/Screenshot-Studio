@@ -9,9 +9,9 @@ interface ToolbarHeaderProps {
 export default function ToolbarHeader({isToolbarToggled, setToolbarToggled} : ToolbarHeaderProps) {
     return (
         <>
-            <div className={isToolbarToggled ? `flex w-full items-center justify-center  h-[5%] bg-velvet-accent py-2` : `flex w-full items-center justify-between h-[5%] bg-cream-golden px-3`}>
-                <button onClick={setToolbarToggled} className="flex justify-center cursor-pointer items-center h-[30px] w-[40px] bg-orange-tangy transition-colors duration-300 hover:bg-velvet  rounded-xl group">
-                    <ToolbarHeaderArrow className={`transition-transform duration-300 text-cream-dark group-hover:text-velvet-darkest ${
+            <div className={isToolbarToggled ? `flex w-full items-center justify-center  h-[5%] bg-cream-golden py-2` : `flex w-full items-center justify-between h-[5%] bg-cream-golden px-3`}>
+                <button onClick={setToolbarToggled} className="flex justify-center cursor-pointer items-center h-[30px] w-[40px] bg-orange-tangy transition-colors duration-300 hover:bg-orange-rind  rounded-xl group">
+                    <ToolbarHeaderArrow className={`transition-transform duration-300 text-cream-dark group-hover:text-espresso ${
                         isToolbarToggled ? 'rotate-180' : 'rotate-0'
                     }`}/> 
                 </button>
