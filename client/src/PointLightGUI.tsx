@@ -184,14 +184,14 @@ export default function PointLightGUI({_lightID, _lightManager} : PointLightGUIP
                         </h1>
                     </div>
 
-                    <button onClick={handleGUIWindowClose} className="rounded px-2 py-1 bg-red-500 text-white text-sm hover:bg-red-600">
+                    <button onClick={handleGUIWindowClose} className="transition-all ease-in duration-100 rounded px-2 py-1 bg-red-500 text-espresso text-sm hover:bg-red-600 hover:text-cream-light cursor-pointer">
                         ✕
                     </button>
                 </div>
 
                 <div className="px-4 py-2 space-y-2">
                     {/* POSITION SECTION */}
-                    <div className="border border-stone-700 rounded-lg overflow-hidden">
+                    <div className="border border-espresso rounded-lg overflow-hidden">
                         <button onClick={() => toggleSection('position')}
                             className="w-full flex justify-between items-center px-3 py-2 bg-cream-golden hover:bg-orange-caramel/20 text-espresso text-sm">
                                 <span style={{ fontFamily: 'lato' }} >Position</span>
