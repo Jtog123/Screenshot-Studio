@@ -213,14 +213,14 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
                         </h1>
                     </div>
 
-                    <button onClick={handleGUIWindowClose}  className="rounded px-2 py-1 bg-red-500 text-white text-sm hover:bg-red-600 cursor-pointer">
+                    <button onClick={handleGUIWindowClose}  className=" transition-all ease-in duration-100 rounded px-2 py-1 bg-red-500 text-espresso text-sm hover:bg-red-600 hover:text-cream-light cursor-pointer">
                          ✕
                     </button>
                 </div>
 
                 <div className="px-4 py-2 space-y-2">
                     {/* POSITION SECTION */}
-                    <div className="border border-stone-700 rounded-lg overflow-hidden">
+                    <div className="border border-espresso rounded-lg overflow-hidden">
                         <button onClick={() => toggleSection('position')}
                             className="w-full flex justify-between items-center px-3 py-2 transition-all ease-in duration-100 bg-cream-golden hover:bg-orange-caramel/20 text-espresso text-sm">
                                 <span style={{ fontFamily: 'lato' }} >Position</span>
@@ -233,7 +233,7 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
 
                                     <div>
                                         <label className="text-xs text-espresso" style={{ fontFamily: 'lato' }}  htmlFor="">X:</label>
-                                        <input name="xPos" className="w-full h-1 accent-[#C05400]" onChange={(e) => handlePosSlidersChange(e, "xPos")} type="range" min={"-10"} max={"10"} value={lightPos.x} step={"0.1"}/>
+                                        <input name="xPos" className="w-full h-1  accent-[#C05400]" onChange={(e) => handlePosSlidersChange(e, "xPos")} type="range" min={"-10"} max={"10"} value={lightPos.x} step={"0.1"}/>
                                     </div>
 
                                     <div>
@@ -253,7 +253,7 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
                     </div>
 
                     {/* Appearance SECTION */}
-                    <div className="border border-stone-700 rounded-lg overflow-hidden">
+                    <div className="border border-espresso rounded-lg overflow-hidden">
                         <button 
                             onClick={() => toggleSection('appearance')}
                             className="w-full flex justify-between items-center px-3 py-2 bg-cream-golden hover:bg-orange-caramel/20 text-espresso text-sm"
