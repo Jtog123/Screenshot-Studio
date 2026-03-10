@@ -129,7 +129,7 @@ export default function Editor() {
             window.location.href = "http://localhost:5173/";
             return;
           }
-          throw new Error("Http Error")
+          throw new Error("Http Error");
         }
 
         //elese good response
@@ -149,6 +149,7 @@ export default function Editor() {
         setIsLoadingUser(false);
       }
     };
+
     fetchUser();
   }, []);
 

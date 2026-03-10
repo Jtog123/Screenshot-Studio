@@ -14,9 +14,7 @@ export default function ToolbarFooter({isToolbarToggled, setToolbarToggled, appU
 
     function handleFooterMenu() :  any {
         console.log("handle footer menu");
-         setFooterMenuVisible(!isFooterMenuVisible);
-
-
+        setFooterMenuVisible(!isFooterMenuVisible);
     }
 
 
