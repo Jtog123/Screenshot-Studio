@@ -6,15 +6,18 @@ import session from "express-session"
 import pg from "pg"
 import passport from "passport"
 import GoogleStrategy  from "passport-google-oauth20"
+//import UserModel from "../../dataModels/UserModel"
 
 
 type AppUser = {
     id: string,
-    displayName :String
-    firstName? : string,
-    lastName? : string,
+    displayName :string
+    profilePicture: string
     email? :string
 }
+    
+
+//var appUser : AppUser | null = null;
 
 require('dotenv').config({path:"../.env"});
 const router = express.Router();
@@ -34,7 +37,7 @@ app.use(session({
     secret: "mySessionSecret", // replace later
     resave: false,
     saveUninitialized: false,
-    cookie: {secure: true} // set to true later?
+    cookie: {secure: false} // set to true later?
 }));
 
 app.use(passport.initialize());
@@ -42,13 +45,22 @@ app.use(passport.session());
 
 //What minimum information do I need for this user ot find them later?
 passport.serializeUser((user: Express.User, done) => {
-    done(null, (user as AppUser).id);
-
+    console.log("order");
+    console.log("user we got is", user)
    
+    done(null, (user as AppUser));
+  
 });
 
-
-
+passport.deserializeUser(async (user:AppUser, done) => {
+    done(null, user);
+});
+/*
+passport.deserializeUser(async (user:AppUser, done) => {
+    console.log("deserializing user with id: ", user.id);
+    done(null, user);
+});
+*/
 
 
 
@@ -59,10 +71,15 @@ passport.use(
             clientSecret: process.env.CLIENT_SECRET as string,
             callbackURL: "http://localhost:5050/auth/google/cb"
         }, async function(token, refreshToken, profile, done){
+            let profilePictureTemp = profile._json["picture"] as string
+            //The callback to searlizeUser function
             const user : AppUser = {
                 id: profile.id,
-                displayName : profile.displayName
+                displayName : profile.displayName,
+                profilePicture: profilePictureTemp
             }
+
+            //console.log(profile._json["picture"]);
             return done(null, user);
             //google returns a bunch of stuff
             //determine the user
@@ -75,6 +92,7 @@ router.get("/auth/google", passport.authenticate("google", {scope: ["https://www
 
 router.get("/auth/google/cb", passport.authenticate("google", {failureRedirect: "/auth/failure"}), (req, res) => {
     res.redirect("http://localhost:5173/editor");
+    
 })
 
 router.get("/auth/failure", (req, res) => {
@@ -85,6 +103,14 @@ router.get("/auth/failure", (req, res) => {
 
 router.get("/", (req, res) => {
     res.json({message: "hello from the backend?"});
+})
+
+router.get("/auth/google/me", (req, res) => {
+    //req.user stores user info, its the user who made the request
+    if(!req.user) {
+        return res.status(401).json({error: "Not authenticated"});
+    }
+    res.json({userProfile: req.user});
 })
 
 //creates base route, if we had a router.get("/editor"), route will be /editor
