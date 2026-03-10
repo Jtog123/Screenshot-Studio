@@ -21,6 +21,8 @@ export default function NavigationBar() {
         //route that takes me to the google sign in page, as specified by my server
         window.location.href = "http://localhost:5050/auth/google";
 
+        console.log("this gets called immidiatley")
+
        /*
        fetch("http://localhost:5050/", {
         method: "GET",

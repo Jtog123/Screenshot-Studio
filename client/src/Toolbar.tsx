@@ -26,6 +26,7 @@ import ToolbarBgAndLightingCard from './ToolbarBgAndLightingCard'
 import ToolbarImgAndTextCard from './ToolbarImgAndTxtCard'
 import ToolbarCameraCard from './ToolbarCameraCard'
 import ToolbarFooter from './ToolbarFooter'
+import { AppUser } from './AppUser'
 
 
 
@@ -46,12 +47,13 @@ interface ToolbarProps {
     _phoneScreen : THREE.Mesh
     capturedImages : CapturedImage[]
     setCapturedImages : React.Dispatch<React.SetStateAction<CapturedImage[]>>
+    appUser : AppUser | null;
     //screenTextures : ScreenTextureInterface[]
     //setScreenTextures : React.Dispatch<React.SetStateAction<ScreenTextureInterface[]>>
 }
 
 
-export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManager, _imageComponents, _setImageComponents,  _assetManager,activeListItems, setActiveListItems, addTextComponent ,camera, _gradientBackground, _phoneScreen, capturedImages, setCapturedImages} : ToolbarProps) { //screenTextures, setScreenTextures
+export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManager, _imageComponents, _setImageComponents,  _assetManager,activeListItems, setActiveListItems, addTextComponent ,camera, _gradientBackground, _phoneScreen, capturedImages, setCapturedImages, appUser} : ToolbarProps) { //screenTextures, setScreenTextures
 
     
     const[selectedLight, setSelectedLight] = useState<{id: string, type: LightType} | null>(null);
@@ -124,7 +126,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                                 </div>
                             
                             <div className='h-40px] w-[100%]'></div>
-                            <ToolbarFooter isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>
+                            <ToolbarFooter isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle} appUser={appUser}/>
                             
 
                             {/*Toolbar Panel Selector*/}
@@ -148,7 +150,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
     
                             <ToolbarActiveComponents activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} lightManager={_lightManager} assetManager={_assetManager}  />
                             
-                            <ToolbarFooter isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>
+                            <ToolbarFooter isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle} appUser= {appUser}/>
 
                             {/*Toolbar Panel Selector*/}
                         </div>

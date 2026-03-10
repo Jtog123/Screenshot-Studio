@@ -30,6 +30,7 @@ import ImageComponent from "../../ImageComponent.js";
 import TextComponent from "../../TextComponent.js";
 import { AssetManager } from "../../AssetManager.js";
 import { JSX } from "react";
+import { AppUser } from '../../AppUser.js';
 import TextComponentGUI from "../../TextComponentGUI.js";
 import TestFonts from '../../TestFonts.js';
 import NavigationBar from '../../NavigationBar.js';
@@ -45,6 +46,8 @@ export default function Editor() {
   const _aspect : number = window.innerWidth / window.innerHeight;
   const _near : number = 0.1;
   const _far : number = 10000;
+
+
 
   //const mountRef = useRef<HTMLDivElement | null>(null);
   const [scene, setScene] = useState<THREE.Scene | null>(null);
@@ -73,14 +76,14 @@ export default function Editor() {
 
   const[isImageCaptured, setImageCaptured] = useState(false);
 
+  const[appUser, setAppUser] = useState<AppUser | null>(null);
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const [authError, setAuthError] = useState<string | null>(null);
+
   //const[fontsLoaded, setFontsLoaded] = useState(false);
 
 
 
-
-  
-  
-  // 
   function addTextComponent() : void {
 
 
@@ -112,6 +115,61 @@ export default function Editor() {
 
   //Click the directional Light Button create a directional light with helper
   //init the raycaster!!!!!!!!!!!!!!!!!!
+
+  useEffect(() => {
+    const fetchUser = async() => {
+      try {
+        const response = await fetch("http://localhost:5050/auth/google/me", {
+          credentials: "include"
+        });
+
+        // Bad response? Sending user to homepage
+        if(!response.ok) {
+          if(response.status === 401) {
+            window.location.href = "http://localhost:5173/";
+            return;
+          }
+          throw new Error("Http Error")
+        }
+
+        //elese good response
+        const userData = await response.json();
+
+        if(userData.error) {
+          setAuthError(userData.error);
+          return;
+        }
+
+        setAppUser(userData.userProfile);
+
+      } catch(err) {
+        console.error("Failed to fetch user: ", err);
+        setAuthError("Failed to load user data");
+      } finally {
+        setIsLoadingUser(false);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  /*
+  useEffect(() => {
+    fetch("http://localhost:5050/auth/google/me", {
+      method: "GET",
+      credentials: "include",
+      headers: {}
+    }).then(response => response.json())
+    .then(userData => {
+      setAppUser(userData.userProfile);
+    })
+    .catch(err => {
+      console.error("Error", err);
+    })
+
+  },[]);
+  */
+
+  console.log("The user is", appUser);
 
   useEffect(() => {
 
@@ -277,7 +335,7 @@ export default function Editor() {
       {isSceneReady && phone && cameraManager &&<PhoneGUI phoneModel={phone} _cameraManager={cameraManager}/>}
 
 
-      {scene && lightManager && cameraManager && phone && assetManager && camera && gradientBackground && _phoneScreen &&<Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents}  _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems} addTextComponent={addTextComponent} camera={camera} _gradientBackground={gradientBackground} _phoneScreen={_phoneScreen} capturedImages={capturedImages} setCapturedImages={setCapturedImages} />} 
+      {scene && lightManager && cameraManager && phone && assetManager && camera && gradientBackground && _phoneScreen  &&<Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents}  _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems} addTextComponent={addTextComponent} camera={camera} _gradientBackground={gradientBackground} _phoneScreen={_phoneScreen} capturedImages={capturedImages} setCapturedImages={setCapturedImages} appUser= {appUser} />} 
 
       {scene && assetManager && camera && imageComponents.map((item) => {
         return <ImageComponent key={item.id} position={item.position} _scene={scene} _camera={camera} _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems}/>
