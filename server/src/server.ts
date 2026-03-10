@@ -111,8 +111,19 @@ router.get("/auth/google/me", (req, res) => {
         return res.status(401).json({error: "Not authenticated"});
     }
     res.json({userProfile: req.user});
-})
+});
 
+
+
+router.post("/auth/logout", function(req, res, next){
+    req.logout(function(err) {
+        if(err){ 
+            return res.status(500).json({error: "Log out failed"});
+        };
+        console.log("logout success");
+        res.json({success:true, message: "Logged Out"});
+    })
+});
 //creates base route, if we had a router.get("/editor"), route will be /editor
 //app.use("/api") -> router.get("/editor") -> /api/editor
 app.use("/", router);
