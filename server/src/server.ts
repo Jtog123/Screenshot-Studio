@@ -12,11 +12,11 @@ const {Pool} = pg
 
 //Create a pool, better than creating several different Clients
 const pool = new Pool({
-    user: "jamestogher",
-    host: "localhost",
-    database: "ScreenshotSweet",
-    password: "6984",
-    port: 5432
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_DATABASE,
+    password: process.env.DB_PASSWORD,
+    port: Number(process.env.DB_PORT)
 });
 
 
