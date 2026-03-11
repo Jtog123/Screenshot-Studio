@@ -8,15 +8,17 @@ import passport from "passport"
 import GoogleStrategy  from "passport-google-oauth20"
 //import UserModel from "../../dataModels/UserModel"
 
+require('dotenv').config({path:"../.env"});
+
 const {Pool} = pg
 
 //Create a pool, better than creating several different Clients
 const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_DATABASE,
-    password: process.env.DB_PASSWORD,
-    port: Number(process.env.DB_PORT)
+    user: process.env.DB_USER as string,
+    host: process.env.DB_HOST as string,
+    database: process.env.DB_DATABASE as string,
+    password: process.env.DB_PASSWORD as string,
+    port: 5432
 });
 
 
@@ -27,6 +29,7 @@ const createPool = async() => {
             google_id TEXT UNIQUE,
             email TEXT,
             displayName TEXT,
+            subscriptionType TEXT,
             profilePicture TEXT
         )`
     );
@@ -34,8 +37,6 @@ const createPool = async() => {
 
 //cre
 createPool();
-
-
 
 
 type AppUser = {
@@ -48,7 +49,7 @@ type AppUser = {
 
 //var appUser : AppUser | null = null;
 
-require('dotenv').config({path:"../.env"});
+
 const router = express.Router();
 const PORT = 5050;
 
