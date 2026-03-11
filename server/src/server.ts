@@ -8,6 +8,35 @@ import passport from "passport"
 import GoogleStrategy  from "passport-google-oauth20"
 //import UserModel from "../../dataModels/UserModel"
 
+const {Pool} = pg
+
+//Create a pool, better than creating several different Clients
+const pool = new Pool({
+    user: "jamestogher",
+    host: "localhost",
+    database: "ScreenshotSweet",
+    password: "6984",
+    port: 5432
+});
+
+
+const createPool = async() => {
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS users (
+            id SERIAL PRIMARY KEY,
+            google_id TEXT UNIQUE,
+            email TEXT,
+            displayName TEXT,
+            profilePicture TEXT
+        )`
+    );
+}
+
+//cre
+createPool();
+
+
+
 
 type AppUser = {
     id: string,
