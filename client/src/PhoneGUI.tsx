@@ -282,7 +282,7 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
 
                         <label className="text-sm text-espresso pt-1" style={{ fontFamily: 'lato' }} htmlFor="">Z: </label>
                         <div className="flex justify-between justify-center items-center">
-                            <input className='w-[95%] mr-2 h-1 accent-[#C05400]' onChange={(e) => handlePhoneRotation(e, "zRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.z} step="0.01"/>
+                            <input className='w-[95%] mr-2 h-1 accent-[#C05400]' onChange={(e) => handlePhoneRotation(e, "zRot")} type="range" min={"-1.57"} max={"1.57"} value={phoneRotation.z} step="0.01"/>
                             
                             <button onClick={(e) => handleControlsReset(e, "zReset")} className='flex justify-center items-center text-espresso bg-crust-graham/70 hover:bg-orange-juicy/50  transition-all duration-200 hover:text-cream-light rounded-4xl h-[24px] w-[40px] cursor-pointer group'>
 

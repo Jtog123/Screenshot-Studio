@@ -31,6 +31,7 @@ import TextComponent from "../../TextComponent.js";
 import { AssetManager } from "../../AssetManager.js";
 import { JSX } from "react";
 import { AppUser } from '../../AppUser.js';
+import {Grid} from "../../Grid.js"
 import TextComponentGUI from "../../TextComponentGUI.js";
 import TestFonts from '../../TestFonts.js';
 import NavigationBar from '../../NavigationBar.js';
@@ -57,10 +58,18 @@ export default function Editor() {
   const [phone, setPhoneModel] = useState<THREE.Group | null>(null);
   const [isSceneReady, setIsSceneReady] = useState(false);
 
+
+  
+  
+
   //const phoneRef = useRef<THREE.Group | null>(null);
   const [gradientBackground , setGradientBackground] = useState<GradientBackground | null>(null);
 
   const [lightManager, setLightManager] = useState<LightManager | null>(null);
+
+  const [grid, setGrid] = useState<Grid | null>(null);
+  const [isGridVisible, setIsGridVisible] = useState(true);
+
   const [assetManager, setAssetManager] = useState<AssetManager | null>(null);
   const [cameraManager, setCameraManager] = useState<CameraManager | null>(null);
   const [isPhoneLoading, setIsPhoneLoading] = useState(true);
@@ -74,7 +83,11 @@ export default function Editor() {
 
   const [activeListItems, setActiveListItems] = useState<{id:string, name:string}[]>([]);
 
+  //use this bool to hide all meshes
   const[isImageCaptured, setImageCaptured] = useState(false);
+
+  //global state var
+  const[isRendering, setIsRendering] = useState(false);
 
   const[appUser, setAppUser] = useState<AppUser | null>(null);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
@@ -196,7 +209,10 @@ export default function Editor() {
     const _lightManager = new LightManager(_raycaster, _renderer, _camera, _scene);
     setLightManager(_lightManager);
 
-    const _cameraManager = new CameraManager(_scene, _camera ,_renderer, setCapturedImages, setImageCaptured);
+      const _grid = new Grid(20,20);
+    setGrid(_grid);
+
+    const _cameraManager = new CameraManager(_scene, _camera ,_renderer, setCapturedImages, setImageCaptured, _grid);
     setCameraManager(_cameraManager);
 
     const _assetManager = new AssetManager(_scene, _raycaster, _renderer, _camera);
@@ -204,6 +220,8 @@ export default function Editor() {
 
     const _gradientBackground = new GradientBackground(_scene);
     setGradientBackground(_gradientBackground);
+
+
 
 
     const loader = new GLTFLoader();
@@ -261,7 +279,7 @@ export default function Editor() {
         //pass phoneScreen down to ToolBarImg, move this logic into there
         if (phoneScreen) {
           const textureLoader = new THREE.TextureLoader();
-          textureLoader.load('/baseAsset.png', (texture) => {
+          textureLoader.load('/mockup2.png', (texture) => {
             texture.flipY = false;
             texture.colorSpace = THREE.SRGBColorSpace; // Corrects the "washed out" red
             texture.minFilter = THREE.LinearFilter;
@@ -322,6 +340,18 @@ export default function Editor() {
   },[camera, renderer]);
 
 
+  function toggleGridVisibility() : void {
+      if(isGridVisible || isRendering) {
+          (grid!.getGridHelper() as THREE.GridHelper).visible = false;
+          setIsGridVisible(false);
+      } else {
+          (grid!.getGridHelper() as THREE.GridHelper).visible = true;
+          setIsGridVisible(true);
+
+      }
+    }
+
+
 
 
   ////// END TEST CODE
@@ -344,9 +374,11 @@ export default function Editor() {
 
       {textComponents}
 
-      {isPhoneLoading ? (<h1>Loading</h1>) : (scene && camera && renderer && <SceneManager _scene={scene} _camera={camera} _renderer={renderer}/>)}
+      {isPhoneLoading ? (<h1>Loading</h1>) : (scene && camera && renderer && grid && <SceneManager _scene={scene} _camera={camera} _renderer={renderer} _grid={grid} isGridVisible={isGridVisible} setIsGridVisible={setIsGridVisible}/>)}
   
       <Overlay/>
+
+      <input className='absolute top-5 left-5 accent-[#C05400]' checked={isGridVisible} onChange={toggleGridVisibility} type="checkbox" name="" id="" />
 
       
       

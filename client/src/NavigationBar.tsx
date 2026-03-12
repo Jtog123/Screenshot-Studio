@@ -65,10 +65,9 @@ export default function NavigationBar() {
                 <div className="navigationLinks flex justify-center  w-[77%] h-[100%]  bg-green-600">
                     <nav className="flex  justify-around items-center w-[80%] h-[100%] ">
                         <NavLink to="/" end> Home </NavLink>
-                        <NavLink to="" onClick={handleAuthRedirect} end> Sign In </NavLink>
                         <NavLink to="/About" end> About </NavLink>
                         <NavLink to="/Pricing" end> Pricing </NavLink>
-                        <NavLink to="/Contact" end> Contact </NavLink>
+                        <NavLink to="" onClick={handleAuthRedirect} end> Sign In </NavLink>
                     </nav>
 
                 </div>

@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import {CapturedImage } from './ComponentInterfaces';
+import { Grid } from './Grid';
 
 class CameraManager {
     public screenshotWidth : number = 1242;
@@ -9,14 +10,18 @@ class CameraManager {
     private setCapturedImages :  React.Dispatch<React.SetStateAction<
     CapturedImage[]>>;
     private setImageCaptured : React.Dispatch<React.SetStateAction<boolean>>;
+    private _grid : Grid
+
     //private _renderer : THREE.WebGLRenderer
 
     constructor(scene: THREE.Scene ,camera :THREE.PerspectiveCamera , renderer: THREE.WebGLRenderer, setCapturedImages: React.Dispatch<React.SetStateAction<
-        CapturedImage[]>>, setImageCaptured : React.Dispatch<React.SetStateAction<boolean>>) {
+        CapturedImage[]>>, setImageCaptured : React.Dispatch<React.SetStateAction<boolean>>, _grid : Grid ) {
         this._scene = scene;
         this._camera = camera;
         this.setCapturedImages = setCapturedImages;
         this.setImageCaptured = setImageCaptured;
+        this._grid = _grid;
+
         //this._renderer = renderer;
     }
 
@@ -70,10 +75,14 @@ class CameraManager {
 
         //this.setImageCaptured(false);
 
+        //toggle grid
+
         setTimeout(() => {
             tempRenderer.domElement.toBlob((blob) => {
                 const url = URL.createObjectURL(blob as Blob);
                 const link = document.createElement("a");
+
+                this.setImageCaptured(true);
 
 
                 //this might not work because ids dont match?
@@ -99,6 +108,7 @@ class CameraManager {
         }, 50);
 
         this.setImageCaptured(false);
+ 
 
 
     }

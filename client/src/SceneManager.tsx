@@ -3,6 +3,7 @@ import {GLTF, GLTFLoader} from 'three/addons/loaders/GLTFLoader.js'
 import {useRef, useEffect, useState} from 'react'
 
 import App from './App'
+import { Grid } from './Grid';
 //import PhoneModel from './PhoneModel';
 
 
@@ -10,10 +11,13 @@ interface SceneManagerProps {
     _scene : THREE.Scene;
     _camera : THREE.PerspectiveCamera;
     _renderer : THREE.WebGLRenderer;
+    _grid : Grid
+    isGridVisible : boolean
+    setIsGridVisible : React.Dispatch<React.SetStateAction<boolean>>;
 
 }
 
-export default function SceneManager({_scene, _camera, _renderer}: SceneManagerProps) {
+export default function SceneManager({_scene, _camera, _renderer, _grid, isGridVisible, setIsGridVisible}: SceneManagerProps) {
 
     // kind of like member vairables in a class
     const mountRef = useRef<HTMLDivElement | null>(null);
@@ -21,6 +25,8 @@ export default function SceneManager({_scene, _camera, _renderer}: SceneManagerP
     //const loaderRef = useRef<GLTFLoader | null>(null);
     //const [loader, setLoader] = useState<GLTFLoader | null>(null);
     //const _scene = scene;
+
+
 
     //kind of like constructor
     useEffect(() => {
@@ -38,11 +44,13 @@ export default function SceneManager({_scene, _camera, _renderer}: SceneManagerP
         //_camera.position.y=0.5;
 
         //Grid
-        const size = 20;
-        const divisions = 20;
-        const _grid = new THREE.GridHelper(size, divisions);
-        _grid.position.y = -2;
-        _scene.add(_grid);
+        //const size = 20;
+        //const divisions = 20;
+        //const _grid = new THREE.GridHelper(size, divisions);
+        //_grid.position.y = -2;
+        //_scene.add(_grid);
+        _scene.add(_grid.getGridHelper() as THREE.GridHelper);
+        //_grid.toggleVisibility();
 
         //run function
         const run = () => {

@@ -53,6 +53,23 @@ export default function HomePage() {
         camera.position.y = 0.25;
 
         let homePhoneModel: THREE.Group | null = null;
+        let isVisible = true;
+
+        //stops lag on scroll up by pausing the animation on the phone
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    isVisible = entry.isIntersecting;
+                });
+            },
+            { threshold: 0.1 }  // Trigger when 10% visible
+        );
+
+        if(mountRef.current) {
+            observer.observe(mountRef.current);
+        }
+
+        
 
         loader.loadAsync("/models/phone2/iphoneMyModel13.glb").then(gltf => {
             let phoneBody : THREE.Mesh | null = null;
@@ -106,7 +123,7 @@ export default function HomePage() {
             
         }).catch(err => console.error('Failed to load phone model:', err));
 
-        let rotatationDirection = 0.005;
+        let rotatationDirection = 0.001;
 
         //run function
         const run = () => {
@@ -116,10 +133,10 @@ export default function HomePage() {
                 
                 if(homePhoneModel.rotation.y >= 1) {
                     homePhoneModel.rotation.y = 1;
-                    rotatationDirection = -0.01;
+                    rotatationDirection = -0.001;
                 } else if(homePhoneModel.rotation.y <= -1){ 
                     homePhoneModel.rotation.y = -1;
-                    rotatationDirection = 0.01;
+                    rotatationDirection = 0.001;
                 }
                 
 
@@ -137,6 +154,8 @@ export default function HomePage() {
 
         //clean up the ref
         return () => {
+            observer.disconnect();
+
             if(mountRef.current) {
                 mountRef.current?.removeChild(renderer.domElement);
             }
@@ -179,26 +198,82 @@ export default function HomePage() {
 
 
 
-    return(
+    return (
         <>
-        <div>
-            <NavigationBar/>
-            <div className="fixed flex w-[100%] h-[100%] z-20 bg-stone-700">
+            <NavigationBar />
+            
+            {/* Hero Section - Split Left/Right */}
+            <section className="flex w-full min-h-screen bg-stone-700">
                 
-                <div className="leftSide bg-red-500 h-[100%] w-[50%]">
-                </div>
-
-                <div  className="rightSide bg-cream-golden h-[100%] w-[50%]  ">
-                     {/*Phone Demo here */}
-                    <div ref={mountRef} className="phoneDiv">
-
+                {/* Left Side - Content */}
+                <div className="flex leftSide justify-center items-center bg-stone-600 w-1/2">
+                    <div className="flex flex-col w-4/5 max-w-2xl">
+                        <h1 className="text-white text-7xl mb-6">Dynamic Mock Ups</h1>
+                        
+                        <h2 className="text-white/70 text-2xl mb-10">
+                            Making your app stand out has never been easier
+                        </h2>
+                        
+                        <button className="bg-orange-vibrant hover:bg-orange-deep text-white rounded-xl w-[140px] h-[70px] transition-colors cursor-pointer">
+                            Join For Free
+                        </button>
                     </div>
-                   
                 </div>
 
-            </div>
-        </div>
+                {/* Right Side - Phone Demo */}
+                <div className="rightSide bg-stone-700 w-1/2 flex items-center justify-center">
+                    <div ref={mountRef} className="phoneDiv w-full h-full"></div>
+                </div>
+                
+            </section>
 
+            {/* Features Section */}
+            <section className="w-full min-h-screen bg-cream-vanilla p-20">
+                <h2 className="text-text-espresso text-5xl text-center mb-12">Features</h2>
+                <div className="grid grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    {/* Feature cards go here */}
+                    <div className="bg-cream-custard p-8 rounded-xl">
+                        <h3 className="text-2xl mb-4">Phone Modeling</h3>
+                        <p className="text-coffee ">
+                        Rotate, tilt, and position your device 
+        at the perfect angle to showcase your app in a professional, eye-catching way.</p>
+                    </div>
+                    <div className="bg-cream-custard p-8 rounded-xl">
+                        <h3 className="text-2xl mb-4">Custom Scene</h3>
+                        <p className="text-coffee ">
+                            Build the perfect environment with custom backgrounds, dynamic lighting controls, and 
+        editable text elements. Create anything from minimal backdrops to vibrant gradients 
+        scenes that match your brand.</p>
+                    </div>
+                    <div className="bg-cream-custard p-8 rounded-xl">
+                        <h3 className="text-2xl mb-4">Add your Assets</h3>
+                        <p className="text-coffee ">
+                            Upload your app screenshots, logo, and custom images directly into the scene. 
+                            Position and scale elements freely to create mockups that perfectly represent your 
+                            product's unique identity. </p>
+                    </div>
+                </div>
+            </section>
+
+            {/* How It Works Section */}
+            <section className="w-full min-h-screen bg-stone-600 p-20 flex items-center justify-center">
+                <div className="max-w-4xl text-center">
+                    <h2 className="text-white text-5xl mb-12">How It Works</h2>
+                    <p className="text-white/80 text-xl">
+                        Three simple steps to create stunning mockups
+                    </p>
+                </div>
+            </section>
+
+            {/* CTA Section */}
+            <section className="w-full min-h-screen bg-orange-vibrant flex items-center justify-center">
+                <div className="text-center">
+                    <h2 className="text-white text-6xl mb-8">Ready to get started?</h2>
+                    <button className="bg-white text-orange-vibrant px-12 py-6 rounded-xl text-2xl hover:bg-cream-vanilla transition-colors">
+                        Start Creating
+                    </button>
+                </div>
+            </section>
         </>
-    )
+    );
 }
