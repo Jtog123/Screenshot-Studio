@@ -19,7 +19,7 @@ export default function HomePage() {
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
-        const renderer = new THREE.WebGLRenderer();
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true});
         renderer.setSize( window.innerWidth / 2, window.innerHeight);
         
 
@@ -70,9 +70,12 @@ export default function HomePage() {
                 <div className="leftSide bg-red-500 h-[100%] w-[50%]">
                 </div>
 
-                <div ref={mountRef} className="rightSide bg-yellow-600 h-[100%] w-[50%]">
-                    {/*Phone Demo here */}
-               
+                <div  className="rightSide bg-yellow-600 h-[100%] w-[50%]  ">
+                     {/*Phone Demo here */}
+                    <div ref={mountRef} className="phoneDiv">
+
+                    </div>
+                   
                 </div>
 
             </div>
