@@ -61,7 +61,7 @@ class CameraManager {
         })
 
         //create Temp redner/canvas, and temp camera
-        const tempRenderer = new THREE.WebGLRenderer({preserveDrawingBuffer:true});
+        const tempRenderer = new THREE.WebGLRenderer({preserveDrawingBuffer:true, antialias: true });
 
         //can add different FOV's
         const originalFOV = this._camera.fov;
@@ -152,8 +152,11 @@ class CameraManager {
         }
     });
 
+    const originalBackground = this._scene.background;
+    this._scene.background = null;
+
     // Create temp renderer and camera
-    const tempRenderer = new THREE.WebGLRenderer({ preserveDrawingBuffer: true });
+    const tempRenderer = new THREE.WebGLRenderer({ preserveDrawingBuffer: true, alpha:true ,antialias: true });
 
     const originalFOV = this._camera.fov;
     const originalNear = this._camera.near;
@@ -192,6 +195,8 @@ class CameraManager {
             tempRenderer.dispose();
         }, "image/png", 1.0);
     }, 50);
+
+    this._scene.background = originalBackground;
 
     // Restore helper visibility
     helperVisibility.forEach((wasVisible, helper) => {

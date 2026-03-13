@@ -372,6 +372,17 @@ export default function Editor() {
 
       {isSceneReady && phone && cameraManager && <PhoneGUI phoneModel={phone} _cameraManager={cameraManager}/>}
 
+    
+      {cameraManager && (
+        <button 
+            onClick={() => cameraManager.captureHomepageImage()}
+            className=" fixed bg-orange-vibrant text-white px-4 py-2 rounded-lg z-50 top-10"
+        >
+                Capture Homepage Image
+            </button>
+        )}
+        
+
 
       {scene && lightManager && cameraManager && phone && assetManager && camera && gradientBackground && _phoneScreen  &&<Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents}  _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems} addTextComponent={addTextComponent} camera={camera} _gradientBackground={gradientBackground} _phoneScreen={_phoneScreen} capturedImages={capturedImages} setCapturedImages={setCapturedImages} appUser= {appUser} />} 
 

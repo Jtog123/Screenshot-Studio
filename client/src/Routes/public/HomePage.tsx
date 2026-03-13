@@ -230,7 +230,8 @@ export default function HomePage() {
 
             <section className="w-full min-h-screen bg-cream-vanilla p-20">
                 <h2 className="text-text-espresso text-5xl text-center mb-12">
-                    Beautiful Mockups Without the Learning Curve
+                    {/*Beautiful Mockups Without the Learning Curve*/}
+                    Skip The Design Tools
                 </h2>
                 <p className="text-coffee text-center text-xl mb-16">
                     No Figma. No Photoshop. No tutorials. <span className="text-orange-zest text-xl">Appstore ready screenshots in minutes.</span>
@@ -240,13 +241,7 @@ export default function HomePage() {
                 <div className="grid grid-cols-3 gap-12 max-w-6xl mx-auto">
                     {/* Step 1 */}
                     <div className="text-center">
-                        <div className="bg-stone-700 rounded-2xl p-8 mb-6 shadow-lg">
-                            <img 
-                                src="/steps/step1-position.png" 
-                                alt="Position phone at different angles"
-                                className="w-full rounded-xl"
-                            />
-                        </div>
+
                         <div className="flex items-center justify-center gap-2 mb-3">
                             <div className="w-8 h-8 rounded-full bg-orange-vibrant text-white flex items-center justify-center font-bold">
                                 1
@@ -263,13 +258,7 @@ export default function HomePage() {
                     
                     {/* Step 2 */}
                     <div className="text-center">
-                        <div className="bg-stone-700 rounded-2xl p-8 mb-6 shadow-lg">
-                            <img 
-                                src="/steps/step2-style.png" 
-                                alt="Customize backgrounds and lighting"
-                                className="w-full rounded-xl"
-                            />
-                        </div>
+
                         <div className="flex items-center justify-center gap-2 mb-3">
                             <div className="w-8 h-8 rounded-full bg-orange-vibrant text-white flex items-center justify-center font-bold">
                                 2
@@ -286,13 +275,7 @@ export default function HomePage() {
                     
                     {/* Step 3 */}
                     <div className="text-center">
-                        <div className="bg-stone-700 rounded-2xl p-8 mb-6 shadow-lg">
-                            <img 
-                                src="/steps/step3-export.png" 
-                                alt="Export high-quality mockups"
-                                className="w-full rounded-xl"
-                            />
-                        </div>
+
                         <div className="flex items-center justify-center gap-2 mb-3">
                             <div className="w-8 h-8 rounded-full bg-orange-vibrant text-white flex items-center justify-center font-bold">
                                 3
@@ -307,20 +290,20 @@ export default function HomePage() {
                         </p>
                     </div>
                 </div>
-            </section>
 
-                {/* ONE Dramatic Hero Result */}
-            <div className="max-w-4xl mx-auto">
-                <h3 className="text-text-espresso text-3xl text-center mb-8">
-                    The Result
-                </h3>
-                <div className="rounded-3xl overflow-hidden shadow-2xl">
+                <div className=" overflow-hidden -mt-16 scale-120">
                     <img 
-                        src="/hero-result.png" 
+                        src="/TransparentHero2.png" 
                         alt="Professional phone mockup with gradient background"
                         className="w-full"
                     />
                 </div>
+            </section>
+
+                {/* ONE Dramatic Hero Result */}
+            <div className="max-w-4xl mx-auto">
+ 
+
                 <p className="text-center text-text-coffee mt-6 text-lg">
                     Professional quality in minutes, not hours
                 </p>
