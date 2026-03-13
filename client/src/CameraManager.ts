@@ -43,6 +43,23 @@ class CameraManager {
 
     public captureImage() : void {
 
+        // assigns false if the lhs is null or undefined
+        const helperVisibility : Map<THREE.Object3D, boolean> = new Map();
+
+        this._scene.traverse((object) => {
+            if(
+                object instanceof THREE.GridHelper ||
+                object instanceof THREE.DirectionalLightHelper ||
+                object instanceof THREE.SpotLightHelper ||
+                object instanceof THREE.PointLightHelper ||
+                object instanceof THREE.RectAreaLight
+            ) {
+                helperVisibility.set(object, object.visible);
+                //hide all helpers
+                object.visible = false;
+            }
+        })
+
         //create Temp redner/canvas, and temp camera
         const tempRenderer = new THREE.WebGLRenderer({preserveDrawingBuffer:true});
 
@@ -82,9 +99,7 @@ class CameraManager {
                 const url = URL.createObjectURL(blob as Blob);
                 const link = document.createElement("a");
 
-                this.setImageCaptured(true);
-
-
+                
                 //this might not work because ids dont match?
                 
                 this.setCapturedImages(prev => [...prev, {
@@ -106,6 +121,12 @@ class CameraManager {
 
             //this._camera.updateProjectionMatrix();
         }, 50);
+
+
+        //restpre helper visiblity
+        helperVisibility.forEach((wasVisible, helper) => {
+            helper.visible = wasVisible;
+        })
 
         this.setImageCaptured(false);
  
