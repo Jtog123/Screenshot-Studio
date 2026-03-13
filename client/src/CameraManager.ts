@@ -134,6 +134,73 @@ class CameraManager {
 
     }
 
+
+    public captureHomepageImage(): void {
+    // Hide all helpers
+    const helperVisibility: Map<THREE.Object3D, boolean> = new Map();
+
+    this._scene.traverse((object) => {
+        if (
+            object instanceof THREE.GridHelper ||
+            object instanceof THREE.DirectionalLightHelper ||
+            object instanceof THREE.SpotLightHelper ||
+            object instanceof THREE.PointLightHelper ||
+            object instanceof THREE.RectAreaLight
+        ) {
+            helperVisibility.set(object, object.visible);
+            object.visible = false;
+        }
+    });
+
+    // Create temp renderer and camera
+    const tempRenderer = new THREE.WebGLRenderer({ preserveDrawingBuffer: true });
+
+    const originalFOV = this._camera.fov;
+    const originalNear = this._camera.near;
+    const originFar = this._camera.far;
+
+    // Landscape aspect ratio for homepage (16:9 or 2:1)
+    const landscapeWidth = 2400;   // Wide landscape
+    const landscapeHeight = 1200;  // 2:1 aspect ratio
+    const tempAspectRatio = landscapeWidth / landscapeHeight;
+
+    const tempCamera = new THREE.PerspectiveCamera(
+        originalFOV,
+        tempAspectRatio,
+        originalNear,
+        originFar
+    );
+
+    // Copy camera position
+    tempCamera.position.copy(this._camera.position);
+
+    tempRenderer.setSize(landscapeWidth, landscapeHeight);
+    tempRenderer.render(this._scene, tempCamera);
+
+    setTimeout(() => {
+        tempRenderer.domElement.toBlob((blob) => {
+            const url = URL.createObjectURL(blob as Blob);
+            const link = document.createElement("a");
+
+            // No need to add to capturedImages array for homepage image
+            // Just download directly
+            link.href = url;
+            link.download = "ScreenshotSweet_Homepage_Hero.png";
+            link.click();
+
+            // Clean up
+            tempRenderer.dispose();
+        }, "image/png", 1.0);
+    }, 50);
+
+    // Restore helper visibility
+    helperVisibility.forEach((wasVisible, helper) => {
+        helper.visible = wasVisible;
+    });
+
+    this.setImageCaptured(false);
+}
+
     //nneds to reset the camera position when psrites are removed might have to move this out of thid class
     /*
     public decreaseCameraHeightForAboveImage() : void {

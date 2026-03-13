@@ -211,7 +211,8 @@ export default function HomePage() {
                         <h1 className="text-white text-7xl mb-6">Dynamic Mock Ups</h1>
                         
                         <h2 className="text-white/70 text-2xl mb-10">
-                            Making your app stand out has never been easier
+                            Escape design tutorials forever
+                            {/*Making your app stand out has never been easier*/}
                         </h2>
                         
                         <button className="bg-orange-vibrant hover:bg-orange-deep text-white rounded-xl w-[140px] h-[70px] transition-colors cursor-pointer">
@@ -227,43 +228,109 @@ export default function HomePage() {
                 
             </section>
 
-            {/* Features Section */}
             <section className="w-full min-h-screen bg-cream-vanilla p-20">
-                <h2 className="text-text-espresso text-5xl text-center mb-12">Features</h2>
-                <div className="grid grid-cols-3 gap-8 max-w-6xl mx-auto">
-                    {/* Feature cards go here */}
-                    <div className="bg-cream-custard p-8 rounded-xl">
-                        <h3 className="text-2xl mb-4">Phone Modeling</h3>
-                        <p className="text-coffee ">
-                        Rotate, tilt, and position your device 
-        at the perfect angle to showcase your app in a professional, eye-catching way.</p>
+                <h2 className="text-text-espresso text-5xl text-center mb-12">
+                    Beautiful Mockups Without the Learning Curve
+                </h2>
+                <p className="text-coffee text-center text-xl mb-16">
+                    No Figma. No Photoshop. No tutorials. <span className="text-orange-zest text-xl">Appstore ready screenshots in minutes.</span>
+                </p>
+
+                
+                <div className="grid grid-cols-3 gap-12 max-w-6xl mx-auto">
+                    {/* Step 1 */}
+                    <div className="text-center">
+                        <div className="bg-stone-700 rounded-2xl p-8 mb-6 shadow-lg">
+                            <img 
+                                src="/steps/step1-position.png" 
+                                alt="Position phone at different angles"
+                                className="w-full rounded-xl"
+                            />
+                        </div>
+                        <div className="flex items-center justify-center gap-2 mb-3">
+                            <div className="w-8 h-8 rounded-full bg-orange-vibrant text-white flex items-center justify-center font-bold">
+                                1
+                            </div>
+                            <h3 className="text-text-espresso text-2xl font-semibold">
+                                Position Your Model
+                                {/*embed the phone controls without functionality? show the controls? */}
+                            </h3>
+                        </div>
+                        <p className="text-text-coffee leading-relaxed">
+                            Rotate, tilt, and position your device at the perfect angle using intuitive controls
+                        </p>
                     </div>
-                    <div className="bg-cream-custard p-8 rounded-xl">
-                        <h3 className="text-2xl mb-4">Custom Scene</h3>
-                        <p className="text-coffee ">
-                            Build the perfect environment with custom backgrounds, dynamic lighting controls, and 
-        editable text elements. Create anything from minimal backdrops to vibrant gradients 
-        scenes that match your brand.</p>
+                    
+                    {/* Step 2 */}
+                    <div className="text-center">
+                        <div className="bg-stone-700 rounded-2xl p-8 mb-6 shadow-lg">
+                            <img 
+                                src="/steps/step2-style.png" 
+                                alt="Customize backgrounds and lighting"
+                                className="w-full rounded-xl"
+                            />
+                        </div>
+                        <div className="flex items-center justify-center gap-2 mb-3">
+                            <div className="w-8 h-8 rounded-full bg-orange-vibrant text-white flex items-center justify-center font-bold">
+                                2
+                            </div>
+                            <h3 className="text-text-espresso text-2xl font-semibold">
+                                Style Your Scene
+                                {/*picture of a nice background with asset added? */}
+                            </h3>
+                        </div>
+                        <p className="text-text-coffee leading-relaxed">
+                            Choose backgrounds, add lighting, and upload your app screenshots to create the perfect look
+                        </p>
                     </div>
-                    <div className="bg-cream-custard p-8 rounded-xl">
-                        <h3 className="text-2xl mb-4">Add your Assets</h3>
-                        <p className="text-coffee ">
-                            Upload your app screenshots, logo, and custom images directly into the scene. 
-                            Position and scale elements freely to create mockups that perfectly represent your 
-                            product's unique identity. </p>
+                    
+                    {/* Step 3 */}
+                    <div className="text-center">
+                        <div className="bg-stone-700 rounded-2xl p-8 mb-6 shadow-lg">
+                            <img 
+                                src="/steps/step3-export.png" 
+                                alt="Export high-quality mockups"
+                                className="w-full rounded-xl"
+                            />
+                        </div>
+                        <div className="flex items-center justify-center gap-2 mb-3">
+                            <div className="w-8 h-8 rounded-full bg-orange-vibrant text-white flex items-center justify-center font-bold">
+                                3
+                            </div>
+                            <h3 className="text-text-espresso text-2xl font-semibold">
+                                Easy Export
+                                {/*finished screenshot? */}
+                            </h3>
+                        </div>
+                        <p className="text-text-coffee leading-relaxed">
+                            Download your professional mockup in high resolution, ready for the appstore
+                        </p>
                     </div>
                 </div>
             </section>
 
-            {/* How It Works Section */}
-            <section className="w-full min-h-screen bg-stone-600 p-20 flex items-center justify-center">
-                <div className="max-w-4xl text-center">
-                    <h2 className="text-white text-5xl mb-12">How It Works</h2>
-                    <p className="text-white/80 text-xl">
-                        Three simple steps to create stunning mockups
-                    </p>
+                {/* ONE Dramatic Hero Result */}
+            <div className="max-w-4xl mx-auto">
+                <h3 className="text-text-espresso text-3xl text-center mb-8">
+                    The Result
+                </h3>
+                <div className="rounded-3xl overflow-hidden shadow-2xl">
+                    <img 
+                        src="/hero-result.png" 
+                        alt="Professional phone mockup with gradient background"
+                        className="w-full"
+                    />
                 </div>
+                <p className="text-center text-text-coffee mt-6 text-lg">
+                    Professional quality in minutes, not hours
+                </p>
+            </div>
+
+            {/*Pricing */}
+            <section>
+
             </section>
+
 
             {/* CTA Section */}
             <section className="w-full min-h-screen bg-orange-vibrant flex items-center justify-center">
@@ -277,3 +344,4 @@ export default function HomePage() {
         </>
     );
 }
+
