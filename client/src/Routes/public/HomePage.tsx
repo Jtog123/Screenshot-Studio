@@ -2,6 +2,7 @@ import NavigationBar from "../../NavigationBar"
 import { useState, useRef, useEffect } from "react";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import * as THREE from 'three';
+import ScrollFadeIn from "../../ScrollFadeIn";
 
 
 export default function HomePage() {
@@ -54,7 +55,6 @@ export default function HomePage() {
 
         let homePhoneModel: THREE.Group | null = null;
         let isVisible = true;
-
         //stops lag on scroll up by pausing the animation on the phone
         const observer = new IntersectionObserver(
             (entries) => {
@@ -203,6 +203,7 @@ export default function HomePage() {
             <NavigationBar />
             
             {/* Hero Section - Split Left/Right */}
+            <ScrollFadeIn >
             <section className="flex w-full min-h-screen bg-stone-700">
                 
                 {/* Left Side - Content */}
@@ -211,8 +212,7 @@ export default function HomePage() {
                         <h1 className="text-white text-7xl mb-6">Dynamic Mock Ups</h1>
                         
                         <h2 className="text-white/70 text-2xl mb-10">
-                            Escape design tutorials forever
-                            {/*Making your app stand out has never been easier*/}
+                            Making your app stand out has never been easier
                         </h2>
                         
                         <button className="bg-orange-vibrant hover:bg-orange-deep text-white rounded-xl w-[140px] h-[70px] transition-colors cursor-pointer">
@@ -227,8 +227,11 @@ export default function HomePage() {
                 </div>
                 
             </section>
+            </ScrollFadeIn>
 
+            
             <section className="w-full min-h-screen bg-stone-700 p-20">
+                <ScrollFadeIn>
                 <h2 className="text-text-espresso text-5xl text-center mb-12">
                     {/*Beautiful Mockups Without the Learning Curve*/}
                     Skip The Design Tools
@@ -290,28 +293,35 @@ export default function HomePage() {
                         </p>
                     </div>
                 </div>
+                
 
                 {/* ONE Dramatic Hero Result */}
-                <div className=" overflow-hidden -mt-16 scale-120">
-                    
-                    <img 
-                        src="/TransparentHero2.png" 
-                        alt="Professional phone mockup with gradient background"
-                        className="w-full"
-                    />
-                </div>
+                    <ScrollFadeIn>
+                    <div className=" overflow-hidden -mt-16 scale-120">
+                        
+                        <img 
+                            src="/TransparentHero2.png" 
+                            alt="Professional phone mockup with gradient background"
+                            className="w-full"
+                        />
+                    </div>
+                    </ScrollFadeIn>
+                 </ScrollFadeIn>
 
             </section>
+           
 
 
 
             {/*Pricing */}
+            
             <section className="w-full min-h-screen bg-stone-500 p-20">
+                <ScrollFadeIn>
                 <h2 className="text-text-espresso text-5xl text-center mb-12">
                     Pricing
                 </h2>
 
-                <div className="cardContainer grid place-items-center grid-cols-3 gap-12 max-w-6xl mx-auto">
+                <div className="cardContainer grid place-items-center grid-cols-2 gap-8 max-w-6xl mx-auto">
 
                     <div className="card1 flex  justify-center gap-2  w-[90%] h-[500px]  rounded-xl">
                         <div className="flex flex-col bg-stone-300 rounded-2xl p-8 shadow-lg w-full max-w-sm">
@@ -339,7 +349,7 @@ export default function HomePage() {
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                         </svg>
                                     </div>
-                                    <p className="text-coffee">One Time Payment, Mockups without the recurring payment.</p>
+                                    <p className="text-coffee">One Time Payment, Mockups without the recurring costs.</p>
                                 </div>
 
                                 <div className="flex items-center gap-3">
@@ -349,6 +359,15 @@ export default function HomePage() {
                                         </svg>
                                     </div>
                                     <p className="text-coffee">48 Hour Unlimited Platform Access.</p>
+                                </div>
+
+                                <div className="flex items-center gap-3">
+                                    <div className="w-5 h-5 rounded-full bg-orange-vibrant flex items-center justify-center flex-shrink-0">
+                                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </div>
+                                    <p className="text-coffee">High Quality 4k exports</p>
                                 </div>
 
                                 <div className="flex items-center gap-3">
@@ -376,7 +395,7 @@ export default function HomePage() {
                             
                             {/* Price */}
                             <div className="mb-8">
-                                <span className="text-text-espresso text-4xl font-bold">$9.99</span>
+                                <span className="text-text-espresso text-4xl font-bold">$13.99</span>
                                 <span className="text-text-coffee text-lg"> / month</span>
                             </div>
                             
@@ -393,7 +412,7 @@ export default function HomePage() {
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                         </svg>
                                     </div>
-                                    <p className="text-coffee">One Time Payment, Mockups without the recurring payment.</p>
+                                    <p className="text-coffee">One Time Payment, Mockups without the recurring costs.</p>
                                 </div>
 
                                 <div className="flex items-center gap-3">
@@ -403,6 +422,15 @@ export default function HomePage() {
                                         </svg>
                                     </div>
                                     <p className="text-coffee">48 Hour Unlimited Platform Access.</p>
+                                </div>
+
+                                <div className="flex items-center gap-3">
+                                    <div className="w-5 h-5 rounded-full bg-orange-vibrant flex items-center justify-center flex-shrink-0">
+                                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </div>
+                                    <p className="text-coffee">High Quality 4k exports</p>
                                 </div>
 
                                 <div className="flex items-center gap-3">
@@ -424,23 +452,23 @@ export default function HomePage() {
 
 
 
-                    <div className="card3 flex items-center justify-center gap-2  w-[90%] h-[400px] bg-red-400 rounded-xl">
-
-                    </div>
 
                 </div>
-
+                </ScrollFadeIn>
             </section>
+            
 
 
             {/* CTA Section */}
             <section className="w-full min-h-screen bg-orange-vibrant flex items-center justify-center">
+                <ScrollFadeIn>
                 <div className="text-center">
                     <h2 className="text-white text-6xl mb-8">Ready to get started?</h2>
                     <button className="bg-white text-orange-vibrant px-12 py-6 rounded-xl text-2xl hover:bg-cream-vanilla transition-colors">
                         Start Creating
                     </button>
                 </div>
+                </ScrollFadeIn>
             </section>
         </>
     );
