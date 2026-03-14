@@ -228,7 +228,7 @@ export default function HomePage() {
                 
             </section>
 
-            <section className="w-full min-h-screen bg-cream-vanilla p-20">
+            <section className="w-full min-h-screen bg-stone-700 p-20">
                 <h2 className="text-text-espresso text-5xl text-center mb-12">
                     {/*Beautiful Mockups Without the Learning Curve*/}
                     Skip The Design Tools
@@ -291,26 +291,144 @@ export default function HomePage() {
                     </div>
                 </div>
 
+                {/* ONE Dramatic Hero Result */}
                 <div className=" overflow-hidden -mt-16 scale-120">
+                    
                     <img 
                         src="/TransparentHero2.png" 
                         alt="Professional phone mockup with gradient background"
                         className="w-full"
                     />
                 </div>
+
             </section>
 
-                {/* ONE Dramatic Hero Result */}
-            <div className="max-w-4xl mx-auto">
- 
 
-                <p className="text-center text-text-coffee mt-6 text-lg">
-                    Professional quality in minutes, not hours
-                </p>
-            </div>
 
             {/*Pricing */}
-            <section>
+            <section className="w-full min-h-screen bg-stone-500 p-20">
+                <h2 className="text-text-espresso text-5xl text-center mb-12">
+                    Pricing
+                </h2>
+
+                <div className="cardContainer grid place-items-center grid-cols-3 gap-12 max-w-6xl mx-auto">
+
+                    <div className="card1 flex  justify-center gap-2  w-[90%] h-[500px]  rounded-xl">
+                        <div className="flex flex-col bg-stone-300 rounded-2xl p-8 shadow-lg w-full max-w-sm">
+                            {/* Header */}
+                            <h2 className="text-espresso text-2xl font-semibold mb-2">
+                                Weekend Warrior
+                            </h2>
+                            
+                            {/* Price */}
+                            <div className="mb-8">
+                                <span className="text-text-espresso text-4xl font-bold">$4.99</span>
+                                <span className="text-text-coffee text-lg"> / 2 day pass</span>
+                            </div>
+                            
+                            {/* CTA Button */}
+                            <button className="w-full py-3 bg-orange-vibrant hover:bg-orange-deep text-white font-semibold rounded-xl transition-colors mb-10">
+                                Become the Warrior
+                            </button>
+                            
+                            {/* Features */}
+                            <div className="space-y-3">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-5 h-5 rounded-full bg-orange-vibrant flex items-center justify-center flex-shrink-0">
+                                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </div>
+                                    <p className="text-coffee">One Time Payment, Mockups without the recurring payment.</p>
+                                </div>
+
+                                <div className="flex items-center gap-3">
+                                    <div className="w-5 h-5 rounded-full bg-orange-vibrant flex items-center justify-center flex-shrink-0">
+                                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </div>
+                                    <p className="text-coffee">48 Hour Unlimited Platform Access.</p>
+                                </div>
+
+                                <div className="flex items-center gap-3">
+                                    <div className="w-5 h-5 rounded-full bg-orange-vibrant flex items-center justify-center flex-shrink-0">
+                                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </div>
+                                    <p className="text-coffee">30 Mockup Exports</p>
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="card1 flex  justify-center gap-2  w-[90%] h-[500px]  rounded-xl">
+                        <div className="flex flex-col bg-stone-300 rounded-2xl p-8 shadow-lg w-full max-w-sm">
+                            {/* Header */}
+                            <h2 className="text-espresso text-2xl font-semibold mb-2">
+                                Monthly
+                            </h2>
+                            
+                            {/* Price */}
+                            <div className="mb-8">
+                                <span className="text-text-espresso text-4xl font-bold">$9.99</span>
+                                <span className="text-text-coffee text-lg"> / month</span>
+                            </div>
+                            
+                            {/* CTA Button */}
+                            <button className="w-full py-3 bg-orange-vibrant hover:bg-orange-deep text-white font-semibold rounded-xl transition-colors mb-10">
+                                Become the Warrior
+                            </button>
+                            
+                            {/* Features */}
+                            <div className="space-y-3">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-5 h-5 rounded-full bg-orange-vibrant flex items-center justify-center flex-shrink-0">
+                                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </div>
+                                    <p className="text-coffee">One Time Payment, Mockups without the recurring payment.</p>
+                                </div>
+
+                                <div className="flex items-center gap-3">
+                                    <div className="w-5 h-5 rounded-full bg-orange-vibrant flex items-center justify-center flex-shrink-0">
+                                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </div>
+                                    <p className="text-coffee">48 Hour Unlimited Platform Access.</p>
+                                </div>
+
+                                <div className="flex items-center gap-3">
+                                    <div className="w-5 h-5 rounded-full bg-orange-vibrant flex items-center justify-center flex-shrink-0">
+                                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </div>
+                                    <p className="text-coffee">Unlimited Mockup Exports</p>
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div className="card3 flex items-center justify-center gap-2  w-[90%] h-[400px] bg-red-400 rounded-xl">
+
+                    </div>
+
+                </div>
 
             </section>
 
