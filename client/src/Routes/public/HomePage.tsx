@@ -230,6 +230,21 @@ export default function HomePage() {
             </ScrollFadeIn>
 
             
+            <section className="w-full bg-stone-900 py-20">
+                <ScrollFadeIn>
+                <h2 className="text-center text-white text-4xl mb-4">
+                    The Frustration Index
+                </h2>
+                <p className="text-center text-white/70 text-xl mb-12">
+                    Time spent vs. sanity lost
+                </p>
+
+                </ScrollFadeIn>
+                
+ 
+            </section>
+ 
+            
             <section className="w-full min-h-screen bg-stone-700 p-20">
                 <ScrollFadeIn>
                 <h2 className="text-text-espresso text-5xl text-center mb-12">
@@ -253,10 +268,12 @@ export default function HomePage() {
                                 Position Your Model
                                 {/*embed the phone controls without functionality? show the controls? */}
                             </h3>
+                            
                         </div>
                         <p className="text-text-coffee leading-relaxed">
                             Rotate, tilt, and position your device at the perfect angle using intuitive controls
                         </p>
+                        {/* Graphics Here Phone being angled */}
                     </div>
                     
                     {/* Step 2 */}
@@ -274,6 +291,7 @@ export default function HomePage() {
                         <p className="text-text-coffee leading-relaxed">
                             Choose backgrounds, add lighting, and upload your app screenshots to create the perfect look
                         </p>
+                        {/* Graphics Here Phone with Light an logo */}
                     </div>
                     
                     {/* Step 3 */}
@@ -291,6 +309,8 @@ export default function HomePage() {
                         <p className="text-text-coffee leading-relaxed">
                             Download your professional mockup in high resolution, ready for the appstore
                         </p>
+
+                        {/* Graphics Here camera button? */}
                     </div>
                 </div>
                 
@@ -308,6 +328,10 @@ export default function HomePage() {
                     </ScrollFadeIn>
                  </ScrollFadeIn>
 
+            </section>
+
+            <section>
+                
             </section>
            
 
