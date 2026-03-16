@@ -27,6 +27,7 @@ import ToolbarImgAndTextCard from './ToolbarImgAndTxtCard'
 import ToolbarCameraCard from './ToolbarCameraCard'
 import ToolbarFooter from './ToolbarFooter'
 import { AppUser } from './AppUser'
+import { Grid } from './Grid'
 
 
 
@@ -50,12 +51,13 @@ interface ToolbarProps {
     appUser : AppUser | null;
     aspectRatio : {width:number, height:number, type:string}
     setAspectRatio : React.Dispatch<React.SetStateAction<{width: number,height: number,type: string}>>
+    grid : Grid
     //screenTextures : ScreenTextureInterface[]
     //setScreenTextures : React.Dispatch<React.SetStateAction<ScreenTextureInterface[]>>
 }
 
 
-export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManager, _imageComponents, _setImageComponents,  _assetManager,activeListItems, setActiveListItems, addTextComponent ,camera, _gradientBackground, _phoneScreen, capturedImages, setCapturedImages, appUser, aspectRatio, setAspectRatio} : ToolbarProps) { //screenTextures, setScreenTextures
+export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManager, _imageComponents, _setImageComponents,  _assetManager,activeListItems, setActiveListItems, addTextComponent ,camera, _gradientBackground, _phoneScreen, capturedImages, setCapturedImages, appUser, aspectRatio, setAspectRatio, grid} : ToolbarProps) { //screenTextures, setScreenTextures
 
     
     const[selectedLight, setSelectedLight] = useState<{id: string, type: LightType} | null>(null);
@@ -118,7 +120,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                                 <div className='flex flex-col flex-1 overflow-y-auto overflow-x-hidden '>
 
                                     <ToolbarBgAndLightingCard scene={_scene} isToolbarToggled={isToolbarToggled} gradientBackground={_gradientBackground}
-                                    activeListItems={activeListItems} setActiveListItems={setActiveListItems}   lightManager={_lightManager}/>
+                                    activeListItems={activeListItems} setActiveListItems={setActiveListItems}   lightManager={_lightManager} grid={grid}/>
                                     
                                 
                                     <ToolbarImgAndTextCard imageComponents={_imageComponents} setImageComponents={_setImageComponents} isToolbarToggled={isToolbarToggled} addTextComponent={addTextComponent} _phoneScreen={_phoneScreen} _assetManager={_assetManager} capturedImages={capturedImages} setCapturedImages={setCapturedImages} />
@@ -139,7 +141,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                             <div className='flex flex-col flex-1 overflow-y-auto overflow-x-hidden '>
 
                                 <ToolbarBgAndLightingCard scene={_scene} isToolbarToggled={isToolbarToggled} gradientBackground={_gradientBackground}
-                                activeListItems={activeListItems} setActiveListItems={setActiveListItems}   lightManager={_lightManager}/>
+                                activeListItems={activeListItems} setActiveListItems={setActiveListItems} lightManager={_lightManager} grid={grid}/>
                                 
                                
                                 <ToolbarImgAndTextCard imageComponents={_imageComponents} setImageComponents={_setImageComponents} isToolbarToggled={isToolbarToggled} addTextComponent={addTextComponent} _phoneScreen={_phoneScreen} _assetManager={_assetManager} capturedImages={capturedImages} setCapturedImages={setCapturedImages} />

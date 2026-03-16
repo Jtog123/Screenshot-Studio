@@ -13,6 +13,7 @@ import RectAreaIcon from './IconAssets/RectAreaIcon';
 import LeftRightGradIcon from './IconAssets/LeftRightGradientIcon';
 import UpDownGradIcon from './IconAssets/UpDownGradientIcon';
 import MenuKarrotIcon from './IconAssets/MenuKarrotIcon';
+import { Grid } from './Grid';
 
 interface ToolbarBgAndLightingCardProps{
     scene : THREE.Scene;
@@ -21,6 +22,7 @@ interface ToolbarBgAndLightingCardProps{
     activeListItems: {id:string, name:string}[]
     setActiveListItems: React.Dispatch<React.SetStateAction<{ id: string; name: string; }[]>>
     lightManager : LightManager
+    grid: Grid
 }
 
 /*
@@ -29,13 +31,15 @@ LR gradient is selected and the button highlighted but the button is disabled so
 down gradient we elect that button and highlight it but diabled the buttons functionality
 */
 
-export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradientBackground, activeListItems, setActiveListItems, lightManager} : ToolbarBgAndLightingCardProps) {
+export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradientBackground, activeListItems, setActiveListItems, lightManager, grid} : ToolbarBgAndLightingCardProps) {
 
     const[isBgAndLightCardExpanded, setIsBgAndLightCardExpanded] = useState(true);
     const[backgroundColor, setBackgroundColor] = useState("#1f1000");
     const[isBackgroundSolid, setIsBackgroundSolid] = useState(true);
     const[isLeftToRightGradient , setIsLeftToRightGradient] = useState(true);
     const[selectedBackgroundValue, setSelectedBackgroundValue] = useState("solid");
+    const [isGridVisible, setIsGridVisible] = useState(true);
+    
 
     //??
     const[color1 , setColor1] = useState("#D946EF");
@@ -247,7 +251,18 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
         const listItemID = (newLight._lightHelper as _RectAreaLightHelper).name;
 
         setActiveListItems([...activeListItems, {id:listItemID, name:listItemName}]);
-    }    
+    }  
+    
+    function toggleGridVisibility() : void {
+      if(isGridVisible ) { // || isRendering
+          (grid!.getGridHelper() as THREE.GridHelper).visible = false;
+          setIsGridVisible(false);
+      } else {
+          (grid!.getGridHelper() as THREE.GridHelper).visible = true;
+          setIsGridVisible(true);
+
+      }
+    }
 
     return(
         <div  className={ isToolbarToggled ? `hidden` : `w-[100%] bg-cream-vanilla flex-shrink-0 pb-2`}>
@@ -322,6 +337,14 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                     <div className="flex flex-col ml-5 text-sm mt-1">
                         <label className={ isBackgroundSolid ? `text-espresso mt-1 text-xs` : `text-espresso mt-1 text-xs`}  style={{ fontFamily: 'lato' }} htmlFor="">Scale</label>
                         <input onChange={handleGradientScaleChange} disabled={isBackgroundSolid} value={gradientScale} max={"5"} min={"1"} step={"0.1"} className={isBackgroundSolid ? `w-[75%] h-1 my-1 accent-[] opacity-40` : ` w-[75%] h-1 my-1 accent-[#C05400] `} type="range" />
+                    </div>
+
+                    <div className="flex flex-row ml-5 text-sm mt-2">
+                        <label className="text-espresso mt-1 text-xs mr-4" style={{ fontFamily: 'lato' }} htmlFor="">Grid
+
+                        </label>
+
+                        <input className='accent-[#C05400] mt-1' checked={isGridVisible} onChange={toggleGridVisibility} type="checkbox" name="" id="" />
                     </div>
 
                     {/* Divider */}

@@ -11,13 +11,12 @@ interface SceneManagerProps {
     _scene : THREE.Scene;
     _camera : THREE.PerspectiveCamera;
     _renderer : THREE.WebGLRenderer;
-    _grid : Grid
-    isGridVisible : boolean
-    setIsGridVisible : React.Dispatch<React.SetStateAction<boolean>>;
+    _grid: Grid
+;
 
 }
 
-export default function SceneManager({_scene, _camera, _renderer, _grid, isGridVisible, setIsGridVisible}: SceneManagerProps) {
+export default function SceneManager({_scene, _camera, _renderer, _grid }: SceneManagerProps) {
 
     // kind of like member vairables in a class
     const mountRef = useRef<HTMLDivElement | null>(null);

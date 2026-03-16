@@ -68,7 +68,7 @@ export default function Editor() {
   const [lightManager, setLightManager] = useState<LightManager | null>(null);
 
   const [grid, setGrid] = useState<Grid | null>(null);
-  const [isGridVisible, setIsGridVisible] = useState(true);
+  //const [isGridVisible, setIsGridVisible] = useState(true);
 
   const [assetManager, setAssetManager] = useState<AssetManager | null>(null);
   const [cameraManager, setCameraManager] = useState<CameraManager | null>(null);
@@ -347,16 +347,7 @@ export default function Editor() {
   },[camera, renderer]);
 
 
-  function toggleGridVisibility() : void {
-      if(isGridVisible || isRendering) {
-          (grid!.getGridHelper() as THREE.GridHelper).visible = false;
-          setIsGridVisible(false);
-      } else {
-          (grid!.getGridHelper() as THREE.GridHelper).visible = true;
-          setIsGridVisible(true);
 
-      }
-    }
 
 
 
@@ -391,7 +382,7 @@ export default function Editor() {
         
 
 
-      {scene && lightManager && cameraManager && phone && assetManager && camera && gradientBackground && _phoneScreen  &&<Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents}  _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems} addTextComponent={addTextComponent} camera={camera} _gradientBackground={gradientBackground} _phoneScreen={_phoneScreen} capturedImages={capturedImages} setCapturedImages={setCapturedImages} appUser= {appUser} aspectRatio={aspectRatio} setAspectRatio={setAspectRatio} />} 
+      {scene && lightManager && cameraManager && phone && assetManager && camera && gradientBackground && _phoneScreen && grid && <Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents}  _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems} addTextComponent={addTextComponent} camera={camera} _gradientBackground={gradientBackground} _phoneScreen={_phoneScreen} capturedImages={capturedImages} setCapturedImages={setCapturedImages} appUser= {appUser} aspectRatio={aspectRatio} setAspectRatio={setAspectRatio} grid={grid}/>} 
 
       {scene && assetManager && camera && imageComponents.map((item) => {
         return <ImageComponent key={item.id} position={item.position} _scene={scene} _camera={camera} _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems}/>
@@ -399,11 +390,11 @@ export default function Editor() {
 
       {textComponents}
 
-      {isPhoneLoading ? (<h1>Loading</h1>) : (scene && camera && renderer && grid && <SceneManager _scene={scene} _camera={camera} _renderer={renderer} _grid={grid} isGridVisible={isGridVisible} setIsGridVisible={setIsGridVisible}/>)}
+      {isPhoneLoading ? (<h1>Loading</h1>) : (scene && camera && renderer && grid && <SceneManager _scene={scene} _camera={camera} _renderer={renderer} _grid={grid}/>)}
   
       <Overlay aspectRatio = {aspectRatio}/>
 
-      <input className='absolute top-5 left-5 accent-[#C05400]' checked={isGridVisible} onChange={toggleGridVisibility} type="checkbox" name="" id="" />
+
 
       
       
