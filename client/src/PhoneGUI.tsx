@@ -7,6 +7,7 @@ import EyeMidIcon from './IconAssets/EyeMidIcon';
 import EyeClosedIcon from './IconAssets/EyeClosedIcon';
 import CameraIcon from './IconAssets/CameraIcon';
 import CameraHoverIcon from './IconAssets/CameraHoverIcon';
+import { AspectRatio } from './ComponentInterfaces';
 
 
 /*
@@ -22,9 +23,10 @@ when its open
 interface PhoneGUIProps {
     phoneModel : THREE.Group
     _cameraManager: CameraManager
+    aspectRatio : AspectRatio
 }
 
-export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
+export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio}:PhoneGUIProps) {
 
     //const[yRotPreset, setYRotPreset] = useState(0);
 
@@ -162,7 +164,7 @@ export default function PhoneGUI({phoneModel, _cameraManager}:PhoneGUIProps) {
 
     function handleImageCapture() : void {
         console.log("Capturing the image");
-        _cameraManager.captureImage();
+        _cameraManager.captureImage(aspectRatio);
     }
 
     function handlePhonePresetsChange(e: React.ChangeEvent<HTMLSelectElement>) : void {

@@ -29,3 +29,9 @@ export interface CapturedImage {
     id: string;
     imgPath: string;
 }
+
+export interface AspectRatio {
+    width: number;
+    height: number, 
+    type:string 
+}

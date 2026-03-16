@@ -48,12 +48,14 @@ interface ToolbarProps {
     capturedImages : CapturedImage[]
     setCapturedImages : React.Dispatch<React.SetStateAction<CapturedImage[]>>
     appUser : AppUser | null;
+    aspectRatio : {width:number, height:number, type:string}
+    setAspectRatio : React.Dispatch<React.SetStateAction<{width: number,height: number,type: string}>>
     //screenTextures : ScreenTextureInterface[]
     //setScreenTextures : React.Dispatch<React.SetStateAction<ScreenTextureInterface[]>>
 }
 
 
-export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManager, _imageComponents, _setImageComponents,  _assetManager,activeListItems, setActiveListItems, addTextComponent ,camera, _gradientBackground, _phoneScreen, capturedImages, setCapturedImages, appUser} : ToolbarProps) { //screenTextures, setScreenTextures
+export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManager, _imageComponents, _setImageComponents,  _assetManager,activeListItems, setActiveListItems, addTextComponent ,camera, _gradientBackground, _phoneScreen, capturedImages, setCapturedImages, appUser, aspectRatio, setAspectRatio} : ToolbarProps) { //screenTextures, setScreenTextures
 
     
     const[selectedLight, setSelectedLight] = useState<{id: string, type: LightType} | null>(null);
@@ -121,7 +123,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                                 
                                     <ToolbarImgAndTextCard imageComponents={_imageComponents} setImageComponents={_setImageComponents} isToolbarToggled={isToolbarToggled} addTextComponent={addTextComponent} _phoneScreen={_phoneScreen} _assetManager={_assetManager} capturedImages={capturedImages} setCapturedImages={setCapturedImages} />
 
-                                    <ToolbarCameraCard isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} _phoneModel={_phoneModel}/>
+                                    <ToolbarCameraCard isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} _phoneModel={_phoneModel} aspectRatio={aspectRatio} setAspectRatio={setAspectRatio}/>
                                 
                                 </div>
                             
@@ -142,7 +144,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
                                
                                 <ToolbarImgAndTextCard imageComponents={_imageComponents} setImageComponents={_setImageComponents} isToolbarToggled={isToolbarToggled} addTextComponent={addTextComponent} _phoneScreen={_phoneScreen} _assetManager={_assetManager} capturedImages={capturedImages} setCapturedImages={setCapturedImages} />
 
-                                <ToolbarCameraCard isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} _phoneModel={_phoneModel}/>
+                                <ToolbarCameraCard isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} _phoneModel={_phoneModel} aspectRatio={aspectRatio} setAspectRatio={setAspectRatio}/>
                                 
                             </div>
                             

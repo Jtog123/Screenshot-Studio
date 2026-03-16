@@ -38,6 +38,7 @@ export default function ToolbarFooter({isToolbarToggled, setToolbarToggled, appU
                         src={appUser.profilePicture} 
                         alt={appUser.displayName}
                         className="h-10 w-10 rounded-full object-cover"
+                        referrerPolicy="no-referrer"
                     />
 
  

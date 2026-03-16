@@ -233,7 +233,7 @@ export default function HomePage() {
             <section className="w-full bg-stone-900 py-20">
                 <ScrollFadeIn>
                 <h2 className="text-center text-white text-4xl mb-4">
-                    The Frustration Index
+                    The Mockup Frustration Index
                 </h2>
                 <p className="text-center text-white/70 text-xl mb-12">
                     Time spent vs. sanity lost

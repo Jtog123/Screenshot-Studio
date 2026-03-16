@@ -1,10 +1,10 @@
 import * as THREE from 'three'
-import {CapturedImage } from './ComponentInterfaces';
+import {AspectRatio, CapturedImage } from './ComponentInterfaces';
 import { Grid } from './Grid';
 
 class CameraManager {
-    public screenshotWidth : number = 1242;
-    public screenshotHeight : number = 2688;
+    //public screenshotWidth : number = 1242;
+    //public screenshotHeight : number = 2688;
     private _scene : THREE.Scene
     private _camera : THREE.PerspectiveCamera
     private setCapturedImages :  React.Dispatch<React.SetStateAction<
@@ -12,15 +12,18 @@ class CameraManager {
     private setImageCaptured : React.Dispatch<React.SetStateAction<boolean>>;
     private _grid : Grid
 
+
     //private _renderer : THREE.WebGLRenderer
 
     constructor(scene: THREE.Scene ,camera :THREE.PerspectiveCamera , renderer: THREE.WebGLRenderer, setCapturedImages: React.Dispatch<React.SetStateAction<
-        CapturedImage[]>>, setImageCaptured : React.Dispatch<React.SetStateAction<boolean>>, _grid : Grid ) {
+        CapturedImage[]>>, setImageCaptured : React.Dispatch<React.SetStateAction<boolean>>, _grid : Grid,  ) {
         this._scene = scene;
         this._camera = camera;
         this.setCapturedImages = setCapturedImages;
         this.setImageCaptured = setImageCaptured;
         this._grid = _grid;
+
+
 
         //this._renderer = renderer;
     }
@@ -41,7 +44,7 @@ class CameraManager {
     Your main renderer/canvas never changes - user sees nothing
     */
 
-    public captureImage() : void {
+    public captureImage(aspectRatio: AspectRatio) : void {
 
         // assigns false if the lhs is null or undefined
         const helperVisibility : Map<THREE.Object3D, boolean> = new Map();
@@ -69,19 +72,41 @@ class CameraManager {
         const originFar = this._camera.far;
 
         //temporarily update aspect , create function?
-        const tempAspectRatio = this.screenshotWidth / this.screenshotHeight;
+        //const tempAspectRatio = this.screenshotWidth / this.screenshotHeight;
+
+        const tempAspectRatio = aspectRatio.width / aspectRatio.height;
+
+        //adjusting FOV on aspect ratio change
+        let adjustedFOV = originalFOV;
+        let zoomMultiplier = 1;
+
+        if(aspectRatio.type === "wide") {
+            adjustedFOV = originalFOV * 0.65;
+            zoomMultiplier = 0.75;
+        }
+
+
+
+        console.log(tempAspectRatio, "temp ratio is ");
 
         const tempCamera = new THREE.PerspectiveCamera(
-            originalFOV, tempAspectRatio, originalNear, originFar
+            adjustedFOV, tempAspectRatio, originalNear, originFar
         );
 
         //copy the pos of the original camera
-        tempCamera.position.copy(this._camera.position)
+        tempCamera.position.copy(this._camera.position);
+        tempCamera.position.z *= zoomMultiplier;
 
-        tempRenderer.setSize(this.screenshotWidth, this.screenshotHeight);
+        //tempRenderer.setSize(this.screenshotWidth, this.screenshotHeight);
+        tempRenderer.setSize(aspectRatio.width, aspectRatio.height);
 
         //tempCamera.updateProjectionMatrix();
         tempRenderer.render(this._scene, tempCamera);
+
+                //restpre helper visiblity
+        helperVisibility.forEach((wasVisible, helper) => {
+            helper.visible = wasVisible;
+        })
 
         /*
         from the base app have the screentextures and activeTextureID and pass it down
@@ -116,7 +141,7 @@ class CameraManager {
                 
                 //URL.revokeObjectURL(url);
 
-
+                tempRenderer.dispose();
             }, "image/png", 1.0);
 
             //this._camera.updateProjectionMatrix();
@@ -124,9 +149,9 @@ class CameraManager {
 
 
         //restpre helper visiblity
-        helperVisibility.forEach((wasVisible, helper) => {
-            helper.visible = wasVisible;
-        })
+        //helperVisibility.forEach((wasVisible, helper) => {
+        //    helper.visible = wasVisible;
+        //});
 
         this.setImageCaptured(false);
  

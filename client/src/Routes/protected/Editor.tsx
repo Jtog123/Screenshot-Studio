@@ -25,7 +25,7 @@ import { CameraManager } from "../../CameraManager.js";
 import { GradientBackground } from "../../GradientBackground.js";
 import PhoneGUI from "../../PhoneGUI.js";
 import Overlay from "../../Overlay.js";
-import { ImageComponentInterface, ScreenTextureInterface, TextComponentInterface, CapturedImage } from "../../ComponentInterfaces.js";
+import { ImageComponentInterface, ScreenTextureInterface, TextComponentInterface, CapturedImage, AspectRatio } from "../../ComponentInterfaces.js";
 import ImageComponent from "../../ImageComponent.js";
 import TextComponent from "../../TextComponent.js";
 import { AssetManager } from "../../AssetManager.js";
@@ -88,6 +88,12 @@ export default function Editor() {
 
   //global state var
   const[isRendering, setIsRendering] = useState(false);
+  const[aspectRatio, setAspectRatio] = useState<AspectRatio>(
+    {
+      width: 1242,
+      height: 2688,
+      type: "default"
+    }); //"1242x2688"
 
   const[appUser, setAppUser] = useState<AppUser | null>(null);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
@@ -209,10 +215,11 @@ export default function Editor() {
     const _lightManager = new LightManager(_raycaster, _renderer, _camera, _scene);
     setLightManager(_lightManager);
 
-      const _grid = new Grid(20,20);
+    const _grid = new Grid(20,20);
     setGrid(_grid);
 
-    const _cameraManager = new CameraManager(_scene, _camera ,_renderer, setCapturedImages, setImageCaptured, _grid);
+    const _cameraManager = new CameraManager(_scene, _camera ,_renderer, setCapturedImages, setImageCaptured, _grid, );
+
     setCameraManager(_cameraManager);
 
     const _assetManager = new AssetManager(_scene, _raycaster, _renderer, _camera);
@@ -370,7 +377,7 @@ export default function Editor() {
     <>
       
 
-      {isSceneReady && phone && cameraManager && <PhoneGUI phoneModel={phone} _cameraManager={cameraManager}/>}
+      {isSceneReady && phone && cameraManager && <PhoneGUI phoneModel={phone} _cameraManager={cameraManager} aspectRatio={aspectRatio}/>}
 
     
       {cameraManager && (
@@ -384,7 +391,7 @@ export default function Editor() {
         
 
 
-      {scene && lightManager && cameraManager && phone && assetManager && camera && gradientBackground && _phoneScreen  &&<Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents}  _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems} addTextComponent={addTextComponent} camera={camera} _gradientBackground={gradientBackground} _phoneScreen={_phoneScreen} capturedImages={capturedImages} setCapturedImages={setCapturedImages} appUser= {appUser} />} 
+      {scene && lightManager && cameraManager && phone && assetManager && camera && gradientBackground && _phoneScreen  &&<Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents}  _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems} addTextComponent={addTextComponent} camera={camera} _gradientBackground={gradientBackground} _phoneScreen={_phoneScreen} capturedImages={capturedImages} setCapturedImages={setCapturedImages} appUser= {appUser} aspectRatio={aspectRatio} setAspectRatio={setAspectRatio} />} 
 
       {scene && assetManager && camera && imageComponents.map((item) => {
         return <ImageComponent key={item.id} position={item.position} _scene={scene} _camera={camera} _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems}/>
@@ -394,7 +401,7 @@ export default function Editor() {
 
       {isPhoneLoading ? (<h1>Loading</h1>) : (scene && camera && renderer && grid && <SceneManager _scene={scene} _camera={camera} _renderer={renderer} _grid={grid} isGridVisible={isGridVisible} setIsGridVisible={setIsGridVisible}/>)}
   
-      <Overlay/>
+      <Overlay aspectRatio = {aspectRatio}/>
 
       <input className='absolute top-5 left-5 accent-[#C05400]' checked={isGridVisible} onChange={toggleGridVisibility} type="checkbox" name="" id="" />
 
