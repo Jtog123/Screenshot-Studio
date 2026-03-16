@@ -270,7 +270,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
 
                     <div className="flex justify-center items-center">
                         <h4 className="text-espresso text-xs ml-5 mr-2"  style={{ fontFamily: 'lato' }}>Add up to 7 photos</h4>
-                        <input ref={screenTextureFileRef} type="file" accept="image/*" onChange={(e) => handleScreenTextureUpload(e)} className="hidden"/>
+                        <input ref={screenTextureFileRef} type="file" accept="image/png, image/jpeg" onChange={(e) => handleScreenTextureUpload(e)} className="hidden"/>
                             {
                                 <button className={isScreenTextureUploaded ? `hidden` :`flex justify-center items-center transition-all ease-in duration-200 bg-crust-graham/70 hover:bg-orange-juicy/50 text-espresso hover:text-cream-light  cursor-pointer w-[35px] h-[30px] p-2 mx-1  rounded-lg py-1`}
                                 onClick={() => screenTextureFileRef.current?.click()}>
@@ -289,7 +289,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                         {/* screenTextures.map() */}
                         {screenTextures.map((img) => (
                             <div key={img.id} className="flex flex-col mx-1 ">
-                                <input type="radio"  className=" mb-1" name="screenshot" checked={activeTextureID === img.id} onChange={() => handleTextureSelect(img.id)} id="" />
+                                <input type="radio"  className=" mb-1 accent-[#C05400]" name="screenshot" checked={activeTextureID === img.id} onChange={() => handleTextureSelect(img.id)} id="" />
                                 <div className="h-[auto] w-[28px] border-1 border-orange-juicy/80 mb-3">
                                     <img src={img.imgPath}  alt=""/>
                                 </div>

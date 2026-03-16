@@ -76,7 +76,7 @@ export default function ImageComponent({ _scene, _camera ,_assetManager, activeL
         <>
         <div>
             
-            <input ref={inputFileRef} type="file" accept="image/*" onChange={(e) => handleImageUpload(e)} className="hidden"/>
+            <input ref={inputFileRef} type="file" accept="image/png, image/jpeg" onChange={(e) => handleImageUpload(e)} className="hidden"/>
                 {
                     
                     
