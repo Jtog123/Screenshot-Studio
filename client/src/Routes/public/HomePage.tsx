@@ -95,13 +95,17 @@ export default function HomePage() {
         //pass phoneScreen down to ToolBarImg, move this logic into there
         if (phoneScreen) {
             const textureLoader = new THREE.TextureLoader();
-            textureLoader.load('/baseAsset.png', (texture) => {
+            textureLoader.load('/BlueberryTile.png', (texture) => {
                 texture.flipY = false;
                 texture.colorSpace = THREE.SRGBColorSpace; // Corrects the "washed out" red
-                texture.minFilter = THREE.LinearFilter;
-                texture.magFilter = THREE.NearestFilter; // Sharpest
+                texture.minFilter = THREE.LinearMipmapLinearFilter;
+                texture.magFilter = THREE.LinearFilter;
+                //texture.minFilter = THREE.LinearFilter;
+                //texture.magFilter = THREE.NearestFilter; // Sharpest
                 texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
                 //texture.anisotropy = 16; // Sharper edges at angles
+
+                texture.generateMipmaps = true;
     
                 phoneScreen!.material = new THREE.MeshBasicMaterial({ 
                 map: texture,
@@ -204,33 +208,66 @@ export default function HomePage() {
             
             {/* Hero Section - Split Left/Right */}
             <ScrollFadeIn >
-            <section className="flex w-full min-h-screen bg-stone-700">
+            <section className="flex w-full min-h-screen ">
                 
                 {/* Left Side - Content */}
-                <div className="flex leftSide justify-center items-center bg-stone-600 w-1/2">
+                <div className="flex leftSide justify-center items-center bg-cream-vanilla/50 w-1/2">
                     <div className="flex flex-col w-4/5 max-w-2xl">
-                        <h1 className="text-white text-7xl mb-6">Dynamic Mock Ups</h1>
+                        <h1 className="text-mocha text-7xl mb-6">Dynamic Mock Ups</h1>
                         
-                        <h2 className="text-white/70 text-2xl mb-10">
+                        <h2 className="text-mocha/50 text-2xl mb-10">
                             Making your app stand out has never been easier
                         </h2>
                         
-                        <button className="bg-orange-vibrant hover:bg-orange-deep text-white rounded-xl w-[140px] h-[70px] transition-colors cursor-pointer">
-                            Join For Free
-                        </button>
+                        <div className="flex w-[100%] bg-red-500 justify-between">
+                            <button className="bg-blue-frost hover:bg-blue-cobalt text-white rounded-xl w-[140px] h-[70px] transition-colors cursor-pointer text-xl">
+                                Join For Free
+                            </button>
+                            <div>
+                                Your App Here
+                            </div>
+                        </div>
+
+
+ 
                     </div>
                 </div>
 
                 {/* Right Side - Phone Demo */}
-                <div className="rightSide bg-stone-700 w-1/2 flex items-center justify-center">
-                    <div ref={mountRef} className="phoneDiv w-full h-full"></div>
+                <div className="rightSide bg-cream-vanilla w-1/2 flex items-center ">
+       
+                    <div ref={mountRef} className="phoneDiv  w-full h-full"></div>
+                    <div className=" flex fixed justify-center items-center controls z-5 bg-stone-700 w-[170px] h-[170px] right-5 rounded-xl p-2">
+                        <div className=" flex flex-col  w-[30%] h-[85%] mr-2">
+                            <div className="w-full h-full bg-red-300  mb-2 ">
+                                
+                            </div>
+                            <input type="radio" className="" />
+                        </div>
+
+                        <div className=" flex flex-col  w-[30%] h-[85%] mr-2">
+                            <div className="w-full h-full bg-red-300  mb-2 ">
+                                
+                            </div>
+                            <input type="radio" className="" />
+                        </div>
+
+                        <div className=" flex flex-col  w-[30%] h-[85%] ">
+                            <div className="w-full h-full bg-red-300  mb-2 ">
+                                
+                            </div>
+                            <input type="radio" className="" />
+                        </div>
+     
+
+                    </div>
                 </div>
                 
             </section>
             </ScrollFadeIn>
 
             
-            <section className="w-full bg-stone-900 py-20">
+            <section className="w-full bg-cream-golden py-20">
                 <ScrollFadeIn>
                 <h2 className="text-center text-white text-4xl mb-4">
                     The Mockup Frustration Index
