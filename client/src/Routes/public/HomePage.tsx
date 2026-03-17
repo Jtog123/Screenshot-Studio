@@ -236,8 +236,15 @@ export default function HomePage() {
                     The Mockup Frustration Index
                 </h2>
                 <p className="text-center text-white/70 text-xl mb-12">
-                    Time spent vs. sanity lost
+                    Time spent vs Sanity lost
                 </p>
+                <p className="text-center text-white/70">
+                    Note how as time increases you grow more insane
+                </p>
+                <div className="chart container">
+                    {/* Create teh chart first then figure out how to fill it with data */}
+
+                </div>
 
                 </ScrollFadeIn>
                 

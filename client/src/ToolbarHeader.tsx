@@ -1,23 +1,25 @@
 import {useRef, useEffect, useState} from 'react'
 import ToolbarHeaderArrow from './ToolbarHeaderArrow'
+import OfficialLogo from './IconAssets/OfficialLogo'
 
 interface ToolbarHeaderProps {
     isToolbarToggled : boolean
     setToolbarToggled: React.MouseEventHandler<HTMLButtonElement>
 }
 
+//bg-orange-tangy
 export default function ToolbarHeader({isToolbarToggled, setToolbarToggled} : ToolbarHeaderProps) {
     return (
         <>
-            <div className={isToolbarToggled ? `flex w-full items-center justify-center  h-[5%] bg-cream-golden py-2` : `flex w-full items-center justify-between h-[5%] bg-cream-golden px-3`}>
-                <button onClick={setToolbarToggled} className="flex justify-center cursor-pointer items-center h-[30px] w-[40px] bg-orange-tangy transition-colors duration-300 hover:bg-orange-rind  rounded-xl group">
-                    <ToolbarHeaderArrow className={`transition-transform duration-300 text-cream-dark group-hover:text-espresso ${
+            <div className={isToolbarToggled ? `flex w-full items-center justify-center  h-[5%] bg-blue-powder py-2` : `flex w-full items-center justify-between h-[5%] bg-blue-powder px-3`}>
+                <button onClick={setToolbarToggled} className="flex justify-center cursor-pointer items-center h-[30px] w-[40px] bg-blue-ocean transition-colors duration-300 hover:bg-blue-cobalt rounded-xl group">
+                    <ToolbarHeaderArrow className={`transition-transform duration-300 text-pink-candy group-hover:text-pink-berry ${
                         isToolbarToggled ? 'rotate-180' : 'rotate-0'
                     }`}/> 
                 </button>
 
                 <h1 className={isToolbarToggled ? "hidden" : "h-[80%] w-[1/3]  text-cream rounded-xl flex items-center justify-center"}>
-                    Logo here
+                    <OfficialLogo className='h-11 w-11'/>
                 </h1>
             </div>
         </>

@@ -282,7 +282,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                     {/* Background Section */}
                     <h1 className="text-espresso ml-5 mt-1 text-xs" style={{ fontFamily: 'lato' }}>Style</h1>
                     <div className="flex justify-between bg-cream-vanilla py-2">
-                        <select value={selectedBackgroundValue} onChange={handleBackgroundChange} className="w-[35%] ml-5 h-[30px] px-1 bg-cream-golden text-espresso text-sm rounded-md cursor-pointer">
+                        <select value={selectedBackgroundValue} onChange={handleBackgroundChange} className="w-[35%] ml-5 h-[30px] px-1 bg-blue-powder text-espresso text-sm rounded-md cursor-pointer">
                             <option value="solid" >solid</option>
                             <option value="gradient">gradient</option>
                         </select>
@@ -307,8 +307,8 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                             onClick={handleGradientDirectionChange} 
                             className={`flex justify-center items-center w-[50px] h-[35px] mx-1 rounded-lg py-1 transition-all ease-in duration-200
                                 ${!isBackgroundSolid && isLeftToRightGradient 
-                                    ? 'bg-orange-juicy/50 pointer-events-none' 
-                                    : 'bg-crust-graham/50 hover:bg-orange-juicy/50 cursor-pointer'
+                                    ? 'bg-blue-ribbon/50 pointer-events-none' 
+                                    : 'bg-blue-powder/40 hover:bg-blue-ribbon/50 cursor-pointer'
                                 }
                                 ${isBackgroundSolid ? ' opacity-50 pointer-events-none' : ''}
                             `}
@@ -322,8 +322,8 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                             onClick={handleGradientDirectionChange} 
                             className={`flex justify-center items-center w-[50px] h-[35px] mx-1 rounded-lg py-1 transition-all ease-in duration-200
                                 ${!isBackgroundSolid && !isLeftToRightGradient 
-                                    ? 'bg-orange-juicy/50 pointer-events-none' 
-                                    : 'bg-crust-graham/30 hover:bg-orange-juicy/50 cursor-pointer'
+                                    ? 'bg-blue-ribbon/50 pointer-events-none' 
+                                    : 'bg-blue-powder/40 hover:bg-blue-ribbon/50 cursor-pointer'
                                 }
                                 ${isBackgroundSolid ? 'opacity-50 pointer-events-none' : ''}
                             `}
@@ -336,7 +336,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
 
                     <div className="flex flex-col ml-5 text-sm mt-1">
                         <label className={ isBackgroundSolid ? `text-espresso mt-1 text-xs` : `text-espresso mt-1 text-xs`}  style={{ fontFamily: 'lato' }} htmlFor="">Scale</label>
-                        <input onChange={handleGradientScaleChange} disabled={isBackgroundSolid} value={gradientScale} max={"5"} min={"1"} step={"0.1"} className={isBackgroundSolid ? `w-[75%] h-1 my-1 accent-[] opacity-40` : ` w-[75%] h-1 my-1 accent-[#C05400] `} type="range" />
+                        <input onChange={handleGradientScaleChange} disabled={isBackgroundSolid} value={gradientScale} max={"5"} min={"1"} step={"0.1"} className={isBackgroundSolid ? `w-[75%] h-1 my-1 accent-[#4695E8] opacity-40` : ` w-[75%] h-1 my-1 `} type="range" />
                     </div>
 
                     <div className="flex flex-row ml-5 text-sm mt-2">
@@ -344,12 +344,12 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
 
                         </label>
 
-                        <input className='accent-[#C05400] mt-1' checked={isGridVisible} onChange={toggleGridVisibility} type="checkbox" name="" id="" />
+                        <input className='accent-[#4695E8] mt-1' checked={isGridVisible} onChange={toggleGridVisibility} type="checkbox" name="" id="" />
                     </div>
 
                     {/* Divider */}
                     <div className="flex w-[100%] justify-center my-1">
-                        <div className="w-[90%] h-px bg-orange-juicy/80 my-3"></div>
+                        <div className="w-[90%] h-px bg-blue-ocean/80 my-3"></div>
                     </div>
 
                     {/* Lighting */}

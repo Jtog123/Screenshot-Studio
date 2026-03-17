@@ -71,6 +71,27 @@
     --color-orange-rind: #D65F00;
     --color-orange-caramel: #C05400;
 
+    /*pinks
+        /* Accent/Pink - Sweet Palette */
+    --color-pink-marshmallow: #FFD6E8;
+    --color-pink-bubblegum: #FFC2DC;
+    --color-pink-candy: #FFADD2;
+    --color-pink-frosting: #FF99C8;
+    --color-pink-taffy: #FF85BE;
+    --color-pink-berry: #FF70B4;
+    --color-pink-velvet: #F55BA5;
+    --color-pink-cherry: #E84695;
+
+    /*Blues*/
+    --color-blue-powder: #D6E8FF;
+    --color-blue-cotton: #C2DCFF;
+    --color-blue-sky: #ADD2FF;
+    --color-blue-frost: #99C8FF;     /* ⭐ PRIMARY */
+    --color-blue-ribbon: #85BEFF;
+    --color-blue-ocean: #70B4FF;
+    --color-blue-sapphire: #5BA5F5;
+    --color-blue-cobalt: #4695E8;
+
        /* Text/Dark */
     --color-espresso: #2C1810;
     --color-chocolate: #3D2315;

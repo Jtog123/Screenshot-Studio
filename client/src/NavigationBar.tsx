@@ -1,4 +1,6 @@
 import { NavLink } from "react-router"
+import OfficialLogo from "./IconAssets/OfficialLogo";
+import OfficialNameIcon from "./IconAssets/OfficialName";
 
 
 export default function NavigationBar() {
@@ -54,15 +56,18 @@ export default function NavigationBar() {
 
     return(
         <>
-            <div className="fixed flex h-[10%] w-[100%] bg-red-300 z-21">
+            <div className="fixed flex h-[7%] w-[100%]  z-21">
                 
-                <div className="LogoTitleContainer flex w-[33%] h-[100%] items-center justify-between bg-blue-300">
+                <div className="LogoTitleContainer flex w-[33%] h-[100%] items-center  bg-blue-powder/70">
                     {/*img here */}
-                    <div>img here</div>
-                    <h1>Screenshot Sweet</h1>
+                    <div className="h-[90%]">
+                        <OfficialLogo className="h-[100%] w-20  ml-5"/>
+                    </div>
+
+                    <OfficialNameIcon className="h-50 w-60 "/>
                 </div>
 
-                <div className="navigationLinks flex justify-center  w-[77%] h-[100%]  bg-green-600">
+                <div className="navigationLinks flex justify-center  w-[77%] h-[100%]  bg-blue-powder/70">
                     <nav className="flex  justify-around items-center w-[80%] h-[100%] ">
                         <NavLink to="/" end> Home </NavLink>
                         <NavLink to="/About" end> About </NavLink>
