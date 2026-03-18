@@ -3,6 +3,11 @@ import { useState, useRef, useEffect } from "react";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import * as THREE from 'three';
 import ScrollFadeIn from "../../ScrollFadeIn";
+import { ScreenTextureInterface } from "../../ComponentInterfaces";
+import IndexChart from "../../IconAssets/IndexChart";
+import YourAppHere from "../../IconAssets/YourAppHere";
+import ArrowPoint from "../../IconAssets/ArrowPoint";
+import AppAndArrow from "../../IconAssets/AppAndArrow";
 
 
 export default function HomePage() {
@@ -22,6 +27,30 @@ export default function HomePage() {
     const [isPhoneLoading, setIsPhoneLoading] = useState(true);
     //const [phone, setPhoneModel] = useState<THREE.Group | null>(null);
     const [isSceneReady, setIsSceneReady] = useState(false);
+    const [activeTextureID, setActiveTextureID] = useState<string | null>("1");
+
+    const [homeScreenTextures, setHomeScreenTextures] = useState<any[]>([]);
+
+    //const loader = new THREE.TextureLoader();
+
+
+
+    function handleTextureSelect(textureID : string) : void {
+        setActiveTextureID(textureID);
+
+        const selectedTexture = homeScreenTextures.find(texture => texture.id === textureID);
+
+        if(homePhoneScreen && selectedTexture) {
+            homePhoneScreen.material = new THREE.MeshBasicMaterial({
+                map: selectedTexture.texture,
+                toneMapped: false
+            });
+            homePhoneScreen.material.needsUpdate = true;
+        }
+
+
+
+    }
 
 
 
@@ -30,6 +59,8 @@ export default function HomePage() {
         if(!mountRef.current) return;
 
         const loader = new GLTFLoader();
+
+        const textureLoader = new THREE.TextureLoader();
 
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
@@ -52,6 +83,57 @@ export default function HomePage() {
 
         camera.position.z = 5;
         camera.position.y = 0.25;
+
+        //function to load the texture
+        const loadTexture = (imgPath: string) : THREE.Texture => {
+            const texture = textureLoader.load(imgPath);
+
+            texture.flipY = false;
+            texture.colorSpace = THREE.SRGBColorSpace; // Corrects the "washed out" red
+            texture.minFilter = THREE.LinearMipmapLinearFilter;
+            texture.magFilter = THREE.LinearFilter;
+
+            texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+                //texture.anisotropy = 16; // Sharper edges at angles
+
+            texture.generateMipmaps = true;
+
+            return texture
+            /*
+                phoneScreen!.material = new THREE.MeshBasicMaterial({ 
+                map: texture,
+                toneMapped: false // Prevents scene lights from changing screenshot colors
+                */
+        }
+
+        const textures = [
+        {
+            id: "1",
+            type: "screenTexture",
+            imgPath: "/BlueberryTile.png",
+            texture: loadTexture("/BlueberryTile.png")
+        },
+        {
+            id: "2",
+            type: "screenTexture",
+            imgPath: "/BananaTile.png", 
+            texture: loadTexture("/BananaTile.png")
+
+        },
+        {
+            id: "3",
+            type: "screenTexture",
+            imgPath: "/AppleTile.png", 
+            texture: loadTexture("/AppleTile.png")
+
+        },
+        ];
+
+        setHomeScreenTextures(textures)
+
+
+
+
 
         let homePhoneModel: THREE.Group | null = null;
         let isVisible = true;
@@ -93,7 +175,19 @@ export default function HomePage() {
         // pass it down through the toolbar to toolbarImgandText
         
         //pass phoneScreen down to ToolBarImg, move this logic into there
+
+        if(phoneScreen) {
+            (phoneScreen as THREE.Mesh).material = new THREE.MeshBasicMaterial({
+                map:textures[0].texture,
+                toneMapped : false
+            });
+            setHomePhoneModel(gltf.scene);
+            setIsPhoneLoading(false);
+            setIsSceneReady(true);
+        }
+        /*
         if (phoneScreen) {
+            
             const textureLoader = new THREE.TextureLoader();
             textureLoader.load('/BlueberryTile.png', (texture) => {
                 texture.flipY = false;
@@ -111,6 +205,8 @@ export default function HomePage() {
                 map: texture,
                 toneMapped: false // Prevents scene lights from changing screenshot colors
                 });
+                
+  
     
                 setHomePhoneModel(gltf.scene);
                 //no longer loading
@@ -124,6 +220,7 @@ export default function HomePage() {
                 setIsSceneReady(true);
     
             }
+                */
             
         }).catch(err => console.error('Failed to load phone model:', err));
 
@@ -212,24 +309,21 @@ export default function HomePage() {
                 
                 {/* Left Side - Content */}
                 <div className="flex leftSide justify-center items-center bg-cream-vanilla/50 w-1/2">
-                    <div className="flex flex-col w-4/5 max-w-2xl">
+                    <div className="flex flex-col w-4/5 max-w-2xl   relative">
                         <h1 className="text-mocha text-7xl mb-6">Dynamic Mock Ups</h1>
                         
                         <h2 className="text-mocha/50 text-2xl mb-10">
                             Making your app stand out has never been easier
                         </h2>
+
+                        <button className="bg-blue-frost hover:bg-blue-cobalt text-white rounded-xl w-[25%] h-[60px] transition-colors cursor-pointer text-xl">
+                                    Join For Free
+                        </button>
                         
-                        <div className="flex w-[100%] bg-red-500 justify-between">
-                            <button className="bg-blue-frost hover:bg-blue-cobalt text-white rounded-xl w-[140px] h-[70px] transition-colors cursor-pointer text-xl">
-                                Join For Free
-                            </button>
-                            <div>
-                                Your App Here
-                            </div>
+
+                         <div className="absolute -right-58 -bottom-42 w-[650px] pointer-events-none">
+                                <AppAndArrow className="w-full h-auto text-mocha/60" />
                         </div>
-
-
- 
                     </div>
                 </div>
 
@@ -237,27 +331,21 @@ export default function HomePage() {
                 <div className="rightSide bg-cream-vanilla w-1/2 flex items-center ">
        
                     <div ref={mountRef} className="phoneDiv  w-full h-full"></div>
-                    <div className=" flex fixed justify-center items-center controls z-5 bg-stone-700 w-[170px] h-[170px] right-5 rounded-xl p-2">
-                        <div className=" flex flex-col  w-[30%] h-[85%] mr-2">
-                            <div className="w-full h-full bg-red-300  mb-2 ">
-                                
-                            </div>
-                            <input type="radio" className="" />
-                        </div>
 
-                        <div className=" flex flex-col  w-[30%] h-[85%] mr-2">
-                            <div className="w-full h-full bg-red-300  mb-2 ">
-                                
-                            </div>
-                            <input type="radio" className="" />
-                        </div>
+                    <div className=" imageContainer flex fixed justify-between items-center controls z-5 bg-stone-700 w-[170px] h-[170px] right-5 rounded-xl p-2">
 
-                        <div className=" flex flex-col  w-[30%] h-[85%] ">
-                            <div className="w-full h-full bg-red-300  mb-2 ">
-                                
+                        {homeScreenTextures.map((img) => (
+                            <div key={img.id} className=" flex flex-col  w-[30%] h-[85%] ">
+                                <div className="w-full h-full   mb-2 ">
+                                    <img src={img.imgPath} className="h-full" alt="" />
+                                </div>
+                                <input type="radio" checked={activeTextureID === img.id} 
+                                onChange={() => handleTextureSelect(img.id)} className="" />
                             </div>
-                            <input type="radio" className="" />
-                        </div>
+                        ))
+                        }
+
+
      
 
                     </div>
@@ -267,19 +355,20 @@ export default function HomePage() {
             </ScrollFadeIn>
 
             
-            <section className="w-full bg-cream-golden py-20">
+            <section className="w-full flex justify-center bg-cream-vanilla/50 py-20">
                 <ScrollFadeIn>
-                <h2 className="text-center text-white text-4xl mb-4">
+                <h2 className="text-center text-mocha text-4xl mb-4">
                     The Mockup Frustration Index
                 </h2>
-                <p className="text-center text-white/70 text-xl mb-12">
+                <p className="text-center text-mocha/70 text-xl mb-2">
                     Time spent vs Sanity lost
                 </p>
-                <p className="text-center text-white/70">
+                <p className="text-center text-mocha/70">
                     Note how as time increases you grow more insane
                 </p>
-                <div className="chart container">
+                <div className="chart container flex w-[100%] justify-center ">
                     {/* Create teh chart first then figure out how to fill it with data */}
+                    <IndexChart className=""/>
 
                 </div>
 
