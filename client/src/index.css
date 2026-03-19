@@ -82,6 +82,15 @@
     --color-pink-velvet: #F55BA5;
     --color-pink-cherry: #E84695;
 
+    --color-green-mint: #D6FFE8;
+    --color-green-honeydew: #C2FFDC;
+    --color-green-pistachio: #ADFFD2;
+    --color-green-lime: #99FFC8;
+    --color-green-sherbet: #85FFBE;
+    --color-green-apple: #70FFB4;
+    --color-green-jelly: #5BF5A5;
+    --color-green-emerald: #46E895;
+
     /*Blues*/
     --color-blue-powder: #D6E8FF;
     --color-blue-cotton: #C2DCFF;
@@ -143,6 +152,8 @@
         }
 
     }
+
+
 
 }
 

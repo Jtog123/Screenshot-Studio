@@ -36,8 +36,11 @@ export default function HomePage() {
 
 
     function handleTextureSelect(textureID : string) : void {
+        //setActiveTextureID(textureID);
+
         setActiveTextureID(textureID);
 
+        /*
         const selectedTexture = homeScreenTextures.find(texture => texture.id === textureID);
 
         if(homePhoneScreen && selectedTexture) {
@@ -47,6 +50,7 @@ export default function HomePage() {
             });
             homePhoneScreen.material.needsUpdate = true;
         }
+            */
 
 
 
@@ -123,8 +127,8 @@ export default function HomePage() {
         {
             id: "3",
             type: "screenTexture",
-            imgPath: "/AppleTile.png", 
-            texture: loadTexture("/AppleTile.png")
+            imgPath: "/GreenAppleTile.png", 
+            texture: loadTexture("/GreenAppleTile.png")
 
         },
         ];
@@ -177,6 +181,8 @@ export default function HomePage() {
         //pass phoneScreen down to ToolBarImg, move this logic into there
 
         if(phoneScreen) {
+            
+
             (phoneScreen as THREE.Mesh).material = new THREE.MeshBasicMaterial({
                 map:textures[0].texture,
                 toneMapped : false
@@ -295,6 +301,20 @@ export default function HomePage() {
         };
     }, []); 
 
+    useEffect(() => {
+        if(homePhoneScreen && homeScreenTextures.length > 0) {
+            const texture = homeScreenTextures.find(t => t.id === activeTextureID);
+
+            if(texture) {
+                homePhoneScreen.material = new THREE.MeshBasicMaterial({
+                    map: texture.texture,
+                    toneMapped: false
+                });
+                homePhoneScreen.material.needsUpdate = true;
+            }
+        }
+    }, [homePhoneScreen, activeTextureID, homeScreenTextures]);
+
 
 
 
@@ -309,45 +329,87 @@ export default function HomePage() {
                 
                 {/* Left Side - Content */}
                 <div className="flex leftSide justify-center items-center bg-cream-vanilla/50 w-1/2">
-                    <div className="flex flex-col w-4/5 max-w-2xl   relative">
-                        <h1 className="text-mocha text-7xl mb-6">Dynamic Mock Ups</h1>
+                    <div className="flex flex-col w-4/5 max-w-2xl  relative">
+                        <h1 className="text-mocha text-6xl mb-6 whitespace-nowrap overflow-hidden font-semibold truncate " style={{fontFamily: "Inter, sans-serif"}}>Dynamic Mock Ups</h1>
                         
-                        <h2 className="text-mocha/50 text-2xl mb-10">
+                        <h2 className="text-mocha/70 text-2xl mb-10 " style={{fontFamily: "Inter, sans-serif"}}>
                             Making your app stand out has never been easier
                         </h2>
 
-                        <button className="bg-blue-frost hover:bg-blue-cobalt text-white rounded-xl w-[25%] h-[60px] transition-colors cursor-pointer text-xl">
-                                    Join For Free
+                        <button className="bg-pink-cherry hover:bg-pink-velvet text-white font-smibold text-xl px-12 py-6 rounded-2xl shadow-[0_0_30px_rgba(232,70,149,0.4)] hover:shadow-[0_0_20px_rgba(232,70,149,0.6)] transform hover:scale-101 transition-all ease-in duration-100 cursor-pointer">
+                            Get Started Free
                         </button>
                         
 
-                         <div className="absolute -right-58 -bottom-42 w-[650px] pointer-events-none">
+                         <div className="absolute -right-58 -bottom-52 w-[650px] pointer-events-none">
                                 <AppAndArrow className="w-full h-auto text-mocha/60" />
                         </div>
                     </div>
                 </div>
 
                 {/* Right Side - Phone Demo */}
-                <div className="rightSide bg-cream-vanilla w-1/2 flex items-center ">
+                {/*on a rere */}
+                <div className="rightSide bg-cream-vanilla/50 w-1/2 flex items-center ">
        
                     <div ref={mountRef} className="phoneDiv  w-full h-full"></div>
-
-                    <div className=" imageContainer flex fixed justify-between items-center controls z-5 bg-stone-700 w-[170px] h-[170px] right-5 rounded-xl p-2">
-
-                        {homeScreenTextures.map((img) => (
-                            <div key={img.id} className=" flex flex-col  w-[30%] h-[85%] ">
-                                <div className="w-full h-full   mb-2 ">
-                                    <img src={img.imgPath} className="h-full" alt="" />
-                                </div>
-                                <input type="radio" checked={activeTextureID === img.id} 
-                                onChange={() => handleTextureSelect(img.id)} className="" />
-                            </div>
-                        ))
-                        }
-
-
-     
-
+                    {/*from-slate-900/95 to-slate-800/75 */}
+                    <div className="imageContainer fixed z-50 bg-gradient-to-br from-pink-cherry  to-pink-cherry/65 backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-white/10 w-[170px]  right-5 ">
+                        
+                        {/* Header */}
+                        <div className="flex flex-col justify-center mb-5 ">
+                            <h3 className="text-black text-lg tracking-tight" style={{fontFamily: "Inter, sans-serif"}}>
+                                Try it out
+                            </h3>
+                            <p className="text-black/70 text-xs mt-1" style={{fontFamily: "Inter, sans-serif"}}>
+                                Choose a style
+                            </p>
+                        </div>
+                        
+                        {/* Texture Grid */}
+                        <div className="flex gap-3 justify-between">
+                            {homeScreenTextures.map((img) => (
+                                <label
+                                    key={img.id}
+                                    className={`group cursor-pointer flex flex-col items-center transition-all duration-200 ${
+                                        activeTextureID === img.id 
+                                            ? 'scale-105' 
+                                            : 'opacity-60 hover:opacity-100 hover:scale-105'
+                                    }`}
+                                >
+                                    {/* Image Container */}
+                                    <div className={`relative rounded-lg overflow-hidden mb-2 transition-all duration-200 ${
+                                        activeTextureID === img.id 
+                                            ? 'ring-2 ring-blue-500 shadow-lg shadow-blue-500/50' 
+                                            : 'ring-1 ring-white/20 hover:ring-white/40'
+                                    }`}>
+                                        <img 
+                                            src={img.imgPath} 
+                                            className="w-16 h-20 object-cover" 
+                                            alt=""
+                                        />
+                                        
+                                        {/* Active Indicator Overlay */}
+                                        {activeTextureID === img.id && (
+                                            <div className="absolute inset-0 bg-blue-500/20 flex items-center justify-center pointer-events-none">
+                                                <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center">
+                                                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                    
+                                    {/* Radio Input (hidden but functional) */}
+                                    <input 
+                                        type="radio" 
+                                        checked={activeTextureID === img.id} 
+                                        onChange={() => handleTextureSelect(img.id)}
+                                        className="w-4 h-4 accent-blue-500 cursor-pointer"
+                                    />
+                                </label>
+                            ))}
+                        </div>
                     </div>
                 </div>
                 
@@ -357,13 +419,13 @@ export default function HomePage() {
             
             <section className="w-full flex justify-center bg-cream-vanilla/50 py-20">
                 <ScrollFadeIn>
-                <h2 className="text-center text-mocha text-4xl mb-4">
+                <h2 className="text-center text-mocha text-4xl mb-4 font-semibold" style={{fontFamily: "Inter, sans-serif"}}>
                     The Mockup Frustration Index
                 </h2>
-                <p className="text-center text-mocha/70 text-xl mb-2">
+                <p className="text-center text-mocha/70 text-xl mb-2" style={{fontFamily: "Inter, sans-serif"}}>
                     Time spent vs Sanity lost
                 </p>
-                <p className="text-center text-mocha/70">
+                <p className="text-center text-mocha/70" style={{fontFamily: "Inter, sans-serif"}}>
                     Note how as time increases you grow more insane
                 </p>
                 <div className="chart container flex w-[100%] justify-center ">
@@ -378,14 +440,14 @@ export default function HomePage() {
             </section>
  
             
-            <section className="w-full min-h-screen bg-stone-700 p-20">
+            <section className="w-full min-h-screen bg-cream-vanilla/50 p-20">
                 <ScrollFadeIn>
-                <h2 className="text-text-espresso text-5xl text-center mb-12">
+                <h2 className="text-text-espresso text-5xl text-center mb-12" style={{fontFamily: "Inter, sans-serif"}}>
                     {/*Beautiful Mockups Without the Learning Curve*/}
                     Skip The Design Tools
                 </h2>
-                <p className="text-coffee text-center text-xl mb-16">
-                    No Figma. No Photoshop. No tutorials. <span className="text-orange-zest text-xl">Appstore ready screenshots in minutes.</span>
+                <p className="text-coffee text-center text-xl mb-16" style={{fontFamily: "Inter, sans-serif"}}>
+                    No Figma. No Photoshop. No tutorials. <span className="text-pink-cherry text-xl" style={{fontFamily: "Inter, sans-serif"}}>Appstore ready screenshots in minutes.</span>
                 </p>
 
                 
@@ -394,16 +456,16 @@ export default function HomePage() {
                     <div className="text-center">
 
                         <div className="flex items-center justify-center gap-2 mb-3">
-                            <div className="w-8 h-8 rounded-full bg-orange-vibrant text-white flex items-center justify-center font-bold">
+                            <div className="w-8 h-8 rounded-full bg-blue-cobalt text-white flex items-center justify-center font-bold" >
                                 1
                             </div>
-                            <h3 className="text-text-espresso text-2xl font-semibold">
+                            <h3 className="text-espresso text-2xl font-semibold" style={{fontFamily: "Inter, sans-serif"}}>
                                 Position Your Model
                                 {/*embed the phone controls without functionality? show the controls? */}
                             </h3>
                             
                         </div>
-                        <p className="text-text-coffee leading-relaxed">
+                        <p className="text-coffee leading-relaxed" style={{fontFamily: "Inter, sans-serif"}}>
                             Rotate, tilt, and position your device at the perfect angle using intuitive controls
                         </p>
                         {/* Graphics Here Phone being angled */}
@@ -413,15 +475,15 @@ export default function HomePage() {
                     <div className="text-center">
 
                         <div className="flex items-center justify-center gap-2 mb-3">
-                            <div className="w-8 h-8 rounded-full bg-orange-vibrant text-white flex items-center justify-center font-bold">
+                            <div className="w-8 h-8 rounded-full bg-blue-cobalt text-white flex items-center justify-center font-bold">
                                 2
                             </div>
-                            <h3 className="text-text-espresso text-2xl font-semibold">
+                            <h3 className="text-espresso text-2xl font-semibold" style={{fontFamily: "Inter, sans-serif"}}>
                                 Style Your Scene
                                 {/*picture of a nice background with asset added? */}
                             </h3>
                         </div>
-                        <p className="text-text-coffee leading-relaxed">
+                        <p className="text-coffee leading-relaxed" style={{fontFamily: "Inter, sans-serif"}}>
                             Choose backgrounds, add lighting, and upload your app screenshots to create the perfect look
                         </p>
                         {/* Graphics Here Phone with Light an logo */}
@@ -431,7 +493,7 @@ export default function HomePage() {
                     <div className="text-center">
 
                         <div className="flex items-center justify-center gap-2 mb-3">
-                            <div className="w-8 h-8 rounded-full bg-orange-vibrant text-white flex items-center justify-center font-bold">
+                            <div className="w-8 h-8 rounded-full bg-blue-cobalt text-white flex items-center justify-center font-bold">
                                 3
                             </div>
                             <h3 className="text-text-espresso text-2xl font-semibold">
@@ -472,9 +534,9 @@ export default function HomePage() {
 
             {/*Pricing */}
             
-            <section className="w-full min-h-screen bg-stone-500 p-20">
+            <section className="w-full min-h-screen bg-cream-vanilla/50 p-20">
                 <ScrollFadeIn>
-                <h2 className="text-text-espresso text-5xl text-center mb-12">
+                <h2 className="text-text-espresso text-5xl text-center mb-12 " style={{fontFamily: "Inter, sans-serif"}}>
                     Pricing
                 </h2>
 
@@ -483,25 +545,25 @@ export default function HomePage() {
                     <div className="card1 flex  justify-center gap-2  w-[90%] h-[500px]  rounded-xl">
                         <div className="flex flex-col bg-stone-300 rounded-2xl p-8 shadow-lg w-full max-w-sm">
                             {/* Header */}
-                            <h2 className="text-espresso text-2xl font-semibold mb-2">
+                            <h2 className="text-espresso text-2xl font-semibold mb-2" style={{fontFamily: "Inter, sans-serif"}}>
                                 Weekend Warrior
                             </h2>
                             
                             {/* Price */}
                             <div className="mb-8">
-                                <span className="text-text-espresso text-4xl font-bold">$4.99</span>
-                                <span className="text-text-coffee text-lg"> / 2 day pass</span>
+                                <span className="text-text-espresso text-4xl font-bold" style={{fontFamily: "Inter, sans-serif"}}>$4.99</span>
+                                <span className="text-text-coffee text-lg" style={{fontFamily: "Inter, sans-serif"}}> / 2 day pass</span>
                             </div>
                             
                             {/* CTA Button */}
-                            <button className="w-full py-3 bg-orange-vibrant hover:bg-orange-deep text-white font-semibold rounded-xl transition-colors mb-10">
+                            <button className="w-full py-3 bg-pink-cherry hover:bg-pink-velvet text-white font-semibold rounded-xl transition-colors ease-in duration-100 mb-10" style={{fontFamily: "Inter, sans-serif"}}>
                                 Become the Warrior
                             </button>
                             
                             {/* Features */}
                             <div className="space-y-3">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-5 h-5 rounded-full bg-orange-vibrant flex items-center justify-center flex-shrink-0">
+                                    <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
                                         <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                         </svg>
@@ -510,7 +572,7 @@ export default function HomePage() {
                                 </div>
 
                                 <div className="flex items-center gap-3">
-                                    <div className="w-5 h-5 rounded-full bg-orange-vibrant flex items-center justify-center flex-shrink-0">
+                                    <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
                                         <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                         </svg>
@@ -519,7 +581,7 @@ export default function HomePage() {
                                 </div>
 
                                 <div className="flex items-center gap-3">
-                                    <div className="w-5 h-5 rounded-full bg-orange-vibrant flex items-center justify-center flex-shrink-0">
+                                    <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
                                         <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                         </svg>
@@ -528,7 +590,7 @@ export default function HomePage() {
                                 </div>
 
                                 <div className="flex items-center gap-3">
-                                    <div className="w-5 h-5 rounded-full bg-orange-vibrant flex items-center justify-center flex-shrink-0">
+                                    <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
                                         <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                         </svg>
@@ -557,14 +619,14 @@ export default function HomePage() {
                             </div>
                             
                             {/* CTA Button */}
-                            <button className="w-full py-3 bg-orange-vibrant hover:bg-orange-deep text-white font-semibold rounded-xl transition-colors mb-10">
+                            <button className="w-full py-3 bg-pink-cherry hover:bg-orange-deep text-white font-semibold rounded-xl transition-colors mb-10">
                                 Become the Warrior
                             </button>
                             
                             {/* Features */}
                             <div className="space-y-3">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-5 h-5 rounded-full bg-orange-vibrant flex items-center justify-center flex-shrink-0">
+                                    <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
                                         <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                         </svg>
@@ -573,7 +635,7 @@ export default function HomePage() {
                                 </div>
 
                                 <div className="flex items-center gap-3">
-                                    <div className="w-5 h-5 rounded-full bg-orange-vibrant flex items-center justify-center flex-shrink-0">
+                                    <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
                                         <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                         </svg>
@@ -582,7 +644,7 @@ export default function HomePage() {
                                 </div>
 
                                 <div className="flex items-center gap-3">
-                                    <div className="w-5 h-5 rounded-full bg-orange-vibrant flex items-center justify-center flex-shrink-0">
+                                    <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
                                         <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                         </svg>
@@ -591,7 +653,7 @@ export default function HomePage() {
                                 </div>
 
                                 <div className="flex items-center gap-3">
-                                    <div className="w-5 h-5 rounded-full bg-orange-vibrant flex items-center justify-center flex-shrink-0">
+                                    <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
                                         <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                         </svg>
@@ -617,11 +679,11 @@ export default function HomePage() {
 
 
             {/* CTA Section */}
-            <section className="w-full min-h-screen bg-orange-vibrant flex items-center justify-center">
+            <section className="w-full min-h-screen bg-blue-cobalt flex items-center justify-center">
                 <ScrollFadeIn>
                 <div className="text-center">
-                    <h2 className="text-white text-6xl mb-8">Ready to get started?</h2>
-                    <button className="bg-white text-orange-vibrant px-12 py-6 rounded-xl text-2xl hover:bg-cream-vanilla transition-colors">
+                    <h2 className="text-pink-cherry text-6xl mb-8">Ready to get started?</h2>
+                    <button className="bg-cream-vanilla text-pink-cherry px-12 py-6 rounded-xl text-2xl hover:bg-cream-vanilla transition-colors ">
                         Start Creating
                     </button>
                 </div>
