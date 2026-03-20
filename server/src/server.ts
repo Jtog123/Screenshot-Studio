@@ -21,7 +21,7 @@ const pool = new Pool({
     port: 5432
 });
 
-
+//create the tables needed
 const createPool = async() => {
     await pool.query(`
         CREATE TABLE IF NOT EXISTS users (
@@ -93,6 +93,21 @@ passport.deserializeUser(async (user:AppUser, done) => {
 */
 
 
+/*
+using local storage we are going to store a users
+Name,
+Google Icon
+isGradeintOn
+Background color
+Light settings
+Text content
+text placement
+image content LATER AWS?
+image placement LATER AWS - images on postgres can be a perofrmance hit
+Phone rotation
+*/
+
+
 
 passport.use(
     new GoogleStrategy.Strategy(
@@ -109,7 +124,7 @@ passport.use(
                 profilePicture: profilePictureTemp
             }
 
-            //console.log(profile._json["picture"]);
+            console.log(profile);
             return done(null, user);
             //google returns a bunch of stuff
             //determine the user
