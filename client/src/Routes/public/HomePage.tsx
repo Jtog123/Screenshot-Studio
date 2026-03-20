@@ -353,7 +353,7 @@ export default function HomePage() {
        
                     <div ref={mountRef} className="phoneDiv  w-full h-full"></div>
                     {/*from-slate-900/95 to-slate-800/75 */}
-                    <div className="imageContainer fixed z-50 bg-gradient-to-br from-pink-cherry  to-pink-cherry/65 backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-white/10 w-[170px]  right-5 ">
+                    <div className="imageContainer fixed z-50 bg-gradient-to-br from-pink-cherry  to-pink-cherry/65 backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-white/10 w-[170px]  right-6 ">
                         
                         {/* Header */}
                         <div className="flex flex-col justify-center mb-5 ">
@@ -426,7 +426,7 @@ export default function HomePage() {
                     Time spent vs Sanity lost
                 </p>
                 <p className="text-center text-mocha/70" style={{fontFamily: "Inter, sans-serif"}}>
-                    Note how as time increases you grow more insane
+                    Notice how as time increases you grow more insane.
                 </p>
                 <div className="chart container flex w-[100%] justify-center ">
                     {/* Create teh chart first then figure out how to fill it with data */}
@@ -679,14 +679,23 @@ export default function HomePage() {
 
 
             {/* CTA Section */}
-            <section className="w-full min-h-screen bg-blue-cobalt flex items-center justify-center">
+            <section className="w-full min-h-screen bg-blue-cobalt flex items-center justify-center ">
                 <ScrollFadeIn>
-                <div className="text-center">
-                    <h2 className="text-pink-cherry text-6xl mb-8">Ready to get started?</h2>
-                    <button className="bg-cream-vanilla text-pink-cherry px-12 py-6 rounded-xl text-2xl hover:bg-cream-vanilla transition-colors ">
-                        Start Creating
-                    </button>
+                <div className="w-[100%] h-[100%] bg-blue-900 text-black">
+                    <div className="text-center h-[50%] w-[100%]">
+                        <h2 className="text-pink-cherry text-6xl mb-8">Ready to get started?</h2>
+                        <button className="bg-cream-vanilla text-pink-cherry px-12 py-6 rounded-xl text-2xl hover:bg-cream-vanilla transition-colors ">
+                            Start Creating
+                        </button>
+                    </div>
+
+                    {/*Footer */}
+                    <div className=" flex footer h-[50%] w-[100%] bg-yellow-600">
+                                dfvd
+                    </div>
                 </div>
+
+
                 </ScrollFadeIn>
             </section>
         </>

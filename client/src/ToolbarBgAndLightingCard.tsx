@@ -34,7 +34,7 @@ down gradient we elect that button and highlight it but diabled the buttons func
 export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradientBackground, activeListItems, setActiveListItems, lightManager, grid} : ToolbarBgAndLightingCardProps) {
 
     const[isBgAndLightCardExpanded, setIsBgAndLightCardExpanded] = useState(true);
-    const[backgroundColor, setBackgroundColor] = useState("#1f1000");
+    const[backgroundColor, setBackgroundColor] = useState("#1f1f25");
     const[isBackgroundSolid, setIsBackgroundSolid] = useState(true);
     const[isLeftToRightGradient , setIsLeftToRightGradient] = useState(true);
     const[selectedBackgroundValue, setSelectedBackgroundValue] = useState("solid");

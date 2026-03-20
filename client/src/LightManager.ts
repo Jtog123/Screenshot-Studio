@@ -304,6 +304,7 @@ class LightManager {
 
         }
 
+        
         return newLight;
 
     }

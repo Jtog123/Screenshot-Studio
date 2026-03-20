@@ -135,6 +135,36 @@ export default function Editor() {
   //Click the directional Light Button create a directional light with helper
   //init the raycaster!!!!!!!!!!!!!!!!!!
 
+
+  useEffect(() => {
+
+
+    const initScene = () => {
+      const savedScene = localStorage.getItem("screenshotsweet_scene");
+      //if it doesnt exist set the scene
+      if(!savedScene) {
+        console.log("setting the local storage");
+        //1f1f25. #1f1000 mocha
+        window.localStorage.setItem("screenshotsweet_scene", JSON.stringify(
+          {
+            backgroundColor : "#1f1f25", 
+            isGradientOn : "false",
+            gradientColor1 : "#FFFFFF"
+          }
+        
+        ));
+      } else {
+        console.log("data eixistts")
+      }
+
+      console.log("final localstorage", window.localStorage.getItem("screenshotsweet_scene"));
+    }
+
+    initScene();
+
+
+  }, [])
+
   useEffect(() => {
     const fetchUser = async() => {
       try {
@@ -167,9 +197,12 @@ export default function Editor() {
       } finally {
         setIsLoadingUser(false);
       }
+
+
     };
 
     fetchUser();
+
   }, []);
 
   /*
@@ -371,6 +404,7 @@ export default function Editor() {
       {isSceneReady && phone && cameraManager && <PhoneGUI phoneModel={phone} _cameraManager={cameraManager} aspectRatio={aspectRatio}/>}
 
     
+    {/*
       {cameraManager && (
         <button 
             onClick={() => cameraManager.captureHomepageImage()}
@@ -379,6 +413,7 @@ export default function Editor() {
                 Capture Homepage Image
             </button>
         )}
+            */}
         
 
 
