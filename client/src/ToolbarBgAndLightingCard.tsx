@@ -65,10 +65,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
         // dont run unitl grid is ready
         if(!grid ) return;
 
-        
-
         let savedScene = localStorage.getItem("screenshotsweet_scene");
-        
         
         if(!savedScene) {
             
@@ -76,6 +73,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                 isGridOn : "true",
                 backgroundColor : "#1f1f25",
                 isBackgroundSolid : "true",
+                isLeftToRightGradient : "true",
                 gradientColor1 : "#4695E8",
                 gradientColor2: "#FFFFFF",
                 //add more later
@@ -102,6 +100,12 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
         //restore background style and gradient colors
         const wasBackgroundSolid = userSettings.isBackgroundSolid === "true";
         setIsBackgroundSolid(wasBackgroundSolid);
+
+        //restore gradient
+        const wasGradientLeftToRight = userSettings.isLeftToRightGradient === "true";
+        console.log("on loading gradient was left to right " , wasGradientLeftToRight);
+        setIsLeftToRightGradient(wasGradientLeftToRight);
+
         if(wasBackgroundSolid) {
             setSelectedBackgroundValue("solid");
             scene.background = new THREE.Color((userSettings.backgroundColor));
@@ -110,22 +114,13 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
             setColor1(userSettings.gradientColor1);
             setColor2(userSettings.gradientColor2);
 
-            if(isLeftToRightGradient) {
+            if(wasGradientLeftToRight) {  
                 gradientBackground.turnLeftRightGradientOn(userSettings.gradientColor1, userSettings.gradientColor2);
             } else {
                 gradientBackground.turnUpDownGradientOn(userSettings.gradientColor1, userSettings.gradientColor2);
             }
         }
 
-
-        
-        
-
-
-        
-        
-
-        
 
 
     }, [grid ,scene ]);
@@ -253,6 +248,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
             gradientBackground.turnGradientBackgroundOff();
             let colorValue = backgroundColor.replace("#", "0x");
             scene.background = new THREE.Color(Number(colorValue));
+            //scene.background = new THREE.Color(colorValue);
             setIsBackgroundSolid(true);
             setSelectedBackgroundValue("solid");
 
@@ -274,8 +270,23 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
     // pass in setter functions to gradient background selector as props
     function handleGradientDirectionChange() : void {
         const newDirection = !isLeftToRightGradient;
+        console.log("Gradient is left to right ", newDirection);
         setIsLeftToRightGradient(newDirection);
         gradientBackground.switchGradientDirection(newDirection);
+
+        //update localstorage
+        
+        let userData = localStorage.getItem("screenshotsweet_scene");
+        let userSettings = userData ? JSON.parse(userData) : {};
+        if(newDirection) {
+            userSettings.isLeftToRightGradient = "true";
+        } else {
+            userSettings.isLeftToRightGradient = "false";
+        }
+        console.log("Gradient is left to right ", userSettings.isLeftToRightGradient);
+        localStorage.setItem("screenshotsweet_scene", JSON.stringify(userSettings));
+        
+    
         
     }
 
