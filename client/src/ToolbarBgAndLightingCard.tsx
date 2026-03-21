@@ -99,7 +99,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
             scene.background = new THREE.Color((userSettings.backgroundColor));
         }
 
-        //restore background style
+        //restore background style and gradient colors
         const wasBackgroundSolid = userSettings.isBackgroundSolid === "true";
         setIsBackgroundSolid(wasBackgroundSolid);
         if(wasBackgroundSolid) {
@@ -107,10 +107,13 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
             scene.background = new THREE.Color((userSettings.backgroundColor));
         } else {
             setSelectedBackgroundValue("gradient");
+            setColor1(userSettings.gradientColor1);
+            setColor2(userSettings.gradientColor2);
+
             if(isLeftToRightGradient) {
-                gradientBackground.turnLeftRightGradientOn(color1, color2);
+                gradientBackground.turnLeftRightGradientOn(userSettings.gradientColor1, userSettings.gradientColor2);
             } else {
-                gradientBackground.turnUpDownGradientOn(color1, color2);
+                gradientBackground.turnUpDownGradientOn(userSettings.gradientColor1, userSettings.gradientColor2);
             }
         }
 
@@ -177,13 +180,25 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
         setColor1(newColor);
         gradientBackground.updateGradientColors(newColor,color2);
 
+        //update the local storage
+        let userData = localStorage.getItem("screenshotsweet_scene");
+        let userSettings = userData ? JSON.parse(userData) : {};
+        userSettings.gradientColor1 = newColor;
+        localStorage.setItem("screenshotsweet_scene", JSON.stringify(userSettings));
+
         //update gradient colors
     }
 
     function handleColor2Change(e : React.ChangeEvent<HTMLInputElement>) : void {
         const newColor = e.target.value;
         setColor2(newColor);
-        gradientBackground.updateGradientColors(color1,newColor);
+        gradientBackground.updateGradientColors(color1, newColor);
+
+        //update the local storage
+        let userData = localStorage.getItem("screenshotsweet_scene");
+        let userSettings = userData ? JSON.parse(userData) : {};
+        userSettings.gradientColor2 = newColor;
+        localStorage.setItem("screenshotsweet_scene", JSON.stringify(userSettings));
 
         //update gradient colors
     }
