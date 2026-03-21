@@ -63,15 +63,21 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
     //restore settings
     useEffect(() => {
         // dont run unitl grid is ready
-        if(!grid) return;
+        if(!grid ) return;
+
+        
 
         let savedScene = localStorage.getItem("screenshotsweet_scene");
+        
+        
         if(!savedScene) {
+            
             const defaults = {
                 isGridOn : "true",
                 backgroundColor : "#1f1f25",
-                gradientColor1 : "4695E8",
-                gradientColor2: "FFFFFF",
+                isBackgroundSolid : "true",
+                gradientColor1 : "#4695E8",
+                gradientColor2: "#FFFFFF",
                 //add more later
             };
             localStorage.setItem("screenshotsweet_scene", JSON.stringify(defaults));
@@ -85,8 +91,59 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
         setIsGridVisible(isGridOn);
         (grid.getGridHelper() as THREE.GridHelper).visible = isGridOn;
 
+        //restore backgroundColor
+        //setBackgroundColor(lastBackgroundColor);
+        if(userSettings.backgroundColor && scene) {
+            console.log("last color was ", userSettings.backgroundColor);
+            setBackgroundColor(userSettings.backgroundColor);
+            scene.background = new THREE.Color((userSettings.backgroundColor));
+        }
 
-    }, [grid, scene]);
+        //restore background style
+        const wasBackgroundSolid = userSettings.isBackgroundSolid === "true";
+        setIsBackgroundSolid(wasBackgroundSolid);
+        if(wasBackgroundSolid) {
+            setSelectedBackgroundValue("solid");
+            scene.background = new THREE.Color((userSettings.backgroundColor));
+        } else {
+            setSelectedBackgroundValue("gradient");
+            if(isLeftToRightGradient) {
+                gradientBackground.turnLeftRightGradientOn(color1, color2);
+            } else {
+                gradientBackground.turnUpDownGradientOn(color1, color2);
+            }
+        }
+
+
+        
+        
+
+
+        
+        
+
+        
+
+
+    }, [grid ,scene ]);
+
+    /*
+    function updateBackgroundColor(evt : React.ChangeEvent<HTMLInputElement>) : void {
+        const selectedColor = (evt.target as HTMLInputElement).value;
+
+        if(/^#[0-9A-Fa-f]{6}$/.test(selectedColor)) {
+            scene.background = new THREE.Color(selectedColor);
+            setBackgroundColor(selectedColor);
+
+            //update the local storage
+            let userData = localStorage.getItem("screenshotsweet_scene");
+            let userSettings = userData ? JSON.parse(userData) : {};
+            userSettings.backgroundColor = selectedColor;
+
+            localStorage.setItem("screenshotsweet_scene", JSON.stringify(userSettings));
+        }
+    }
+        */
 
 
 
@@ -97,27 +154,41 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
         let selectedColor = (evt.target as HTMLInputElement).value;
 
         //convert to number and set the background
-        let selectedColorValue = selectedColor.replace("#", "0x");
-        scene.background = new THREE.Color(Number(selectedColorValue));
+        //let selectedColorValue = selectedColor.replace("#", "0x");
+        scene.background = new THREE.Color((selectedColor));
 
         //update the state
         setBackgroundColor(selectedColor);
+
+        //update the local storage
+        let userData = localStorage.getItem("screenshotsweet_scene");
+        let userSettings = userData ? JSON.parse(userData) : {};
+        userSettings.backgroundColor = selectedColor;
+
+        localStorage.setItem("screenshotsweet_scene", JSON.stringify(userSettings));
+
         //console.log(backgroundColor);
 
     }
+        
 
     function handleColor1Change(e : React.ChangeEvent<HTMLInputElement>) : void {
         const newColor = e.target.value;
         setColor1(newColor);
         gradientBackground.updateGradientColors(newColor,color2);
+
+        //update gradient colors
     }
 
     function handleColor2Change(e : React.ChangeEvent<HTMLInputElement>) : void {
         const newColor = e.target.value;
         setColor2(newColor);
         gradientBackground.updateGradientColors(color1,newColor);
+
+        //update gradient colors
     }
 
+    /*
     useEffect(() => {
         const _scene = scene;
 
@@ -133,6 +204,10 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
         
 
     },[]);
+    */
+    
+
+    
 
 
 
@@ -148,6 +223,15 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
 
             setIsBackgroundSolid(false);
             setSelectedBackgroundValue("gradient");
+
+            //update the local storage to toggle gradient on
+            let userData = localStorage.getItem("screenshotsweet_scene");
+            let userSettings = userData ? JSON.parse(userData) : {};
+            userSettings.isBackgroundSolid = "false";
+         
+            localStorage.setItem("screenshotsweet_scene", JSON.stringify(userSettings));
+
+
             
         } else {
             //restore the solid background
@@ -155,7 +239,14 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
             let colorValue = backgroundColor.replace("#", "0x");
             scene.background = new THREE.Color(Number(colorValue));
             setIsBackgroundSolid(true);
-            setSelectedBackgroundValue("solid")
+            setSelectedBackgroundValue("solid");
+
+            //update the local storage to toggle gradient on
+            let userData = localStorage.getItem("screenshotsweet_scene");
+            let userSettings = userData ? JSON.parse(userData) : {};
+            userSettings.isBackgroundSolid = "true";
+
+            localStorage.setItem("screenshotsweet_scene", JSON.stringify(userSettings));
         }
     }
 
