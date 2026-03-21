@@ -138,6 +138,7 @@ export default function Editor() {
 
   useEffect(() => {
 
+    //localStorage.removeItem("screenshotsweet_scene");
 
     const initScene = () => {
       const savedScene = localStorage.getItem("screenshotsweet_scene");
@@ -145,16 +146,36 @@ export default function Editor() {
       if(!savedScene) {
         console.log("setting the local storage");
         //1f1f25. #1f1000 mocha
+        //What else??? Creating inital framing
         window.localStorage.setItem("screenshotsweet_scene", JSON.stringify(
           {
             backgroundColor : "#1f1f25", 
             isGradientOn : "false",
-            gradientColor1 : "#FFFFFF"
+            isGridOn : "true",
+            gradientColor1 : "#4695E8",
+            gradientColor2: "#FFFFFF",
+            directionalLightCount : "0",
+            spotLightCount : "0",
+            pointLightCount : "0",
+            rectLightCount : "0",
+            
+
           }
         
         ));
       } else {
-        console.log("data eixistts")
+        //do nothing here restore setting in their respecticve components
+        //restore the data
+        /*
+        const savedUserSettings = JSON.parse(savedScene);
+
+        //Check for users grid settings
+        const isGridOn : boolean = savedUserSettings.isGridOn === "true";
+
+        
+
+        console.log("data eixistts", isGridOn);
+        */
       }
 
       console.log("final localstorage", window.localStorage.getItem("screenshotsweet_scene"));
@@ -163,7 +184,8 @@ export default function Editor() {
     initScene();
 
 
-  }, [])
+  }, []);
+  
 
   useEffect(() => {
     const fetchUser = async() => {

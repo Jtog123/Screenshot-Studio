@@ -42,8 +42,8 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
     
 
     //??
-    const[color1 , setColor1] = useState("#D946EF");
-    const[color2 , setColor2] = useState("#000000");
+    const[color1 , setColor1] = useState("#4695E8");
+    const[color2 , setColor2] = useState("#FFFFFF");
     const[gradientScale, setGradientScale] = useState(2.5);
 
     //useRef array of THREE.Vec3 positions
@@ -59,6 +59,34 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
     // if empty just store the first position
     // if not empty check which position is in the array
     // dont assign the already assigned position
+
+    //restore settings
+    useEffect(() => {
+        // dont run unitl grid is ready
+        if(!grid) return;
+
+        let savedScene = localStorage.getItem("screenshotsweet_scene");
+        if(!savedScene) {
+            const defaults = {
+                isGridOn : "true",
+                backgroundColor : "#1f1f25",
+                gradientColor1 : "4695E8",
+                gradientColor2: "FFFFFF",
+                //add more later
+            };
+            localStorage.setItem("screenshotsweet_scene", JSON.stringify(defaults));
+            savedScene = JSON.stringify(defaults);
+        }
+
+        const userSettings = JSON.parse(savedScene);
+
+        //restore grid
+        const isGridOn = userSettings.isGridOn === "true";
+        setIsGridVisible(isGridOn);
+        (grid.getGridHelper() as THREE.GridHelper).visible = isGridOn;
+
+
+    }, [grid, scene]);
 
 
 
@@ -257,9 +285,25 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
       if(isGridVisible ) { // || isRendering
           (grid!.getGridHelper() as THREE.GridHelper).visible = false;
           setIsGridVisible(false);
+
+          //update localstorage internally
+          let userSettings = localStorage.getItem("screenshotsweet_scene");
+          let userObject = userSettings ? JSON.parse(userSettings) : {};
+          if(userObject) {
+            userObject.isGridOn = "false";
+            localStorage.setItem("screenshotsweet_scene", JSON.stringify(userObject))
+          }
+
       } else {
-          (grid!.getGridHelper() as THREE.GridHelper).visible = true;
-          setIsGridVisible(true);
+            (grid!.getGridHelper() as THREE.GridHelper).visible = true;
+            setIsGridVisible(true);
+
+            let userSettings = localStorage.getItem("screenshotsweet_scene");
+            let userObject = userSettings ? JSON.parse(userSettings) : {};
+            if(userObject) {
+                userObject.isGridOn = "true";
+                localStorage.setItem("screenshotsweet_scene", JSON.stringify(userObject))
+            }
 
       }
     }

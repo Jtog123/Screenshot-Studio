@@ -145,6 +145,8 @@ class LightManager {
             const distance = 3;  // Longer distance
             const penumbra = 0.5;
             const decay = 0;
+
+            localStorage.
                        
             // Create spotlight with higher intensity to make it visible
             newLight._light = new THREE.SpotLight(newLight._lightColor, lightIntensity, distance, angle, penumbra, decay);
