@@ -43,8 +43,34 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio}:Phone
 
     const[isPhoneGuiOpen, setPhoneGuiOpen] = useState(true);
 
+    //When i reset the phone i have to reupdate the local stoarge
+
     useEffect(() => {
-    // Sync initial rotation from the model when it mounts
+        if(!phoneModel) return;
+
+        //restore from local stoage
+        const savedScene = localStorage.getItem("screenshotsweet_scene");
+        if(savedScene) {
+            const userSettings = JSON.parse(savedScene);
+
+            if(userSettings.phone?.rotation) {
+                (phoneModel as THREE.Group).rotation.x = Number(userSettings.phone.rotation.x);
+                (phoneModel as THREE.Group).rotation.y = Number(userSettings.phone.rotation.y);
+                (phoneModel as THREE.Group).rotation.z = Number(userSettings.phone.rotation.z);
+
+                setPhoneRotation({
+                    x: Number(userSettings.phone.rotation.x),
+                    y: Number(userSettings.phone.rotation.y),
+                    z: Number(userSettings.phone.rotation.z)
+                });
+
+                return;
+
+            }
+        }
+
+
+        // Sync initial rotation from the model when it mounts
         if (phoneModel) {
             setPhoneRotation({
                 x: phoneModel.rotation.x,
@@ -54,6 +80,8 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio}:Phone
         }
     }, [phoneModel]);
 
+
+
     function handlePhoneGuiToggle() : void {
         setPhoneGuiOpen(!isPhoneGuiOpen);
     }
@@ -61,6 +89,25 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio}:Phone
     //couple these to the presets??
     function handleControlsReset(e: React.MouseEvent, sliderName : string) : void {
 
+        //update local storage
+        let savedScene = localStorage.getItem("screenshotsweet_scene");
+        if(savedScene) {
+            let userSettings = JSON.parse(savedScene);
+
+
+            if(sliderName == "xReset") {
+                userSettings.phone.rotation.x = "0";
+            } else if (sliderName == "yReset") {
+                userSettings.phone.rotation.y = "0";
+            } else if(sliderName == "zReset"){
+                userSettings.phone.rotation.z = "0";
+            }
+
+            localStorage.setItem("screenshotsweet_scene", JSON.stringify(userSettings));
+        }
+
+
+        //update react and threejs state
         if(sliderName === "xReset") {
             setPhoneRotation({
                 x: 0,
@@ -87,7 +134,24 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio}:Phone
     }
 
     function handlePhoneRotation(e: React.ChangeEvent<HTMLInputElement>, sliderName : string) : void {
+
         const newValue = Number(e.target.value);
+
+        //save to localstorage
+        const userSettings = JSON.parse(localStorage.getItem("screenshotsweet_scene") || "{}");
+        if(!userSettings.phone) {
+            userSettings.phone = {
+                rotation: {}
+            };
+        }
+        userSettings.phone.rotation = {
+            x: sliderName === "xRot" ? newValue : phoneRotation.x,
+            y: sliderName === "yRot" ? newValue : phoneRotation.y,
+            z: sliderName === "zRot" ? newValue : phoneRotation.z,
+        };
+        localStorage.setItem("screenshotsweet_scene", JSON.stringify(userSettings));
+
+        //update react state, and threejs state
         if(sliderName === "xRot") {
             setPhoneRotation({
                 x: Number(e.target.value),
@@ -118,7 +182,7 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio}:Phone
             console.log("rotation z")
         }
     }
-
+    /*
     function handleFrontView() : void {
         setPhoneRotation({
             x: phoneRotation.x,
@@ -161,6 +225,7 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio}:Phone
         phoneModel.rotation.y = 0.785;
         setActivePreset(45);
     }
+        */
 
     function handleImageCapture() : void {
         console.log("Capturing the image");

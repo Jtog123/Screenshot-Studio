@@ -63,7 +63,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
     //restore settings
     useEffect(() => {
         // dont run unitl grid is ready
-        if(!grid ) return;
+        if(!grid) return;
 
         let savedScene = localStorage.getItem("screenshotsweet_scene");
         
@@ -76,6 +76,10 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                 isLeftToRightGradient : "true",
                 gradientColor1 : "#4695E8",
                 gradientColor2: "#FFFFFF",
+                gradientScale: "2.5",
+                phone: {
+                    rotation : {x: "0", y:"0", z: "0"}
+                }
                 //add more later
             };
             localStorage.setItem("screenshotsweet_scene", JSON.stringify(defaults));
@@ -83,6 +87,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
         }
 
         const userSettings = JSON.parse(savedScene);
+        console.log(userSettings);
 
         //restore grid
         const isGridOn = userSettings.isGridOn === "true";
@@ -101,9 +106,13 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
         const wasBackgroundSolid = userSettings.isBackgroundSolid === "true";
         setIsBackgroundSolid(wasBackgroundSolid);
 
+        //restore no maatter whar
+        if(userSettings.gradientColor1) setColor1(userSettings.gradientColor1);
+        if(userSettings.gradientColor2) setColor2(userSettings.gradientColor2);
+
         //restore gradient
         const wasGradientLeftToRight = userSettings.isLeftToRightGradient === "true";
-        console.log("on loading gradient was left to right " , wasGradientLeftToRight);
+        //console.log("on loading gradient was left to right " , wasGradientLeftToRight);
         setIsLeftToRightGradient(wasGradientLeftToRight);
 
         if(wasBackgroundSolid) {
@@ -120,6 +129,12 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                 gradientBackground.turnUpDownGradientOn(userSettings.gradientColor1, userSettings.gradientColor2);
             }
         }
+
+        //restore gradient scale
+        const previousGradientScale = Number(userSettings.gradientScale);
+        setGradientScale(previousGradientScale);
+        //console.log("previous scale value was: ",previousGradientScale)
+        gradientBackground.updateGradientScale(previousGradientScale);
 
 
 
@@ -343,6 +358,15 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
         const scaleValue = Number(e.target.value)
         gradientBackground.updateGradientScale(scaleValue);
         setGradientScale(scaleValue);
+
+        let userData = localStorage.getItem("screenshotsweet_scene");
+        let userSettings = userData ? JSON.parse(userData) : {};
+        userSettings.gradientScale = e.target.value;
+        localStorage.setItem("screenshotsweet_scene", JSON.stringify(userSettings));
+        console.log("user settings ", userSettings.gradientScale);
+    
+
+
     }
 
     ///////////////////////// LIGHT CREATION ////////////////////////////////

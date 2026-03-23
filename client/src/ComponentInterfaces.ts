@@ -35,3 +35,4 @@ export interface AspectRatio {
     height: number, 
     type:string 
 }
+

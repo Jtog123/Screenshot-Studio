@@ -149,17 +149,8 @@ export default function Editor() {
         //What else??? Creating inital framing
         window.localStorage.setItem("screenshotsweet_scene", JSON.stringify(
           {
-            backgroundColor : "#1f1f25", 
-            isGradientOn : "false",
-            isGridOn : "true",
-            gradientColor1 : "#4695E8",
-            gradientColor2: "#FFFFFF",
-            directionalLightCount : "0",
-            spotLightCount : "0",
-            pointLightCount : "0",
-            rectLightCount : "0",
-            
 
+            
           }
         
         ));

@@ -361,7 +361,7 @@ export default function HomePage() {
                                 Try it out
                             </h3>
                             <p className="text-black/70 text-xs mt-1" style={{fontFamily: "Inter, sans-serif"}}>
-                                Choose a style
+                                Apply a sample
                             </p>
                         </div>
                         
