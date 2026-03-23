@@ -6,6 +6,7 @@ import session from "express-session"
 import pg from "pg"
 import passport from "passport"
 import GoogleStrategy  from "passport-google-oauth20"
+import {SubscriptionType} from "../../client/src/ComponentInterfaces.js"
 //import UserModel from "../../dataModels/UserModel"
 
 require('dotenv').config({path:"../.env"});
@@ -21,29 +22,38 @@ const pool = new Pool({
     port: 5432
 });
 
+/*
+user_id SERIAL PRIMARY KEY - generate primary keys
+//ex. INSERT INTO employees (emp_id, first_name, last_name) VALUES (DEFAULT, 'Jane', 'Smith');
+*/
+
 //create the tables needed
 const createPool = async() => {
     await pool.query(`
         CREATE TABLE IF NOT EXISTS users (
-            id SERIAL PRIMARY KEY,
-            google_id TEXT UNIQUE,
+            user_id SERIAL PRIMARY KEY,
+            google_id TEXT UNIQUE ,
             email TEXT,
-            displayName TEXT,
-            subscriptionType TEXT,
-            profilePicture TEXT
+            display_name TEXT,
+            subscription_type TEXT,
+            profile_picture TEXT,
+            created_at TIMESTAMP,
+            last_login TIMESTAMP,
+            export_count INT
         )`
     );
 }
 
-//cre
+
 createPool();
 
 
 type AppUser = {
-    id: string,
-    displayName :string
-    profilePicture: string
-    email? :string
+    google_id: string,
+    display_name :string
+    profile_picture: string
+    email :string
+    subscription_type : SubscriptionType
 }
     
 
@@ -94,43 +104,71 @@ passport.deserializeUser(async (user:AppUser, done) => {
 
 
 /*
-using local storage we are going to store a users
-Name,
-Google Icon
-isGradeintOn
-Background color
-Light settings
-Text content
-text placement
-image content LATER AWS?
-image placement LATER AWS - images on postgres can be a perofrmance hit
-Phone rotation
+        CREATE TABLE IF NOT EXISTS users (
+            user_id SERIAL PRIMARY KEY,
+            google_id TEXT UNIQUE ,
+            email TEXT,
+            display_name TEXT,
+            subscription_type TEXT,
+            profile_picture TEXT,
+            created_at TIMESTAMP,
+            last_login TIMESTAMP,
+            export_count INT
+        )`
 */
 
 
+try {
+    passport.use(
+        new GoogleStrategy.Strategy(
+            {
+                clientID: process.env.CLIENT_ID as string,
+                clientSecret: process.env.CLIENT_SECRET as string,
+                callbackURL: "http://localhost:5050/auth/google/cb"
+            }, async function(token, refreshToken, profile, done) {
+                let profilePictureTemp = profile._json["picture"] as string
+                //The callback to searlizeUser function
+                const user : AppUser = {
+                    google_id: profile.id,
+                    display_name : profile.displayName,
+                    profile_picture: profilePictureTemp,
+                    email: profile.emails?.[0].value as string,
+                    subscription_type: SubscriptionType.Free
+                }
 
-passport.use(
-    new GoogleStrategy.Strategy(
-        {
-            clientID: process.env.CLIENT_ID as string,
-            clientSecret: process.env.CLIENT_SECRET as string,
-            callbackURL: "http://localhost:5050/auth/google/cb"
-        }, async function(token, refreshToken, profile, done){
-            let profilePictureTemp = profile._json["picture"] as string
-            //The callback to searlizeUser function
-            const user : AppUser = {
-                id: profile.id,
-                displayName : profile.displayName,
-                profilePicture: profilePictureTemp
-            }
+                //POSTGRES Logic Here
+                let app_user = await pool.query(`SELECT * FROM users WHERE google_id = $1`, [user.google_id]);
 
-            console.log(profile);
-            return done(null, user);
-            //google returns a bunch of stuff
-            //determine the user
-        }
-    )
-)
+                
+                if(app_user) {
+                    let userInDB : boolean = app_user.rowCount! > 0;
+
+                    if(userInDB) {
+                        //alter the table update last_logic
+
+                    } else {
+                        //User is not in DB, insert them in
+                        const result = await pool.query(
+                            `INSERT INTO users (user_id, google_id, email, display_name, subscription_type, profile_picture, created_at, last_login, export_count) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`, [
+                                'DEFAULT', user.google_id, user.email, user.display_name,  user.subscription_type, user.profile_picture, 'NOW()', 'NOW()'
+                            ]
+                        );
+
+                    }
+                }
+
+
+                console.log(profile);
+                return done(null, user);
+                //google returns a bunch of stuff
+                //determine the user
+                }
+            )
+        )
+} catch (err) {
+    console.error("Error with google strategy", err);
+}
+
 
 
 router.get("/auth/google", passport.authenticate("google", {scope: ["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email"]}));
