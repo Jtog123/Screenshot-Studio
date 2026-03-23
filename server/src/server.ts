@@ -6,8 +6,14 @@ import session from "express-session"
 import pg from "pg"
 import passport from "passport"
 import GoogleStrategy  from "passport-google-oauth20"
-import {SubscriptionType} from "../../client/src/ComponentInterfaces.js"
+
 //import UserModel from "../../dataModels/UserModel"
+
+enum SubscriptionType {
+    Free,
+    WeekendWarrior,
+    Monthly
+}
 
 require('dotenv').config({path:"../.env"});
 
