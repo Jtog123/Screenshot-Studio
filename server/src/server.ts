@@ -7,12 +7,23 @@ import pg from "pg"
 import passport from "passport"
 import GoogleStrategy  from "passport-google-oauth20"
 
+
 //import UserModel from "../../dataModels/UserModel"
 
 enum SubscriptionType {
     Free = "Free",
     WeekendWarrior = "Weekend",
     Monthly = "Monthly"
+}
+
+type AppUser = {
+    user_id? : number
+    google_id: string,
+    display_name :string,
+    email :string
+    profile_picture: string,
+    subscription_type : SubscriptionType,
+    export_count? : number
 }
 
 require('dotenv').config({path:"../.env"});
@@ -54,14 +65,7 @@ const createPool = async() => {
 createPool();
 
 
-type AppUser = {
-    google_id: string,
-    display_name :string,
-    email :string
-    profile_picture: string,
-    subscription_type : SubscriptionType,
-    export_count? : number
-}
+
     
 
 //var appUser : AppUser | null = null;
