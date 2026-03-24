@@ -134,9 +134,9 @@ class CameraManager {
                 
 
                 //create a hyperlink ref
-                link.href = url;
-                link.download = "ScreenshotStudioTestShot.png";
-                link.click();
+                //link.href = url;
+                //link.download = "ScreenshotStudioTestShot.png";
+                //link.click();
                 //this.setImageCaptured(true);
                 
                 //URL.revokeObjectURL(url);

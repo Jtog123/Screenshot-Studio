@@ -31,13 +31,13 @@ export default function ToolbarFooter({isToolbarToggled, setToolbarToggled, appU
 
                     {!isToolbarToggled && (
                         <span className="text-text-espresso text-sm">
-                            {appUser.displayName}
+                            {appUser.display_name}
                         </span>
                     )}
 
                     <img 
-                        src={appUser.profilePicture} 
-                        alt={appUser.displayName}
+                        src={appUser.profile_picture} 
+                        alt={appUser.display_name}
                         className="h-10 w-10 rounded-full object-cover"
                         referrerPolicy="no-referrer"
                     />

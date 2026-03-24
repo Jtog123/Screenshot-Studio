@@ -1,12 +1,15 @@
 import { useState, useRef, useEffect } from "react"
+import {zip} from "fflate"
 import { ImageComponentInterface, TextComponentInterface ,ScreenTextureInterface, CapturedImage} from "./ComponentInterfaces"
 import * as THREE from 'three'
 import { AssetManager } from "./AssetManager"
 import { div, texture } from "three/src/nodes/TSL.js"
 import ImageIcon from "./IconAssets/ImageIcon"
 import TextIcon from "./IconAssets/TextIcon"
-import UploadIcon from "./IconAssets/UploadIcon"
+import UploadIcon from "./IconAssets/ExportIcon"
 import MenuKarrotIcon from "./IconAssets/MenuKarrotIcon"
+import ExportIcon from "./IconAssets/ExportIcon"
+import ImportIcon from "./IconAssets/ImportIcon"
 
 
 interface ToolbarImgAndTextCardProps {
@@ -43,7 +46,17 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                 URL.revokeObjectURL(img.imgPath);
             })
         }
-    }, [capturedImages])
+    }, []);
+    /*
+    //clean up after unmount
+    useEffect(() => {
+        return() => {
+            capturedImages.forEach((img) => {
+                URL.revokeObjectURL(img.imgPath);
+            })
+        }
+    }, [capturedImages]);
+    */
 
 
 
@@ -224,9 +237,37 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
 
         setCapturedImages(prev => prev.filter(img => img.id !== imageID));
 
-        
+          
+    }
 
-        
+    async function handleImageFileExport() : Promise<void> {
+        console.log("exporting");
+        const files : Record<string, Uint8Array> = {};
+
+        //convert image to bytes
+        for(let i = 0; i < capturedImages.length; i++) {
+            const response = await fetch(capturedImages[i].imgPath);
+            const blob = await response.blob();
+            const arrayBuffer = await blob.arrayBuffer();
+
+            //write to the file
+            files[`mockup-${i+1}.png`] = new Uint8Array(arrayBuffer);
+
+        }
+
+        //create zip
+        zip(files, (err,data) => {
+            if(err) throw data;
+
+            //download
+            const blob = new Blob([data as any], {type: 'application/zip'});
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `ScreenshotSweet-Mockups-${Date.now()}.zip`;
+            link.click();
+        });
+
+
     }
 
     return (
@@ -274,7 +315,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                             {
                                 <button className={isScreenTextureUploaded ? `hidden` :`flex justify-center items-center transition-all ease-in duration-200 bg-crust-graham/70 hover:bg-orange-juicy/50 text-espresso hover:text-cream-light  cursor-pointer w-[35px] h-[30px] p-2 mx-1  rounded-lg py-1`}
                                 onClick={() => screenTextureFileRef.current?.click()}>
-                                    <UploadIcon className=""/>
+                                    <ImportIcon className=""/>
                                 </button> 
                             }
 
@@ -316,8 +357,15 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                         <div className="w-[80%] h-px bg-orange-juicy/80 my-2"></div>
                     </div>
                     
-                    <div className="flex justify-center items-center ">
-                        <h4 className="text-espresso text-xs mr-2 mb-2"  style={{ fontFamily: 'lato' }}>Captured</h4>
+                    <div className="flex justify-center  items-center  ">
+                        
+                            <h4 className="text-espresso text-xs mr-7 mb-2"  style={{ fontFamily: 'lato' }}>Captured</h4>
+
+                            <button onClick={handleImageFileExport}>
+                                <ExportIcon className="flex justify-center items-center transition-all ease-in duration-200 bg-crust-graham/70 hover:bg-orange-juicy/50 text-espresso hover:text-cream-light  cursor-pointer w-[35px] h-[30px] p-2 mx-1  rounded-lg py-1"/>
+                            </button>
+        
+
                     </div>
 
 
@@ -352,6 +400,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                     </div>
 
                     {/* Export button */}
+
 
 
                    
