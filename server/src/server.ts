@@ -10,9 +10,9 @@ import GoogleStrategy  from "passport-google-oauth20"
 //import UserModel from "../../dataModels/UserModel"
 
 enum SubscriptionType {
-    Free,
-    WeekendWarrior,
-    Monthly
+    Free = "Free",
+    WeekendWarrior = "Weekend",
+    Monthly = "Monthly"
 }
 
 require('dotenv').config({path:"../.env"});
@@ -38,14 +38,14 @@ const createPool = async() => {
     await pool.query(`
         CREATE TABLE IF NOT EXISTS users (
             user_id SERIAL PRIMARY KEY,
-            google_id TEXT UNIQUE ,
-            email TEXT,
+            google_id TEXT UNIQUE NOT NULL ,
+            email TEXT NOT NULL,
             display_name TEXT,
             subscription_type TEXT,
             profile_picture TEXT,
-            created_at TIMESTAMP,
-            last_login TIMESTAMP,
-            export_count INT
+            created_at TIMESTAMP DEFAULT NOW(),
+            last_login TIMESTAMP DEFAULT NOW(),
+            export_count INTEGER DEFAULT 0
         )`
     );
 }
@@ -56,10 +56,11 @@ createPool();
 
 type AppUser = {
     google_id: string,
-    display_name :string
-    profile_picture: string
+    display_name :string,
     email :string
-    subscription_type : SubscriptionType
+    profile_picture: string,
+    subscription_type : SubscriptionType,
+    export_count? : number
 }
     
 
@@ -124,56 +125,63 @@ passport.deserializeUser(async (user:AppUser, done) => {
 */
 
 
-try {
-    passport.use(
-        new GoogleStrategy.Strategy(
-            {
-                clientID: process.env.CLIENT_ID as string,
-                clientSecret: process.env.CLIENT_SECRET as string,
-                callbackURL: "http://localhost:5050/auth/google/cb"
-            }, async function(token, refreshToken, profile, done) {
+
+passport.use(
+    new GoogleStrategy.Strategy(
+        {
+            clientID: process.env.CLIENT_ID as string,
+            clientSecret: process.env.CLIENT_SECRET as string,
+            callbackURL: "http://localhost:5050/auth/google/cb"
+        }, async function(token, refreshToken, profile, done) {
+            try {
                 let profilePictureTemp = profile._json["picture"] as string
+
                 //The callback to searlizeUser function
                 const user : AppUser = {
                     google_id: profile.id,
                     display_name : profile.displayName,
-                    profile_picture: profilePictureTemp,
                     email: profile.emails?.[0].value as string,
-                    subscription_type: SubscriptionType.Free
+                    profile_picture: profilePictureTemp,
+                    subscription_type: SubscriptionType.Free,
+                    export_count: 0
                 }
 
                 //POSTGRES Logic Here
-                let app_user = await pool.query(`SELECT * FROM users WHERE google_id = $1`, [user.google_id]);
+                let app_user = await pool.query(`SELECT * FROM users WHERE google_id = $1`, [profile.id]);
 
-                
-                if(app_user) {
-                    let userInDB : boolean = app_user.rowCount! > 0;
+                if(app_user.rowCount! > 0) {
+                    //user already in DB
+                    //app_user = app_user.rows[0];
+                    //console.log('User in Google Strategy:', app_user); 
+                    const existingUser = await pool.query(
+                        `UPDATE users SET last_login = NOW() WHERE google_id = $1 RETURNING *`, [user.google_id]
+                    );
+                    return done(null, existingUser.rows[0]);
 
-                    if(userInDB) {
-                        //alter the table update last_logic
-
-                    } else {
-                        //User is not in DB, insert them in
-                        const result = await pool.query(
-                            `INSERT INTO users (user_id, google_id, email, display_name, subscription_type, profile_picture, created_at, last_login, export_count) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`, [
-                                'DEFAULT', user.google_id, user.email, user.display_name,  user.subscription_type, user.profile_picture, 'NOW()', 'NOW()'
-                            ]
-                        );
-
-                    }
+                } else {
+                    //User is not in DB, insert them in
+                    const newUser = await pool.query(
+                        `INSERT INTO users (google_id, email, display_name, subscription_type, profile_picture, created_at, last_login, export_count) VALUES ($1, $2, $3, $4, $5, NOW(), NOW(), $6) RETURNING *`, [
+                            user.google_id, user.email, user.display_name,  user.subscription_type, user.profile_picture, 0
+                        ]
+                    );
+                    app_user = newUser.rows[0];
                 }
-
-
                 console.log(profile);
-                return done(null, user);
+                return done(null, app_user);
+
                 //google returns a bunch of stuff
                 //determine the user
-                }
-            )
+            } catch(err) {
+                console.error(err, " Problem with google strategy.");
+                return done(err, undefined)
+            }
+
+
+            }
         )
-} catch (err) {
-    console.error("Error with google strategy", err);
-}
+    )
+
 
 
 
