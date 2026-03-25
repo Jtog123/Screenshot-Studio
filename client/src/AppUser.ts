@@ -12,4 +12,5 @@ export type AppUser = {
     profile_picture: string,
     subscription_type : SubscriptionType,
     export_count? : number
+    last_export? : Date
 }

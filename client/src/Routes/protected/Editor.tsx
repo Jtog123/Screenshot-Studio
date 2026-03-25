@@ -235,7 +235,7 @@ export default function Editor() {
   },[]);
   */
 
-  console.log("The user is", appUser);
+  //console.log("The user is", appUser);
 
   useEffect(() => {
 

@@ -240,34 +240,76 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
           
     }
 
-    async function handleImageFileExport() : Promise<void> {
+            // MembershipTier
+        //somewhere in here we have to send a request to the backend to validate the user logged in
+        // We first need to check their membership type
+            //If the user is free we need to validate that they are under the export count
+            // so If user Date.now() - last_export.getTime(); < 48 hrs ,allow them to export
+            // else dont let them export, say your exoprts limit will reset in 
+
+    async function handleImageFileExport(): Promise<void> {
         console.log("exporting");
-        const files : Record<string, Uint8Array> = {};
-
-        //convert image to bytes
-        for(let i = 0; i < capturedImages.length; i++) {
-            const response = await fetch(capturedImages[i].imgPath);
-            const blob = await response.blob();
-            const arrayBuffer = await blob.arrayBuffer();
-
-            //write to the file
-            files[`mockup-${i+1}.png`] = new Uint8Array(arrayBuffer);
-
+        
+        if (capturedImages.length === 0) {
+            alert("No images to export");
+            return;
         }
 
-        //create zip
-        zip(files, (err,data) => {
-            if(err) throw data;
+        try {
+            const files: Record<string, Uint8Array> = {};
 
-            //download
-            const blob = new Blob([data as any], {type: 'application/zip'});
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = `ScreenshotSweet-Mockups-${Date.now()}.zip`;
-            link.click();
-        });
+            // Convert images to bytes
+            for (let i = 0; i < capturedImages.length; i++) {
+                const response = await fetch(capturedImages[i].imgPath);
+                const blob = await response.blob();
+                const arrayBuffer = await blob.arrayBuffer();
+                files[`mockup-${i + 1}.png`] = new Uint8Array(arrayBuffer);
+            }
 
+            // Create zip
+            zip(files, async (err, data) => {
+                if (err) {
+                    console.error("Zip error:", err);
+                    return;
+                }
 
+                // Download
+                const blob = new Blob([data as any], { type: 'application/zip' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `ScreenshotSweet-Mockups-${Date.now()}.zip`;
+                link.click();
+                URL.revokeObjectURL(url);
+
+                // Increment export count 
+                try {
+                    const response = await fetch("http://localhost:5050/api/export", {
+                        method: "POST",
+                        credentials: "include",
+                        headers: {
+                            //"Content-Type": "application/json"
+                        }
+                    });
+
+                    if (!response.ok) {
+                        console.error("Failed to increment export count:", response.status);
+                        return;
+                    }
+
+                    const data = await response.json();
+                    console.log("Export count updated:", data.export_count);
+                    
+                } catch (err) {
+                    console.error("Failed to update export count:", err);
+                    // Don't block the export if analytics fails
+                }
+            });
+            
+        } catch (error) {
+            console.error("Export error:", error);
+            alert("Export failed");
+        }
     }
 
     return (
@@ -357,9 +399,9 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                         <div className="w-[80%] h-px bg-orange-juicy/80 my-2"></div>
                     </div>
                     
-                    <div className="flex justify-center  items-center  ">
+                    <div className="flex justify-center items-center  ">
                         
-                            <h4 className="text-espresso text-xs mr-7 mb-2"  style={{ fontFamily: 'lato' }}>Captured</h4>
+                            <h4 className="text-espresso text-xs mr-2 ml-5"  style={{ fontFamily: 'lato' }}>Captured</h4>
 
                             <button onClick={handleImageFileExport}>
                                 <ExportIcon className="flex justify-center items-center transition-all ease-in duration-200 bg-crust-graham/70 hover:bg-orange-juicy/50 text-espresso hover:text-cream-light  cursor-pointer w-[35px] h-[30px] p-2 mx-1  rounded-lg py-1"/>
