@@ -3,13 +3,14 @@ import {zip} from "fflate"
 import { ImageComponentInterface, TextComponentInterface ,ScreenTextureInterface, CapturedImage} from "./ComponentInterfaces"
 import * as THREE from 'three'
 import { AssetManager } from "./AssetManager"
-import { div, texture } from "three/src/nodes/TSL.js"
+import { div, texture, userData } from "three/src/nodes/TSL.js"
 import ImageIcon from "./IconAssets/ImageIcon"
 import TextIcon from "./IconAssets/TextIcon"
 import UploadIcon from "./IconAssets/ExportIcon"
 import MenuKarrotIcon from "./IconAssets/MenuKarrotIcon"
 import ExportIcon from "./IconAssets/ExportIcon"
 import ImportIcon from "./IconAssets/ImportIcon"
+import { AppUser, SubscriptionType } from "./AppUser"
 
 
 interface ToolbarImgAndTextCardProps {
@@ -247,6 +248,10 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
             // so If user Date.now() - last_export.getTime(); < 48 hrs ,allow them to export
             // else dont let them export, say your exoprts limit will reset in 
 
+    async function checkUserMembership() : Promise<void> {
+        return;
+    }
+
     async function handleImageFileExport(): Promise<void> {
         console.log("exporting");
         
@@ -255,16 +260,96 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
             return;
         }
 
+        //going to have to validate the user before exporting
+        // we now have the last export a user made
+        // we now want to say if date.now() - last_export > 3 days
+        // cant export limit wil reset in 'x' hours
+        // else they are good to go
         try {
             const files: Record<string, Uint8Array> = {};
+            let imageLimit = 0;
+             
+
+            //write validation logic here
+            try {
+                const firstResponse = await fetch("http://localhost:5050/api/userdata", {
+                    method: "GET",
+                    credentials: "include",
+                    headers: {
+                        //"Content-Type": "application/json"
+                    }
+                });
+
+                if (!firstResponse.ok) {
+                    console.error("Failed to increment export count:", firstResponse.status);
+                    return;
+                }
+
+                const userData = await firstResponse.json();
+
+                //assign the amount of images a user can get
+                imageLimit = userData.subscription_type === SubscriptionType.Free ? 3 : 7;
+
+
+                console.log(userData.last_export);
+
+                //const todaysDate = new Date();
+
+                if(userData.subscription_type === SubscriptionType.Free) {
+                    if(!userData.last_export) {
+                        //If the user is new and has no exports
+                        console.log("first export");
+                    } else {
+                        /*
+                        const lastExportDate = new Date(userData.last_export);
+                        const now = new Date();
+
+                        //Delta between todays time and the users last export
+                        const differenceInMs = now.getTime() - lastExportDate.getTime();
+                        
+                        const differenceInHours = Math.floor(differenceInMs / (1000 * 60 * 60 * 24));
+
+                        // if the delta between the times of today and users last export is greater than 2, allow for a new export
+                        if(differenceInHours < 72) {
+                            const hoursRemaning = Math.ceil(72 - differenceInHours)
+                            //Show a timer? limit will reset 
+                            console.log("Free Tier limit reached: 1 export per 2 days");
+                            return;
+                        } 
+                            */
+
+                    }
+
+
+                } 
+
+            } catch(err) {
+                console.error("Error trying to get last export");
+                alert("Unable to verify export limit. Please try again.");
+                return;
+            }
+
+            /// Export allowed to continue after validation //////////////
+
+            //const imageLimit = userData.subscription_type === SubscriptionType.Free ? 3 : 7;
+
 
             // Convert images to bytes
+            /*
             for (let i = 0; i < capturedImages.length; i++) {
                 const response = await fetch(capturedImages[i].imgPath);
                 const blob = await response.blob();
                 const arrayBuffer = await blob.arrayBuffer();
                 files[`mockup-${i + 1}.png`] = new Uint8Array(arrayBuffer);
             }
+                */
+            for (let i = 0; i < imageLimit; i++) {
+                const response = await fetch(capturedImages[i].imgPath);
+                const blob = await response.blob();
+                const arrayBuffer = await blob.arrayBuffer();
+                files[`mockup-${i + 1}.png`] = new Uint8Array(arrayBuffer);
+            }
+    
 
             // Create zip
             zip(files, async (err, data) => {
