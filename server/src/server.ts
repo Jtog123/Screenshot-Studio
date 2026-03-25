@@ -24,6 +24,7 @@ type AppUser = {
     profile_picture: string,
     subscription_type : SubscriptionType,
     export_count? : number
+    last_export? : Date
 }
 
 require('dotenv').config({path:"../.env"});
@@ -56,7 +57,8 @@ const createPool = async() => {
             profile_picture TEXT,
             created_at TIMESTAMP DEFAULT NOW(),
             last_login TIMESTAMP DEFAULT NOW(),
-            export_count INTEGER DEFAULT 0
+            export_count INTEGER DEFAULT 0,
+            last_export TIMESTAMPZ
         )`
     );
 }
@@ -96,8 +98,8 @@ app.use(passport.session());
 
 //What minimum information do I need for this user ot find them later?
 passport.serializeUser((user: Express.User, done) => {
-    console.log("order");
-    console.log("user we got is", user)
+    //console.log("order");
+    //console.log("user we got is", user)
    
     done(null, (user as AppUser));
   
@@ -171,7 +173,7 @@ passport.use(
                     );
                     app_user = newUser.rows[0];
                 }
-                console.log(profile);
+                //console.log(profile);
                 return done(null, app_user);
 
                 //google returns a bunch of stuff
@@ -214,6 +216,48 @@ router.get("/auth/google/me", (req, res) => {
     res.json({userProfile: req.user});
 });
 
+router.post("/api/export", async function(req, res) {
+    try {
+        if(!req.user) {
+            return res.status(401).json({error: "Not authenticated"});
+        }
+
+        //user lives in the google session
+        const user = req.user as any;
+
+        const result = await pool.query(`
+            UPDATE users
+            SET 
+                export_count = export_count + 1,
+                last_export = NOW()
+            WHERE google_id = $1
+            RETURNING 
+                export_count, 
+                last_export
+        `,[user.google_id]);
+
+        if(result.rows.length === 0) {
+            return res.status(404).json({error: "User not found"});
+        }
+
+        res.json({
+                success: true,
+                export_count: result.rows[0].export_count,
+                last_export : result.rows[0].last_export
+        });
+
+
+
+    } catch(err) {
+        console.error("Export count update error: ", err);
+        res.status(500).json({error: "failed to update export count"});
+
+    }
+
+
+
+});
+
 
 
 router.post("/auth/logout", function(req, res, next){
@@ -225,6 +269,8 @@ router.post("/auth/logout", function(req, res, next){
         res.json({success:true, message: "Logged Out"});
     })
 });
+
+
 //creates base route, if we had a router.get("/editor"), route will be /editor
 //app.use("/api") -> router.get("/editor") -> /api/editor
 app.use("/", router);
