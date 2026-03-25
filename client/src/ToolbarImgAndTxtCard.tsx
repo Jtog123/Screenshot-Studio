@@ -300,6 +300,9 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                         //If the user is new and has no exports
                         console.log("first export");
                     } else {
+                        //Uncomment when ready for deployment!!
+
+                        
                         /*
                         const lastExportDate = new Date(userData.last_export);
                         const now = new Date();
