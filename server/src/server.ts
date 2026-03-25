@@ -216,6 +216,39 @@ router.get("/auth/google/me", (req, res) => {
     res.json({userProfile: req.user});
 });
 
+router.get("/api/userdata", async function (req, res) {
+    try {
+        if(!req.user) {
+            res.status(401).json({error: "Not authenticated"});
+        }
+
+        const user = req.user as any;
+
+        const result = await pool.query(
+            `
+            SELECT last_export, subscription_type
+            FROM users
+            WHERE google_id = $1
+            `, [user.google_id]
+        );
+
+        const userSubscriptionType = result.rows[0].subscription_type;
+        const lastExport = result.rows[0].last_export;
+        //console.log(lastExport);
+
+       // const canTakeMoreScreenShots = 
+
+        res.json({
+            subscription_type : userSubscriptionType,
+            last_export : lastExport
+        });
+
+    } catch(err) {
+        console.error("Error fetch last export");
+        return;
+    }
+})
+
 router.post("/api/export", async function(req, res) {
     try {
         if(!req.user) {
