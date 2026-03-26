@@ -114,17 +114,17 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
     const getIcon = () => {
         console.log(itemID);
         if (itemID.startsWith("_DirectionalLight")) {
-            return <DirectionalLightIcon className=" w-[24px] h-[24px] text-orange-caramel"/>
+            return <DirectionalLightIcon className=" w-[24px] h-[24px] text-pink-cherry"/>
         } else if (itemID.startsWith("_SpotLight")) {
             return <SpotLightIcon className=" w-[24px] h-[24px] text-pink-cherry"/>
         } else if (itemID.startsWith("_PointLight")) {
-            return <PointLightIcon className=" w-[24px] h-[24px] text-orange-caramel" />
+            return <PointLightIcon className=" w-[24px] h-[24px] text-pink-cherry" />
         } else if (itemID.startsWith("_RectAreaLight")) {
-            return <RectAreaIcon className=" w-[24px] h-[24px] text-orange-caramel" />
+            return <RectAreaIcon className=" w-[24px] h-[24px] text-pink-cherry" />
         } else if(itemID.startsWith("sprite_image_")) {
-            return <ImageIcon className="w-[20px] h-[20px] text-orange-caramel"/>;
+            return <ImageIcon className="w-[20px] h-[20px] text-pink-cherry"/>;
         } else if(itemID.startsWith("text_")) {
-            return <TextIcon className="w-[20px] h-[20px] text-orange-caramel"/>;
+            return <TextIcon className="w-[20px] h-[20px] text-pink-cherry"/>;
         } 
         
         
