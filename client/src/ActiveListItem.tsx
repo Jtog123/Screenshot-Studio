@@ -116,7 +116,7 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
         if (itemID.startsWith("_DirectionalLight")) {
             return <DirectionalLightIcon className=" w-[24px] h-[24px] text-orange-caramel"/>
         } else if (itemID.startsWith("_SpotLight")) {
-            return <SpotLightIcon className=" w-[24px] h-[24px] text-orange-caramel"/>
+            return <SpotLightIcon className=" w-[24px] h-[24px] text-pink-cherry"/>
         } else if (itemID.startsWith("_PointLight")) {
             return <PointLightIcon className=" w-[24px] h-[24px] text-orange-caramel" />
         } else if (itemID.startsWith("_RectAreaLight")) {
@@ -133,7 +133,7 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
     return (
         <li 
             onClick={handleListItemSelection} 
-            className="group/item flex items-center justify-between px-2 py-1.5 rounded-md bg-orange-bright/20 hover:bg-espresso/10 transition-colors cursor-pointer border-x-1 border-orange-caramel/80 hover:border-cream/70"
+            className="group/item flex items-center justify-between px-2 py-1.5 rounded-md bg-blue-powder/50 hover:bg-white/30 transition-colors ease-in duration-200 cursor-pointer border-x-1 border-pink-cherry/80 "
         >
             {/* Left side: Icon + Name */}
             <div className="flex items-center gap-2 flex-1 min-w-0 ">
@@ -157,12 +157,12 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
                         {isItemVisible ? 
                             // Eye icon
                             <>
-                            <EyeOpenIcon className="text-orange-deep w-[20px] h-[20px] group-hover/eye:hidden  "/>
-                            <EyeMidIcon className="text-orange-deep w-[20px] h-[20px] hidden hidden group-hover/eye:block" />
+                            <EyeOpenIcon className="text-pink-cherry w-[20px] h-[20px] group-hover/eye:hidden  "/>
+                            <EyeMidIcon className="text-pink-cherry w-[20px] h-[20px] hidden hidden group-hover/eye:block" />
                             </>
                          : 
                             // Eye-off icon
-                            <EyeClosedIcon className="text-orange-deep w-[20px] h-[20px]  "/>
+                            <EyeClosedIcon className="text-pink-cherry w-[20px] h-[20px]  "/>
                         }
                     
                 </button>

@@ -40,9 +40,9 @@ export default function ToolbarActiveComponents({activeListItems, setActiveListI
 
     return (
         <>
-            <div className={ isToolbarToggled ? `hidden` : `flex flex-col h-[325px]  flex-shrink-0 w-[screen] bg-cream-vanilla justify-center items-center  border-orange-juicy/40 border-t-1`}>
+            <div className={ isToolbarToggled ? `hidden` : `flex flex-col h-[325px]  flex-shrink-0 w-[screen] bg-cream-vanilla justify-center items-center  border-blue-ocean/80 border-t-1`}>
                 {/* Header */}
-                <div className="flex items-center justify-between px-5 py-3 border-b border-orange-juicy/80">
+                <div className="flex items-center justify-between px-5 py-3 border-b border-blue-ocean/80">
                     <h2 className="text-espresso text-sm font-medium tracking-wide" style={{ fontFamily: 'lato' }}>Scene Collection</h2>
                     <span className="text-espresso/50 text-xs ml-3" style={{ fontFamily: 'lato' }}>{activeListItems.length} items</span>
                 </div>

@@ -36,6 +36,7 @@ import TextComponentGUI from "../../TextComponentGUI.js";
 import TestFonts from '../../TestFonts.js';
 import NavigationBar from '../../NavigationBar.js';
 import HomePage from '../public/HomePage.js';
+import AspectRatioInfo from "../../AspectRatioInfo.js"
 
 
 
@@ -415,6 +416,8 @@ export default function Editor() {
       
 
       {isSceneReady && phone && cameraManager && <PhoneGUI phoneModel={phone} _cameraManager={cameraManager} aspectRatio={aspectRatio}/>}
+
+      <AspectRatioInfo/>
 
     
     {/*

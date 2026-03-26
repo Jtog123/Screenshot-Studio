@@ -32,6 +32,7 @@ import { Grid } from './Grid'
 
 
 
+
 interface ToolbarProps {
     _scene : THREE.Scene;
     _lightManager : LightManager;
@@ -112,55 +113,59 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
     */
     return (
         <>  
-            {
-                (
-                    isToolbarToggled ? 
-                        <div className="fixed flex flex-col h-screen bg-cream-vanilla text-stone-300 z-19 right-0 w-[5%] transition-all duration-300 ease-in-out ">
-                            <ToolbarHeader isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>
-                                <div className='flex flex-col flex-1 overflow-y-auto overflow-x-hidden '>
-
-                                    <ToolbarBgAndLightingCard scene={_scene} isToolbarToggled={isToolbarToggled} gradientBackground={_gradientBackground}
-                                    activeListItems={activeListItems} setActiveListItems={setActiveListItems}   lightManager={_lightManager} grid={grid}/>
-                                    
-                                
-                                    <ToolbarImgAndTextCard imageComponents={_imageComponents} setImageComponents={_setImageComponents} isToolbarToggled={isToolbarToggled} addTextComponent={addTextComponent} _phoneScreen={_phoneScreen} _assetManager={_assetManager} capturedImages={capturedImages} setCapturedImages={setCapturedImages} />
-
-                                    <ToolbarCameraCard isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} _phoneModel={_phoneModel} aspectRatio={aspectRatio} setAspectRatio={setAspectRatio}/>
-                                
-                                </div>
-                            
-                            <div className='h-40px] w-[100%]'></div>
-                            <ToolbarFooter isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle} appUser={appUser}/>
-                            
-
-                            {/*Toolbar Panel Selector*/}
-                        </div>
-                        :
-                        <div className="fixed flex flex-col flex-1 min-h-0 bg-cream-vanilla w-[20%] h-[100%] z-19 right-0 transition-all duration-300 ease-in-out z-19  ">
-                            <ToolbarHeader isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>
-                            <div className='flex flex-col flex-1 overflow-y-auto overflow-x-hidden '>
-
-                                <ToolbarBgAndLightingCard scene={_scene} isToolbarToggled={isToolbarToggled} gradientBackground={_gradientBackground}
-                                activeListItems={activeListItems} setActiveListItems={setActiveListItems} lightManager={_lightManager} grid={grid}/>
-                                
-                               
-                                <ToolbarImgAndTextCard imageComponents={_imageComponents} setImageComponents={_setImageComponents} isToolbarToggled={isToolbarToggled} addTextComponent={addTextComponent} _phoneScreen={_phoneScreen} _assetManager={_assetManager} capturedImages={capturedImages} setCapturedImages={setCapturedImages} />
-
-                                <ToolbarCameraCard isToolbarToggled={isToolbarToggled} _cameraManager={_cameraManager} _phoneModel={_phoneModel} aspectRatio={aspectRatio} setAspectRatio={setAspectRatio}/>
-                                
-                            </div>
-                            
-
-    
-                            <ToolbarActiveComponents activeListItems={activeListItems} setActiveListItems={setActiveListItems} isToolbarToggled={isToolbarToggled} lightManager={_lightManager} assetManager={_assetManager}  />
-                            
-                            <ToolbarFooter isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle} appUser= {appUser}/>
-
-                            {/*Toolbar Panel Selector*/}
-                        </div>
-                )
+            <div className={`fixed flex flex-col h-screen bg-cream-vanilla z-19 right-0 transition-all duration-300 ease-in-out ${
+            isToolbarToggled ? 'min-w-[5%]' : 'min-w-[20%]'
+            }`}>
+            <ToolbarHeader isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>
+            
+            <div className='flex flex-col flex-1 overflow-y-auto overflow-x-hidden'>
+                <ToolbarBgAndLightingCard 
+                scene={_scene} 
+                isToolbarToggled={isToolbarToggled} 
+                gradientBackground={_gradientBackground}
+                activeListItems={activeListItems} 
+                setActiveListItems={setActiveListItems} 
+                lightManager={_lightManager} 
+                grid={grid}
+                />
                 
-            }
+                <ToolbarImgAndTextCard 
+                imageComponents={_imageComponents} 
+                setImageComponents={_setImageComponents} 
+                isToolbarToggled={isToolbarToggled} 
+                addTextComponent={addTextComponent} 
+                _phoneScreen={_phoneScreen} 
+                _assetManager={_assetManager} 
+                capturedImages={capturedImages} 
+                setCapturedImages={setCapturedImages} 
+                />
+
+                <ToolbarCameraCard 
+                isToolbarToggled={isToolbarToggled} 
+                _cameraManager={_cameraManager} 
+                _phoneModel={_phoneModel} 
+                aspectRatio={aspectRatio} 
+                setAspectRatio={setAspectRatio}
+                />
+            </div>
+
+            {/* Only show ActiveComponents when expanded */}
+            {!isToolbarToggled && (
+                <ToolbarActiveComponents 
+                activeListItems={activeListItems} 
+                setActiveListItems={setActiveListItems} 
+                isToolbarToggled={isToolbarToggled} 
+                lightManager={_lightManager} 
+                assetManager={_assetManager}
+                />
+            )}
+            
+            <ToolbarFooter 
+                isToolbarToggled={isToolbarToggled} 
+                setToolbarToggled={handleToggle} 
+                appUser={appUser}
+            />
+            </div>
             
             {
                 selectedLight?.type === LightType.DirectionalLight && (

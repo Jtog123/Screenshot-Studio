@@ -299,15 +299,15 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio}:Phone
 // fixed flex flex-col left-[calc(100vw/2)] z-22 transform translate-x-[-175%] translate-y-[-5%] overflow-hidden w-1/4 bg-stone-950 rounded-xl bottom-0 z-2 px-4 pb-3 pt-2 backdrop-blur-md border-2 border-stone-600 shadow-[0_0_20px_rgba(120,113,108,0.3),0_0_0_4px_rgba(28,25,23,1),0_0_0_5px_rgba(168,162,158,0.5)] ring-1 ring-stone-700/50 transition-all duration-500 ease-in-out"
     return(
         <>
-            <div className="fixed flex flex-col left-0 z-19 transform translate-x-[1.1%] translate-y-[-1.8%] overflow-hidden w-1/4 bg-cream-vanilla rounded-xl bottom-0 z-2 backdrop-blur-md border-2 border-crust-graham shadow-[0_0_20px_rgba(229,196,133,0.15),0_0_0_4px_rgba(125,83,40,1),0_0_0_5px_rgba(229,196,133,0.35)] ring-1 ring-crust-graham/50 transition-all duration-500 ease-in-out">
+            <div className="fixed flex flex-col left-0 z-19 transform translate-x-[1.1%] translate-y-[-1.8%] overflow-hidden w-1/4 bg-cream-vanilla rounded-xl bottom-0 z-2 backdrop-blur-md border-2 border-pink-cherry/50 shadow-[0_0_20px_rgba(229,196,133,0.15),0_0_0_4px_rgba(125,83,40,1),0_0_0_5px_rgba(229,196,133,0.35)] ring-1 ring-pink-cherry/50 transition-all duration-500 ease-in-out">
 
-                <div className="px-4 pb-2 w-[full] bg-cream-golden ">
+                <div className="px-4 pb-2 w-[full] bg-blue-powder ">
                     <div className=" flex wrapperDiv w-full mt-2 h-1/6 ">
                         <div className=" flex titleDiv w-[100%] h-1/6 top-0  justify-between rounded-xl ">
                             <h1 className="text-espresso text-base font-medium" style={{ fontFamily: 'lato' }}>
                                 Phone Rotation
                             </h1>
-                            <button onClick={handlePhoneGuiToggle} className=" flex  justify-center items-center h-[24px] w-[34px] transition-all duration-100 ease-in bg-orange-rind/40 hover:bg-orange-caramel hover:text-cream-light px-1 rounded-xl cursor-pointer text-base font-medium group ">
+                            <button onClick={handlePhoneGuiToggle} className=" flex  justify-center items-center h-[24px] w-[34px] transition-all duration-100 ease-in bg-blue-cobalt/40 hover:bg-blue-cobalt/90 hover:text-cream-light px-1 rounded-xl cursor-pointer text-base font-medium group ">
                                 {isPhoneGuiOpen ? 
                                 <>                                
                                     <EyeOpenIcon className='text-espresso group-hover:hidden'/> 
@@ -331,8 +331,8 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio}:Phone
                     <div className="overflow-hidden flex flex-col ">
                         <label className="text-sm text-espresso pt-1 mt-1 " style={{ fontFamily: 'lato' }} htmlFor="">X: </label>
                         <div className="flex justify-between justify-center items-center">
-                            <input className='w-[95%] mr-2 h-1 accent-[#C05400]' onChange={(e) => handlePhoneRotation(e, "xRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.x} step="0.01" />
-                            <button onClick={(e) => handleControlsReset(e, "xReset")} className='flex justify-center items-center text-espresso bg-crust-graham/70 hover:bg-orange-juicy/50 transition-all duration-200  h-[24px] w-[40px] hover:text-cream-light  rounded-4xl ] cursor-pointer group'>
+                            <input className='w-[95%] mr-2 h-1 accent-[#4695E8]' onChange={(e) => handlePhoneRotation(e, "xRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.x} step="0.01" />
+                            <button onClick={(e) => handleControlsReset(e, "xReset")} className='flex justify-center items-center bg-blue-powder/80 hover:bg-blue-cobalt/80  text-espresso hover:text-cream-light transition-all duration-200  h-[24px] w-[40px]   rounded-4xl ] cursor-pointer group'>
                                 <RefreshStartIcon className="transition-transform duration-300 group-hover:-rotate-90" />
                             </button>
                         </div>
@@ -340,8 +340,8 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio}:Phone
 
                         <label className="text-sm text-espresso pt-1 " style={{ fontFamily: 'lato' }} htmlFor="">Y: </label>
                         <div className="flex justify-between justify-center items-center">
-                            <input className='w-[95%] mr-2 h-1 accent-[#C05400]'  onChange={(e) => handlePhoneRotation(e, "yRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.y} step="0.01"/>
-                            <button onClick={(e) => handleControlsReset(e, "yReset")} className='flex justify-center items-center text-espresso bg-crust-graham/70 hover:bg-orange-juicy/50  transition-all duration-200 hover:text-cream-light  rounded-4xl h-[24px] w-[40px] cursor-pointer group'>
+                            <input className='w-[95%] mr-2 h-1 accent-[#4695E8]'  onChange={(e) => handlePhoneRotation(e, "yRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.y} step="0.01"/>
+                            <button onClick={(e) => handleControlsReset(e, "yReset")} className='flex justify-center items-center bg-blue-powder/80 hover:bg-blue-cobalt/80  text-espresso hover:text-cream-light transition-all duration-200   rounded-4xl h-[24px] w-[40px] cursor-pointer group'>
                                 <RefreshStartIcon className="transition-transform duration-300 group-hover:-rotate-90" />
                             </button>
                         </div>
@@ -349,9 +349,9 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio}:Phone
 
                         <label className="text-sm text-espresso pt-1" style={{ fontFamily: 'lato' }} htmlFor="">Z: </label>
                         <div className="flex justify-between justify-center items-center">
-                            <input className='w-[95%] mr-2 h-1 accent-[#C05400]' onChange={(e) => handlePhoneRotation(e, "zRot")} type="range" min={"-1.57"} max={"1.57"} value={phoneRotation.z} step="0.01"/>
+                            <input className='w-[95%] mr-2 h-1 accent-[#4695E8]' onChange={(e) => handlePhoneRotation(e, "zRot")} type="range" min={"-1.57"} max={"1.57"} value={phoneRotation.z} step="0.01"/>
                             
-                            <button onClick={(e) => handleControlsReset(e, "zReset")} className='flex justify-center items-center text-espresso bg-crust-graham/70 hover:bg-orange-juicy/50  transition-all duration-200 hover:text-cream-light rounded-4xl h-[24px] w-[40px] cursor-pointer group'>
+                            <button onClick={(e) => handleControlsReset(e, "zReset")} className='flex justify-center items-center bg-blue-powder/80 hover:bg-blue-cobalt/80  text-espresso hover:text-cream-light  transition-all duration-200  rounded-4xl h-[24px] w-[40px] cursor-pointer group'>
 
                                 <RefreshStartIcon className="transition-transform duration-300 group-hover:-rotate-90" />
 
@@ -379,7 +379,7 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio}:Phone
                 <div className="flex items-center w-[100%] justify-between pt-2 mt-1 ">
                     <div className='flex items-center w-[70%] ml-4   '>
                         <label className='text-md text-espresso mr-5 ' style={{ fontFamily: 'lato' }} htmlFor="">Presets</label>
-                        <select value={selectedValue} onChange={handlePhonePresetsChange} className="w-[50%] h-[30px] px-1  text-espresso text-sm rounded-md bg-cream-golden  cursor-pointer">
+                        <select value={selectedValue} onChange={handlePhonePresetsChange} className="w-[50%] h-[30px] px-1  text-espresso text-sm rounded-md bg-blue-powder/80  cursor-pointer">
                         
                             <option value="-45">-45°</option>
                             <option value="-30">-30°</option>
@@ -394,8 +394,8 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio}:Phone
                     {/*<button onClick={handleControlsReset} className="text-stone-200 h-[1/6] w-[20%] bg-stone-700/30 px-1 mt-3 rounded-xl ">Reset</button>*/}
                     {/*<CameraButton cameraManager={_cameraManager}/>*/}
                     <div className='w-[20%] flex justify-end  mr-3 items-center   '>
-                        <button onClick={handleImageCapture} className="rounded-xl bg-orange-tangy  hover:bg-orange-rind cursor-pointer mb-2 group transition-colors duration-200 mr-0.5">
-                            <CameraIcon className='text-espresso/70 h-[40px] w-[40px] group-hover:hidden' />
+                        <button onClick={handleImageCapture} className="rounded-xl bg-pink-cherry  hover:bg-pink-candy cursor-pointer mb-2 group transition-colors duration-100 mr-0.5">
+                            <CameraIcon className='text-cream-vanialla/70 h-[40px] w-[40px] group-hover:hidden' />
                             <CameraHoverIcon className='text-espresso/70 h-[40px] w-[40px]  hidden group-hover:block  group-hover:scale-110 
                             transition-transform 
                             duration-300' />

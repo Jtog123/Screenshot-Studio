@@ -50,13 +50,20 @@ export default function ToolbarFooter({isToolbarToggled, setToolbarToggled, appU
 
     return (
         <div className= {
-            isToolbarToggled ? `flex   transition-all ease-in duration-100 w-full items-center justify-center [7%] bg-cream-golden py-2 hover:bg-crust-graham cursor-pointer` : `flex justify-end  transition-all ease-in duration-100  w-full items-center justify-between h-[7%] bg-cream-golden px-4 hover:bg-crust-graham cursor-pointer`
+            isToolbarToggled ? `flex   transition-all ease-in duration-100 w-full items-center justify-center [7%] bg-blue-powder py-2 hover:bg-blue-cobalt/60 cursor-pointer` : `flex justify-end  transition-all ease-in duration-100  w-full items-center justify-between h-[7%] bg-blue-powder px-4 hover:bg-blue-cobalt cursor-pointer`
             } onClick={handleFooterMenu}>
 
             {/*{!isToolbarToggled && <OfficialLogo className="h-14 w-14"/>}*/}
             
             {appUser ? (
-                <div className="flex justify-end h-[6%] items-center gap-2">
+                <div className={!isToolbarToggled ? `flex w-[100%] items-center justify-start gap-2 pl-2` : `flex w-[100%] items-center justify-center gap-2 pl-2` }>
+
+                    <img 
+                        src={appUser.profile_picture} 
+                        alt={appUser.display_name}
+                        className="h-10 w-10 rounded-full object-cover mr-2"
+                        referrerPolicy="no-referrer"
+                    />
 
                     {!isToolbarToggled && (
                         <div className="flex flex-col "> 
@@ -66,17 +73,13 @@ export default function ToolbarFooter({isToolbarToggled, setToolbarToggled, appU
                             </span>
                             <span className="text-xs text-espresso/80 text-end">
                             
-                            {userSubscriptionPlan} plan
+                            {userSubscriptionPlan} plan 
                             </span>
+                            
                         </div>
                     )}
 
-                    <img 
-                        src={appUser.profile_picture} 
-                        alt={appUser.display_name}
-                        className="h-10 w-10 rounded-full object-cover"
-                        referrerPolicy="no-referrer"
-                    />
+
 
  
 

@@ -232,17 +232,17 @@ export default function SpotLightGUI({_lightID, _lightManager} : SpotLightGUIPro
                                 <div className="grid grid-cols-1 gap-1">
                                     <div>
                                         <label className="text-xs text-espresso" style={{ fontFamily: 'lato' }}  htmlFor="">X:</label>
-                                        <input onChange={(e) => handlePosSliderChange(e, "xPos")} className="w-full h-1 accent-[#C05400]" type="range" min={"-10"} max={"10"}  value={lightPosition.x} step={"0.1"}/>
+                                        <input onChange={(e) => handlePosSliderChange(e, "xPos")} className="w-full h-1 accent-[#4695E8]" type="range" min={"-10"} max={"10"}  value={lightPosition.x} step={"0.1"}/>
                                     </div>
 
                                     <div>
                                         <label className="text-xs text-espresso" style={{ fontFamily: 'lato' }}  htmlFor="">Y:</label>
-                                        <input onChange={(e) => handlePosSliderChange(e, "yPos")} className="w-full h-1 accent-[#C05400]" type="range" min={"-10"} max={"10"} value={lightPosition.y} step={"0.1"}/>
+                                        <input onChange={(e) => handlePosSliderChange(e, "yPos")} className="w-full h-1 accent-[#4695E8]" type="range" min={"-10"} max={"10"} value={lightPosition.y} step={"0.1"}/>
                                     </div>
 
                                     <div>
                                         <label className="text-xs text-espresso" style={{ fontFamily: 'lato' }}  htmlFor="">Z:</label>
-                                        <input onChange={(e) => handlePosSliderChange(e, "zPos")} className="w-full h-1 accent-[#C05400]" type="range" min={"-10"} max={"10"} value={lightPosition.z} step={"0.1"}/>
+                                        <input onChange={(e) => handlePosSliderChange(e, "zPos")} className="w-full h-1 accent-[##4695E8]" type="range" min={"-10"} max={"10"} value={lightPosition.z} step={"0.1"}/>
                                     </div>
 
                                 </div>
@@ -275,13 +275,13 @@ export default function SpotLightGUI({_lightID, _lightManager} : SpotLightGUIPro
                                     <div>
                                     {/* DIAMETER */}
                                         <label className="text-xs text-espresso" style={{ fontFamily: 'lato' }}  htmlFor="">Diameter:</label>
-                                        <input onChange={(e) => handleLightDiameterChange(e)} className="h-1 w-full accent-[#C05400]" type="range" min={"0.1"} max={"0.720"} value={lightDiameter} step={"0.01"}/>
+                                        <input onChange={(e) => handleLightDiameterChange(e)} className="h-1 w-full accent-[#4695E8]" type="range" min={"0.1"} max={"0.720"} value={lightDiameter} step={"0.01"}/>
                                     </div>
 
                                     <div>
                                     {/* INTNESITY */}
                                         <label className="text-xs text-espresso" style={{ fontFamily: 'lato' }}  htmlFor="">Intensity:</label>
-                                        <input onChange={(e) => handleLightIntensityChange(e)} className="h-1 w-full accent-[#C05400]" type="range" min={"0"} max={"50"} value={lightIntensity} step={"0.1"}/>
+                                        <input onChange={(e) => handleLightIntensityChange(e)} className="h-1 w-full accent-[#4695E8]" type="range" min={"0"} max={"50"} value={lightIntensity} step={"0.1"}/>
                                     </div>
 
                                     

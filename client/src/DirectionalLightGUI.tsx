@@ -4,6 +4,7 @@ import { _DirectionalLightHelper } from "./LightHelper";
 import { Light } from "./Light";
 import * as THREE from 'three'
 import { div } from "three/src/nodes/TSL.js";
+import MenuKarrotIcon from "./IconAssets/MenuKarrotIcon";
 
 interface DirectionalLightGUIProps {
     _lightID : string;
@@ -206,14 +207,14 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
                 transform: `translate(${guiPosition.x}px, ${guiPosition.y}px)`}}
                 className="absolute rounded-xl right-[800px] top-[200px] min-w-[300px] min-h-[150px] max-w-[450px] overflow-auto bg-cream-vanilla overflow-auto  pb-3 z-50 backdrop-blur-md border border-stone-600 shadow-[0_0_20px_rgba(120,113,108,0.3)] ring-1 ring-stone-700/50">
 
-                <div onMouseDown={handleMouseDown} className="sticky top-0 flex items-center justify-between  cursor-move bg-cream-golden  w-full py-2 px-4 z-10">
+                <div onMouseDown={handleMouseDown} className="sticky top-0 flex items-center justify-between  cursor-move bg-blue-powder  w-full py-2 px-4 z-10">
                     <div className="titlebox ">
                         <h1 className="text-espresso text-base font-medium" style={{ fontFamily: 'lato' }} >
                             {(light?._lightHelper as _DirectionalLightHelper)._title}
                         </h1>
                     </div>
 
-                    <button onClick={handleGUIWindowClose}  className=" transition-all ease-in duration-100 rounded px-2 py-1 bg-red-500 text-espresso text-sm hover:bg-red-600 hover:text-cream-light cursor-pointer">
+                    <button onClick={handleGUIWindowClose}  className=" transition-all ease-in duration-100 rounded-lg px-2 py-1 bg-stone-700 text-cream-light text-sm hover:bg-red-600 hover:text-cream-light cursor-pointer">
                          ✕
                     </button>
                 </div>
@@ -222,9 +223,9 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
                     {/* POSITION SECTION */}
                     <div className="border border-espresso rounded-lg overflow-hidden">
                         <button onClick={() => toggleSection('position')}
-                            className="w-full flex justify-between items-center px-3 py-2 transition-all ease-in duration-100 bg-cream-golden hover:bg-orange-caramel/20 text-espresso text-sm">
+                            className="w-full flex justify-between items-center px-3 py-2 transition-all ease-in duration-100 bg-blue-powder hover:bg-blue-cobalt/30 text-espresso text-sm">
                                 <span style={{ fontFamily: 'lato' }} >Position</span>
-                                <span>{expandedSections.position ? '▼' : '▶'}</span>
+                                <span>{expandedSections.position ? <MenuKarrotIcon className="text-blue-cobalt w-[20px] h-[20px] rotate-180"/> : <MenuKarrotIcon className="text-blue-cobalt w-[20px] h-[20px]"/> }</span>
                         </button>
 
                         {expandedSections.position && (
@@ -233,17 +234,17 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
 
                                     <div>
                                         <label className="text-xs text-espresso" style={{ fontFamily: 'lato' }}  htmlFor="">X:</label>
-                                        <input name="xPos" className="w-full h-1  accent-[#C05400]" onChange={(e) => handlePosSlidersChange(e, "xPos")} type="range" min={"-10"} max={"10"} value={lightPos.x} step={"0.1"}/>
+                                        <input name="xPos" className="w-full h-1  accent-[#4695E8]" onChange={(e) => handlePosSlidersChange(e, "xPos")} type="range" min={"-10"} max={"10"} value={lightPos.x} step={"0.1"}/>
                                     </div>
 
                                     <div>
                                         <label className="text-xs text-espresso" style={{ fontFamily: 'lato' }}  htmlFor="">Y:</label>
-                                        <input name="yPos" className="w-full h-1 accent-[#C05400]" onChange={(e) => handlePosSlidersChange(e, "yPos")}type="range" min={"-10"} max={"10"} value={lightPos.y} step={"0.1"}/>
+                                        <input name="yPos" className="w-full h-1 accent-[#4695E8]" onChange={(e) => handlePosSlidersChange(e, "yPos")}type="range" min={"-10"} max={"10"} value={lightPos.y} step={"0.1"}/>
                                     </div>
 
                                     <div>
                                         <label className="text-xs text-espresso" style={{ fontFamily: 'lato' }}  htmlFor="">Z:</label>
-                                        <input name="zPos" className="w-full h-1 accent-[#C05400]" onChange={(e) => handlePosSlidersChange(e, "zPos")} type="range" min={"-10"} max={"10"} value={lightPos.z} step={"0.1"}/>
+                                        <input name="zPos" className="w-full h-1 accent-[#4695E8]" onChange={(e) => handlePosSlidersChange(e, "zPos")} type="range" min={"-10"} max={"10"} value={lightPos.z} step={"0.1"}/>
                                     </div>
 
                                 </div>
@@ -256,10 +257,10 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
                     <div className="border border-espresso rounded-lg overflow-hidden">
                         <button 
                             onClick={() => toggleSection('appearance')}
-                            className="w-full flex justify-between items-center px-3 py-2 bg-cream-golden hover:bg-orange-caramel/20 text-espresso text-sm"
+                            className="w-full flex justify-between items-center px-3 py-2 bg-blue-powder  hover:hover:bg-blue-cobalt/30 text-espresso text-sm"
                         >
                             <span style={{ fontFamily: 'lato' }} >Appearance</span>
-                            <span>{expandedSections.appearance ? '▼' : '▶'}</span>
+                            <span>{expandedSections.appearance ? <MenuKarrotIcon className="text-blue-cobalt w-[20px] h-[20px] rotate-180"/> : <MenuKarrotIcon className="text-blue-cobalt w-[20px] h-[20px]"/>}</span>
                         </button>
 
                         {expandedSections.appearance && (
@@ -275,7 +276,7 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
                                     <div>
                                         {/* INTNESITY */}
                                         <label className="text-xs text-espresso pr-5" htmlFor="" style={{ fontFamily: 'lato' }} >Intensity:</label>
-                                        <input onChange={(e) => handleLightIntensityChange(e)} className="w-full h-1 accent-[#C05400]" type="range" min={"0"} max={"50"} value={intensity} step={"0.1"}/>
+                                        <input onChange={(e) => handleLightIntensityChange(e)} className="w-full h-1 accent-[#4695E8]" type="range" min={"0"} max={"50"} value={intensity} step={"0.1"}/>
                                     </div>
 
                                 </div>

@@ -115,45 +115,70 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
     function handleScreenTextureUpload(e : React.ChangeEvent<HTMLInputElement>) : void {
 
         if(screenTextures.length >= 7) return;
-
         const input = e.target as HTMLInputElement;
-         if(input.files && input.files[0]) {
-            //_assetManager.crea
-            console.log("uploading", input.files[0]);
+        const file = input.files?.[0];
 
-            const imgURL = URL.createObjectURL(input.files[0]);
+        if(!file) return;
+        
+        const acceptedFileTypes = ["image/png", "image/jpeg"];
+        if(!acceptedFileTypes.includes(file.type)) {
+            alert("Incorrect file type please use .PNG or .JPG");
+            input.value="";
+            return;
+        }
 
-            //do we need a new textureloader for every texture/.
-            if(_phoneScreen) {
-                const textureLoader = new THREE.TextureLoader();
+        //10MB limit
+        const maxFileSize = 10 * 1024 * 1024;
+        if(file.size > maxFileSize) {
+            alert("File size to large, must be below 10MB");
+            input.value = "";
+            return;
+        }
 
-                textureLoader.load(
-                    imgURL, (texture) => {
-                        texture.flipY = false;
-                        texture.colorSpace = THREE.SRGBColorSpace; // Corrects the "washed out" red
-                        texture.minFilter = THREE.LinearFilter;
-                        texture.magFilter = THREE.NearestFilter; // Sharpest
-                        //texture.anisotropy = _renderer.capabilities.getMaxAnisotropy();  
-                        
+        
 
-                        const newScreenTexture : ScreenTextureInterface = {
-                            id: `temp_${Date.now()}`,
-                            type: "screenTexture",
-                            imgPath: imgURL,
-                            screenTexture: texture
-                            //texture
-                        } 
-
-                        setScreenTextures(prev => [...prev, newScreenTexture]);
-                    }
-
-
-                )
+        //Validate we have the correct file type
+        if(input.files && input.files[0]) {
+            //if the file tpye is not excepted reject
+            if(!acceptedFileTypes.includes(input.files[0].type)) {
+                alert("Incorrect file type please use .PNG or .JPG");
+                return;
             }
+        }
+
+        
+            //_assetManager.crea
+            //console.log("uploading", input.files[0].type);
+
+        const imgURL = URL.createObjectURL(file);
+
+        //do we need a new textureloader for every texture/.
+        if(_phoneScreen) {
+            const textureLoader = new THREE.TextureLoader();
+
+            textureLoader.load(
+                imgURL, (texture) => {
+                    texture.flipY = false;
+                    texture.colorSpace = THREE.SRGBColorSpace; // Corrects the "washed out" red
+                    texture.minFilter = THREE.LinearFilter;
+                    texture.magFilter = THREE.NearestFilter; // Sharpest
+                    //texture.anisotropy = _renderer.capabilities.getMaxAnisotropy();  
+                    
+
+                    const newScreenTexture : ScreenTextureInterface = {
+                        id: `temp_${Date.now()}`,
+                        type: "screenTexture",
+                        imgPath: imgURL,
+                        screenTexture: texture
+                        //texture
+                    } 
+
+                    setScreenTextures(prev => [...prev, newScreenTexture]);
+                }
 
 
-         }
-
+            )
+        }
          //clear input value
          input.value = "";
 
@@ -302,7 +327,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                     } else {
                         //Uncomment when ready for deployment!!
 
-                        
+
                         /*
                         const lastExportDate = new Date(userData.last_export);
                         const now = new Date();
@@ -401,13 +426,13 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
     }
 
     return (
-        <div  className={ isToolbarToggled ? `hidden`:`w-[100%] rounded-t-xl bg-cream-vanilla -mt-2 z-10 border-1 border-orange-juicy/80 transition-all duration-500 ease-in-out pb-1 overflox-auto  `}
+        <div  className={ isToolbarToggled ? `hidden`:`w-[100%] rounded-t-xl bg-cream-vanilla -mt-2 z-10 border-1 border-blue-ocean/80 transition-all duration-500 ease-in-out pb-1 overflox-auto  `}
         >
 
             <div onClick={handleImgAndTextCardExpand} className="flex justify-between items-center py-2 cursor-pointer">
-                <h1 className="ml-5 text-espresso text-sm"  style={{ fontFamily: 'lato' }}>Image & Text</h1>
+                <h1 className="ml-5 text-espresso text-sm font-semibold"  style={{ fontFamily: 'lato' }}>Image & Text</h1>
                 <button onClick={handleImgAndTextCardExpand} className="mr-5 text-cream">
-                    <MenuKarrotIcon className={`text-orange-caramel w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-300 ${isImgAndTxtCardExpanded ? `` : `rotate-180`}`} />
+                    <MenuKarrotIcon className={`text-blue-cobalt w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-300 ${isImgAndTxtCardExpanded ? `` : `rotate-180`}`} />
                 </button>
             </div>
 
@@ -420,7 +445,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                     {/* stuff here*/}
                     <div className="flex  w-[100%]  justify-center  pb-2">
                         <div className="flex  w-[50%] h-[50px] justify-evenly items-center  ">
-                            <button onClick={addImageComponent} className="flex justify-center items-center transition-all ease-in duration-200 bg-crust-graham/70 hover:bg-orange-juicy/50 text-espresso hover:text-cream-light  cursor-pointer w-[36px] h-[36px] p-1 mx-1  rounded-lg py-1 ">
+                            <button onClick={addImageComponent} className="flex justify-center items-center transition-all ease-in duration-200 bg-blue-powder/60 hover:bg-blue-cobalt/80 text-espresso hover:text-cream-light  cursor-pointer w-[36px] h-[36px] p-1 mx-1  rounded-lg py-1 ">
                                 <ImageIcon  className=""/>
                             </button>
 
@@ -428,7 +453,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                                 <div className=" h-[40px] w-px bg-cream/40 "></div>
                             </div>
 
-                            <button onClick={addTextComponent} className="flex justify-center items-center transition-all ease-in duration-200 bg-crust-graham/70 hover:bg-orange-juicy/50 text-espresso hover:text-cream-light  cursor-pointer w-[36px] h-[36px] p-1 mx-1  rounded-lg py-1 ">
+                            <button onClick={addTextComponent} className="flex justify-center items-center transition-all ease-in duration-200 bg-blue-powder/60 hover:bg-blue-cobalt/80 text-espresso hover:text-cream-light  cursor-pointer w-[36px] h-[36px] p-1 mx-1  rounded-lg py-1 ">
                                 <TextIcon className=""/>
                             </button>
                         </div>
@@ -436,14 +461,14 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
 
                         {/* Divider */}
                     <div className="flex w-[100%] justify-center my-1">
-                        <div className="w-[80%] h-px bg-orange-juicy/80 my-2"></div>
+                        <div className="w-[80%] h-px bg-blue-ocean/80 my-2"></div>
                     </div>
 
                     <div className="flex justify-center items-center">
                         <h4 className="text-espresso text-xs ml-5 mr-2"  style={{ fontFamily: 'lato' }}>Add up to 7 photos</h4>
                         <input ref={screenTextureFileRef} type="file" accept="image/png, image/jpeg" onChange={(e) => handleScreenTextureUpload(e)} className="hidden"/>
                             {
-                                <button className={isScreenTextureUploaded ? `hidden` :`flex justify-center items-center transition-all ease-in duration-200 bg-crust-graham/70 hover:bg-orange-juicy/50 text-espresso hover:text-cream-light  cursor-pointer w-[35px] h-[30px] p-2 mx-1  rounded-lg py-1`}
+                                <button className={isScreenTextureUploaded ? `hidden` :`flex justify-center items-center transition-all ease-in duration-200 bg-blue-powder/60 hover:bg-blue-cobalt/80 text-espresso hover:text-cream-light  cursor-pointer w-[35px] h-[30px] p-2 mx-1  rounded-lg py-1`}
                                 onClick={() => screenTextureFileRef.current?.click()}>
                                     <ImportIcon className=""/>
                                 </button> 
@@ -461,10 +486,10 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                         {screenTextures.map((img) => (
                             <div key={img.id} className="flex flex-col mx-1 ">
                                 <input type="radio"  className=" mb-1 accent-[#C05400]" name="screenshot" checked={activeTextureID === img.id} onChange={() => handleTextureSelect(img.id)} id="" />
-                                <div className="h-[auto] w-[28px] border-1 border-orange-juicy/80 mb-3">
+                                <div className="h-[auto] w-[28px] border-1 border-blue-cobalt/80 mb-3">
                                     <img src={img.imgPath}  alt=""/>
                                 </div>
-                                <button onClick={() => handleTextureDelete(img.id)} className=" transition-all ease-in duration-200 bg-velvet-crimson rounded-lg cursor-pointer hover:bg-red-400 text-espresso hover:text-cream-light">x</button>
+                                <button onClick={() => handleTextureDelete(img.id)} className=" transition-all ease-in duration-200 bg-stone-700 hover:bg-red-500 text-stone-300 hover:text-white rounded-lg cursor-pointer  text-espresso hover:text-cream-light">x</button>
                             </div>
                         )
                             
@@ -484,7 +509,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
 
                     {/* Divider */}
                     <div className="flex w-[100%] justify-center my-1">
-                        <div className="w-[80%] h-px bg-orange-juicy/80 my-2"></div>
+                        <div className="w-[80%] h-px bg-blue-ocean/80 my-2"></div>
                     </div>
                     
                     <div className="flex justify-center items-center  ">
@@ -492,7 +517,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                             <h4 className="text-espresso text-xs mr-2 ml-5"  style={{ fontFamily: 'lato' }}>Captured</h4>
 
                             <button onClick={handleImageFileExport}>
-                                <ExportIcon className="flex justify-center items-center transition-all ease-in duration-200 bg-crust-graham/70 hover:bg-orange-juicy/50 text-espresso hover:text-cream-light  cursor-pointer w-[35px] h-[30px] p-2 mx-1  rounded-lg py-1"/>
+                                <ExportIcon className="flex justify-center items-center transition-all ease-in duration-200 bg-blue-powder/60 hover:bg-blue-cobalt/80 text-espresso hover:text-cream-light  cursor-pointer w-[35px] h-[30px] p-2 mx-1  rounded-lg py-1"/>
                             </button>
         
 

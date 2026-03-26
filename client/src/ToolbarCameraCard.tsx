@@ -95,11 +95,11 @@ export default function ToolbarCameraCard({isToolbarToggled, _cameraManager, _ph
         
     return (
         <>
-        <div  className={isToolbarToggled ? `hidden` : `rounded-t-xl bg-cream-vanilla flex-1 -mt-2 z-10 border-t-1 border-x-1 border-orange-juicy/80 transition-all duration-500 ease-in-out `}>
+        <div  className={isToolbarToggled ? `hidden` : `rounded-t-xl bg-cream-vanilla flex-1 -mt-2 z-10 border-t-1 border-x-1 border-blue-ocean/80 transition-all duration-500 ease-in-out `}>
             <div onClick={handleCameraCardExpand} className="flex justify-between items-center py-2 cursor-pointer">
-                <h1 className="ml-5 text-espresso text-sm font-bold" style={{ fontFamily: 'lato' }}>Camera</h1>
+                <h1 className="ml-5 text-espresso text-sm font-semibold" style={{ fontFamily: 'lato' }}>Camera</h1>
                 <button onClick={handleCameraCardExpand} className="mr-5 text-stone-300">
-                    <MenuKarrotIcon className={`text-orange-caramel w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-300 ${isCameraCardExpanded ? `` : `rotate-180`}`} />
+                    <MenuKarrotIcon className={`text-blue-cobalt w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-300 ${isCameraCardExpanded ? `` : `rotate-180`}`} />
                 </button>
             </div>
 
@@ -117,13 +117,13 @@ export default function ToolbarCameraCard({isToolbarToggled, _cameraManager, _ph
                         </div>
 
                         <div className="button flex justiify-between container w-[50%] p-1 mr-5">
-                            <button onClick={handleCameraZoomIn}  className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 bg-crust-graham/70 hover:bg-orange-juicy/50 text-espresso hover:text-cream-light transition-all duration-200  rounded-lg py-1"> 
+                            <button onClick={handleCameraZoomIn}  className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 bg-blue-powder/60 hover:bg-blue-cobalt/80  text-espresso hover:text-cream-light transition-all duration-200  rounded-lg py-1"> 
                                 <CameraZoomInIcon className="text-espresso"/>
                             </button>
-                            <button onClick={handleCameraZoomOut} className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 bg-crust-graham/70 hover:bg-orange-juicy/50 text-espresso hover:text-cream-light  transition-all duration-200  rounded-lg py-1"> 
+                            <button onClick={handleCameraZoomOut} className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 bg-blue-powder/60 hover:bg-blue-cobalt/80 text-espresso hover:text-cream-light  transition-all duration-200  rounded-lg py-1"> 
                                 <CameraZoomOutIcon className='text-espresso'/>
                             </button>
-                            <button onClick={handleZoomReset} className="flex justify-center items-center bg-crust-graham/70 hover:bg-orange-juicy/50 text-espresso hover:text-cream-light  transition-all duration-200  rounded-xl h-[30px] w-[30px] cursor-pointer group">
+                            <button onClick={handleZoomReset} className="flex justify-center items-center bg-blue-powder/60 hover:bg-blue-cobalt/80  text-espresso hover:text-cream-light  transition-all duration-200  rounded-xl h-[30px] w-[30px] cursor-pointer group">
                                 <RefreshStartIcon className="transition-transform duration-300 group-hover:-rotate-90" />
                             </button>
                         </div>
@@ -137,15 +137,15 @@ export default function ToolbarCameraCard({isToolbarToggled, _cameraManager, _ph
                         </div>
 
                         <div className="button flex justiify-between container w-[50%] p-1 mr-5 pb-2">
-                            <button onClick={handleCameraHeightIncrease} className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 bg-crust-graham/70 hover:bg-orange-juicy/50 text-espresso hover:text-cream-light  transition-all duration-200  rounded-lg py-1">
+                            <button onClick={handleCameraHeightIncrease} className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 bg-blue-powder/60 hover:bg-blue-cobalt/80  text-espresso hover:text-cream-light  transition-all duration-200  rounded-lg py-1">
                                  <CameraUpIcon className=''/>
                             </button>
 
-                            <button onClick={handleCameraHeightDecrease} className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 bg-crust-graham/70 hover:bg-orange-juicy/50 text-espresso hover:text-cream-light  transition-all duration-200  rounded-lg py-1">
+                            <button onClick={handleCameraHeightDecrease} className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 bg-blue-powder/60 hover:bg-blue-cobalt/80  text-espresso hover:text-cream-light  transition-all duration-200  rounded-lg py-1">
                                  <CameraDownIcon className=''/>
                             </button>
 
-                            <button onClick={handleHeightReset} className="flex justify-center items-center bg-crust-graham/70 hover:bg-orange-juicy/50 text-espresso hover:text-cream-light  transition-all duration-200 rounded-xl h-[30px] w-[30px] cursor-pointer group">
+                            <button onClick={handleHeightReset} className="flex justify-center items-center bg-blue-powder/60 hover:bg-blue-cobalt/80  text-espresso hover:text-cream-light  transition-all duration-200 rounded-xl h-[30px] w-[30px] cursor-pointer group">
                                 <RefreshStartIcon className="transition-transform duration-300 group-hover:-rotate-90" />
                             </button>
                         </div>
@@ -159,7 +159,7 @@ export default function ToolbarCameraCard({isToolbarToggled, _cameraManager, _ph
                         </div>
 
                         <div className="button flex justiify-between container w-[50%] p-1 mr-5 pb-2">
-                            <select name="" className="bg-crust-graham/70 text-espresso text-sm rounded-md cursor-pointer h-[30px] w-[75%]" id="" onChange={(e) => handleAspectRatioChange(e)} >
+                            <select name="" className="bg-blue-powder/60 text-espresso text-sm rounded-md cursor-pointer h-[30px] w-[75%]" id="" onChange={(e) => handleAspectRatioChange(e)} >
                                 <option value="1242x2688" >1242 x 2688</option>
                                 <option value="2688x1242">2688 x 1242</option>
                                 <option value="2400x1200">2400 x 1200</option>
