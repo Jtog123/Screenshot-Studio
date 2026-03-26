@@ -61,7 +61,10 @@ class CameraManager {
                 //hide all helpers
                 object.visible = false;
             }
-        })
+        });
+
+        //const originalBackground = this._scene.background;
+       // this._scene.background = null;
 
         //create Temp redner/canvas, and temp camera
         const tempRenderer = new THREE.WebGLRenderer({preserveDrawingBuffer:true, antialias: true });
@@ -102,6 +105,9 @@ class CameraManager {
 
         //tempCamera.updateProjectionMatrix();
         tempRenderer.render(this._scene, tempCamera);
+
+        //restore background
+        //this._scene.background = originalBackground;
 
                 //restpre helper visiblity
         helperVisibility.forEach((wasVisible, helper) => {
@@ -146,6 +152,8 @@ class CameraManager {
 
             //this._camera.updateProjectionMatrix();
         }, 50);
+
+        //this._scene.background = originalBackground;
 
 
         //restpre helper visiblity

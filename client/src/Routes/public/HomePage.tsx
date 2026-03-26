@@ -515,7 +515,7 @@ export default function HomePage() {
                     <div className=" overflow-hidden -mt-16 scale-120">
                         
                         <img 
-                            src="/TransparentHero2.png" 
+                            src="/backgroundHeroSweet.png" 
                             alt="Professional phone mockup with gradient background"
                             className="w-full"
                         />

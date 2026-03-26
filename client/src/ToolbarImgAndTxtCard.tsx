@@ -278,7 +278,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
     }
 
     async function handleImageFileExport(): Promise<void> {
-        console.log("exporting");
+
         
         if (capturedImages.length === 0) {
             alert("No images to export");
@@ -292,7 +292,11 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
         // else they are good to go
         try {
             const files: Record<string, Uint8Array> = {};
+
+            //assign these once we know the size of the values
             let imageLimit = 0;
+            let imagesToExport = 0;
+            
              
 
             //write validation logic here
@@ -314,6 +318,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
 
                 //assign the amount of images a user can get
                 imageLimit = userData.subscription_type === SubscriptionType.Free ? 3 : 7;
+                imagesToExport = Math.min(imageLimit, capturedImages.length);
 
 
                 console.log(userData.last_export);
@@ -371,7 +376,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                 files[`mockup-${i + 1}.png`] = new Uint8Array(arrayBuffer);
             }
                 */
-            for (let i = 0; i < imageLimit; i++) {
+            for (let i = 0; i < imagesToExport; i++) {
                 const response = await fetch(capturedImages[i].imgPath);
                 const blob = await response.blob();
                 const arrayBuffer = await blob.arrayBuffer();

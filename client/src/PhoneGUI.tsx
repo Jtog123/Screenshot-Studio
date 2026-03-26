@@ -229,7 +229,8 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio}:Phone
 
     function handleImageCapture() : void {
         console.log("Capturing the image");
-        _cameraManager.captureImage(aspectRatio);
+        //_cameraManager.captureImage(aspectRatio);
+        _cameraManager.captureHomepageImage();
     }
 
     function handlePhonePresetsChange(e: React.ChangeEvent<HTMLSelectElement>) : void {
