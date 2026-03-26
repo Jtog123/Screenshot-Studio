@@ -229,7 +229,7 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
                         </button>
 
                         {expandedSections.position && (
-                            <div className="p-3 space-y-2 bg-cream-golden/20">
+                            <div className="p-3 space-y-2 bg-cream-vanilla">
                                 <div className="grid grid-cols-1 gap-1">
 
                                     <div>
@@ -264,7 +264,7 @@ export default function DirectionalLightGUI({_lightID, _lightManager} : Directio
                         </button>
 
                         {expandedSections.appearance && (
-                            <div className="p-3 space-y-3 bg-cream-golden/20">
+                            <div className="p-3 space-y-3 bg-cream-vanilla">
 
                                 <div className="grid grid-cols-1 gap-3 ">
                                     <div className="flex items-center gap-2">

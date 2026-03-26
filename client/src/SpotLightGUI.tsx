@@ -1,6 +1,7 @@
 import { _DirectionalLightHelper, _SpotLightHelper } from "./LightHelper";
 import { LightManager } from "./LightManager";
 import { useEffect, useRef, useState } from "react";
+import MenuKarrotIcon from "./IconAssets/MenuKarrotIcon";
 import * as THREE from 'three'
 
 
@@ -206,14 +207,14 @@ export default function SpotLightGUI({_lightID, _lightManager} : SpotLightGUIPro
                 transform: `translate(${guiPosition.x}px, ${guiPosition.y}px)`}}  
                 className="absolute rounded-xl right-[800px] top-[200px] min-w-[300px] min-h-[150px] max-w-[450px] overflow-auto bg-cream-vanilla pb-3 z-50 backdrop-blur-md border border-espresso shadow-[0_0_20px_rgba(120,113,108,0.3)] ring-1 ring-stone-700/50"
                 >
-                <div onMouseDown={handleMouseDown} className="sticky top-0 flex items-center justify-between  cursor-move bg-cream-golden w-full py-2 px-4 z-10">
+                <div onMouseDown={handleMouseDown} className="sticky top-0 flex items-center justify-between  cursor-move bg-blue-powder w-full py-2 px-4 z-10">
                     <div className="titlebox ">
                         <h1 className="text-espresso  text-base font-medium" style={{ fontFamily: 'lato' }} >
                             {(light?._lightHelper as _SpotLightHelper)._title}
                         </h1>
                     </div>
 
-                    <button onClick={handleGUIWindowClose}  className="transition-all ease-in duration-100 rounded px-2 py-1 bg-red-500 text-espresso text-sm hover:bg-red-600 hover:text-cream-light cursor-pointer">
+                    <button onClick={handleGUIWindowClose}  className="transition-all ease-in duration-100 rounded-lg px-2 py-1 bg-stone-700 text-cream-vanilla text-sm hover:bg-red-600 hover:text-cream-light cursor-pointer">
                          ✕
                     </button>
                 </div>
@@ -222,13 +223,13 @@ export default function SpotLightGUI({_lightID, _lightManager} : SpotLightGUIPro
                     {/* POSITION SECTION */}
                     <div className="border border-stone-700 rounded-lg overflow-hidden">
                         <button onClick={() => toggleSection('position')}
-                            className="w-full flex justify-between items-center px-3 py-2 bg-cream-golden hover:bg-orange-caramel/20 text-espresso text-sm">
+                            className="w-full flex justify-between items-center px-3 py-2 bg-blue-powder hover:bg-blue-cobalt/30 text-espresso text-sm">
                                 <span style={{ fontFamily: 'lato' }} >Position</span>
-                                <span>{expandedSections.position ? '▼' : '▶'}</span>
+                                <span>{expandedSections.position ?  <MenuKarrotIcon className="text-blue-cobalt w-[20px] h-[20px] rotate-180"/> : <MenuKarrotIcon className="text-blue-cobalt w-[20px] h-[20px]"/>}</span>
                         </button>
 
                         {expandedSections.position && (
-                            <div className="p-3 space-y-2 bg-cream-golden/20">
+                            <div className="p-3 space-y-2 bg-cream-vanilla">
                                 <div className="grid grid-cols-1 gap-1">
                                     <div>
                                         <label className="text-xs text-espresso" style={{ fontFamily: 'lato' }}  htmlFor="">X:</label>
@@ -256,14 +257,14 @@ export default function SpotLightGUI({_lightID, _lightManager} : SpotLightGUIPro
                     <div className="border border-stone-700 rounded-lg overflow-hidden">
                         <button 
                             onClick={() => toggleSection('appearance')}
-                            className="w-full flex justify-between items-center px-3 py-2 bg-cream-golden hover:bg-orange-caramel/20 text-espresso text-sm"
+                            className="w-full flex justify-between items-center px-3 py-2 bg-blue-powder hover:bg-blue-cobalt/30 text-espresso text-sm"
                         >
                             <span style={{ fontFamily: 'lato' }} >Appearance</span>
-                            <span>{expandedSections.appearance ? '▼' : '▶'}</span>
+                            <span>{expandedSections.appearance ?  <MenuKarrotIcon className="text-blue-cobalt w-[20px] h-[20px] rotate-180"/> : <MenuKarrotIcon className="text-blue-cobalt w-[20px] h-[20px]"/>}</span>
                         </button>
 
                         {expandedSections.appearance && (
-                            <div className="p-3 space-y-3 bg-cream-golden/20">
+                            <div className="p-3 space-y-3 bg-cream-vanilla">
                                 <div className="grid grid-cols-1 gap-3 ">
 
                                     <div className="flex items-center gap-2">
