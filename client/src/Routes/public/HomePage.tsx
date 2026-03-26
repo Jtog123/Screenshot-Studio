@@ -512,7 +512,7 @@ export default function HomePage() {
 
                 {/* ONE Dramatic Hero Result */}
                     <ScrollFadeIn>
-                    <div className=" overflow-hidden -mt-16 scale-120">
+                    <div className=" overflow-hidden -mt-16 scale-140">
                         
                         <img 
                             src="/backgroundHeroSweet.png" 

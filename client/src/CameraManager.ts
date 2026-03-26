@@ -44,9 +44,108 @@ class CameraManager {
     Your main renderer/canvas never changes - user sees nothing
     */
 
+    public captureTransparentImage(aspectRatio: AspectRatio) : void {
+        // assigns false if the lhs is null or undefined, toggles off all light geometry
+        const helperVisibility : Map<THREE.Object3D, boolean> = new Map();
+
+        this._scene.traverse((object) => {
+            if(
+                object instanceof THREE.GridHelper ||
+                object instanceof THREE.DirectionalLightHelper ||
+                object instanceof THREE.SpotLightHelper ||
+                object instanceof THREE.PointLightHelper ||
+                object instanceof THREE.RectAreaLight
+            ) {
+                helperVisibility.set(object, object.visible);
+                //hide all helpers
+                object.visible = false;
+            }
+        });
+
+        const originalBackground = this._scene.background;
+        this._scene.background = null;
+
+        //create Temp redner/canvas, and temp camera
+        const tempRenderer = new THREE.WebGLRenderer({alpha:true, preserveDrawingBuffer:true, antialias: true });
+
+        //can add different FOV's
+        const originalFOV = this._camera.fov;
+        const originalNear = this._camera.near;
+        const originFar = this._camera.far;
+
+        const tempAspectRatio = aspectRatio.width / aspectRatio.height;
+
+        //adjusting FOV on aspect ratio change
+        let adjustedFOV = originalFOV;
+        let zoomMultiplier = 1;
+
+        if(aspectRatio.type === "wide") {
+            adjustedFOV = originalFOV * 0.65;
+            zoomMultiplier = 0.75;
+        }
+
+        const tempCamera = new THREE.PerspectiveCamera(
+            adjustedFOV, tempAspectRatio, originalNear, originFar
+        );
+
+        //copy the pos of the original camera
+        tempCamera.position.copy(this._camera.position);
+        tempCamera.position.z *= zoomMultiplier;
+
+        //tempRenderer.setSize(this.screenshotWidth, this.screenshotHeight);
+        tempRenderer.setSize(aspectRatio.width, aspectRatio.height);
+
+        //tempCamera.updateProjectionMatrix();
+        tempRenderer.render(this._scene, tempCamera);
+
+        helperVisibility.forEach((wasVisible, helper) => {
+            helper.visible = wasVisible;
+        });
+
+
+        setTimeout(() => {
+            tempRenderer.domElement.toBlob((blob) => {
+                const url = URL.createObjectURL(blob as Blob);
+                const link = document.createElement("a");
+
+                
+                //this might not work because ids dont match?
+                
+                this.setCapturedImages(prev => [...prev, {
+                    id : `captured_${Date.now()}`,
+                    imgPath : url,
+                }]);
+                
+
+                //create a hyperlink ref
+                //link.href = url;
+                //link.download = "ScreenshotStudioTestShot.png";
+                //link.click();
+                //this.setImageCaptured(true);
+                
+                //URL.revokeObjectURL(url);
+
+                tempRenderer.dispose();
+            }, "image/png", 1.0);
+
+            //this._camera.updateProjectionMatrix();
+        }, 50);
+
+        //this._scene.background = originalBackground;
+
+
+        //restpre helper visiblity
+        //helperVisibility.forEach((wasVisible, helper) => {
+        //    helper.visible = wasVisible;
+        //});
+
+        this.setImageCaptured(false);
+
+    }
+
     public captureImage(aspectRatio: AspectRatio) : void {
 
-        // assigns false if the lhs is null or undefined
+        // assigns false if the lhs is null or undefined, toggles off all light geometry
         const helperVisibility : Map<THREE.Object3D, boolean> = new Map();
 
         this._scene.traverse((object) => {
