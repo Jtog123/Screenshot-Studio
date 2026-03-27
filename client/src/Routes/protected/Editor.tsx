@@ -333,7 +333,7 @@ export default function Editor() {
         //pass phoneScreen down to ToolBarImg, move this logic into there
         if (phoneScreen) {
           const textureLoader = new THREE.TextureLoader();
-          textureLoader.load('/sweetBg3.png', (texture) => {
+          textureLoader.load('/ScreenSweet4.png', (texture) => {
             texture.flipY = false;
             texture.colorSpace = THREE.SRGBColorSpace; // Corrects the "washed out" red
             texture.minFilter = THREE.LinearFilter;

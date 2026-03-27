@@ -431,13 +431,13 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
     }
 
     return (
-        <div  className={ isToolbarToggled ? `hidden`:`w-[100%] rounded-t-xl bg-cream-vanilla -mt-2 z-10 border-1 border-blue-ocean/80 transition-all duration-500 ease-in-out pb-1 overflox-auto  `}
+        <div  className={ isToolbarToggled ? `hidden`:`w-[100%] rounded-t-xl bg-chcolate -mt-2 z-10 border-1 border-pink-cherry/80 transition-all duration-500 ease-in-out pb-1 overflox-auto  `}
         >
 
             <div onClick={handleImgAndTextCardExpand} className="flex justify-between items-center py-2 cursor-pointer">
-                <h1 className="ml-5 text-espresso text-sm font-semibold"  style={{ fontFamily: 'lato' }}>Image & Text</h1>
+                <h1 className="ml-5 text-cream-vanilla text-sm font-semibold"  style={{ fontFamily: 'lato' }}>Image & Text</h1>
                 <button onClick={handleImgAndTextCardExpand} className="mr-5 text-cream">
-                    <MenuKarrotIcon className={`text-blue-cobalt w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-300 ${isImgAndTxtCardExpanded ? `` : `rotate-180`}`} />
+                    <MenuKarrotIcon className={`text-pink-cherry w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-300 ${isImgAndTxtCardExpanded ? `` : `rotate-180`}`} />
                 </button>
             </div>
 
@@ -450,7 +450,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                     {/* stuff here*/}
                     <div className="flex  w-[100%]  justify-center  pb-2">
                         <div className="flex  w-[50%] h-[50px] justify-evenly items-center  ">
-                            <button onClick={addImageComponent} className="flex justify-center items-center transition-all ease-in duration-200 bg-blue-powder/60 hover:bg-blue-cobalt/80 text-espresso hover:text-cream-light  cursor-pointer w-[36px] h-[36px] p-1 mx-1  rounded-lg py-1 ">
+                            <button onClick={addImageComponent} className="flex justify-center items-center transition-all ease-in duration-200 bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-blue-frost cursor-pointer w-[36px] h-[36px] p-1 mx-1  rounded-lg py-1 ">
                                 <ImageIcon  className=""/>
                             </button>
 
@@ -458,7 +458,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                                 <div className=" h-[40px] w-px bg-cream/40 "></div>
                             </div>
 
-                            <button onClick={addTextComponent} className="flex justify-center items-center transition-all ease-in duration-200 bg-blue-powder/60 hover:bg-blue-cobalt/80 text-espresso hover:text-cream-light  cursor-pointer w-[36px] h-[36px] p-1 mx-1  rounded-lg py-1 ">
+                            <button onClick={addTextComponent} className="flex justify-center items-center transition-all ease-in duration-200 bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-blue-frost  cursor-pointer w-[36px] h-[36px] p-1 mx-1  rounded-lg py-1 ">
                                 <TextIcon className=""/>
                             </button>
                         </div>
@@ -466,14 +466,14 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
 
                         {/* Divider */}
                     <div className="flex w-[100%] justify-center my-1">
-                        <div className="w-[80%] h-px bg-blue-ocean/80 my-2"></div>
+                        <div className="w-[80%] h-px bg-pink-cherry/80 my-2"></div>
                     </div>
 
                     <div className="flex justify-center items-center">
-                        <h4 className="text-espresso text-xs ml-5 mr-2"  style={{ fontFamily: 'lato' }}>Add up to 7 photos</h4>
+                        <h4 className="text-cream-vanilla text-xs ml-5 mr-2"  style={{ fontFamily: 'lato' }}>Add up to 7 photos</h4>
                         <input ref={screenTextureFileRef} type="file" accept="image/png, image/jpeg" onChange={(e) => handleScreenTextureUpload(e)} className="hidden"/>
                             {
-                                <button className={isScreenTextureUploaded ? `hidden` :`flex justify-center items-center transition-all ease-in duration-200 bg-blue-powder/60 hover:bg-blue-cobalt/80 text-espresso hover:text-cream-light  cursor-pointer w-[35px] h-[30px] p-2 mx-1  rounded-lg py-1`}
+                                <button className={isScreenTextureUploaded ? `hidden` :`flex justify-center items-center transition-all ease-in duration-200 bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-blue-frost cursor-pointer w-[35px] h-[30px] p-2 mx-1  rounded-lg py-1`}
                                 onClick={() => screenTextureFileRef.current?.click()}>
                                     <ImportIcon className=""/>
                                 </button> 
@@ -514,15 +514,15 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
 
                     {/* Divider */}
                     <div className="flex w-[100%] justify-center my-1">
-                        <div className="w-[80%] h-px bg-blue-ocean/80 my-2"></div>
+                        <div className="w-[80%] h-px bg-pink-cherry/80 my-2"></div>
                     </div>
                     
                     <div className="flex justify-center items-center  ">
                         
-                            <h4 className="text-espresso text-xs mr-2 ml-5"  style={{ fontFamily: 'lato' }}>Captured</h4>
+                            <h4 className="text-cream-vanilla text-xs mr-2 ml-5"  style={{ fontFamily: 'lato' }}>Captured</h4>
 
                             <button onClick={handleImageFileExport}>
-                                <ExportIcon className="flex justify-center items-center transition-all ease-in duration-200 bg-blue-powder/60 hover:bg-blue-cobalt/80 text-espresso hover:text-cream-light  cursor-pointer w-[35px] h-[30px] p-2 mx-1  rounded-lg py-1"/>
+                                <ExportIcon className="flex justify-center items-center transition-all ease-in duration-200 bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-blue-frost cursor-pointer w-[35px] h-[30px] p-2 mx-1  rounded-lg py-1"/>
                             </button>
         
 

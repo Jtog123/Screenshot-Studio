@@ -113,7 +113,7 @@ export default function Toolbar({_scene, _lightManager,_phoneModel ,_cameraManag
     */
     return (
         <>  
-            <div className={`fixed flex flex-col h-screen bg-cream-vanilla z-19 right-0 transition-all duration-300 ease-in-out ${
+            <div className={`fixed flex flex-col h-screen bg-chocolate z-19 right-0 transition-all duration-300 ease-in-out ${
             isToolbarToggled ? 'min-w-[5%]' : 'min-w-[20%]'
             }`}>
             <ToolbarHeader isToolbarToggled={isToolbarToggled} setToolbarToggled={handleToggle}/>

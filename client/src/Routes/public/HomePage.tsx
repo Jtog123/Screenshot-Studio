@@ -325,31 +325,31 @@ export default function HomePage() {
             
             {/* Hero Section - Split Left/Right */}
             <ScrollFadeIn >
-            <section className="flex w-full min-h-screen ">
+            <section className="flex w-full min-h-screen bg-mocha">
                 
                 {/* Left Side - Content */}
-                <div className="flex leftSide justify-center items-center bg-cream-vanilla/50 w-1/2 ">
+                <div className="flex leftSide justify-center items-center bg-chocolate w-1/2 ">
                     <div className="flex flex-col w-4/5 max-w-2xl  relative">
-                        <h1 className="text-mocha text-6xl mb-6 whitespace-nowrap overflow-hidden font-semibold truncate " style={{fontFamily: "Inter, sans-serif"}}>Dynamic Mock Ups</h1>
+                        <h1 className="text-cream-vanilla text-6xl mb-6 whitespace-nowrap overflow-hidden font-semibold truncate " style={{fontFamily: "Inter, sans-serif"}}>Dynamic Mock Ups</h1>
                         
-                        <h2 className="text-mocha/70 text-2xl mb-10 " style={{fontFamily: "Inter, sans-serif"}}>
+                        <h2 className="text-cream-vanilla/70 text-2xl mb-10 " style={{fontFamily: "Inter, sans-serif"}}>
                             Making your app stand out has never been easier
                         </h2>
 
-                        <button className="bg-pink-cherry hover:bg-pink-velvet text-white font-smibold text-xl px-12 py-6 rounded-2xl shadow-[0_0_30px_rgba(232,70,149,0.4)] hover:shadow-[0_0_20px_rgba(232,70,149,0.6)] transform hover:scale-101 transition-all ease-in duration-100 cursor-pointer">
+                        <button className="bg-pink-cherry hover:bg-pink-velvet text-white font-semibold text-xl px-12 py-6 rounded-2xl shadow-[0_0_30px_rgba(232,70,149,0.4)] hover:shadow-[0_0_20px_rgba(232,70,149,0.6)] transform hover:scale-101 transition-all ease-in duration-100 cursor-pointer">
                             Get Started Free
                         </button>
                         
 
                          <div className="absolute -right-58 -bottom-52 w-[650px] pointer-events-none">
-                                <AppAndArrow className="w-full h-auto text-mocha/60" />
+                                <AppAndArrow className="w-full h-auto text-cream-vanilla" />
                         </div>
                     </div>
                 </div>
 
                 {/* Right Side - Phone Demo */}
                 {/*on a rere */}
-                <div className="rightSide bg-cream-vanilla/50 w-1/2 flex items-center ">
+                <div className="rightSide bg-chocolate w-1/2 flex items-center ">
        
                     <div ref={mountRef} className="phoneDiv  w-full h-full"></div>
                     {/*from-slate-900/95 to-slate-800/75 */}
@@ -357,10 +357,10 @@ export default function HomePage() {
                         
                         {/* Header */}
                         <div className="flex flex-col justify-center mb-5 ">
-                            <h3 className="text-black text-lg tracking-tight" style={{fontFamily: "Inter, sans-serif"}}>
+                            <h3 className="text-white text-lg tracking-tight" style={{fontFamily: "Inter, sans-serif"}}>
                                 Try it out
                             </h3>
-                            <p className="text-black/70 text-xs mt-1" style={{fontFamily: "Inter, sans-serif"}}>
+                            <p className="text-white/70 text-xs mt-1" style={{fontFamily: "Inter, sans-serif"}}>
                                 Apply a sample
                             </p>
                         </div>
@@ -391,7 +391,7 @@ export default function HomePage() {
                                         {/* Active Indicator Overlay */}
                                         {activeTextureID === img.id && (
                                             <div className="absolute inset-0 bg-blue-500/20 flex items-center justify-center pointer-events-none">
-                                                <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center">
+                                                <div className="w-5 h-5 rounded-full bg-mocha flex items-center justify-center">
                                                     <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                                     </svg>
@@ -405,7 +405,7 @@ export default function HomePage() {
                                         type="radio" 
                                         checked={activeTextureID === img.id} 
                                         onChange={() => handleTextureSelect(img.id)}
-                                        className="w-4 h-4 accent-blue-500 cursor-pointer"
+                                        className="w-4 h-4 accent-[#52301C] cursor-pointer"
                                     />
                                 </label>
                             ))}
@@ -417,16 +417,16 @@ export default function HomePage() {
             </ScrollFadeIn>
 
             
-            <section className="w-full bg-cream-vanilla/50 py-20">
+            <section className="w-full bg-chocolate py-20">
                 <ScrollFadeIn>
                 <div className="flex flex-col items-center">
-                    <h2 className="text-center text-mocha text-4xl mb-4 font-semibold" style={{fontFamily: "Inter, sans-serif"}}>
+                    <h2 className="text-center text-cream-vanilla text-4xl mb-4 font-semibold" style={{fontFamily: "Inter, sans-serif"}}>
                         The Mockup Frustration Index
                     </h2>
-                    <p className="text-center text-mocha/70 text-xl mb-2" style={{fontFamily: "Inter, sans-serif"}}>
+                    <p className="text-center text-cream-vanilla/70 text-xl mb-2" style={{fontFamily: "Inter, sans-serif"}}>
                         Time spent vs Sanity lost
                     </p>
-                    <p className="text-center text-mocha/70" style={{fontFamily: "Inter, sans-serif"}}>
+                    <p className="text-center text-cream-vanilla/70" style={{fontFamily: "Inter, sans-serif"}}>
                         Notice how as time increases you grow more insane.
                     </p>
                     <div className="chart container flex w-full justify-center  ">
@@ -443,13 +443,13 @@ export default function HomePage() {
             </section>
  
             
-            <section className="w-full min-h-screen bg-cream-vanilla/50 p-20">
+            <section className="w-full min-h-screen bg-chocolate p-20">
                 <ScrollFadeIn>
-                <h2 className="text-text-espresso text-5xl text-center mb-12" style={{fontFamily: "Inter, sans-serif"}}>
+                <h2 className="text-cream-vanilla text-5xl text-center mb-12" style={{fontFamily: "Inter, sans-serif"}}>
                     {/*Beautiful Mockups Without the Learning Curve*/}
                     Skip The Design Tools
                 </h2>
-                <p className="text-coffee text-center text-xl mb-16" style={{fontFamily: "Inter, sans-serif"}}>
+                <p className="text-cream-vanilla text-center text-xl mb-16" style={{fontFamily: "Inter, sans-serif"}}>
                     No Figma. No Photoshop. No tutorials. <span className="text-pink-cherry text-xl" style={{fontFamily: "Inter, sans-serif"}}>Appstore ready screenshots in minutes.</span>
                 </p>
 
@@ -459,16 +459,16 @@ export default function HomePage() {
                     <div className="text-center">
 
                         <div className="flex items-center justify-center gap-2 mb-3">
-                            <div className="w-8 h-8 rounded-full bg-blue-cobalt text-white flex items-center justify-center font-bold" >
+                            <div className="w-8 h-8 rounded-full bg-blue-cobalt text-cream-vanilla flex items-center justify-center font-bold" >
                                 1
                             </div>
-                            <h3 className="text-espresso text-2xl font-semibold" style={{fontFamily: "Inter, sans-serif"}}>
+                            <h3 className="text-cream-vanilla text-2xl font-semibold" style={{fontFamily: "Inter, sans-serif"}}>
                                 Position Your Model
                                 {/*embed the phone controls without functionality? show the controls? */}
                             </h3>
                             
                         </div>
-                        <p className="text-coffee leading-relaxed" style={{fontFamily: "Inter, sans-serif"}}>
+                        <p className="text-cream-vanilla/60 leading-relaxed" style={{fontFamily: "Inter, sans-serif"}}>
                             Rotate, tilt, and position your device at the perfect angle using intuitive controls
                         </p>
                         {/* Graphics Here Phone being angled */}
@@ -478,15 +478,15 @@ export default function HomePage() {
                     <div className="text-center">
 
                         <div className="flex items-center justify-center gap-2 mb-3">
-                            <div className="w-8 h-8 rounded-full bg-blue-cobalt text-white flex items-center justify-center font-bold">
+                            <div className="w-8 h-8 rounded-full bg-blue-cobalt text-cream-vanilla flex items-center justify-center font-bold">
                                 2
                             </div>
-                            <h3 className="text-espresso text-2xl font-semibold" style={{fontFamily: "Inter, sans-serif"}}>
+                            <h3 className="text-cream-vanilla text-2xl font-semibold" style={{fontFamily: "Inter, sans-serif"}}>
                                 Style Your Scene
                                 {/*picture of a nice background with asset added? */}
                             </h3>
                         </div>
-                        <p className="text-coffee leading-relaxed" style={{fontFamily: "Inter, sans-serif"}}>
+                        <p className="text-cream-vanilla/60 leading-relaxed" style={{fontFamily: "Inter, sans-serif"}}>
                             Choose backgrounds, add lighting, and upload your app screenshots to create the perfect look
                         </p>
                         {/* Graphics Here Phone with Light an logo */}
@@ -499,12 +499,12 @@ export default function HomePage() {
                             <div className="w-8 h-8 rounded-full bg-blue-cobalt text-white flex items-center justify-center font-bold">
                                 3
                             </div>
-                            <h3 className="text-text-espresso text-2xl font-semibold">
+                            <h3 className="text-cream-vanilla text-2xl font-semibold">
                                 Easy Export
                                 {/*finished screenshot? */}
                             </h3>
                         </div>
-                        <p className="text-text-coffee leading-relaxed">
+                        <p className="text-cream-vanilla/60 leading-relaxed">
                             Download your professional mockup in high resolution, ready for the appstore
                         </p>
 
@@ -518,7 +518,7 @@ export default function HomePage() {
                     <div className=" overflow-hidden -mt-16 scale-140">
                         
                         <img 
-                            src="/backgroundHeroSweet.png" 
+                            src="/HomepageHero5.png" 
                             alt="Professional phone mockup with gradient background"
                             className="w-full"
                         />
@@ -537,9 +537,9 @@ export default function HomePage() {
 
             {/*Pricing */}
             
-            <section className="w-full min-h-screen bg-cream-vanilla/50 p-20">
+            <section className="w-full min-h-screen bg-chocolate p-20">
                 <ScrollFadeIn>
-                <h2 className="text-text-espresso text-5xl text-center mb-12 " style={{fontFamily: "Inter, sans-serif"}}>
+                <h2 className="text-cream-vanilla text-5xl text-center mb-12 " style={{fontFamily: "Inter, sans-serif"}}>
                     Pricing
                 </h2>
 
@@ -682,7 +682,7 @@ export default function HomePage() {
 
 
             {/* CTA Section */}
-            <section className="w-full h-screen bg-cream-vanilla/50">
+            <section className="w-full h-screen bg-chocolate">
                 <ScrollFadeIn >
                     <div className="w-full h-full flex flex-col">
 
