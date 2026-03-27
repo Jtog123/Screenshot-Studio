@@ -328,7 +328,7 @@ export default function HomePage() {
             <section className="flex w-full min-h-screen ">
                 
                 {/* Left Side - Content */}
-                <div className="flex leftSide justify-center items-center bg-cream-vanilla/50 w-1/2">
+                <div className="flex leftSide justify-center items-center bg-cream-vanilla/50 w-1/2 ">
                     <div className="flex flex-col w-4/5 max-w-2xl  relative">
                         <h1 className="text-mocha text-6xl mb-6 whitespace-nowrap overflow-hidden font-semibold truncate " style={{fontFamily: "Inter, sans-serif"}}>Dynamic Mock Ups</h1>
                         
@@ -417,22 +417,25 @@ export default function HomePage() {
             </ScrollFadeIn>
 
             
-            <section className="w-full flex justify-center bg-cream-vanilla/50 py-20">
+            <section className="w-full bg-cream-vanilla/50 py-20">
                 <ScrollFadeIn>
-                <h2 className="text-center text-mocha text-4xl mb-4 font-semibold" style={{fontFamily: "Inter, sans-serif"}}>
-                    The Mockup Frustration Index
-                </h2>
-                <p className="text-center text-mocha/70 text-xl mb-2" style={{fontFamily: "Inter, sans-serif"}}>
-                    Time spent vs Sanity lost
-                </p>
-                <p className="text-center text-mocha/70" style={{fontFamily: "Inter, sans-serif"}}>
-                    Notice how as time increases you grow more insane.
-                </p>
-                <div className="chart container flex w-[100%] justify-center ">
-                    {/* Create teh chart first then figure out how to fill it with data */}
-                    <IndexChart className=""/>
+                <div className="flex flex-col items-center">
+                    <h2 className="text-center text-mocha text-4xl mb-4 font-semibold" style={{fontFamily: "Inter, sans-serif"}}>
+                        The Mockup Frustration Index
+                    </h2>
+                    <p className="text-center text-mocha/70 text-xl mb-2" style={{fontFamily: "Inter, sans-serif"}}>
+                        Time spent vs Sanity lost
+                    </p>
+                    <p className="text-center text-mocha/70" style={{fontFamily: "Inter, sans-serif"}}>
+                        Notice how as time increases you grow more insane.
+                    </p>
+                    <div className="chart container flex w-full justify-center  ">
+                        {/* Create teh chart first then figure out how to fill it with data */}
+                        <IndexChart className=""/>
 
+                    </div>
                 </div>
+
 
                 </ScrollFadeIn>
                 
@@ -543,7 +546,7 @@ export default function HomePage() {
                 <div className="cardContainer grid place-items-center grid-cols-2 gap-8 max-w-6xl mx-auto">
 
                     <div className="card1 flex  justify-center gap-2  w-[90%] h-[500px]  rounded-xl">
-                        <div className="flex flex-col bg-stone-300 rounded-2xl p-8 shadow-lg w-full max-w-sm">
+                        <div className="flex flex-col bg-pink-bubblegum rounded-2xl p-8 shadow-lg w-full max-w-sm">
                             {/* Header */}
                             <h2 className="text-espresso text-2xl font-semibold mb-2" style={{fontFamily: "Inter, sans-serif"}}>
                                 Weekend Warrior
@@ -556,7 +559,7 @@ export default function HomePage() {
                             </div>
                             
                             {/* CTA Button */}
-                            <button className="w-full py-3 bg-pink-cherry hover:bg-pink-velvet text-white font-semibold rounded-xl transition-colors ease-in duration-100 mb-10" style={{fontFamily: "Inter, sans-serif"}}>
+                            <button className="w-full py-3 bg-pink-cherry transition-all ease-in duration-100 hover:bg-pink-frosting hover:text-espresso text-white font-semibold rounded-xl transition-colors mb-10 cursor-pointer" style={{fontFamily: "Inter, sans-serif"}}>
                                 Become the Warrior
                             </button>
                             
@@ -568,7 +571,7 @@ export default function HomePage() {
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                         </svg>
                                     </div>
-                                    <p className="text-coffee">One Time Payment, Mockups without the recurring costs.</p>
+                                    <p className="text-coffee">One Time Payment. No recurring costs.</p>
                                 </div>
 
                                 <div className="flex items-center gap-3">
@@ -577,7 +580,7 @@ export default function HomePage() {
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                         </svg>
                                     </div>
-                                    <p className="text-coffee">48 Hour Unlimited Platform Access.</p>
+                                    <p className="text-coffee">48 Hour Unlimited Platform Access</p>
                                 </div>
 
                                 <div className="flex items-center gap-3">
@@ -605,8 +608,8 @@ export default function HomePage() {
                         </div>
                     </div>
 
-                    <div className="card1 flex  justify-center gap-2  w-[90%] h-[500px]  rounded-xl">
-                        <div className="flex flex-col bg-stone-300 rounded-2xl p-8 shadow-lg w-full max-w-sm">
+                    <div className="card1 flex  justify-center gap-2  w-[90%] h-[500px] rounded-xl">
+                        <div className="flex flex-col bg-pink-bubblegum rounded-2xl p-8 shadow-lg w-full max-w-sm">
                             {/* Header */}
                             <h2 className="text-espresso text-2xl font-semibold mb-2">
                                 Monthly
@@ -614,13 +617,13 @@ export default function HomePage() {
                             
                             {/* Price */}
                             <div className="mb-8">
-                                <span className="text-text-espresso text-4xl font-bold">$13.99</span>
+                                <span className="text-black text-4xl font-bold">$13.99</span>
                                 <span className="text-text-coffee text-lg"> / month</span>
                             </div>
                             
                             {/* CTA Button */}
-                            <button className="w-full py-3 bg-pink-cherry hover:bg-orange-deep text-white font-semibold rounded-xl transition-colors mb-10">
-                                Become the Warrior
+                            <button className="w-full py-3 bg-pink-cherry transition-all ease-in duration-100 hover:bg-pink-frosting hover:text-espresso text-white font-semibold rounded-xl transition-colors mb-10 cursor-pointer">
+                                Support a Hungry Developer
                             </button>
                             
                             {/* Features */}
@@ -631,7 +634,7 @@ export default function HomePage() {
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                         </svg>
                                     </div>
-                                    <p className="text-coffee">One Time Payment, Mockups without the recurring costs.</p>
+                                    <p className="text-coffee">Best Value</p>
                                 </div>
 
                                 <div className="flex items-center gap-3">
@@ -640,7 +643,7 @@ export default function HomePage() {
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                         </svg>
                                     </div>
-                                    <p className="text-coffee">48 Hour Unlimited Platform Access.</p>
+                                    <p className="text-coffee">Unlimited Platform Access</p>
                                 </div>
 
                                 <div className="flex items-center gap-3">
@@ -679,23 +682,87 @@ export default function HomePage() {
 
 
             {/* CTA Section */}
-            <section className="w-full min-h-screen bg-blue-cobalt flex items-center justify-center ">
-                <ScrollFadeIn>
-                <div className="w-[100%] h-[100%] bg-blue-900 text-black">
-                    <div className="text-center h-[50%] w-[100%]">
-                        <h2 className="text-pink-cherry text-6xl mb-8">Ready to get started?</h2>
-                        <button className="bg-cream-vanilla text-pink-cherry px-12 py-6 rounded-xl text-2xl hover:bg-cream-vanilla transition-colors ">
-                            Start Creating
-                        </button>
+            <section className="w-full h-screen bg-cream-vanilla/50">
+                <ScrollFadeIn >
+                    <div className="w-full h-full flex flex-col">
+
+                        {/* CTA - Top Half */}
+                        <div className="flex-1 flex flex-col items-center justify-center text-center px-4">
+                            <h2 className="text-pink-cherry text-6xl mb-8 font-semibold">
+                                Ready To Finish Your App?
+                            </h2>
+                            <button className="bg-cream-vanilla text-pink-cherry px-12 py-6 rounded-xl text-2xl font-semibold hover:bg-pink-cherry hover:text-cream-vanilla transition-colors cursor-pointer">
+                                Let's Go
+                            </button>
+                        </div>
+
+                        {/* Footer - Bottom Half */}
+                        <div className="flex-1 bg-cream-vanilla/50 flex items-center justify-between px-16 border-black-1">
+                            
+                            {/* Logo - Left Side */}
+                            <div className="flex-shrink-0">
+                                {/* Your logo component here */}
+                                <div className="text-mocha text-3xl font-bold ml-20">
+                                    Logo
+                                </div>
+                            </div>
+
+                            {/* Connect & Contact Columns - Right Side */}
+                            <div className="flex gap-24  mr-20">
+                                
+                                {/* Connect Column */}
+                                <div className="flex flex-col">
+                                    <h3 className="text-mocha text-2xl font-semibold mb-6">
+                                        Connect
+                                    </h3>
+                                    <ul className="space-y-3">
+                                        <li>
+                                            <a href="#" className="text-mocha/70 hover:text-pink-cherry transition-colors">
+                                                Youtube
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" className="text-mocha/70 hover:text-pink-cherry transition-colors">
+                                                Instagram
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+                                {/* Contact Column */}
+                                <div className="flex flex-col">
+                                    <h3 className="text-mocha text-2xl font-semibold mb-6">
+                                        Contact
+                                    </h3>
+                                    <ul className="space-y-3">
+                                        <li>
+                                            <a href="mailto:hello@screenshotsweet.com" className="text-mocha/70 hover:text-pink-cherry transition-colors">
+                                                hello@screenshotsweet.com
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" className="text-mocha/70 hover:text-pink-cherry transition-colors">
+                                                Support
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" className="text-mocha/70 hover:text-pink-cherry transition-colors">
+                                                Privacy Policy
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" className="text-mocha/70 hover:text-pink-cherry transition-colors">
+                                                Terms of Service
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+
                     </div>
-
-                    {/*Footer */}
-                    <div className=" flex footer h-[50%] w-[100%] bg-yellow-600">
-                                dfvd
-                    </div>
-                </div>
-
-
                 </ScrollFadeIn>
             </section>
         </>
