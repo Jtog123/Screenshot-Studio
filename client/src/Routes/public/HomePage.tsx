@@ -325,7 +325,7 @@ export default function HomePage() {
             
             {/* Hero Section - Split Left/Right */}
             <ScrollFadeIn >
-            <section className="flex w-full min-h-screen bg-mocha">
+            <section className="flex w-full min-h-screen bg-chocolate">
                 
                 {/* Left Side - Content */}
                 <div className="flex leftSide justify-center items-center bg-chocolate w-1/2 ">

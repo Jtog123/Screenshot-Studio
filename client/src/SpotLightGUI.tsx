@@ -205,16 +205,16 @@ export default function SpotLightGUI({_lightID, _lightManager} : SpotLightGUIPro
         {
             <div style={{
                 transform: `translate(${guiPosition.x}px, ${guiPosition.y}px)`}}  
-                className="absolute rounded-xl right-[800px] top-[200px] min-w-[300px] min-h-[150px] max-w-[450px] overflow-auto bg-cream-vanilla pb-3 z-50 backdrop-blur-md border border-espresso shadow-[0_0_20px_rgba(120,113,108,0.3)] ring-1 ring-stone-700/50"
+                className="absolute rounded-xl right-[800px] top-[200px] min-w-[300px] min-h-[150px] max-w-[450px] overflow-auto bg-chocolate pb-3 z-50 backdrop-blur-md border border-espresso shadow-[0_0_20px_rgba(120,113,108,0.3)] ring-1 ring-stone-700/50"
                 >
-                <div onMouseDown={handleMouseDown} className="sticky top-0 flex items-center justify-between  cursor-move bg-blue-powder w-full py-2 px-4 z-10">
+                <div onMouseDown={handleMouseDown} className="sticky top-0 flex items-center justify-between  cursor-move bg-mocha w-full py-2 px-4 z-10">
                     <div className="titlebox ">
-                        <h1 className="text-espresso  text-base font-medium" style={{ fontFamily: 'lato' }} >
+                        <h1 className="text-cream-vanilla  text-base font-medium" style={{ fontFamily: 'lato' }} >
                             {(light?._lightHelper as _SpotLightHelper)._title}
                         </h1>
                     </div>
 
-                    <button onClick={handleGUIWindowClose}  className="transition-all ease-in duration-100 rounded-lg px-2 py-1 bg-stone-700 text-cream-vanilla text-sm hover:bg-red-600 hover:text-cream-light cursor-pointer">
+                    <button onClick={handleGUIWindowClose}  className="transition-all ease-in duration-100 rounded-lg px-2 py-1 bg-stone-600 text-cream-vanilla text-sm hover:bg-red-600 hover:text-cream-light cursor-pointer">
                          ✕
                     </button>
                 </div>
@@ -223,27 +223,27 @@ export default function SpotLightGUI({_lightID, _lightManager} : SpotLightGUIPro
                     {/* POSITION SECTION */}
                     <div className="border border-stone-700 rounded-lg overflow-hidden">
                         <button onClick={() => toggleSection('position')}
-                            className="w-full flex justify-between items-center px-3 py-2 bg-blue-powder hover:bg-blue-cobalt/30 text-espresso text-sm">
+                            className="w-full flex justify-between items-center px-3 py-2 bg-mocha hover:bg-espresso text-cream-vanilla text-sm">
                                 <span style={{ fontFamily: 'lato' }} >Position</span>
-                                <span>{expandedSections.position ?  <MenuKarrotIcon className="text-blue-cobalt w-[20px] h-[20px] rotate-180"/> : <MenuKarrotIcon className="text-blue-cobalt w-[20px] h-[20px]"/>}</span>
+                                <span>{expandedSections.position ?  <MenuKarrotIcon className="text-pink-cherry w-[20px] h-[20px] rotate-180"/> : <MenuKarrotIcon className="text-pink-cherry w-[20px] h-[20px]"/>}</span>
                         </button>
 
                         {expandedSections.position && (
-                            <div className="p-3 space-y-2 bg-cream-vanilla">
+                            <div className="p-3 space-y-2 bg-chocolate">
                                 <div className="grid grid-cols-1 gap-1">
                                     <div>
-                                        <label className="text-xs text-espresso" style={{ fontFamily: 'lato' }}  htmlFor="">X:</label>
-                                        <input onChange={(e) => handlePosSliderChange(e, "xPos")} className="w-full h-1 accent-[#4695E8]" type="range" min={"-10"} max={"10"}  value={lightPosition.x} step={"0.1"}/>
+                                        <label className="text-xs text-cream-vanilla" style={{ fontFamily: 'lato' }}  htmlFor="">X:</label>
+                                        <input onChange={(e) => handlePosSliderChange(e, "xPos")} className="w-full h-1 accent-[#7D5328]" type="range" min={"-10"} max={"10"}  value={lightPosition.x} step={"0.1"}/>
                                     </div>
 
                                     <div>
-                                        <label className="text-xs text-espresso" style={{ fontFamily: 'lato' }}  htmlFor="">Y:</label>
-                                        <input onChange={(e) => handlePosSliderChange(e, "yPos")} className="w-full h-1 accent-[#4695E8]" type="range" min={"-10"} max={"10"} value={lightPosition.y} step={"0.1"}/>
+                                        <label className="text-xs text-cream-vanilla" style={{ fontFamily: 'lato' }}  htmlFor="">Y:</label>
+                                        <input onChange={(e) => handlePosSliderChange(e, "yPos")} className="w-full h-1 accent-[#7D5328]" type="range" min={"-10"} max={"10"} value={lightPosition.y} step={"0.1"}/>
                                     </div>
 
                                     <div>
-                                        <label className="text-xs text-espresso" style={{ fontFamily: 'lato' }}  htmlFor="">Z:</label>
-                                        <input onChange={(e) => handlePosSliderChange(e, "zPos")} className="w-full h-1 accent-[##4695E8]" type="range" min={"-10"} max={"10"} value={lightPosition.z} step={"0.1"}/>
+                                        <label className="text-xs text-cream-vanilla" style={{ fontFamily: 'lato' }}  htmlFor="">Z:</label>
+                                        <input onChange={(e) => handlePosSliderChange(e, "zPos")} className="w-full h-1 accent-[#7D5328]" type="range" min={"-10"} max={"10"} value={lightPosition.z} step={"0.1"}/>
                                     </div>
 
                                 </div>
@@ -257,32 +257,32 @@ export default function SpotLightGUI({_lightID, _lightManager} : SpotLightGUIPro
                     <div className="border border-stone-700 rounded-lg overflow-hidden">
                         <button 
                             onClick={() => toggleSection('appearance')}
-                            className="w-full flex justify-between items-center px-3 py-2 bg-blue-powder hover:bg-blue-cobalt/30 text-espresso text-sm"
+                            className="w-full flex justify-between items-center px-3 py-2 bg-mocha hover:bg-espresso text-cream-vanilla text-sm"
                         >
                             <span style={{ fontFamily: 'lato' }} >Appearance</span>
-                            <span>{expandedSections.appearance ?  <MenuKarrotIcon className="text-blue-cobalt w-[20px] h-[20px] rotate-180"/> : <MenuKarrotIcon className="text-blue-cobalt w-[20px] h-[20px]"/>}</span>
+                            <span>{expandedSections.appearance ?  <MenuKarrotIcon className="text-pink-cherry w-[20px] h-[20px] rotate-180"/> : <MenuKarrotIcon className="text-pink-cherry w-[20px] h-[20px]"/>}</span>
                         </button>
 
                         {expandedSections.appearance && (
-                            <div className="p-3 space-y-3 bg-cream-vanilla">
+                            <div className="p-3 space-y-3 bg-chocolate">
                                 <div className="grid grid-cols-1 gap-3 ">
 
                                     <div className="flex items-center gap-2">
-                                        <label className="text-xs text-espresso pr-5" style={{ fontFamily: 'lato' }}  htmlFor="">Light Color: </label>
+                                        <label className="text-xs text-cream-vanilla pr-5" style={{ fontFamily: 'lato' }}  htmlFor="">Light Color: </label>
                                         <input onChange={handleLightColorChange} type="color" value={lightColor} />
 
                                     </div>
 
                                     <div>
                                     {/* DIAMETER */}
-                                        <label className="text-xs text-espresso" style={{ fontFamily: 'lato' }}  htmlFor="">Diameter:</label>
-                                        <input onChange={(e) => handleLightDiameterChange(e)} className="h-1 w-full accent-[#4695E8]" type="range" min={"0.1"} max={"0.720"} value={lightDiameter} step={"0.01"}/>
+                                        <label className="text-xs text-cream-vanilla" style={{ fontFamily: 'lato' }}  htmlFor="">Diameter:</label>
+                                        <input onChange={(e) => handleLightDiameterChange(e)} className="h-1 w-full accent-[#7D5328]" type="range" min={"0.1"} max={"0.720"} value={lightDiameter} step={"0.01"}/>
                                     </div>
 
                                     <div>
                                     {/* INTNESITY */}
-                                        <label className="text-xs text-espresso" style={{ fontFamily: 'lato' }}  htmlFor="">Intensity:</label>
-                                        <input onChange={(e) => handleLightIntensityChange(e)} className="h-1 w-full accent-[#4695E8]" type="range" min={"0"} max={"50"} value={lightIntensity} step={"0.1"}/>
+                                        <label className="text-xs text-cream-vanilla" style={{ fontFamily: 'lato' }}  htmlFor="">Intensity:</label>
+                                        <input onChange={(e) => handleLightIntensityChange(e)} className="h-1 w-full accent-[#7D5328]" type="range" min={"0"} max={"50"} value={lightIntensity} step={"0.1"}/>
                                     </div>
 
                                     

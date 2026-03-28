@@ -27,7 +27,7 @@ export default function ScrollFadeIn({ children }: LayoutProps) {
     }, []);
 
     return (
-        <div ref={ref} className="opacity-0 w-full h-full">
+        <div ref={ref} className="opacity-0 w-full h-full ">
             {children}
         </div>
     );
