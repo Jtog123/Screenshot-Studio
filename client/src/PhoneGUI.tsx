@@ -300,21 +300,21 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio}:Phone
 // fixed flex flex-col left-[calc(100vw/2)] z-22 transform translate-x-[-175%] translate-y-[-5%] overflow-hidden w-1/4 bg-stone-950 rounded-xl bottom-0 z-2 px-4 pb-3 pt-2 backdrop-blur-md border-2 border-stone-600 shadow-[0_0_20px_rgba(120,113,108,0.3),0_0_0_4px_rgba(28,25,23,1),0_0_0_5px_rgba(168,162,158,0.5)] ring-1 ring-stone-700/50 transition-all duration-500 ease-in-out"
     return(
         <>
-            <div className="fixed flex flex-col left-0 z-19 transform translate-x-[1.1%] translate-y-[-1.8%] overflow-hidden w-1/4 bg-cream-vanilla rounded-xl bottom-0 z-2 backdrop-blur-md border-2 border-pink-cherry/50 shadow-[0_0_20px_rgba(229,196,133,0.15),0_0_0_4px_rgba(125,83,40,1),0_0_0_5px_rgba(229,196,133,0.35)] ring-1 ring-pink-cherry/50 transition-all duration-500 ease-in-out">
+            <div className="fixed flex flex-col left-0 z-19 transform translate-x-[1.1%] translate-y-[-1.8%] overflow-hidden w-1/4 bg-chocolate rounded-xl bottom-0 z-2 backdrop-blur-md border-2 border-pink-cherry/50 shadow-[0_0_20px_rgba(229,196,133,0.15),0_0_0_4px_rgba(125,83,40,1),0_0_0_5px_rgba(229,196,133,0.35)] ring-1 ring-pink-cherry/50 transition-all duration-500 ease-in-out">
 
-                <div className="px-4 pb-2 w-[full] bg-blue-powder ">
+                <div className="px-4 pb-2 w-[full] bg-coffee/80 ">
                     <div className=" flex wrapperDiv w-full mt-2 h-1/6 ">
                         <div className=" flex titleDiv w-[100%] h-1/6 top-0  justify-between rounded-xl ">
-                            <h1 className="text-espresso text-base font-medium" style={{ fontFamily: 'lato' }}>
+                            <h1 className="text-cream-vanilla text-base font-medium" style={{ fontFamily: 'lato' }}>
                                 Phone Rotation
                             </h1>
-                            <button onClick={handlePhoneGuiToggle} className=" flex  justify-center items-center h-[24px] w-[34px] transition-all duration-100 ease-in bg-blue-cobalt/40 hover:bg-blue-cobalt/90 hover:text-cream-light px-1 rounded-xl cursor-pointer text-base font-medium group ">
+                            <button onClick={handlePhoneGuiToggle} className=" flex  justify-center items-center h-[24px] w-[34px] transition-all duration-100 ease-in bg-mocha hover:bg-espresso hover:text-cream-light px-1 rounded-xl cursor-pointer text-base font-medium group ">
                                 {isPhoneGuiOpen ? 
                                 <>                                
-                                    <EyeOpenIcon className='text-espresso group-hover:hidden'/> 
-                                    <EyeMidIcon className='text-cream-dark hidden group-hover:block'/>
+                                    <EyeOpenIcon className='text-cream-vanilla group-hover:hidden'/> 
+                                    <EyeMidIcon className='text-cream-vanilla hidden group-hover:block'/>
                                 </>
-                                : <EyeClosedIcon className="text-cream-dark"/>}
+                                : <EyeClosedIcon className="text-cream-vanilla"/>}
                             </button>
 
                         </div>
@@ -330,29 +330,29 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio}:Phone
                     isPhoneGuiOpen ? 'grid-rows-[1fr]': 'grid-rows-[0fr]'
                 }`}>
                     <div className="overflow-hidden flex flex-col ">
-                        <label className="text-sm text-espresso pt-1 mt-1 " style={{ fontFamily: 'lato' }} htmlFor="">X: </label>
+                        <label className="text-sm text-cream-vanilla pt-1 mt-1 " style={{ fontFamily: 'lato' }} htmlFor="">X: </label>
                         <div className="flex justify-between justify-center items-center">
-                            <input className='w-[95%] mr-2 h-1 accent-[#4695E8]' onChange={(e) => handlePhoneRotation(e, "xRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.x} step="0.01" />
-                            <button onClick={(e) => handleControlsReset(e, "xReset")} className='flex justify-center items-center bg-blue-powder/80 hover:bg-blue-cobalt/80  text-espresso hover:text-cream-light transition-all duration-200  h-[24px] w-[40px]   rounded-4xl ] cursor-pointer group'>
+                            <input className='w-[95%] mr-2 h-1 accent-[#7D5328]' onChange={(e) => handlePhoneRotation(e, "xRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.x} step="0.01" />
+                            <button onClick={(e) => handleControlsReset(e, "xReset")} className='flex justify-center items-center bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-blue-frost transition-all duration-200  h-[24px] w-[40px]   rounded-4xl ] cursor-pointer group'>
                                 <RefreshStartIcon className="transition-transform duration-300 group-hover:-rotate-90" />
                             </button>
                         </div>
 
 
-                        <label className="text-sm text-espresso pt-1 " style={{ fontFamily: 'lato' }} htmlFor="">Y: </label>
+                        <label className="text-sm text-cream-vanilla pt-1 " style={{ fontFamily: 'lato' }} htmlFor="">Y: </label>
                         <div className="flex justify-between justify-center items-center">
-                            <input className='w-[95%] mr-2 h-1 accent-[#4695E8]'  onChange={(e) => handlePhoneRotation(e, "yRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.y} step="0.01"/>
-                            <button onClick={(e) => handleControlsReset(e, "yReset")} className='flex justify-center items-center bg-blue-powder/80 hover:bg-blue-cobalt/80  text-espresso hover:text-cream-light transition-all duration-200   rounded-4xl h-[24px] w-[40px] cursor-pointer group'>
+                            <input className='w-[95%] mr-2 h-1 accent-[#7D5328]'  onChange={(e) => handlePhoneRotation(e, "yRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.y} step="0.01"/>
+                            <button onClick={(e) => handleControlsReset(e, "yReset")} className='flex justify-center items-center bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-blue-frost transition-all duration-200   rounded-4xl h-[24px] w-[40px] cursor-pointer group'>
                                 <RefreshStartIcon className="transition-transform duration-300 group-hover:-rotate-90" />
                             </button>
                         </div>
 
 
-                        <label className="text-sm text-espresso pt-1" style={{ fontFamily: 'lato' }} htmlFor="">Z: </label>
+                        <label className="text-sm text-cream-vanilla pt-1" style={{ fontFamily: 'lato' }} htmlFor="">Z: </label>
                         <div className="flex justify-between justify-center items-center">
-                            <input className='w-[95%] mr-2 h-1 accent-[#4695E8]' onChange={(e) => handlePhoneRotation(e, "zRot")} type="range" min={"-1.57"} max={"1.57"} value={phoneRotation.z} step="0.01"/>
+                            <input className='w-[95%] mr-2 h-1 accent-[#7D5328]' onChange={(e) => handlePhoneRotation(e, "zRot")} type="range" min={"-1.57"} max={"1.57"} value={phoneRotation.z} step="0.01"/>
                             
-                            <button onClick={(e) => handleControlsReset(e, "zReset")} className='flex justify-center items-center bg-blue-powder/80 hover:bg-blue-cobalt/80  text-espresso hover:text-cream-light  transition-all duration-200  rounded-4xl h-[24px] w-[40px] cursor-pointer group'>
+                            <button onClick={(e) => handleControlsReset(e, "zReset")} className='flex justify-center items-center bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-blue-frost transition-all duration-200  rounded-4xl h-[24px] w-[40px] cursor-pointer group'>
 
                                 <RefreshStartIcon className="transition-transform duration-300 group-hover:-rotate-90" />
 
@@ -379,8 +379,8 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio}:Phone
                 {/* PRESET */}
                 <div className="flex items-center w-[100%] justify-between pt-2 mt-1 ">
                     <div className='flex items-center w-[70%] ml-4   '>
-                        <label className='text-md text-espresso mr-5 ' style={{ fontFamily: 'lato' }} htmlFor="">Presets</label>
-                        <select value={selectedValue} onChange={handlePhonePresetsChange} className="w-[50%] h-[30px] px-1  text-espresso text-sm rounded-md bg-blue-powder/80  cursor-pointer">
+                        <label className='text-md text-cream-vanilla mr-5 ' style={{ fontFamily: 'lato' }} htmlFor="">Presets</label>
+                        <select value={selectedValue} onChange={handlePhonePresetsChange} className="w-[50%] h-[30px] px-1  text-cream-vanilla text-sm rounded-md bg-mocha  cursor-pointer">
                         
                             <option value="-45">-45°</option>
                             <option value="-30">-30°</option>
