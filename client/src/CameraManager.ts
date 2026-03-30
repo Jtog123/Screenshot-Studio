@@ -10,7 +10,8 @@ class CameraManager {
     private setCapturedImages :  React.Dispatch<React.SetStateAction<
     CapturedImage[]>>;
     private setImageCaptured : React.Dispatch<React.SetStateAction<boolean>>;
-    private _grid : Grid
+    private _grid : Grid;
+    
 
 
     //private _renderer : THREE.WebGLRenderer
@@ -43,6 +44,14 @@ class CameraManager {
     Dispose/destroy the temporary renderer and canvas
     Your main renderer/canvas never changes - user sees nothing
     */
+
+    public determineBackgroundSettings(aspectRatio: AspectRatio, isBackgroundTransparent: boolean) : void {
+        if(isBackgroundTransparent) {
+            this.captureTransparentImage(aspectRatio);
+        } else {
+            this.captureImage(aspectRatio);
+        }
+    }
 
     public captureTransparentImage(aspectRatio: AspectRatio) : void {
         // assigns false if the lhs is null or undefined, toggles off all light geometry
@@ -131,7 +140,7 @@ class CameraManager {
             //this._camera.updateProjectionMatrix();
         }, 50);
 
-        //this._scene.background = originalBackground;
+        this._scene.background = originalBackground;
 
 
         //restpre helper visiblity

@@ -24,9 +24,11 @@ interface PhoneGUIProps {
     phoneModel : THREE.Group
     _cameraManager: CameraManager
     aspectRatio : AspectRatio
+    isBackgroundTransparent : boolean
+    setIsBackgroundTransparent : React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio}:PhoneGUIProps) {
+export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio, isBackgroundTransparent, setIsBackgroundTransparent}:PhoneGUIProps) {
 
     //const[yRotPreset, setYRotPreset] = useState(0);
 
@@ -228,9 +230,11 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio}:Phone
         */
 
     function handleImageCapture() : void {
-        console.log("Capturing the image");
+        console.log("background is transparent:", isBackgroundTransparent);
+        _cameraManager.determineBackgroundSettings(aspectRatio, isBackgroundTransparent);
+
         //_cameraManager.captureImage(aspectRatio);
-        _cameraManager.captureHomepageImage();
+        //_cameraManager.captureHomepageImage();
     }
 
     function handlePhonePresetsChange(e: React.ChangeEvent<HTMLSelectElement>) : void {
@@ -372,12 +376,11 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio}:Phone
                 
                 </div>
 
-                
-                <div className='flex w-[100%] justify-center items-center'>
 
-                </div>
+
+
                 {/* PRESET */}
-                <div className="flex items-center w-[100%] justify-between pt-2 mt-1 ">
+                <div className="flex items-center w-[100%] justify-between   ">
                     <div className='flex items-center w-[70%] ml-4   '>
                         <label className='text-md text-cream-vanilla mr-5 ' style={{ fontFamily: 'lato' }} htmlFor="">Presets</label>
                         <select value={selectedValue} onChange={handlePhonePresetsChange} className="w-[50%] h-[30px] px-1  text-cream-vanilla text-sm rounded-md bg-mocha  cursor-pointer">
@@ -404,6 +407,16 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio}:Phone
                     </div>
 
                 </div>
+
+                <div className='flex juxtify-start w-[100%] items-center mb-1 '>
+                    <div className='ml-4'>
+                        <h1 className='text-sm text-cream-vanilla  mr-3'>Remove Background (Exports)</h1>
+                    </div>
+                    <input type="checkbox" checked={isBackgroundTransparent} onChange={() => setIsBackgroundTransparent(!isBackgroundTransparent)}className='bg-red-400' name="" id="" />
+                    
+                </div>
+
+
 
                 {/* <EyeOpenIcon className='text-stone-300 group-hover:hidden'/> 
                                     <EyeMidIcon className='text-stone-300 hidden group-hover:block'/> */}

@@ -58,10 +58,11 @@ export default function Editor() {
   const [renderer, setRenderer] = useState<THREE.WebGLRenderer | null>(null);
   const [phone, setPhoneModel] = useState<THREE.Group | null>(null);
   const [isSceneReady, setIsSceneReady] = useState(false);
+  const [isBackgroundTransparent, setIsBackgroundTransparent] = useState(false);
 
 
-  
-  
+  //toggling background renders needs to live in editor because it nees to passed to both phonegui, and camera manager
+
 
   //const phoneRef = useRef<THREE.Group | null>(null);
   const [gradientBackground , setGradientBackground] = useState<GradientBackground | null>(null);
@@ -415,7 +416,7 @@ export default function Editor() {
     <>
       
 
-      {isSceneReady && phone && cameraManager && <PhoneGUI phoneModel={phone} _cameraManager={cameraManager} aspectRatio={aspectRatio}/>}
+      {isSceneReady && phone && cameraManager && <PhoneGUI phoneModel={phone} _cameraManager={cameraManager} aspectRatio={aspectRatio} isBackgroundTransparent={isBackgroundTransparent} setIsBackgroundTransparent={setIsBackgroundTransparent}/>}
 
       <AspectRatioInfo/>
 
