@@ -6,6 +6,7 @@ import session from "express-session"
 import pg from "pg"
 import passport from "passport"
 import GoogleStrategy  from "passport-google-oauth20"
+import Stripe from "stripe"
 
 
 //import UserModel from "../../dataModels/UserModel"
@@ -28,6 +29,11 @@ type AppUser = {
 }
 
 require('dotenv').config({path:"../.env"});
+
+const stripe = new Stripe(process.env.STRIPE_S_KEY!, {
+    apiVersion: "2026-03-25.dahlia",
+
+});
 
 const {Pool} = pg
 
@@ -226,20 +232,31 @@ router.get("/api/userdata", async function (req, res) {
 
         const result = await pool.query(
             `
-            SELECT last_export, subscription_type
+            SELECT 
+                email,
+                display_name,
+                subscription_type,
+                export_count,
+                last_export
             FROM users
             WHERE google_id = $1
             `, [user.google_id]
         );
 
+        const userEmail = result.rows[0].email;
+        const userDisplayName = result.rows[0].display_name;
         const userSubscriptionType = result.rows[0].subscription_type;
+        const userExportCount = result.rows[0].export_count;
         const lastExport = result.rows[0].last_export;
         //console.log(lastExport);
 
        // const canTakeMoreScreenShots = 
 
         res.json({
+            user_email : userEmail,
+            user_display_name : userDisplayName,
             subscription_type : userSubscriptionType,
+            export_count : userExportCount,
             last_export : lastExport
         });
 
@@ -302,6 +319,61 @@ router.post("/auth/logout", function(req, res, next){
         res.json({success:true, message: "Logged Out"});
     })
 });
+
+
+//Stripe Routes
+router.post("/api/create-checkout-session", async function(req, res) {
+    //console.log(req.headers);
+
+    try {
+        const {plan} = req.body;
+        let priceData;
+        let mode : "payment" | "subscription";
+        console.log("Plan is: ", plan);
+
+        if(plan === "weekend") {
+            mode = "payment";
+            priceData = {
+                currency: "usd",
+                unit_amount:599,
+                product_data: {
+                    name: "Weekend Warrior Pass",
+                    description: "48-hour unlimited access"
+                }
+            }
+        } else {
+            mode = "subscription";
+            priceData = {
+                currency: "usd",
+                unit_amount : 1399,
+                product_data: {
+                    name: "Monthly Pass",
+                    description: "Unlimited access"
+                }
+            }
+        }
+
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ["card"],
+            mode: mode,
+            line_items: [{
+                price_data: priceData,
+                quantity:1
+            }],
+            success_url: "http://localhost:5173/editor",
+            cancel_url: "http://localhost:5173/"
+
+        });
+
+        res.json({url: session.url})
+    } catch(err) {
+        console.error("Stripe session:", err);
+        res.status(500).json();
+    }
+    
+
+    
+})
 
 
 //creates base route, if we had a router.get("/editor"), route will be /editor
