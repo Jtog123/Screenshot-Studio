@@ -52,6 +52,47 @@ export default function HomePage() {
         }
             */
 
+    }
+
+
+
+    async function handleWeekendWarriorStripeRedirect() : Promise<void> {
+
+        try {
+
+            // Make sure users logged into google
+            const authCheck = await fetch("http://localhost:5050/auth/google/me", {
+                credentials: "include"
+            });
+
+            if(!authCheck.ok) {
+                //user not signed in, sign them in
+                localStorage.setItem("return_to", "checkout_weekend");
+                window.location.href = "http://localhost:5050/auth/google/";
+                return;
+            }
+
+
+            //user is signed in send them to stripe
+            const response = await fetch("http://localhost:5050/api/create-checkout-session", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({plan: "weekend"}),
+                credentials: "include"
+            });
+
+            const {url} = await response.json();
+            console.log("url is: ", url);
+
+            //redirect user to stripe backends for payment
+            window.location.href = url;
+
+        } catch(err) {
+            console.error(err);
+        }
+
 
 
     }
@@ -554,12 +595,12 @@ export default function HomePage() {
                             
                             {/* Price */}
                             <div className="mb-8">
-                                <span className="text-text-espresso text-4xl font-bold" style={{fontFamily: "Inter, sans-serif"}}>$4.99</span>
+                                <span className="text-text-espresso text-4xl font-bold" style={{fontFamily: "Inter, sans-serif"}}>$5.99</span>
                                 <span className="text-text-coffee text-lg" style={{fontFamily: "Inter, sans-serif"}}> / 2 day pass</span>
                             </div>
                             
                             {/* CTA Button */}
-                            <button className="w-full py-3 bg-pink-cherry transition-all ease-in duration-100 hover:bg-pink-frosting hover:text-espresso text-white font-semibold rounded-xl transition-colors mb-10 cursor-pointer" style={{fontFamily: "Inter, sans-serif"}}>
+                            <button onClick={handleWeekendWarriorStripeRedirect} className="w-full py-3 bg-pink-cherry transition-all ease-in duration-100 hover:bg-pink-frosting hover:text-espresso text-white font-semibold rounded-xl transition-colors mb-10 cursor-pointer" style={{fontFamily: "Inter, sans-serif"}}>
                                 Become the Warrior
                             </button>
                             

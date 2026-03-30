@@ -71,7 +71,7 @@ export default function ToolbarFooter({isToolbarToggled, setToolbarToggled, appU
                             <span className="text-cream-vanilla text-sm">
                                 {appUser.display_name}
                             </span>
-                            <span className="text-xs text-cream-vanilla/80 text-end">
+                            <span className="text-xs text-cream-vanilla/80 text-start">
                             
                             {userSubscriptionPlan} plan 
                             </span>

@@ -103,6 +103,28 @@ export default function Editor() {
 
   //const[fontsLoaded, setFontsLoaded] = useState(false);
 
+  useEffect(() => {
+    const returnTo = localStorage.getItem("return_to");
+
+    if(returnTo === "checkout_weekend") {
+      localStorage.removeItem("return_to");
+
+      fetch("http://localhost:5050/api/create-checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify({plan: "weekend"})
+      })
+      .then(res => res.json())
+      .then(data => {
+        window.location.href = data.url;
+      })
+
+    }
+  }, []);
+
 
 
   function addTextComponent() : void {
