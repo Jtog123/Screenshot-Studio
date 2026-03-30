@@ -8,6 +8,7 @@ import IndexChart from "../../IconAssets/IndexChart";
 import YourAppHere from "../../IconAssets/YourAppHere";
 import ArrowPoint from "../../IconAssets/ArrowPoint";
 import AppAndArrow from "../../IconAssets/AppAndArrow";
+import OfficialLogo from "../../IconAssets/OfficialLogo";
 
 
 export default function HomePage() {
@@ -738,13 +739,13 @@ export default function HomePage() {
                         </div>
 
                         {/* Footer - Bottom Half */}
-                        <div className="flex-1 bg-cream-vanilla/50 flex items-center justify-between px-16 border-black-1">
+                        <div className="flex-1 bg-chocolate flex items-center justify-between px-16 border-black-1">
                             
                             {/* Logo - Left Side */}
                             <div className="flex-shrink-0">
                                 {/* Your logo component here */}
-                                <div className="text-mocha text-3xl font-bold ml-20">
-                                    Logo
+                                <div className="text-cream-vanilla text-3xl font-bold ml-20">
+                                    <OfficialLogo className="h-20 w-20 opacity-70" />
                                 </div>
                             </div>
 
@@ -753,17 +754,17 @@ export default function HomePage() {
                                 
                                 {/* Connect Column */}
                                 <div className="flex flex-col">
-                                    <h3 className="text-mocha text-2xl font-semibold mb-6">
+                                    <h3 className="text-cream-vanilla text-2xl font-semibold mb-6">
                                         Connect
                                     </h3>
                                     <ul className="space-y-3">
                                         <li>
-                                            <a href="#" className="text-mocha/70 hover:text-pink-cherry transition-colors">
+                                            <a href="#" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
                                                 Youtube
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#" className="text-mocha/70 hover:text-pink-cherry transition-colors">
+                                            <a href="#" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
                                                 Instagram
                                             </a>
                                         </li>
@@ -773,27 +774,27 @@ export default function HomePage() {
 
                                 {/* Contact Column */}
                                 <div className="flex flex-col">
-                                    <h3 className="text-mocha text-2xl font-semibold mb-6">
+                                    <h3 className="text-cream-vanilla text-2xl font-semibold mb-6">
                                         Contact
                                     </h3>
                                     <ul className="space-y-3">
                                         <li>
-                                            <a href="mailto:hello@screenshotsweet.com" className="text-mocha/70 hover:text-pink-cherry transition-colors">
+                                            <a href="mailto:hello@screenshotsweet.com" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
                                                 hello@screenshotsweet.com
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#" className="text-mocha/70 hover:text-pink-cherry transition-colors">
+                                            <a href="#" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
                                                 Support
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#" className="text-mocha/70 hover:text-pink-cherry transition-colors">
+                                            <a href="#" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
                                                 Privacy Policy
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#" className="text-mocha/70 hover:text-pink-cherry transition-colors">
+                                            <a href="#" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
                                                 Terms of Service
                                             </a>
                                         </li>

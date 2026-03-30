@@ -50,7 +50,7 @@ export default function ToolbarFooter({isToolbarToggled, setToolbarToggled, appU
 
     return (
         <div className= {
-            isToolbarToggled ? `flex   transition-all ease-in duration-100 w-full items-center justify-center [7%] bg-coffee/80 py-2 hover:bg-blue-cobalt/60 cursor-pointer` : `flex justify-end  transition-all ease-in duration-100  w-full items-center justify-between h-[7%] bg-coffee/80 px-4 hover:bg-blue-cobalt cursor-pointer`
+            isToolbarToggled ? `flex   transition-all ease-in duration-100 w-full items-center justify-center [7%] bg-coffee/80 py-2 hover:bg-espresso cursor-pointer` : `flex justify-end  transition-all ease-in duration-100  w-full items-center justify-between h-[7%] bg-coffee/80 px-4 hover:bg-espresso cursor-pointer`
             } onClick={handleFooterMenu}>
 
             {/*{!isToolbarToggled && <OfficialLogo className="h-14 w-14"/>}*/}

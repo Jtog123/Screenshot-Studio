@@ -3,7 +3,7 @@ import { JSX } from 'react'
 import * as THREE from 'three'
 import ToolbarHeader from './ToolbarHeader'
 import ToolbarBackgroundColor from './ToolbarBackgroundColor'
-import ToolBarPanelTab from './ToolbarPanelTab'
+
 import ToolbarLightCatalog from './ToolbarLightCatalog'
 import ToolbarActiveComponents from './ToolbarActiveComponents'
 import DirectionalLightGUI from './DirectionalLightGUI'
