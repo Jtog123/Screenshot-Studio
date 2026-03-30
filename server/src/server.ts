@@ -201,6 +201,7 @@ router.get("/auth/google", passport.authenticate("google", {scope: ["https://www
 
 router.get("/auth/google/cb", passport.authenticate("google", {failureRedirect: "/auth/failure"}), (req, res) => {
     res.redirect("http://localhost:5173/editor");
+
     
 })
 
@@ -326,6 +327,12 @@ router.post("/api/create-checkout-session", async function(req, res) {
     //console.log(req.headers);
 
     try {
+
+        if(!req.user) {
+            return res.status(401).json({error:"Not authenticated"});
+        }
+
+        const user = req.user as any;
         const {plan} = req.body;
         let priceData;
         let mode : "payment" | "subscription";
@@ -360,6 +367,12 @@ router.post("/api/create-checkout-session", async function(req, res) {
                 price_data: priceData,
                 quantity:1
             }],
+            customer_email: user.email,
+            client_reference_id: user.google_id,
+            metadata: {
+                google_id: user.google_id,
+                plan: plan
+            },
             success_url: "http://localhost:5173/editor",
             cancel_url: "http://localhost:5173/"
 
