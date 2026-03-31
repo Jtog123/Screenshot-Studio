@@ -397,7 +397,7 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio, isBac
 
                     {/*<button onClick={handleControlsReset} className="text-stone-200 h-[1/6] w-[20%] bg-stone-700/30 px-1 mt-3 rounded-xl ">Reset</button>*/}
                     {/*<CameraButton cameraManager={_cameraManager}/>*/}
-                    <div className='w-[20%] flex justify-end  mr-3 items-center   '>
+                    <div className='w-[20%] flex justify-end  mr-3 my-1 items-center   '>
                         <button onClick={handleImageCapture} className="rounded-xl bg-pink-cherry  hover:bg-pink-candy cursor-pointer mb-2 group transition-colors duration-100 mr-0.5">
                             <CameraIcon className='text-cream-vanialla/70 h-[40px] w-[40px] group-hover:hidden' />
                             <CameraHoverIcon className='text-espresso/70 h-[40px] w-[40px]  hidden group-hover:block  group-hover:scale-110 
@@ -413,6 +413,8 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio, isBac
                         <h1 className='text-sm text-cream-vanilla  mr-3'>Remove Background (Exports)</h1>
                     </div>
                     <input type="checkbox" checked={isBackgroundTransparent} onChange={() => setIsBackgroundTransparent(!isBackgroundTransparent)}className='bg-red-400' name="" id="" />
+
+
                     
                 </div>
 
