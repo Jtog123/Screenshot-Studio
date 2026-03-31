@@ -121,8 +121,24 @@ export default function Editor() {
       .then(res => res.json())
       .then(data => {
         window.location.href = data.url;
-      })
+      });
 
+    } 
+    else if (returnTo === "checkout_monthly") {
+      localStorage.removeItem("return_to");
+
+      fetch("http://localhost:5050/api/create-checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify({plan:"monthly"})
+      })
+      .then(res => res.json())
+      .then(data => {
+        window.location.href = data.url
+      });
     }
   }, []);
 

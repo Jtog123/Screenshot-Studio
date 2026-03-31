@@ -10,6 +10,7 @@ import ArrowPoint from "../../IconAssets/ArrowPoint";
 import AppAndArrow from "../../IconAssets/AppAndArrow";
 import OfficialLogo from "../../IconAssets/OfficialLogo";
 import SuccessPage from "../protected/PurchaseSuccessPage";
+import LoadingPage from "../../LoadingPage";
 
 
 export default function HomePage() {
@@ -32,6 +33,8 @@ export default function HomePage() {
     const [activeTextureID, setActiveTextureID] = useState<string | null>("1");
 
     const [homeScreenTextures, setHomeScreenTextures] = useState<any[]>([]);
+
+    const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
 
     //const loader = new THREE.TextureLoader();
 
@@ -56,11 +59,18 @@ export default function HomePage() {
 
     }
 
+    function handleLetsGoButton() : void {
+        window.location.href = "http://localhost:5050/auth/google";
+    }
+
 
 
     async function handleWeekendWarriorStripeRedirect() : Promise<void> {
 
+        
+
         try {
+            setIsCheckoutLoading(true);
 
             // Make sure users logged into google
             const authCheck = await fetch("http://localhost:5050/auth/google/me", {
@@ -92,11 +102,52 @@ export default function HomePage() {
             window.location.href = url;
 
         } catch(err) {
+            setIsCheckoutLoading(false);
             console.error(err);
         }
 
 
 
+    }
+
+    async function handleMonthlyStripeRedirect() : Promise<void> {
+        try {
+
+            setIsCheckoutLoading(true);
+
+            // Make sure users logged into google
+            const authCheck = await fetch("http://localhost:5050/auth/google/me", {
+                credentials: "include"
+            });
+
+            if(!authCheck.ok) {
+                //user not signed in, sign them in
+                localStorage.setItem("return_to", "checkout_monthly");
+                window.location.href = "http://localhost:5050/auth/google/";
+                return;
+            }
+
+
+            //user is signed in send them to stripe
+            const response = await fetch("http://localhost:5050/api/create-checkout-session", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({plan: "monthly"}),
+                credentials: "include"
+            });
+
+            const {url} = await response.json();
+            console.log("url is: ", url);
+
+            //redirect user to stripe backends for payment
+            window.location.href = url;
+
+        } catch(err) {
+            setIsCheckoutLoading(false);
+            console.error(err);
+        }
     }
 
 
@@ -367,6 +418,8 @@ export default function HomePage() {
             
             <NavigationBar />
 
+            {isCheckoutLoading && <LoadingPage/>}
+
             
             
             {/* Hero Section - Split Left/Right */}
@@ -605,7 +658,7 @@ export default function HomePage() {
                             </div>
                             
                             {/* CTA Button */}
-                            <button onClick={handleWeekendWarriorStripeRedirect} className="w-full py-3 bg-pink-cherry transition-all ease-in duration-100 hover:bg-pink-frosting hover:text-espresso text-white font-semibold rounded-xl transition-colors mb-10 cursor-pointer" style={{fontFamily: "Inter, sans-serif"}}>
+                            <button disabled={isCheckoutLoading} onClick={handleWeekendWarriorStripeRedirect} className="w-full py-3 bg-pink-cherry transition-all ease-in duration-100 hover:bg-pink-frosting hover:text-espresso text-white font-semibold rounded-xl transition-colors mb-10 cursor-pointer" style={{fontFamily: "Inter, sans-serif"}}>
                                 Become the Warrior
                             </button>
                             
@@ -668,7 +721,7 @@ export default function HomePage() {
                             </div>
                             
                             {/* CTA Button */}
-                            <button className="w-full py-3 bg-pink-cherry transition-all ease-in duration-100 hover:bg-pink-frosting hover:text-espresso text-white font-semibold rounded-xl transition-colors mb-10 cursor-pointer">
+                            <button onClick={handleMonthlyStripeRedirect} disabled={isCheckoutLoading} className="w-full py-3 bg-pink-cherry transition-all ease-in duration-100 hover:bg-pink-frosting hover:text-espresso text-white font-semibold rounded-xl transition-colors mb-10 cursor-pointer">
                                 Support a Hungry Developer
                             </button>
                             
@@ -737,7 +790,7 @@ export default function HomePage() {
                             <h2 className="text-pink-cherry text-6xl mb-8 font-semibold">
                                 Ready To Finish Your App?
                             </h2>
-                            <button className="bg-cream-vanilla text-pink-cherry px-12 py-6 rounded-xl text-2xl font-semibold hover:bg-pink-cherry hover:text-cream-vanilla transition-colors cursor-pointer">
+                            <button onClick={handleLetsGoButton} className="bg-cream-vanilla text-pink-cherry px-8 py-3 rounded-xl text-2xl font-semibold hover:bg-pink-cherry hover:text-cream-vanilla transition-colors cursor-pointer">
                                 Let's Go
                             </button>
                         </div>
@@ -748,9 +801,19 @@ export default function HomePage() {
                             {/* Logo - Left Side */}
                             <div className="flex-shrink-0">
                                 {/* Your logo component here */}
-                                <div className="text-cream-vanilla text-3xl font-bold ml-20">
-                                    <OfficialLogo className="h-20 w-20 opacity-70" />
+                                <div className="flex flex-col  justify-center  font-bold ml-20">
+                                    <div className="flex w-[100%] ">
+                                        <OfficialLogo className="h-18 w-18 opacity-70" />
+                                    </div>
+                                    
+                                    <h1 className="text-cream-vanilla  text-xl">
+                                    ScreenshotSweet
+                                    </h1>
+                                    <h1 className="text-cream-vanilla/70 text-xs">
+                                    &#169; 2026 ScreenshotSweet.
+                                    </h1>
                                 </div>
+ 
                             </div>
 
                             {/* Connect & Contact Columns - Right Side */}
