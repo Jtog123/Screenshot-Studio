@@ -68,6 +68,22 @@ const createPool = async() => {
             weekend_expires_at TIMESTAMPTZ
         )`
     );
+
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS payments (
+            payment_id SERIAL PRIMARY KEY,
+            user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
+            stripe_session_id TEXT NOT NULL,
+            stripe_customer_id TEXT,
+            stripe_subscription_id TEXT,
+            plan TEXT NOT NULL,
+            amount INTEGER NOT NULL,
+            currency TEXT DEFAULT 'usd',
+            status TEXT DEFAULT 'completed',
+            created_at TIMESTAMP DEFAULT NOW(),
+
+        )
+    `)
 }
 
 
@@ -114,6 +130,19 @@ app.post("/api/webhook", express.raw({type: "application/json"}), async (req, re
                 const plan = session.metadata.plan;
                 const google_id = session.client_reference_id;
 
+                const userResult = await pool.query(
+                    `SELECT user_id FROM users WHERE google_id = $1`, [google_id]
+                );
+
+                if(userResult.rows.length === 0) {
+                    console.error(`User not found for google_id: ${google_id}`);
+                    return res.status(404).json({error:"user not found"});
+                }
+
+                const user_id = userResult.rows[0].user_id;
+
+                //const user_id = userResult.rows[0].user_id;
+
                 if(plan === "weekend" ) {
                     const expiresAt = new Date();
                     expiresAt.setHours(expiresAt.getHours() + 48);
@@ -125,6 +154,26 @@ app.post("/api/webhook", express.raw({type: "application/json"}), async (req, re
                             weekend_expires_at = $1
                         WHERE google_id = $2
                     `, [expiresAt, google_id]);
+
+                    await pool.query(`
+                        INSERT INTO payments(
+                            user_id,
+                            stripe_session_id,
+                            stripe_customer_id,
+                            stripe_subscription_id
+                            plan,
+                            amount,
+                            status
+                        ) VALUES($1, $2, $3, $4, $5, 'completed')
+                    `, [
+                        user_id,
+                        session.id,
+                        session.customer,
+                        session.subscription,
+                        'monthly',
+                        1399
+                        
+                    ]);
 
                     console.log(`Weekend pass activated for ${google_id} expires at ${expiresAt}`);
                 } else if (plan === "monthly") {
@@ -419,7 +468,7 @@ router.post("/api/create-checkout-session", async function(req, res) {
 
         const user = req.user as any;
         const {plan} = req.body;
-        let priceData;
+        let priceData : any;
         let mode : "payment" | "subscription";
         console.log("Plan is: ", plan);
 
@@ -438,10 +487,14 @@ router.post("/api/create-checkout-session", async function(req, res) {
             priceData = {
                 currency: "usd",
                 unit_amount : 1399,
+                recurring: {
+                    interval: "month"
+                },
                 product_data: {
                     name: "Monthly Pass",
                     description: "Unlimited access"
                 }
+                
             }
         }
 
