@@ -80,10 +80,10 @@ const createPool = async() => {
             amount INTEGER NOT NULL,
             currency TEXT DEFAULT 'usd',
             status TEXT DEFAULT 'completed',
-            created_at TIMESTAMP DEFAULT NOW(),
+            created_at TIMESTAMP DEFAULT NOW()
 
-        )
-    `)
+        )`
+    );
 }
 
 
@@ -160,18 +160,19 @@ app.post("/api/webhook", express.raw({type: "application/json"}), async (req, re
                             user_id,
                             stripe_session_id,
                             stripe_customer_id,
-                            stripe_subscription_id
+                            stripe_subscription_id,
                             plan,
                             amount,
                             status
-                        ) VALUES($1, $2, $3, $4, $5, 'completed')
+                        ) VALUES($1, $2, $3, $4, $5, $6, $7)
                     `, [
                         user_id,
                         session.id,
                         session.customer,
                         session.subscription,
-                        'monthly',
-                        1399
+                        'weekend',
+                        599,
+                        'completed'
                         
                     ]);
 
@@ -183,6 +184,27 @@ app.post("/api/webhook", express.raw({type: "application/json"}), async (req, re
                         WHERE google_id = $1
 
                     `, [google_id]);
+
+                    await pool.query(`
+                        INSERT INTO payments(
+                            user_id,
+                            stripe_session_id,
+                            stripe_customer_id,
+                            stripe_subscription_id,
+                            plan,
+                            amount,
+                            status
+                        ) VALUES($1, $2, $3, $4, $5, $6, $7)
+                    `, [
+                        user_id,
+                        session.id,
+                        session.customer,
+                        session.subscription,
+                        'monthly',
+                        1399,
+                        'completed'
+                        
+                    ]);
                     console.log(`Monthly pass activated for ${google_id} `);
                 }
                 break;
@@ -218,7 +240,7 @@ app.post("/api/webhook", express.raw({type: "application/json"}), async (req, re
         }
         res.json({received: true});
     } catch(err) {
-        console.error("Webhook handler error:", err);
+        console.error("Webhook handler:", err);
         res.status(500).json({error: "Webhook handler error"});
     }
 })
