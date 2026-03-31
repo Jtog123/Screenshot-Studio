@@ -64,7 +64,8 @@ const createPool = async() => {
             created_at TIMESTAMP DEFAULT NOW(),
             last_login TIMESTAMP DEFAULT NOW(),
             export_count INTEGER DEFAULT 0,
-            last_export TIMESTAMPZ
+            last_export TIMESTAMPTZ,
+            weekend_expires_at TIMESTAMPTZ
         )`
     );
 }
@@ -88,6 +89,90 @@ app.use(cors({
         origin: "http://localhost:5173",
         credentials: true
 }));
+
+//my server recieves this from stripe
+app.post("/api/webhook", express.raw({type: "application/json"}), async (req, res) => {
+    const sig = req.headers["stripe-signature"]!;
+    let event;
+
+    try {
+        event = stripe.webhooks.constructEvent(
+            req.body,
+            sig,
+            process.env.STRIPE_WEBHOOK_SECRET as string
+        );
+    } catch(err) {
+        console.error("webhook Error:", err);
+        return res.status(400).send("webhook error");
+    }
+
+
+    try {
+        switch(event.type) {
+            case "checkout.session.completed": {
+                const session = event.data.object as any;
+                const plan = session.metadata.plan;
+                const google_id = session.client_reference_id;
+
+                if(plan === "weekend" ) {
+                    const expiresAt = new Date();
+                    expiresAt.setHours(expiresAt.getHours() + 48);
+
+                    await pool.query(`
+                        UPDATE users
+                        SET
+                            subscription_type = 'Weekend',
+                            weekend_expires_at = $1
+                        WHERE google_id = $2
+                    `, [expiresAt, google_id]);
+
+                    console.log(`Weekend pass activated for ${google_id} expires at ${expiresAt}`);
+                } else if (plan === "monthly") {
+                    await pool.query(`
+                        UPDATE users
+                        SET subscription_type = 'Monthly'
+                        WHERE google_id = $1
+
+                    `, [google_id]);
+                    console.log(`Monthly pass activated for ${google_id} `);
+                }
+                break;
+            }
+            case "customer.subscription.deleted": {
+                const subscription = event.data.object as any;
+                const customer = await stripe.customers.retrieve(subscription.customer) as any;
+
+                await pool.query(`
+                    UPDATE users
+                    SET subscription_type = 'Free'
+                    WHERE email = $1
+                `, [customer.email]);
+
+                console.log("subscription cancelled for: ", customer.email);
+                break;
+            } 
+            case "invoice.payment_failed" : {
+                const invoice = event.data.object as any;
+                //Send email to user to update card
+                break;
+            }
+            case "customer.subscription.updated" : {
+                const subscription = event.data.object as any;
+
+                if(subscription.status === "past_due") {
+                    console.log(`Subscription past due for customer ${subscription.customer}`)
+                }
+                break;
+            }
+            default:
+                console.log("Unhandled event");
+        }
+        res.json({received: true});
+    } catch(err) {
+        console.error("Webhook handler error:", err);
+        res.status(500).json({error: "Webhook handler error"});
+    }
+})
 
 app.use(express.json());
 
@@ -338,7 +423,7 @@ router.post("/api/create-checkout-session", async function(req, res) {
         let mode : "payment" | "subscription";
         console.log("Plan is: ", plan);
 
-        if(plan === "weekend") {
+        if(plan === "weekend" ) {
             mode = "payment";
             priceData = {
                 currency: "usd",
@@ -373,12 +458,14 @@ router.post("/api/create-checkout-session", async function(req, res) {
                 google_id: user.google_id,
                 plan: plan
             },
-            success_url: "http://localhost:5173/editor",
+            success_url: "http://localhost:5173/purchase-success",
             cancel_url: "http://localhost:5173/"
 
         });
 
-        res.json({url: session.url})
+        //update database here?
+
+        res.json({url: session.url});
     } catch(err) {
         console.error("Stripe session:", err);
         res.status(500).json();
@@ -386,7 +473,9 @@ router.post("/api/create-checkout-session", async function(req, res) {
     
 
     
-})
+});
+
+
 
 
 //creates base route, if we had a router.get("/editor"), route will be /editor
