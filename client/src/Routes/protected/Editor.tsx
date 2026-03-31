@@ -41,6 +41,7 @@ import AspectRatioInfo from "../../AspectRatioInfo.js"
 
 
 
+
 export default function Editor() {
 
   //CAMERA ARGS
@@ -436,6 +437,8 @@ export default function Editor() {
   //{scene && <Toolbar scene={scene}/>} Making sure scene is not null
   return (
     <>
+
+    
       
 
       {isSceneReady && phone && cameraManager && <PhoneGUI phoneModel={phone} _cameraManager={cameraManager} aspectRatio={aspectRatio} isBackgroundTransparent={isBackgroundTransparent} setIsBackgroundTransparent={setIsBackgroundTransparent}/>}

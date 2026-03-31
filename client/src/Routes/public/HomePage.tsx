@@ -9,6 +9,7 @@ import YourAppHere from "../../IconAssets/YourAppHere";
 import ArrowPoint from "../../IconAssets/ArrowPoint";
 import AppAndArrow from "../../IconAssets/AppAndArrow";
 import OfficialLogo from "../../IconAssets/OfficialLogo";
+import SuccessPage from "../protected/PurchaseSuccessPage";
 
 
 export default function HomePage() {
@@ -363,7 +364,10 @@ export default function HomePage() {
 
     return (
         <>
+            
             <NavigationBar />
+
+            
             
             {/* Hero Section - Split Left/Right */}
             <ScrollFadeIn >
