@@ -1,6 +1,7 @@
 import { NavLink } from "react-router"
 import OfficialLogo from "./IconAssets/OfficialLogo";
 import OfficialNameIcon from "./IconAssets/OfficialName";
+import { API_URL } from "./config";
 
 /*
 
@@ -29,7 +30,7 @@ export default function NavigationBar() {
     */
     function handleAuthRedirect() {
         //route that takes me to the google sign in page, as specified by my server
-        window.location.href = "http://localhost:5050/auth/google";
+        window.location.href = `${API_URL}/auth/google`;
 
         console.log("this gets called immidiatley")
 

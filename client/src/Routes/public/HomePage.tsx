@@ -11,6 +11,7 @@ import AppAndArrow from "../../IconAssets/AppAndArrow";
 import OfficialLogo from "../../IconAssets/OfficialLogo";
 import SuccessPage from "../protected/PurchaseSuccessPage";
 import LoadingPage from "../../LoadingPage";
+import { API_URL } from "../../config";
 
 
 export default function HomePage() {
@@ -38,6 +39,10 @@ export default function HomePage() {
 
     //const loader = new THREE.TextureLoader();
 
+    console.log(API_URL);
+
+    
+
 
 
     function handleTextureSelect(textureID : string) : void {
@@ -59,9 +64,9 @@ export default function HomePage() {
 
     }
 
-    function handleLetsGoButton() : void {
-        window.location.href = "http://localhost:5050/auth/google";
-       // window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`;
+    function handleFreeTesting() : void {
+        //window.location.href = "http://localhost:5050/auth/google";
+        window.location.href = `${API_URL}/auth/google`;
     }
 
 
@@ -74,21 +79,21 @@ export default function HomePage() {
             setIsCheckoutLoading(true);
 
             // Make sure users logged into google
-            const authCheck = await fetch("http://localhost:5050/auth/google/me", {
+            const authCheck = await fetch(`${API_URL}/auth/google/me`, {
                 credentials: "include"
             });
 
             if(!authCheck.ok) {
                 //user not signed in, sign them in
                 localStorage.setItem("return_to", "checkout_weekend");
-                window.location.href = "http://localhost:5050/auth/google/";
-                //window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`
+                //window.location.href = "http://localhost:5050/auth/google/";
+                window.location.href = `${API_URL}/auth/google`
                 return;
             }
 
 
             //user is signed in send them to stripe
-            const response = await fetch("http://localhost:5050/api/create-checkout-session", {
+            const response = await fetch(`${API_URL}/api/create-checkout-session`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -118,20 +123,20 @@ export default function HomePage() {
             setIsCheckoutLoading(true);
 
             // Make sure users logged into google
-            const authCheck = await fetch("http://localhost:5050/auth/google/me", {
+            const authCheck = await fetch(`${API_URL}/auth/google/me`, {
                 credentials: "include"
             });
 
             if(!authCheck.ok) {
                 //user not signed in, sign them in
                 localStorage.setItem("return_to", "checkout_monthly");
-                window.location.href = "http://localhost:5050/auth/google/";
+                window.location.href = `${API_URL}/auth/google/`;
                 return;
             }
 
 
             //user is signed in send them to stripe
-            const response = await fetch("http://localhost:5050/api/create-checkout-session", {
+            const response = await fetch(`${API_URL}/api/create-checkout-session`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -437,7 +442,7 @@ export default function HomePage() {
                             Making your app stand out has never been easier
                         </h2>
 
-                        <button className="bg-pink-cherry hover:bg-pink-velvet text-white font-semibold text-xl px-12 py-6 rounded-2xl shadow-[0_0_30px_rgba(232,70,149,0.4)] hover:shadow-[0_0_20px_rgba(232,70,149,0.6)] transform hover:scale-101 transition-all ease-in duration-100 cursor-pointer">
+                        <button onClick={handleFreeTesting} className="bg-pink-cherry hover:bg-pink-velvet text-white font-semibold text-xl px-12 py-6 rounded-2xl shadow-[0_0_30px_rgba(232,70,149,0.4)] hover:shadow-[0_0_20px_rgba(232,70,149,0.6)] transform hover:scale-101 transition-all ease-in duration-100 cursor-pointer">
                             Get Started Free
                         </button>
                         
@@ -792,7 +797,7 @@ export default function HomePage() {
                             <h2 className="text-pink-cherry text-6xl mb-8 font-semibold">
                                 Ready To Finish Your App?
                             </h2>
-                            <button onClick={handleLetsGoButton} className="bg-cream-vanilla text-pink-cherry px-8 py-3 rounded-xl text-2xl font-semibold hover:bg-pink-cherry hover:text-cream-vanilla transition-colors cursor-pointer">
+                            <button onClick={handleFreeTesting} className="bg-cream-vanilla text-pink-cherry px-8 py-3 rounded-xl text-2xl font-semibold hover:bg-pink-cherry hover:text-cream-vanilla transition-colors cursor-pointer">
                                 Let's Go
                             </button>
                         </div>
