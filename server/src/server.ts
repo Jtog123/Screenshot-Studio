@@ -7,6 +7,7 @@ import pg from "pg"
 import passport from "passport"
 import GoogleStrategy  from "passport-google-oauth20"
 import Stripe from "stripe"
+//import {API_URL} from "../../client/src/config"
 
 
 //import UserModel from "../../dataModels/UserModel"
@@ -28,7 +29,7 @@ type AppUser = {
     last_export? : Date
 }
 
-require('dotenv').config({path:"../.env"});
+require('dotenv').config({path:".env"}); //../.env
 
 const stripe = new Stripe(process.env.STRIPE_S_KEY!, {
     apiVersion: "2026-03-25.dahlia",
@@ -102,7 +103,7 @@ const PORT = 5050;
 const app = express();
 
 app.use(cors({
-        origin: "http://localhost:5173",
+        origin:  process.env.FRONTEND_URL || "http://localhost:5173",
         credentials: true
 }));
 
@@ -299,7 +300,8 @@ passport.use(
         {
             clientID: process.env.CLIENT_ID as string,
             clientSecret: process.env.CLIENT_SECRET as string,
-            callbackURL: "http://localhost:5050/auth/google/cb"
+            callbackURL: `${process.env.BACKEND_URL}/auth/google/cb`
+            //`https:localhost:5050/auth/google/cb`
         }, async function(token, refreshToken, profile, done) {
             try {
                 let profilePictureTemp = profile._json["picture"] as string
@@ -356,7 +358,8 @@ passport.use(
 router.get("/auth/google", passport.authenticate("google", {scope: ["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email"]}));
 
 router.get("/auth/google/cb", passport.authenticate("google", {failureRedirect: "/auth/failure"}), (req, res) => {
-    res.redirect("http://localhost:5173/editor");
+    res.redirect(`${process.env.FRONTEND_URL}/editor` || "http://localhost:5173/editor");
+    //"http://localhost:5173/editor"
 
     
 })
@@ -364,7 +367,7 @@ router.get("/auth/google/cb", passport.authenticate("google", {failureRedirect: 
 router.get("/auth/failure", (req, res) => {
     res.send("Authentication Failed");
     //redirect back to home
-    res.redirect("http://localhost:5173");
+    res.redirect( process.env.FRONTEND_URL || "http://localhost:5173");
 })
 
 router.get("/", (req, res) => {
@@ -533,8 +536,8 @@ router.post("/api/create-checkout-session", async function(req, res) {
                 google_id: user.google_id,
                 plan: plan
             },
-            success_url: "http://localhost:5173/purchase-success",
-            cancel_url: "http://localhost:5173/"
+            success_url: `${process.env.FRONTEND_URL}/purchase-success`|| "http://localhost:5173/purchase-success",
+            cancel_url: process.env.FRONTEND_URL || "http://localhost:5173/"
 
         });
 
