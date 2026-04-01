@@ -233,7 +233,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
 
            //remove the phone texture
             const textureLoader = new THREE.TextureLoader();
-            textureLoader.load('/baseAsset.png', (texture) => {
+            textureLoader.load('/sweetBg3.png', (texture) => {
                 texture.flipY = false;
                 texture.colorSpace = THREE.SRGBColorSpace; // Corrects the "washed out" red
                 texture.minFilter = THREE.LinearFilter;
@@ -486,30 +486,63 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                         
                     </div>
 
-                    <div className="imageSelector flex mx-3 mb-2 py-2 ">
-                        {/* screenTextures.map() */}
+                    <div className="imageSelector flex gap-3 mx-3 mb-2 py-2">
                         {screenTextures.map((img) => (
-                            <div key={img.id} className="flex flex-col mx-1 ">
-                                <input type="radio"  className=" mb-1 accent-[#C05400]" name="screenshot" checked={activeTextureID === img.id} onChange={() => handleTextureSelect(img.id)} id="" />
-                                <div className="h-[auto] w-[28px] border-1 border-blue-cobalt/80 mb-3">
-                                    <img src={img.imgPath}  alt=""/>
-                                </div>
-                                <button onClick={() => handleTextureDelete(img.id)} className=" transition-all ease-in duration-200 bg-stone-700 hover:bg-red-500 text-stone-300 hover:text-white rounded-lg cursor-pointer  text-espresso hover:text-cream-light">x</button>
-                            </div>
-                        )
                             
-                        )}
-                        
-                        {/* allow up to 7 images do dynamically or hard code? click upload img load async and store into and display in the div
-                        <div className="flex flex-col ">
-                            <input type="checkbox" className=" mb-1" name="" id="" />
-                            <div className="h-[45px] w-[28px] border-1 border-stone-300 mb-1">
-                                <img src="/testshot.png"  alt=""/>
-                            </div>
-                        </div>
-                        */}
+                            <label
+                                key={img.id}
+                                className={`group cursor-pointer flex flex-col items-center transition-all duration-200 ${
+                                    activeTextureID === img.id 
+                                        ? 'scale-100' 
+                                        : 'opacity-60 hover:opacity-100 '
+                                }`}
+                            >
+                                                                {/* Radio Input */}
+                                <input 
+                                    type="radio" 
+                                    checked={activeTextureID === img.id} 
+                                    onChange={() => handleTextureSelect(img.id)}
+                                    className="w-3 h-3 accent-[#52301C] cursor-pointer mb-1"
+                                />
 
+                                {/* Image Container */}
+                                <div className={`relative rounded-sm overflow-hidden  mb-3 ${
+                                    activeTextureID === img.id 
+                                        ? 'ring-2 ring-cream-vanilla shadow-lg shadow-blue-500/50' 
+                                        : 'ring-1 ring-espresso/20 hover:ring-white/40'
+                                }`}>
+                                    <img 
+                                        src={img.imgPath} 
+                                        className="h-[45px] w-[28px] object-cover"
+                                        alt=""
+                                    />
+                                    
+                                    {/* Active Indicator Overlay */}
+                                    {activeTextureID === img.id && (
+                                        <div className="absolute inset-0 bg-blue-500/20 flex items-center justify-center pointer-events-none">
+                                            <div className="w-3 h-3 rounded-full bg-mocha flex items-center justify-center">
+                                                <svg className="w-2 h-2 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                                
 
+                                
+                                {/* Delete Button */}
+                                <button 
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        handleTextureDelete(img.id);
+                                    }}
+                                    className="bg-stone-600 hover:bg-red-600 text-cream-vanilla rounded-lg cursor-pointer w-7 h-6"
+                                >
+                                    x
+                                </button>
+                            </label>
+                        ))}
                     </div>
 
                     {/* Divider */}
@@ -534,12 +567,13 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
 
 
 
-                        {capturedImages.length !== 0 ?  capturedImages.map((img) => (
+                        {capturedImages.length !== 0 ?  
+                            capturedImages.map((img) => (
                             <div key={img.id} className="flex flex-col mx-1 ">
-                                <div className="h-[auto] w-[28px] border-1 border-orange-juicy/80 mb-3">
-                                    <img src={img.imgPath}  alt=""/>
+                                <div className="h-[auto] w-[28px] rounded-xl border-cream-vanilla/60  mb-3">
+                                    <img src={img.imgPath} className="h-[45px] w-[28px] object-cover rounded-md"  alt=""/>
                                 </div>
-                                <button onClick={() => handleCapturedImageDelete(img.id)}  className="bg-red-500 rounded-lg cursor-pointer">x</button>
+                                <button onClick={() => handleCapturedImageDelete(img.id)}  className="bg-stone-600 hover:bg-red-600 text-cream-vanilla rounded-lg cursor-pointer w-7 h-6">x</button>
                             </div>      
                         )) :
                             <div className="flex w-[100%] justify-center items-center"> 

@@ -77,7 +77,7 @@ export default function NavigationBar() {
 
                 <div className="navigationLinks flex justify-center  w-[77%] h-[100%]  bg-coffee/80">
                     <nav className="flex  justify-around items-center w-[80%] h-[100%] ">
-                        <NavLink to="/" className="text-cream-vanilla font-inter cursor-pointer" end > Home </NavLink>
+                        <NavLink to="/" className="text-cream-vanilla font-inter cursor-pointer no-underline hover:underliner" end > Home </NavLink>
                         <NavLink to="/About" className="text-cream-vanilla font-inter cursor-pointer" end> About </NavLink>
                         <NavLink to="/Pricing" className="text-cream-vanilla font-inter cursor-pointer" end > Pricing </NavLink>
                         <NavLink to="" className="text-cream-vanilla font-inter cursor-pointer" onClick={handleAuthRedirect} end> Sign In </NavLink>

@@ -61,6 +61,7 @@ export default function HomePage() {
 
     function handleLetsGoButton() : void {
         window.location.href = "http://localhost:5050/auth/google";
+       // window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`;
     }
 
 
@@ -81,6 +82,7 @@ export default function HomePage() {
                 //user not signed in, sign them in
                 localStorage.setItem("return_to", "checkout_weekend");
                 window.location.href = "http://localhost:5050/auth/google/";
+                //window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`
                 return;
             }
 
