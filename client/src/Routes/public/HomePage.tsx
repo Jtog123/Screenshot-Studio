@@ -560,13 +560,33 @@ export default function HomePage() {
                 </p>
 
                 
+
+                
                 <div className="grid grid-cols-3 gap-12 max-w-6xl mx-auto">
-                    {/* Step 1 */}
+                     {/* Step 1 */}
+                    <div className="text-center">
+
+                        <div className="flex items-center justify-center gap-2 mb-3">
+                            <div className="w-8 h-8 rounded-full bg-blue-cobalt text-cream-vanilla flex items-center justify-center font-bold">
+                                1
+                            </div>
+                            <h3 className="text-cream-vanilla text-2xl font-semibold" style={{fontFamily: "Inter, sans-serif"}}>
+                                Style Your Scene
+                                {/*picture of a nice background with asset added? */}
+                            </h3>
+                        </div>
+                        <p className="text-cream-vanilla/60 leading-relaxed" style={{fontFamily: "Inter, sans-serif"}}>
+                            Choose backgrounds, add lighting, and upload your app screenshots to create the perfect look
+                        </p>
+                        {/* Graphics Here Phone with Light an logo */}
+                    </div>
+
+                    {/* Step 2 */}
                     <div className="text-center">
 
                         <div className="flex items-center justify-center gap-2 mb-3">
                             <div className="w-8 h-8 rounded-full bg-blue-cobalt text-cream-vanilla flex items-center justify-center font-bold" >
-                                1
+                                2
                             </div>
                             <h3 className="text-cream-vanilla text-2xl font-semibold" style={{fontFamily: "Inter, sans-serif"}}>
                                 Position Your Model
@@ -580,23 +600,7 @@ export default function HomePage() {
                         {/* Graphics Here Phone being angled */}
                     </div>
                     
-                    {/* Step 2 */}
-                    <div className="text-center">
 
-                        <div className="flex items-center justify-center gap-2 mb-3">
-                            <div className="w-8 h-8 rounded-full bg-blue-cobalt text-cream-vanilla flex items-center justify-center font-bold">
-                                2
-                            </div>
-                            <h3 className="text-cream-vanilla text-2xl font-semibold" style={{fontFamily: "Inter, sans-serif"}}>
-                                Style Your Scene
-                                {/*picture of a nice background with asset added? */}
-                            </h3>
-                        </div>
-                        <p className="text-cream-vanilla/60 leading-relaxed" style={{fontFamily: "Inter, sans-serif"}}>
-                            Choose backgrounds, add lighting, and upload your app screenshots to create the perfect look
-                        </p>
-                        {/* Graphics Here Phone with Light an logo */}
-                    </div>
                     
                     {/* Step 3 */}
                     <div className="text-center">
@@ -611,7 +615,7 @@ export default function HomePage() {
                             </h3>
                         </div>
                         <p className="text-cream-vanilla/60 leading-relaxed">
-                            Download your professional mockup in high resolution, ready for the appstore
+                            Capture your images then download your professional mockup in high resolution, ready for showing off
                         </p>
 
                         {/* Graphics Here camera button? */}
@@ -651,7 +655,7 @@ export default function HomePage() {
 
                 <div className="cardContainer grid place-items-center grid-cols-2 gap-8 max-w-6xl mx-auto">
 
-                    <div className="card1 flex  justify-center gap-2  w-[90%] h-[500px]  rounded-xl">
+                    <div className="card1 flex  justify-center gap-2  w-[90%] h-[450px]  rounded-xl">
                         <div className="flex flex-col bg-pink-bubblegum rounded-2xl p-8 shadow-lg w-full max-w-sm">
                             {/* Header */}
                             <h2 className="text-espresso text-2xl font-semibold mb-2" style={{fontFamily: "Inter, sans-serif"}}>
@@ -704,7 +708,7 @@ export default function HomePage() {
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                         </svg>
                                     </div>
-                                    <p className="text-coffee">30 Mockup Exports</p>
+                                    <p className="text-coffee">Transparent Backgrounds</p>
                                 </div>
 
 
@@ -714,8 +718,10 @@ export default function HomePage() {
                         </div>
                     </div>
 
-                    <div className="card1 flex  justify-center gap-2  w-[90%] h-[500px] rounded-xl">
-                        <div className="flex flex-col bg-pink-bubblegum rounded-2xl p-8 shadow-lg w-full max-w-sm">
+                    <div className="card1 flex  justify-center gap-2  w-[90%] h-[450px] rounded-xl ">
+                        <div className="flex flex-col bg-pink-bubblegum rounded-2xl p-8 shadow-lg w-full max-w-sm ring-4 ring-pink-cherry ring-offset-3 ring-offset-blue-cobalt shadow-pink-cherry shadow-xl">
+
+
                             {/* Header */}
                             <h2 className="text-espresso text-2xl font-semibold mb-2">
                                 Monthly
@@ -729,7 +735,7 @@ export default function HomePage() {
                             
                             {/* CTA Button */}
                             <button onClick={handleMonthlyStripeRedirect} disabled={isCheckoutLoading} className="w-full py-3 bg-pink-cherry transition-all ease-in duration-100 hover:bg-pink-frosting hover:text-espresso text-white font-semibold rounded-xl transition-colors mb-10 cursor-pointer">
-                                Support a Hungry Developer
+                                Be Sweet
                             </button>
                             
                             {/* Features */}
@@ -768,6 +774,15 @@ export default function HomePage() {
                                         </svg>
                                     </div>
                                     <p className="text-coffee">Unlimited Mockup Exports</p>
+                                </div>
+
+                                <div className="flex items-center gap-3">
+                                    <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
+                                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </div>
+                                    <p className="text-coffee">Transparent Backgrounds</p>
                                 </div>
 
 
@@ -857,11 +872,7 @@ export default function HomePage() {
                                                 hello@screenshotsweet.com
                                             </a>
                                         </li>
-                                        <li>
-                                            <a href="#" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
-                                                Support
-                                            </a>
-                                        </li>
+
                                         <li>
                                             <a href="#" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
                                                 Privacy Policy
