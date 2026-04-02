@@ -65,7 +65,7 @@ export default function NavigationBar() {
 
     return(
         <>
-            <div className="fixed flex h-[7%] w-[100%]  z-21">
+            <div className="fixed flex h-[7%] w-[100%] z-21">
                 
                 <div className="LogoTitleContainer flex w-[33%] h-[100%] items-center  bg-coffee/80">
                     {/*img here */}
@@ -73,7 +73,7 @@ export default function NavigationBar() {
                         <OfficialLogo className="h-[100%] w-20  ml-5"/>
                     </div>
 
-                    <OfficialNameIcon className="h-50 w-60 "/>
+                    <OfficialNameIcon className="h-[100%] w-60 "/>
                 </div>
 
                 <div className="navigationLinks flex justify-center  w-[77%] h-[100%]  bg-coffee/80">

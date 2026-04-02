@@ -17,7 +17,17 @@ import { API_URL } from "../../config";
 export default function HomePage() {
 
     const fov : number = 60; //75
-    const aspect : number = (window.innerWidth /2) / window.innerHeight;
+    //const aspect : number = (window.innerWidth /2) / window.innerHeight;
+
+    const getAspect = () => {
+    const width = window.innerWidth;
+    if (width < 1024) { // lg breakpoint
+        return width / window.innerHeight;
+    }
+        return (width / 2) / window.innerHeight;
+    };
+    const aspect : number = getAspect();
+
     const near : number = 0.1;
     const far : number = 10000;
 
@@ -176,7 +186,12 @@ export default function HomePage() {
         cameraRef.current = camera;
         rendererRef.current = renderer;
 
-        renderer.setSize( window.innerWidth / 2, window.innerHeight);
+        //renderer.setSize( window.innerWidth / 2, window.innerHeight);
+        const getRendererWidth = () => {
+            const width = window.innerWidth;
+            return width < 1024 ? width : width / 2;
+        };
+        renderer.setSize(getRendererWidth(), window.innerHeight);
         
 
         renderer.domElement.style.position = "relative";
@@ -389,9 +404,17 @@ export default function HomePage() {
             const renderer = rendererRef.current;
 
             if (camera && renderer) {
+                const width = window.innerWidth;
+                const rendererWidth = width < 1024 ? width : width / 2;
+                
+                camera.aspect = rendererWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(rendererWidth, window.innerHeight);
+                /*
                 camera.aspect = (window.innerWidth / 2) / window.innerHeight;
                 camera.updateProjectionMatrix();
                 renderer.setSize(window.innerWidth / 2, window.innerHeight);
+                */
             }
         };
 
@@ -420,479 +443,482 @@ export default function HomePage() {
 
 
 
-    return (
-        <>
-            
+return (
+    <>
+        
+        {/* Hide NavigationBar on mobile only */}
+        <div className="lg:block">
             <NavigationBar />
+        </div>
 
-            {isCheckoutLoading && <LoadingPage/>}
+        {isCheckoutLoading && <LoadingPage/>}
 
+        
+        
+        {/* Hero Section - Split Left/Right */}
+        <ScrollFadeIn >
+        <section className="flex flex-col lg:flex-row w-full min-h-screen bg-chocolate">
             
-            
-            {/* Hero Section - Split Left/Right */}
-            <ScrollFadeIn >
-            <section className="flex w-full min-h-screen bg-chocolate">
+            {/* Left Side - Content */}
+            <div className="flex leftSide justify-center items-center bg-chocolate w-full lg:w-1/2 ">
+                <div className="flex flex-col w-4/5 max-w-2xl  relative text-center lg:text-left">
+                    <h1 className="text-cream-vanilla text-6xl mb-6 font-semibold mt-20 lg:mt-0 " style={{fontFamily: "Inter, sans-serif"}}>Dynamic Mock Ups</h1>
+                    
+                    <h2 className="text-cream-vanilla/70 text-2xl mb-10 " style={{fontFamily: "Inter, sans-serif"}}>
+                        Making your app stand out has never been easier.
+                    </h2>
+
+                    <button onClick={handleFreeTesting} className="bg-pink-cherry hover:bg-pink-velvet text-white font-semibold text-xl px-12 py-6 rounded-2xl shadow-[0_0_30px_rgba(232,70,149,0.4)] hover:shadow-[0_0_20px_rgba(232,70,149,0.6)] transform hover:scale-101 transition-all ease-in duration-100 cursor-pointer mx-auto lg:mx-0">
+                        Get Started Free
+                    </button>
+                    
+
+                     <div className="hidden lg:block absolute -right-58 -bottom-52 w-[650px] pointer-events-none">
+                            <AppAndArrow className="w-full h-auto text-cream-vanilla" />
+                    </div>
+                </div>
+            </div>
+
+            {/* Right Side - Phone Demo */}
+            <div className="rightSide bg-chocolate w-full lg:w-1/2 flex flex-col lg:flex-row items-center">
+   
+                {/* Phone div - Full width on mobile */}
+                <div ref={mountRef} className="phoneDiv w-full h-full "></div>
                 
-                {/* Left Side - Content */}
-                <div className="flex leftSide justify-center items-center bg-chocolate w-1/2 ">
-                    <div className="flex flex-col w-4/5 max-w-2xl  relative">
-                        <h1 className="text-cream-vanilla text-6xl mb-6 whitespace-nowrap overflow-hidden font-semibold truncate " style={{fontFamily: "Inter, sans-serif"}}>Dynamic Mock Ups</h1>
-                        
-                        <h2 className="text-cream-vanilla/70 text-2xl mb-10 " style={{fontFamily: "Inter, sans-serif"}}>
-                            Making your app stand out has never been easier
-                        </h2>
+                {/* Texture selector - Below phone on mobile, fixed on desktop */}
+                <div className="imageContainer relative lg:fixed z-50 bg-gradient-to-br from-pink-cherry to-pink-cherry/65 backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-white/10 w-auto lg:w-[170px] mt-6 lg:mt-0 lg:right-6">
+                    
+                    {/* Header */}
+                    <div className="flex flex-col justify-center mb-5">
+                        <h3 className="text-white text-lg tracking-tight" style={{fontFamily: "Inter, sans-serif"}}>
+                            Try it out
+                        </h3>
+                        <p className="text-white/70 text-xs mt-1" style={{fontFamily: "Inter, sans-serif"}}>
+                            Apply a sample
+                        </p>
+                    </div>
+                    
+                    {/* Texture Grid */}
+                    <div className="flex gap-3 justify-center lg:justify-between">
+                        {homeScreenTextures.map((img) => (
+                            <label
+                                key={img.id}
+                                className={`group cursor-pointer flex flex-col items-center transition-all duration-200 ${
+                                    activeTextureID === img.id 
+                                        ? 'scale-105' 
+                                        : 'opacity-60 hover:opacity-100 hover:scale-105'
+                                }`}
+                            >
+                                {/* Image Container */}
+                                <div className={`relative rounded-lg overflow-hidden mb-2 transition-all duration-200 ${
+                                    activeTextureID === img.id 
+                                        ? 'ring-2 ring-blue-500 shadow-lg shadow-blue-500/50' 
+                                        : 'ring-1 ring-white/20 hover:ring-white/40'
+                                }`}>
+                                    <img 
+                                        src={img.imgPath} 
+                                        className="w-16 h-20 object-cover" 
+                                        alt=""
+                                    />
+                                    
+                                    {/* Active Indicator Overlay */}
+                                    {activeTextureID === img.id && (
+                                        <div className="absolute inset-0 bg-blue-500/20 flex items-center justify-center pointer-events-none">
+                                            <div className="w-5 h-5 rounded-full bg-mocha flex items-center justify-center">
+                                                <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                                
+                                {/* Radio Input (hidden but functional) */}
+                                <input 
+                                    type="radio" 
+                                    checked={activeTextureID === img.id} 
+                                    onChange={() => handleTextureSelect(img.id)}
+                                    className="w-4 h-4 accent-[#52301C] cursor-pointer"
+                                />
+                            </label>
+                        ))}
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+        </ScrollFadeIn>
 
-                        <button onClick={handleFreeTesting} className="bg-pink-cherry hover:bg-pink-velvet text-white font-semibold text-xl px-12 py-6 rounded-2xl shadow-[0_0_30px_rgba(232,70,149,0.4)] hover:shadow-[0_0_20px_rgba(232,70,149,0.6)] transform hover:scale-101 transition-all ease-in duration-100 cursor-pointer">
-                            Get Started Free
+        
+        <section className="w-full bg-chocolate pt-14 pb-6 lg:py-20">
+            <ScrollFadeIn>
+            <div className="flex flex-col items-center">
+                <h2 className="text-center text-cream-vanilla text-4xl mb-4 font-semibold" style={{fontFamily: "Inter, sans-serif"}}>
+                    The Mockup Frustration Index
+                </h2>
+                <p className="text-center text-cream-vanilla/70 text-xl mb-2" style={{fontFamily: "Inter, sans-serif"}}>
+                    Time spent vs Sanity lost
+                </p>
+                <p className="text-center text-cream-vanilla/70" style={{fontFamily: "Inter, sans-serif"}}>
+                    Notice how as time increases you grow more insane.
+                </p>
+                <div className="chart container flex w-full  items-center justify-center max-h-[350px] lg:max-h-none overflow-hidden">
+                    {/* Create teh chart first then figure out how to fill it with data */}
+                    <IndexChart className="w-full h-auto"/>
+                </div>
+            </div>
+
+
+            </ScrollFadeIn>
+            
+
+        </section>
+
+        
+        <section className="w-full min-h-screen bg-chocolate p-20">
+            <ScrollFadeIn>
+            <h2 className="text-cream-vanilla text-5xl text-center mb-12" style={{fontFamily: "Inter, sans-serif"}}>
+                {/*Beautiful Mockups Without the Learning Curve*/}
+                Skip The Design Tools
+            </h2>
+            <p className="text-cream-vanilla text-center text-xl mb-16" style={{fontFamily: "Inter, sans-serif"}}>
+                No Figma. No Photoshop. No tutorials. <span className="text-pink-cherry text-xl" style={{fontFamily: "Inter, sans-serif"}}>Appstore ready screenshots in minutes.</span>
+            </p>
+
+            
+
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+                 {/* Step 1 */}
+                <div className="text-center">
+
+                    <div className="flex items-center justify-center gap-2 mb-3">
+                        <div className="w-8 h-8 rounded-full bg-blue-cobalt text-cream-vanilla flex items-center justify-center font-bold">
+                            1
+                        </div>
+                        <h3 className="text-cream-vanilla text-2xl font-semibold" style={{fontFamily: "Inter, sans-serif"}}>
+                            Style Your Scene
+                            {/*picture of a nice background with asset added? */}
+                        </h3>
+                    </div>
+                    <p className="text-cream-vanilla/60 leading-relaxed" style={{fontFamily: "Inter, sans-serif"}}>
+                        Choose backgrounds, add lighting, and upload your app screenshots to create the perfect look
+                    </p>
+                    {/* Graphics Here Phone with Light an logo */}
+                </div>
+
+                {/* Step 2 */}
+                <div className="text-center">
+
+                    <div className="flex items-center justify-center gap-2 mb-3">
+                        <div className="w-8 h-8 rounded-full bg-blue-cobalt text-cream-vanilla flex items-center justify-center font-bold" >
+                            2
+                        </div>
+                        <h3 className="text-cream-vanilla text-2xl font-semibold" style={{fontFamily: "Inter, sans-serif"}}>
+                            Position Your Model
+                            {/*embed the phone controls without functionality? show the controls? */}
+                        </h3>
+                        
+                    </div>
+                    <p className="text-cream-vanilla/60 leading-relaxed" style={{fontFamily: "Inter, sans-serif"}}>
+                        Rotate, tilt, and position your device at the perfect angle using intuitive controls
+                    </p>
+                    {/* Graphics Here Phone being angled */}
+                </div>
+                
+
+                
+                {/* Step 3 */}
+                <div className="text-center">
+
+                    <div className="flex items-center justify-center gap-2 mb-3">
+                        <div className="w-8 h-8 rounded-full bg-blue-cobalt text-white flex items-center justify-center font-bold">
+                            3
+                        </div>
+                        <h3 className="text-cream-vanilla text-2xl font-semibold">
+                            Easy Export
+                            {/*finished screenshot? */}
+                        </h3>
+                    </div>
+                    <p className="text-cream-vanilla/60 leading-relaxed">
+                        Capture your images then download your professional mockup in high resolution, ready for showing off
+                    </p>
+
+                    {/* Graphics Here camera button? */}
+                </div>
+            </div>
+            
+
+            {/* ONE Dramatic Hero Result */}
+                <ScrollFadeIn>
+                <div className=" flex item-center justify-center overflow-hidden scale-250  lg:-mt-12 lg:scale-140">
+                    
+                    <img 
+                        src="/HomepageHero5.png" 
+                        alt="Professional phone mockup with gradient background"
+                        className="w-full f-full object-contain mt-8 lg:mt-0 "
+                    />
+                </div>
+                </ScrollFadeIn>
+             </ScrollFadeIn>
+
+        </section>
+
+        <section>
+            
+        </section>
+       
+
+
+
+        {/*Pricing */}
+        
+        <section className="w-full min-h-screen bg-chocolate p-20">
+            <ScrollFadeIn>
+            <h2 className="text-cream-vanilla text-5xl text-center mb-12 " style={{fontFamily: "Inter, sans-serif"}}>
+                Pricing
+            </h2>
+
+            <div className="cardContainer grid place-items-center grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+
+                <div className="card1 flex  justify-center gap-2  w-[90%] h-[450px]  rounded-xl">
+                    <div className="flex flex-col bg-pink-bubblegum rounded-2xl p-8 shadow-lg w-full max-w-sm">
+                        {/* Header */}
+                        <h2 className="text-espresso text-2xl font-semibold mb-2" style={{fontFamily: "Inter, sans-serif"}}>
+                            Weekend Warrior
+                        </h2>
+                        
+                        {/* Price */}
+                        <div className="mb-8">
+                            <span className="text-text-espresso text-4xl font-bold" style={{fontFamily: "Inter, sans-serif"}}>$5.99</span>
+                            <span className="text-text-coffee text-lg" style={{fontFamily: "Inter, sans-serif"}}> / 2 day pass</span>
+                        </div>
+                        
+                        {/* CTA Button */}
+                        <button disabled={isCheckoutLoading} onClick={handleWeekendWarriorStripeRedirect} className="w-full py-3 bg-pink-cherry transition-all ease-in duration-100 hover:bg-pink-frosting hover:text-espresso text-white font-semibold rounded-xl transition-colors mb-10 cursor-pointer" style={{fontFamily: "Inter, sans-serif"}}>
+                            Become the Warrior
                         </button>
                         
+                        {/* Features */}
+                        <div className="space-y-3">
+                            <div className="flex items-center gap-3">
+                                <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
+                                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p className="text-coffee">One Time Payment. No recurring costs.</p>
+                            </div>
 
-                         <div className="absolute -right-58 -bottom-52 w-[650px] pointer-events-none">
-                                <AppAndArrow className="w-full h-auto text-cream-vanilla" />
+                            <div className="flex items-center gap-3">
+                                <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
+                                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p className="text-coffee">48 Hour Unlimited Platform Access</p>
+                            </div>
+
+                            <div className="flex items-center gap-3">
+                                <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
+                                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p className="text-coffee">High Quality 4k exports</p>
+                            </div>
+
+                            <div className="flex items-center gap-3">
+                                <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
+                                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p className="text-coffee">Transparent Backgrounds</p>
+                            </div>
+
+
+
+
                         </div>
                     </div>
                 </div>
 
-                {/* Right Side - Phone Demo */}
-                {/*on a rere */}
-                <div className="rightSide bg-chocolate w-1/2 flex items-center ">
-       
-                    <div ref={mountRef} className="phoneDiv  w-full h-full"></div>
-                    {/*from-slate-900/95 to-slate-800/75 */}
-                    <div className="imageContainer fixed z-50 bg-gradient-to-br from-pink-cherry  to-pink-cherry/65 backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-white/10 w-[170px]  right-6 ">
-                        
+                <div className="card1 flex  justify-center gap-2  w-[90%] h-[450px] rounded-xl ">
+                    <div className="flex flex-col bg-pink-bubblegum rounded-2xl p-8 shadow-lg w-full max-w-sm ring-4 ring-pink-cherry ring-offset-3 ring-offset-blue-cobalt shadow-pink-cherry shadow-xl">
+
+
                         {/* Header */}
-                        <div className="flex flex-col justify-center mb-5 ">
-                            <h3 className="text-white text-lg tracking-tight" style={{fontFamily: "Inter, sans-serif"}}>
-                                Try it out
-                            </h3>
-                            <p className="text-white/70 text-xs mt-1" style={{fontFamily: "Inter, sans-serif"}}>
-                                Apply a sample
-                            </p>
+                        <h2 className="text-espresso text-2xl font-semibold mb-2">
+                            Monthly
+                        </h2>
+                        
+                        {/* Price */}
+                        <div className="mb-8">
+                            <span className="text-black text-4xl font-bold">$13.99</span>
+                            <span className="text-text-coffee text-lg"> / month</span>
                         </div>
                         
-                        {/* Texture Grid */}
-                        <div className="flex gap-3 justify-between">
-                            {homeScreenTextures.map((img) => (
-                                <label
-                                    key={img.id}
-                                    className={`group cursor-pointer flex flex-col items-center transition-all duration-200 ${
-                                        activeTextureID === img.id 
-                                            ? 'scale-105' 
-                                            : 'opacity-60 hover:opacity-100 hover:scale-105'
-                                    }`}
-                                >
-                                    {/* Image Container */}
-                                    <div className={`relative rounded-lg overflow-hidden mb-2 transition-all duration-200 ${
-                                        activeTextureID === img.id 
-                                            ? 'ring-2 ring-blue-500 shadow-lg shadow-blue-500/50' 
-                                            : 'ring-1 ring-white/20 hover:ring-white/40'
-                                    }`}>
-                                        <img 
-                                            src={img.imgPath} 
-                                            className="w-16 h-20 object-cover" 
-                                            alt=""
-                                        />
-                                        
-                                        {/* Active Indicator Overlay */}
-                                        {activeTextureID === img.id && (
-                                            <div className="absolute inset-0 bg-blue-500/20 flex items-center justify-center pointer-events-none">
-                                                <div className="w-5 h-5 rounded-full bg-mocha flex items-center justify-center">
-                                                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                        )}
-                                    </div>
-                                    
-                                    {/* Radio Input (hidden but functional) */}
-                                    <input 
-                                        type="radio" 
-                                        checked={activeTextureID === img.id} 
-                                        onChange={() => handleTextureSelect(img.id)}
-                                        className="w-4 h-4 accent-[#52301C] cursor-pointer"
-                                    />
-                                </label>
-                            ))}
+                        {/* CTA Button */}
+                        <button onClick={handleMonthlyStripeRedirect} disabled={isCheckoutLoading} className="w-full py-3 bg-pink-cherry transition-all ease-in duration-100 hover:bg-pink-frosting hover:text-espresso text-white font-semibold rounded-xl transition-colors mb-10 cursor-pointer">
+                            Be Sweet
+                        </button>
+                        
+                        {/* Features */}
+                        <div className="space-y-3">
+                            <div className="flex items-center gap-3">
+                                <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
+                                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p className="text-coffee">Best Value</p>
+                            </div>
+
+                            <div className="flex items-center gap-3">
+                                <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
+                                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p className="text-coffee">Unlimited Platform Access</p>
+                            </div>
+
+                            <div className="flex items-center gap-3">
+                                <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
+                                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p className="text-coffee">High Quality 4k exports</p>
+                            </div>
+
+                            <div className="flex items-center gap-3">
+                                <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
+                                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p className="text-coffee">Unlimited Mockup Exports</p>
+                            </div>
+
+                            <div className="flex items-center gap-3">
+                                <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
+                                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p className="text-coffee">Transparent Backgrounds</p>
+                            </div>
+
+
+
+
                         </div>
                     </div>
+
                 </div>
-                
-            </section>
+
+
+
+
+            </div>
             </ScrollFadeIn>
-
-            
-            <section className="w-full bg-chocolate py-20">
-                <ScrollFadeIn>
-                <div className="flex flex-col items-center">
-                    <h2 className="text-center text-cream-vanilla text-4xl mb-4 font-semibold" style={{fontFamily: "Inter, sans-serif"}}>
-                        The Mockup Frustration Index
-                    </h2>
-                    <p className="text-center text-cream-vanilla/70 text-xl mb-2" style={{fontFamily: "Inter, sans-serif"}}>
-                        Time spent vs Sanity lost
-                    </p>
-                    <p className="text-center text-cream-vanilla/70" style={{fontFamily: "Inter, sans-serif"}}>
-                        Notice how as time increases you grow more insane.
-                    </p>
-                    <div className="chart container flex w-full justify-center  ">
-                        {/* Create teh chart first then figure out how to fill it with data */}
-                        <IndexChart className=""/>
-
-                    </div>
-                </div>
+        </section>
+        
 
 
-                </ScrollFadeIn>
-                
- 
-            </section>
- 
-            
-            <section className="w-full min-h-screen bg-chocolate p-20">
-                <ScrollFadeIn>
-                <h2 className="text-cream-vanilla text-5xl text-center mb-12" style={{fontFamily: "Inter, sans-serif"}}>
-                    {/*Beautiful Mockups Without the Learning Curve*/}
-                    Skip The Design Tools
-                </h2>
-                <p className="text-cream-vanilla text-center text-xl mb-16" style={{fontFamily: "Inter, sans-serif"}}>
-                    No Figma. No Photoshop. No tutorials. <span className="text-pink-cherry text-xl" style={{fontFamily: "Inter, sans-serif"}}>Appstore ready screenshots in minutes.</span>
-                </p>
+        {/* CTA Section */}
+        <section className="w-full h-screen bg-chocolate">
+            <ScrollFadeIn >
+                <div className="w-full h-full flex flex-col">
 
-                
-
-                
-                <div className="grid grid-cols-3 gap-12 max-w-6xl mx-auto">
-                     {/* Step 1 */}
-                    <div className="text-center">
-
-                        <div className="flex items-center justify-center gap-2 mb-3">
-                            <div className="w-8 h-8 rounded-full bg-blue-cobalt text-cream-vanilla flex items-center justify-center font-bold">
-                                1
-                            </div>
-                            <h3 className="text-cream-vanilla text-2xl font-semibold" style={{fontFamily: "Inter, sans-serif"}}>
-                                Style Your Scene
-                                {/*picture of a nice background with asset added? */}
-                            </h3>
-                        </div>
-                        <p className="text-cream-vanilla/60 leading-relaxed" style={{fontFamily: "Inter, sans-serif"}}>
-                            Choose backgrounds, add lighting, and upload your app screenshots to create the perfect look
-                        </p>
-                        {/* Graphics Here Phone with Light an logo */}
+                    {/* CTA - Top Half */}
+                    <div className="flex-1 flex flex-col items-center justify-center text-center px-4">
+                        <h2 className="text-pink-cherry text-6xl mb-8 font-semibold">
+                            Ready To Finish Your App?
+                        </h2>
+                        <button onClick={handleFreeTesting} className="bg-cream-vanilla text-pink-cherry px-8 py-3 rounded-xl text-2xl font-semibold hover:bg-pink-cherry hover:text-cream-vanilla transition-colors cursor-pointer">
+                            Let's Go
+                        </button>
                     </div>
 
-                    {/* Step 2 */}
-                    <div className="text-center">
-
-                        <div className="flex items-center justify-center gap-2 mb-3">
-                            <div className="w-8 h-8 rounded-full bg-blue-cobalt text-cream-vanilla flex items-center justify-center font-bold" >
-                                2
-                            </div>
-                            <h3 className="text-cream-vanilla text-2xl font-semibold" style={{fontFamily: "Inter, sans-serif"}}>
-                                Position Your Model
-                                {/*embed the phone controls without functionality? show the controls? */}
-                            </h3>
-                            
-                        </div>
-                        <p className="text-cream-vanilla/60 leading-relaxed" style={{fontFamily: "Inter, sans-serif"}}>
-                            Rotate, tilt, and position your device at the perfect angle using intuitive controls
-                        </p>
-                        {/* Graphics Here Phone being angled */}
-                    </div>
-                    
-
-                    
-                    {/* Step 3 */}
-                    <div className="text-center">
-
-                        <div className="flex items-center justify-center gap-2 mb-3">
-                            <div className="w-8 h-8 rounded-full bg-blue-cobalt text-white flex items-center justify-center font-bold">
-                                3
-                            </div>
-                            <h3 className="text-cream-vanilla text-2xl font-semibold">
-                                Easy Export
-                                {/*finished screenshot? */}
-                            </h3>
-                        </div>
-                        <p className="text-cream-vanilla/60 leading-relaxed">
-                            Capture your images then download your professional mockup in high resolution, ready for showing off
-                        </p>
-
-                        {/* Graphics Here camera button? */}
-                    </div>
-                </div>
-                
-
-                {/* ONE Dramatic Hero Result */}
-                    <ScrollFadeIn>
-                    <div className=" overflow-hidden -mt-16 scale-140">
+                    {/* Footer - Bottom Half */}
+                    <div className="flex-1 bg-chocolate flex flex-col md:flex-row items-center justify-between px-16 border-black-1">
                         
-                        <img 
-                            src="/HomepageHero5.png" 
-                            alt="Professional phone mockup with gradient background"
-                            className="w-full"
-                        />
-                    </div>
-                    </ScrollFadeIn>
-                 </ScrollFadeIn>
-
-            </section>
-
-            <section>
-                
-            </section>
-           
-
-
-
-            {/*Pricing */}
-            
-            <section className="w-full min-h-screen bg-chocolate p-20">
-                <ScrollFadeIn>
-                <h2 className="text-cream-vanilla text-5xl text-center mb-12 " style={{fontFamily: "Inter, sans-serif"}}>
-                    Pricing
-                </h2>
-
-                <div className="cardContainer grid place-items-center grid-cols-2 gap-8 max-w-6xl mx-auto">
-
-                    <div className="card1 flex  justify-center gap-2  w-[90%] h-[450px]  rounded-xl">
-                        <div className="flex flex-col bg-pink-bubblegum rounded-2xl p-8 shadow-lg w-full max-w-sm">
-                            {/* Header */}
-                            <h2 className="text-espresso text-2xl font-semibold mb-2" style={{fontFamily: "Inter, sans-serif"}}>
-                                Weekend Warrior
-                            </h2>
-                            
-                            {/* Price */}
-                            <div className="mb-8">
-                                <span className="text-text-espresso text-4xl font-bold" style={{fontFamily: "Inter, sans-serif"}}>$5.99</span>
-                                <span className="text-text-coffee text-lg" style={{fontFamily: "Inter, sans-serif"}}> / 2 day pass</span>
+                        {/* Logo - Left Side */}
+                        <div className="flex-shrink-0">
+                            {/* Your logo component here */}
+                            <div className="flex flex-col  justify-center items-center md:items-start font-bold ml-0 md:ml-20">
+                                <div className="flex w-[100%] justify-center lg:justify-start ">
+                                    <OfficialLogo className="h-18 w-18 opacity-70" />
+                                </div>
+                                
+                                <h1 className="text-cream-vanilla  text-xl">
+                                ScreenshotSweet
+                                </h1>
+                                <h1 className="text-cream-vanilla/70 text-xs">
+                                &#169; 2026 ScreenshotSweet.
+                                </h1>
                             </div>
-                            
-                            {/* CTA Button */}
-                            <button disabled={isCheckoutLoading} onClick={handleWeekendWarriorStripeRedirect} className="w-full py-3 bg-pink-cherry transition-all ease-in duration-100 hover:bg-pink-frosting hover:text-espresso text-white font-semibold rounded-xl transition-colors mb-10 cursor-pointer" style={{fontFamily: "Inter, sans-serif"}}>
-                                Become the Warrior
-                            </button>
-                            
-                            {/* Features */}
-                            <div className="space-y-3">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
-                                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                        </svg>
-                                    </div>
-                                    <p className="text-coffee">One Time Payment. No recurring costs.</p>
-                                </div>
 
-                                <div className="flex items-center gap-3">
-                                    <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
-                                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                        </svg>
-                                    </div>
-                                    <p className="text-coffee">48 Hour Unlimited Platform Access</p>
-                                </div>
-
-                                <div className="flex items-center gap-3">
-                                    <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
-                                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                        </svg>
-                                    </div>
-                                    <p className="text-coffee">High Quality 4k exports</p>
-                                </div>
-
-                                <div className="flex items-center gap-3">
-                                    <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
-                                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                        </svg>
-                                    </div>
-                                    <p className="text-coffee">Transparent Backgrounds</p>
-                                </div>
-
-
-
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="card1 flex  justify-center gap-2  w-[90%] h-[450px] rounded-xl ">
-                        <div className="flex flex-col bg-pink-bubblegum rounded-2xl p-8 shadow-lg w-full max-w-sm ring-4 ring-pink-cherry ring-offset-3 ring-offset-blue-cobalt shadow-pink-cherry shadow-xl">
-
-
-                            {/* Header */}
-                            <h2 className="text-espresso text-2xl font-semibold mb-2">
-                                Monthly
-                            </h2>
-                            
-                            {/* Price */}
-                            <div className="mb-8">
-                                <span className="text-black text-4xl font-bold">$13.99</span>
-                                <span className="text-text-coffee text-lg"> / month</span>
-                            </div>
-                            
-                            {/* CTA Button */}
-                            <button onClick={handleMonthlyStripeRedirect} disabled={isCheckoutLoading} className="w-full py-3 bg-pink-cherry transition-all ease-in duration-100 hover:bg-pink-frosting hover:text-espresso text-white font-semibold rounded-xl transition-colors mb-10 cursor-pointer">
-                                Be Sweet
-                            </button>
-                            
-                            {/* Features */}
-                            <div className="space-y-3">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
-                                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                        </svg>
-                                    </div>
-                                    <p className="text-coffee">Best Value</p>
-                                </div>
-
-                                <div className="flex items-center gap-3">
-                                    <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
-                                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                        </svg>
-                                    </div>
-                                    <p className="text-coffee">Unlimited Platform Access</p>
-                                </div>
-
-                                <div className="flex items-center gap-3">
-                                    <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
-                                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                        </svg>
-                                    </div>
-                                    <p className="text-coffee">High Quality 4k exports</p>
-                                </div>
-
-                                <div className="flex items-center gap-3">
-                                    <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
-                                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                        </svg>
-                                    </div>
-                                    <p className="text-coffee">Unlimited Mockup Exports</p>
-                                </div>
-
-                                <div className="flex items-center gap-3">
-                                    <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0">
-                                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                        </svg>
-                                    </div>
-                                    <p className="text-coffee">Transparent Backgrounds</p>
-                                </div>
-
-
-
-
-                            </div>
                         </div>
 
+                        {/* Connect & Contact Columns - Right Side */}
+                        <div className="flex gap-24 mr-0 md:mr-20">
+                            
+                            {/* Connect Column */}
+                            <div className="flex flex-col">
+                                <h3 className="text-cream-vanilla text-2xl font-semibold mb-6">
+                                    Connect
+                                </h3>
+                                <ul className="space-y-3">
+                                    <li>
+                                        <a href="#" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
+                                            Youtube
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
+                                            Instagram
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                            {/* Contact Column */}
+                            <div className="flex flex-col">
+                                <h3 className="text-cream-vanilla text-2xl font-semibold mb-6">
+                                    Contact
+                                </h3>
+                                <ul className="space-y-3">
+                                    <li>
+                                        <a href="mailto:hello@screenshotsweet.com" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
+                                            hello@screenshotsweet.com
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
+                                            Privacy Policy
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
+                                            Terms of Service
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
                     </div>
-
-
-
 
                 </div>
-                </ScrollFadeIn>
-            </section>
-            
-
-
-            {/* CTA Section */}
-            <section className="w-full h-screen bg-chocolate">
-                <ScrollFadeIn >
-                    <div className="w-full h-full flex flex-col">
-
-                        {/* CTA - Top Half */}
-                        <div className="flex-1 flex flex-col items-center justify-center text-center px-4">
-                            <h2 className="text-pink-cherry text-6xl mb-8 font-semibold">
-                                Ready To Finish Your App?
-                            </h2>
-                            <button onClick={handleFreeTesting} className="bg-cream-vanilla text-pink-cherry px-8 py-3 rounded-xl text-2xl font-semibold hover:bg-pink-cherry hover:text-cream-vanilla transition-colors cursor-pointer">
-                                Let's Go
-                            </button>
-                        </div>
-
-                        {/* Footer - Bottom Half */}
-                        <div className="flex-1 bg-chocolate flex items-center justify-between px-16 border-black-1">
-                            
-                            {/* Logo - Left Side */}
-                            <div className="flex-shrink-0">
-                                {/* Your logo component here */}
-                                <div className="flex flex-col  justify-center  font-bold ml-20">
-                                    <div className="flex w-[100%] ">
-                                        <OfficialLogo className="h-18 w-18 opacity-70" />
-                                    </div>
-                                    
-                                    <h1 className="text-cream-vanilla  text-xl">
-                                    ScreenshotSweet
-                                    </h1>
-                                    <h1 className="text-cream-vanilla/70 text-xs">
-                                    &#169; 2026 ScreenshotSweet.
-                                    </h1>
-                                </div>
- 
-                            </div>
-
-                            {/* Connect & Contact Columns - Right Side */}
-                            <div className="flex gap-24  mr-20">
-                                
-                                {/* Connect Column */}
-                                <div className="flex flex-col">
-                                    <h3 className="text-cream-vanilla text-2xl font-semibold mb-6">
-                                        Connect
-                                    </h3>
-                                    <ul className="space-y-3">
-                                        <li>
-                                            <a href="#" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
-                                                Youtube
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
-                                                Instagram
-                                            </a>
-                                        </li>
-
-                                    </ul>
-                                </div>
-
-                                {/* Contact Column */}
-                                <div className="flex flex-col">
-                                    <h3 className="text-cream-vanilla text-2xl font-semibold mb-6">
-                                        Contact
-                                    </h3>
-                                    <ul className="space-y-3">
-                                        <li>
-                                            <a href="mailto:hello@screenshotsweet.com" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
-                                                hello@screenshotsweet.com
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="#" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
-                                                Privacy Policy
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
-                                                Terms of Service
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </ScrollFadeIn>
-            </section>
-        </>
-    );
+            </ScrollFadeIn>
+        </section>
+    </>
+);
 }
 

@@ -50,23 +50,26 @@ export default function ToolbarFooter({isToolbarToggled, setToolbarToggled, appU
 
     return (
         <div className= {
-            isToolbarToggled ? `flex   transition-all ease-in duration-100 w-full items-center justify-center [7%] bg-coffee/80 py-2 hover:bg-espresso cursor-pointer` : `flex justify-end  transition-all ease-in duration-100  w-full items-center justify-between h-[7%] bg-coffee/80 px-4 hover:bg-espresso cursor-pointer`
+            isToolbarToggled ? `flex   transition-all ease-in duration-100 w-full items-center justify-center min-h-[7%] bg-coffee/80 py-2 hover:bg-espresso cursor-pointer` : `flex justify-end  transition-all ease-in duration-100  w-full items-center justify-between min-h-[7%] bg-coffee/80 px-4 hover:bg-espresso cursor-pointer`
             } onClick={handleFooterMenu}>
 
             {/*{!isToolbarToggled && <OfficialLogo className="h-14 w-14"/>}*/}
             
             {appUser ? (
-                <div className={!isToolbarToggled ? `flex w-[100%] items-center justify-start gap-2 pl-2` : `flex w-[100%] items-center justify-center gap-2 pl-2` }>
+                <div className={!isToolbarToggled ? `flex  w-[100%] items-center justify-start gap-2 pl-2` : `flex w-[100%] items-center justify-center gap-2 pl-2` }>
 
-                    <img 
-                        src={appUser.profile_picture} 
-                        alt={appUser.display_name}
-                        className="h-10 w-10 rounded-full object-cover mr-2"
-                        referrerPolicy="no-referrer"
-                    />
+                    <div className="fkex-shrink-0">
+                        <img 
+                            src={appUser.profile_picture} 
+                            alt={appUser.display_name}
+                            className="h-10 w-10 rounded-full object-cover mr-2"
+                            referrerPolicy="no-referrer"
+                        />
+                    </div>
+
 
                     {!isToolbarToggled && (
-                        <div className="flex flex-col "> 
+                        <div className="flex flex-col min-w-0 "> 
                             
                             <span className="text-cream-vanilla text-sm">
                                 {appUser.display_name}

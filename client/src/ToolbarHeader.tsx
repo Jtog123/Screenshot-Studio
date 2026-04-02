@@ -11,14 +11,14 @@ interface ToolbarHeaderProps {
 export default function ToolbarHeader({isToolbarToggled, setToolbarToggled} : ToolbarHeaderProps) {
     return (
         <>
-            <div className={isToolbarToggled ? `flex w-full items-center justify-center  h-[5%] bg-coffee/80 py-2` : `flex w-full items-center justify-between h-[5%] bg-coffee/80 px-3 `}>
-                <button onClick={setToolbarToggled} className="flex justify-center cursor-pointer items-center h-[30px] w-[40px] bg-espresso transition-colors duration-300 hover:bg-toffee rounded-xl group">
+            <div className={isToolbarToggled ? `flex w-full items-center justify-center  min-h-[5%] bg-coffee/80 py-2` : `flex w-full items-center justify-between min-h-[5%] bg-coffee/80 px-3 `}>
+                <button onClick={setToolbarToggled} className="flex flex-shrink-0 justify-center cursor-pointer items-center h-[30px] w-[40px] bg-espresso transition-colors duration-300 hover:bg-toffee rounded-xl group">
                     <ToolbarHeaderArrow className={`transition-transform duration-300 text-pink-cherry group-hover:text-espresso ${
                         isToolbarToggled ? 'rotate-180' : 'rotate-0'
                     }`}/> 
                 </button>
 
-                <h1 className={isToolbarToggled ? "hidden" : "h-[80%] w-[1/3]  text-cream-vanilla rounded-xl flex items-center justify-center"}>
+                <h1 className={isToolbarToggled ? "hidden" : "min-h-[80%] w-[1/3] flex-shrink-0 text-cream-vanilla rounded-xl flex items-center justify-center"}>
                     <OfficialLogo className='h-10 w-10 '/>
                 </h1>
             </div>
