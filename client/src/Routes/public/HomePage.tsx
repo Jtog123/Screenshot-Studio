@@ -457,7 +457,7 @@ return (
         
         {/* Hero Section - Split Left/Right */}
         <ScrollFadeIn >
-        <section className="flex flex-col lg:flex-row w-full min-h-screen bg-chocolate">
+        <section id="hero" className="flex flex-col lg:flex-row w-full min-h-screen bg-chocolate">
             
             {/* Left Side - Content */}
             <div className="flex leftSide justify-center items-center bg-chocolate w-full lg:w-1/2 ">
@@ -575,7 +575,7 @@ return (
         </section>
 
         
-        <section className="w-full min-h-screen bg-chocolate p-20">
+        <section id="about" className="w-full min-h-screen bg-chocolate p-20">
             <ScrollFadeIn>
             <h2 className="text-cream-vanilla text-5xl text-center mb-12" style={{fontFamily: "Inter, sans-serif"}}>
                 {/*Beautiful Mockups Without the Learning Curve*/}
@@ -673,7 +673,7 @@ return (
 
         {/*Pricing */}
         
-        <section className="w-full min-h-screen bg-chocolate p-20">
+        <section id="pricing" className="w-full min-h-screen bg-chocolate p-20">
             <ScrollFadeIn>
             <h2 className="text-cream-vanilla text-5xl text-center mb-12 " style={{fontFamily: "Inter, sans-serif"}}>
                 Pricing
