@@ -204,6 +204,20 @@ export default function HomePage() {
         camera.position.z = 5;
         camera.position.y = 0.25;
 
+        const spotLight = new THREE.SpotLight(0xFFFFFF);
+        spotLight.position.set(-1, 2.5, 1);
+
+        scene.add(spotLight);
+        const lightHelper = new THREE.SpotLightHelper(spotLight,0xFFFFFF);
+        //scene.add(lightHelper);
+        
+        spotLight.angle = Math.PI / 4;
+
+        //const target = new THREE.Object3D();
+        //spotLight.target = target;
+        //scene.add(spotLight.target);
+        lightHelper.update()
+
         //function to load the texture
         const loadTexture = (imgPath: string) : THREE.Texture => {
             const texture = textureLoader.load(imgPath);
@@ -284,13 +298,18 @@ export default function HomePage() {
                         setHomePhoneScreen(child);
                     } else if (child.name === 'phone_body') {
                         phoneBody = child;
+                        child.castShadow = true;
+                        child.receiveShadow = true;
                     }
                 }
         });
 
         gltf.scene.scale.set(0.25, 0.25, 0.25);
         scene.add(gltf.scene);
+
         homePhoneModel = gltf.scene;
+
+
         // allow users to add multiple photos, add to an array of some kind
         // pass it down through the toolbar to toolbarImgandText
         
@@ -468,7 +487,7 @@ return (
                         Making your app stand out has never been easier.
                     </h2>
 
-                    <button onClick={handleFreeTesting} className="bg-pink-cherry hover:bg-pink-velvet text-white font-semibold text-xl px-12 py-6 rounded-2xl shadow-[0_0_30px_rgba(232,70,149,0.4)] hover:shadow-[0_0_20px_rgba(232,70,149,0.6)] transform hover:scale-101 transition-all ease-in duration-100 cursor-pointer mx-auto lg:mx-0">
+                    <button onClick={handleFreeTesting} className="bg-pink-cherry hover:bg-pink-velvet text-white font-semibold text-xl px-12 py-6 rounded-2xl shadow-[0_0_30px_rgba(232,70,149,0.4)] hover:shadow-[0_0_20px_rgba(232,70,149,0.6)] transform hover:scale-101 transition-all ease-in duration-100 cursor-pointer mx-auto lg:mx-0 animate-glow-pulse">
                         Get Started Free
                     </button>
                     
@@ -556,10 +575,8 @@ return (
                 <h2 className="text-center text-cream-vanilla text-4xl mb-4 font-semibold" style={{fontFamily: "Inter, sans-serif"}}>
                     The Mockup Frustration Index
                 </h2>
-                <p className="text-center text-cream-vanilla/70 text-xl mb-2" style={{fontFamily: "Inter, sans-serif"}}>
-                    Time spent vs Sanity lost
-                </p>
-                <p className="text-center text-cream-vanilla/70" style={{fontFamily: "Inter, sans-serif"}}>
+
+                <p className=" text-cream-vanilla/70" style={{fontFamily: "Inter, sans-serif"}}>
                     Notice how as time increases you grow more insane.
                 </p>
                 <div className="chart container flex w-full  items-center justify-center max-h-[350px] lg:max-h-none overflow-hidden">
@@ -745,7 +762,7 @@ return (
                 </div>
 
                 <div className="card1 flex  justify-center gap-2  w-[90%] h-[450px] rounded-xl ">
-                    <div className="flex flex-col bg-pink-bubblegum rounded-2xl p-8 shadow-lg w-full max-w-sm ring-4 ring-pink-cherry ring-offset-3 ring-offset-blue-cobalt shadow-pink-cherry shadow-xl">
+                    <div className="flex flex-col bg-pink-bubblegum rounded-2xl p-8 shadow-lg w-full max-w-sm ring-4 ring-pink-cherry ring-offset-3 ring-offset-blue-cobalt animate-glow-pulse">
 
 
                         {/* Header */}
@@ -838,7 +855,7 @@ return (
                         <h2 className="text-pink-cherry text-6xl mb-8 font-semibold">
                             Ready To Finish Your App?
                         </h2>
-                        <button onClick={handleFreeTesting} className="bg-cream-vanilla text-pink-cherry px-8 py-3 rounded-xl text-2xl font-semibold hover:bg-pink-cherry hover:text-cream-vanilla transition-colors cursor-pointer">
+                        <button onClick={handleFreeTesting} className="bg-cream-vanilla text-pink-cherry px-8 py-3 rounded-xl text-2xl font-semibold hover:bg-pink-cherry hover:text-cream-vanilla transition-colors cursor-pointer ">
                             Let's Go
                         </button>
                     </div>
