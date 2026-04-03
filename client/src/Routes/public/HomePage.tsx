@@ -12,6 +12,8 @@ import OfficialLogo from "../../IconAssets/OfficialLogo";
 import SuccessPage from "../protected/PurchaseSuccessPage";
 import LoadingPage from "../../LoadingPage";
 import { API_URL } from "../../config";
+import TermsOfService from "../../TermsOfService";
+import PrivacyPolicy from "../../PrivacyPolicy";
 
 
 export default function HomePage() {
@@ -298,8 +300,8 @@ export default function HomePage() {
                         setHomePhoneScreen(child);
                     } else if (child.name === 'phone_body') {
                         phoneBody = child;
-                        child.castShadow = true;
-                        child.receiveShadow = true;
+                        //child.castShadow = true;
+                        //child.receiveShadow = true;
                     }
                 }
         });
@@ -469,6 +471,8 @@ return (
         <div className="lg:block">
             <NavigationBar />
         </div>
+
+        <PrivacyPolicy/>
 
         {isCheckoutLoading && <LoadingPage/>}
 

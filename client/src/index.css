@@ -156,7 +156,7 @@
 
     }
 
-    --animate-glow-pulse: glow-pulse 5s ease-in-out infinite;
+    --animate-glow-pulse: glow-pulse 4s ease-in-out infinite;
 
     @keyframes glow-pulse {
         0%, 100% {

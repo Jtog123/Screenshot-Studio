@@ -332,8 +332,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                     } else {
                         //Uncomment when ready for deployment!!
 
-
-                        /*
+                     
                         const lastExportDate = new Date(userData.last_export);
                         const now = new Date();
 
@@ -346,10 +345,11 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                         if(differenceInHours < 72) {
                             const hoursRemaning = Math.ceil(72 - differenceInHours)
                             //Show a timer? limit will reset 
+                            // create a component showing hours remaning
                             console.log("Free Tier limit reached: 1 export per 2 days");
                             return;
                         } 
-                            */
+                            
 
                     }
 
