@@ -75,7 +75,7 @@ export default function NavigationBar() {
 
     return (
         <>
-            <div className="fixed flex h-[7%] w-[100%] z-[100]">
+            <div className="fixed top-0 flex h-[7%] w-[100%] z-[100]">
                 
                 {/* Logo Section */}
                 <div className="LogoTitleContainer flex w-full lg:w-[33%] h-[100%] items-center justify-between bg-coffee/80 px-5">

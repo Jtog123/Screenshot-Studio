@@ -4,6 +4,7 @@ import HomePage from "./Routes/public/HomePage";
 import SuccessPage from "./Routes/protected/PurchaseSuccessPage";
 import PrivacyPolicy from "./PrivacyPolicy";
 import TermsOfService from "./TermsOfService";
+import UserSettings from "./Routes/protected/UserSettings";
 
 export default function App() {
     return (
@@ -15,6 +16,7 @@ export default function App() {
                 <Route path="/purchase-success"  element={<SuccessPage/>}></Route>
                 <Route path = "/privacy" element={<PrivacyPolicy/>}> </Route>
                 <Route path = "/terms" element={<TermsOfService/>}> </Route>
+                <Route path="/user-settings" element={<UserSettings/>}> </Route>
             </Routes>
             
         </BrowserRouter>

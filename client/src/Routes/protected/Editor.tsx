@@ -104,6 +104,7 @@ export default function Editor() {
 
   //const[fontsLoaded, setFontsLoaded] = useState(false);
 
+  //adjust links to API_URL
   useEffect(() => {
     const returnTo = localStorage.getItem("return_to");
 

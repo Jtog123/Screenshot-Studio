@@ -1,3 +1,4 @@
+import {Link} from "react-router"
 export default function FooterMenu() {
 
 
@@ -74,14 +75,19 @@ export default function FooterMenu() {
                 {/* Divider */}
                 <div className="h-[0.5px] bg-border-300  mx-2" />
 
-                {/* More menu items */}
+                {/* More menu items 
                 <a href="/upgrade" className="flex items-center gap-2 min-h-8 px-2  rounded-lg hover:bg-bg-200 cursor-pointer hover:bg-mocha/70">
                     <span>Upgrade plan</span>
-                </a>
+                </a>*/}
+
+                <Link to="/#pricing" className="flex items-center gap-2 min-h-8 px-2 rounded-lg hover:bg-bg-200 cursor-pointer hover:bg-mocha/70">Upgrade Plan</Link>
+
+
+                <Link to="/user-settings" className="flex items-center gap-2 min-h-8 px-2 mt-1 rounded-lg hover:bg-bg-200 cursor-pointer hover:bg-mocha/70">User Settings</Link>
 
 
                 {/* Divider */}
-                <div className="h-[0.5px] bg-border-300 my-1.5 mx-2" />
+                <div className="h-[0.5px] bg-border-300 mt-1 mx-2" />
 
                 {/* Logout */}
                 <a onClick={handleUserLogout} className="flex items-center gap-2 min-h-8 px-2  rounded-lg hover:bg-bg-200 cursor-pointer hover:bg-mocha/70">

@@ -1,5 +1,5 @@
 import NavigationBar from "../../NavigationBar"
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, use } from "react";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import * as THREE from 'three';
 import ScrollFadeIn from "../../ScrollFadeIn";
@@ -14,7 +14,8 @@ import LoadingPage from "../../LoadingPage";
 import { API_URL } from "../../config";
 import TermsOfService from "../../TermsOfService";
 import PrivacyPolicy from "../../PrivacyPolicy";
-import {Link} from "react-router"
+import {Link, useLocation} from "react-router"
+import UserSettings from "../protected/UserSettings";
 
 
 export default function HomePage() {
@@ -53,6 +54,28 @@ export default function HomePage() {
     //const loader = new THREE.TextureLoader();
 
     console.log(API_URL);
+
+    //grabs location from the url # hash
+    const {hash} = useLocation();
+
+    useEffect(() => {
+        if(hash === "#pricing") {
+            const timer = setTimeout(() => {
+                const element = document.getElementById("pricing");
+
+                if(element) {
+                    element.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    })
+                }
+
+            }, 100);
+
+            return () => clearTimeout(timer);
+        }
+
+    }, [hash])
 
     
 
@@ -473,6 +496,7 @@ return (
             <NavigationBar />
         </div>
 
+        
         
 
         {isCheckoutLoading && <LoadingPage/>}
