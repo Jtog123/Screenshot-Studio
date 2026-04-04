@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import OfficialLogo from "../../IconAssets/OfficialLogo"
 import { API_URL } from "../../config"
+import { Link, redirect } from "react-router";
+
 /*
 Fwetch user data
 if user is not equal to free than allow the unsubscribe button to be clicked
@@ -13,47 +15,84 @@ export default function UserSettings() {
     const[userDisplayName, setUserDisplayName] = useState("");
     const[userSubscriptionType, setUserSubscriptionType] = useState("");
 
+
+    async function getUserData() {
+        try {
+            //fetch user info, store it
+            const response = await fetch(`${API_URL}/api/userdata`, {
+                credentials: "include",
+                method: "GET"
+            });
+
+            if(!response) return;
+
+            const userData = await response.json();
+
+            setUserEmail(userData.user_email);
+            setUserDisplayName(userData.user_display_name);
+            setUserSubscriptionType(userData.subscription_type);
+
+            console.log(userData);
+
+        } catch(err) {
+            console.error("Error fetching user data", err);
+        }
+    }
+
+
+
+
     useEffect(() => {
 
-        const getUserData = async() => {
-            try {
-                //fetch user info, store it
-                const response = await fetch(`${API_URL}/api/userdata`, {
-                    credentials: "include",
-                    method: "GET"
-                });
-
-                if(!response) return;
-
-                const userData = await response.json();
-
-                setUserEmail(userData.user_email);
-                setUserDisplayName(userData.user_display_name);
-                setUserSubscriptionType(userData.subscription_type);
-
-                console.log(userData);
-
-
-            } catch(err) {
-                console.error("Error fetching user data", err);
-            }
-        }
-
+        //call it upon loading
         getUserData();
-
-
 
     }, []);
 
-    function handleUnsubscribe() : void {
-        if(userSubscriptionType !== "Free") {
-            // start a stripe unsubscribe
+    async function handleUnsubscribe() : Promise<void> {
+        //create a note if you are on the weekend waro=rior pass, you will automatically be downgraded to a free membership after your 2 day pass expires
+
+        try {
+            const response = await fetch(`${API_URL}/api/cancel-subscription`, {
+                method: "POST",
+                credentials: "include"
+            });
+
+            const userData = await response.json();
+
+            if(response.ok ) {
+                if(userData.auto_expire) {
+                    alert("Your Weekend Warrior pass will automatically expire after 48 hours.");
+                } else if(userData.success) {
+                    alert("Unsubscribe Success. Your subscription will be cancelled at the end of your billing period. You'll keep access until then.");
+                    //getUserData();
+                    await getUserData();
+                    
+                } else {
+                    alert(userData.message)
+                }
+            } else {
+                alert(userData.error || "Failed to cancel subscription");
+            }
+
+        } catch(err) {
+            console.error("Unsubscribe Error:", err);
+            alert("An error occurred. Please try again.");
+
         }
+
+        
+
 
     }
 
     return(
         <div className="flex justify-center  min-h-screen min-w-screen bg-chocolate  mt-20">
+
+            <div>
+            <Link to="/editor" className="absolute left-56 top-10 text-2xl text-cream-vanilla">✕</Link>
+            </div>
+
             <div className=" flex flex-col   w-[1000px] h-[400px] rounded-xl border-3 border-cream-vanilla">
                 <div className="flex justify-between items-center w-[100%] h-[25%]  mt-4  ">
                     

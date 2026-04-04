@@ -166,7 +166,7 @@ export default function HomePage() {
             if(!authCheck.ok) {
                 //user not signed in, sign them in
                 localStorage.setItem("return_to", "checkout_monthly");
-                window.location.href = `${API_URL}/auth/google/`;
+                window.location.href = `${API_URL}/auth/google`;
                 return;
             }
 

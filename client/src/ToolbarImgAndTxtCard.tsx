@@ -36,6 +36,8 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
     const [isScreenTextureUploaded , setIsScreenTextureUploaded] = useState(false);
     const [screenTextures, setScreenTextures] = useState<ScreenTextureInterface[]>([]);
     const [activeTextureID, setActiveTextureID] = useState<string | null>(null);
+    const [userCanExport, setUserCanExport] = useState(true);
+    const [hoursRemainingTillNextExport, setHoursRemaningTillNextExport] = useState(0);
     //const [capturedImages, setCapturedImages] = useState<CapturedImage[]>([]);
   
     //const[contentHeight, setContentHeight] = useState(0);
@@ -339,16 +341,22 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                         //Delta between todays time and the users last export
                         const differenceInMs = now.getTime() - lastExportDate.getTime();
                         
-                        const differenceInHours = Math.floor(differenceInMs / (1000 * 60 * 60 * 24));
+                        const differenceInDays = Math.floor(differenceInMs / (1000 * 60 * 60 * 24));
 
                         // if the delta between the times of today and users last export is greater than 2, allow for a new export
-                        if(differenceInHours < 72) {
-                            const hoursRemaning = Math.ceil(72 - differenceInHours)
+                        if(differenceInDays < 3) {
+                            //display a component on the screen letting users know how long they have to wait
+                            const hoursRemaning = Math.ceil((3 - differenceInDays) * 24);
+                            setHoursRemaningTillNextExport(hoursRemaning);
                             //Show a timer? limit will reset 
                             // create a component showing hours remaning
                             console.log("Free Tier limit reached: 1 export per 2 days");
+                            setUserCanExport(false);
                             return;
-                        } 
+                        } else {
+                            setUserCanExport(true);
+
+                        }
                             
 
                     }
@@ -550,16 +558,27 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                         <div className="w-[80%] h-px bg-pink-cherry/80 my-2"></div>
                     </div>
                     
-                    <div className="flex justify-center items-center  ">
+                    <div className="flex  justify-center items-center  ">
                         
                             <h4 className="text-cream-vanilla text-xs mr-2 ml-5"  style={{ fontFamily: 'lato' }}>Captured</h4>
 
-                            <button onClick={handleImageFileExport}>
-                                <ExportIcon className="flex justify-center items-center transition-all ease-in duration-200 bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-blue-frost cursor-pointer w-[35px] h-[30px] p-2 mx-1  rounded-lg py-1"/>
+                            <button className=" disabled:cursor-none" disabled={userCanExport !== true} onClick={handleImageFileExport}>
+                                <ExportIcon className="flex justify-center items-center transition-all ease-in duration-200 bg-coffee/80 hover:bg-amber/80 disabled:bg-stone-700  text-cream-vanilla hover:text-blue-frost cursor-pointer w-[35px] h-[30px] p-2 mx-1  rounded-lg py-1"/>
                             </button>
-        
+
+                            
 
                     </div>
+
+                    <div className="flex justify-center">
+                        {!userCanExport && (
+                            <div className="flex justify-center text-red-400  text-xs max-w-[200px] mx-5 text-wrap mt-1"> 
+                            Export limit reached on the free tier. Upgrade to premium for more exports or return in {hoursRemainingTillNextExport} hour(s).
+
+                            </div>
+                        )}
+                    </div>
+
 
 
 
