@@ -1,9 +1,19 @@
-
-
+import { Link } from "react-router"
+import { useEffect } from "react";
 
 export default function TermsOfService() {
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+    
     return(
         <div className="flex justify-center  min-h-screen min-w-screen bg-chocolate text-cream-vanilla">
+
+            <div>
+            <Link to="/" className="absolute left-60 top-10 text-2xl">✕</Link>
+            </div>
+
             <div className=" mt-20 h-[90%] w-[50%]">
                 <h1 className="text-3xl text-cream-vanilla" style={{fontFamily: "Inter, sans-serif"}}> Terms Of Service</h1>
                 <h1 className="text-sm text-cream-vanilla/50 mb-10 " style={{fontFamily: "Inter, sans-serif"}}> Updated on: 2nd of April, 2026</h1>

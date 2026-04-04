@@ -14,6 +14,7 @@ import LoadingPage from "../../LoadingPage";
 import { API_URL } from "../../config";
 import TermsOfService from "../../TermsOfService";
 import PrivacyPolicy from "../../PrivacyPolicy";
+import {Link} from "react-router"
 
 
 export default function HomePage() {
@@ -472,7 +473,7 @@ return (
             <NavigationBar />
         </div>
 
-        <PrivacyPolicy/>
+        
 
         {isCheckoutLoading && <LoadingPage/>}
 
@@ -921,14 +922,19 @@ return (
                                     </li>
 
                                     <li>
+                                        {/*
                                         <a href="#" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
                                             Privacy Policy
                                         </a>
+                                        */}
+                                        <Link to="/privacy" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors"> Privacy Policy
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a href="#" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
-                                            Terms of Service
-                                        </a>
+                                        <Link to="/terms" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
+                                        Terms of Service
+                                        </Link>
+
                                     </li>
                                 </ul>
                             </div>

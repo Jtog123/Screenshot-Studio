@@ -123,9 +123,24 @@ Address: getcracked, 1210 S Indiana Avenue, Chicago, IL 60605
 
 */
 
+import { Link } from "react-router"
+import { div } from "three/src/nodes/TSL.js"
+import { useEffect } from "react";
+
 export default function PrivacyPolicy(){
+
+      useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return(
+
         <div className="flex justify-center  min-h-screen min-w-screen bg-chocolate text-cream-vanilla">
+
+            <div>
+            <Link to="/" className="absolute left-60 top-10 text-2xl">✕</Link>
+            </div>
+
             <div className=" mt-20 h-[90%] w-[50%]">
                 <h1 className="text-3xl text-cream-vanilla" style={{fontFamily: "Inter, sans-serif"}}> Privacy Policy</h1>
                 <h1 className="text-sm text-cream-vanilla/50 mb-10 " style={{fontFamily: "Inter, sans-serif"}}> Effective date: 3rd of April, 2026</h1>
