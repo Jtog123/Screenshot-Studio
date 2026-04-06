@@ -503,4 +503,200 @@ Entity Framework Core (if using database): https://learn.microsoft.com/en-us/ef/
 We are not storing any user data in cookies, that would be a security risk, In the cookie we keep a signature to look up a user in the database'
 
 
-OK, Im 
+Cloudflare gives https on deployment frontend or coolify?
+Railway backend https
+
+// Background
+<div className="bg-velvet-dark">
+
+// Text
+<h1 className="text-cream-light">
+
+// Border
+<div className="border-velvet">
+
+// Hover
+<button className="bg-velvet hover:bg-velvet-accent">
+
+velvet: {
+          dark: '#8B1538',
+          DEFAULT: '#A42347',
+          light: '#C14A5C',
+          accent: '#6B1F2D',
+        },
+        cream: {
+          light: '#FFFBF5',
+          DEFAULT: '#F5F0E8',
+          dark: '#E8DED0',
+        },
+        cocoa: {
+          dark: '#3D1F1F',
+          DEFAULT: '#5C2E2E',
+          light: '#7A4545',
+        }
+
+
+        new bg?
+        #1f1000
+        or 
+        #ffa442
+
+
+
+
+
+- use aspect ratios rather than pixels
+- paid users get more aspect ratios?
+- paid users get cloud sessions/ storage?
+- Maybe on homepage instead of having 50/50 split width i can have 60/40
+- add "danger zone" to chart
+- that way the arrow acn be posibtioned not absolutely and can look like its hitting the other side
+- Create a "user scene layer" where users store all their active scenes, flow users statrs app, taken to scene layer, from scene layer they create a new scene or pick an existing scene, app opens they get to work
+- adjust steps 1 and two (1 style your scene - Choose backgrounds, add lighting, and upload your apps photos ,,, 2 - Position your model , rotate tilt and position your device at the perfet angle)  
+- For now use local storage and make their session expire after 48 hours?
+
+USER TABLE
+display name
+first name
+last name
+email
+profileImg
+subscriptionType (free, Weekend Warrior, Monthly)
+
+
+PAIN POINTS
+Not wasting time
+Saving frustration with other design tools
+No design tools tutorials
+
+Design without the headache
+
+
+IDEA below 3 steps one professional good looking mock up that shows the results
+
+
+USING IPHONE 16 PRO
+
+For now use local storage and make their session expire after 48 hours?
+
+FEATURES FOR NOW
+ - Use LocalStoarge to persist user session data
+ - Build a basic table for user analytics, track number of logins, # of times export button hit, if they are free have they consistently reached their screenshot limit? If they are not free how often are they hitting the export button? How many lights are in the scene on export? How many text components? how many image components? Return rates, user_analytics
+
+ TABLES
+ users - (Have it)
+ sessions - user_id, login_timestamp, logout_timestamp, device type?
+ exports - user_id, timestamp, scene_id, num_lights, num_images, num_text, aspect_ratio, num_exports_from_scene
+ scenes (metadata) - user_id, created_at, exported (yes/no), num_edits, time_to_export
+ subscriptions - user_id, plan_type, start_date, end_date, status, payment_amount
+  - using local storage we are going to store a users
+    Name (Not local storage),
+    Google Icon (not local storage)
+    isGradeintOn
+    Background color
+    Light settings
+    Text content
+    text placement
+    image content LATER AWS?
+    image placement LATER AWS - images on postgres can be a perofrmance hit
+    Phone rotationHeres my list im thinking
+
+    1. Get exports working and polished
+    2. get basic database for users up and going
+    3. basic analytics
+    4. finish landing page
+    5. integrate stripe payments
+    6. Ship 1.0?
+
+    TODAY export files, when a user exports a file update the table
+
+
+
+
+
+UI To ADD
+- SVG that handle failed exports or inccorect file extensions show a message alerting users
+- Icon indicating users membership
+- change UI colors
+- finish footer,
+- confirm functionality of app
+- write business logic for weekend warrior and monthly
+- Warrior icon , king crown icon
+- buy domain
+- stripe payments rails
+- enable transprent backgrounds toggle on phonegui DONE?
+- DONE?
+- users can log in with sigin but it should stay free, after they ay weekend warrior, we should update the database, then the app should display it
+- write a basic success page, display a message have it redirect users to the app
+- Drop a user from table, sign them back in make sure they are on free tier, after sigingin them in upgrade the, and make sure they get updated to both either weekend or mothly.
+
+
+Postres sql strings use single quotes '' rather than double quotes which identify columns
+
+
+
+
+FEATURES TO ADD (after testing )
+ - More Phone Models
+ - Scene Layer, its the layer where users sign in are funneled to all their scenes. Since we want this to work across devices,      postgres will have to store scene information such as lights in scene, the lights settings, the background color the user had saved, etc. Will need to track user behavior to see how the use the app. I will add tables such as (scene, scene_asstes, scene_settings)
+ - Later When implmenting better saves of scenes we will remember a users in scene components such as lights, light positions, light Colors.
+ Text Components, text component positions, text colors, text size, Etc.
+
+CRITICAL (Must-Do):
+[ x?] Replace all localhost URLs with environment variables
+[ x?] Update Google OAuth redirect URLs (add production)
+[ x?] Add FRONTEND_URL to .env
+[ x?] Update session cookie settings (secure, sameSite)
+[ x?] Update CORS origin
+[ ] Switch to Stripe live keys (sk_live_...)
+[ x?] Generate strong SESSION_SECRET
+[ x?] change captured inputs to like homepage
+[] test free user logic
+[x?] window resize toolbar header and footer icons bust out
+[x] homepage cards line itesm dont fit on window resize
+[x] switch to single page layout on window resize, get rid of your app here arrow on resize
+[x] privacy policy
+[x] terms of service
+[x] menu card in app "upgrade" redirect to home page cards
+[x?] cancel subscription logic through stripe? settings page?
+[x] set up porkbun email forwarding
+[x] show free user alert after they have used up exports
+[] replace all localhosts in every component that makes requests
+[] on user settings page better place for 'x' on resize
+
+DEPLOY:
+[ x] Buy domain
+[ ] Deploy backend (Railway/Render)
+[ ] Deploy frontend (Vercel/Cloudflare)
+[ ] Point domain to hosting
+[ ] Add SSL certificate (automatic with Vercel/Railway)
+
+POST-DEPLOY:
+[ ] Set up Stripe webhook
+[ ] Test end-to-end payment flow
+[ ] Test Google OAuth login
+[ ] Test Weekend Warrior purchase
+[ ] Test Monthly subscription
+[ ] Check database updates after payment
+[] User settings page make an overlay rather than a renavigation, so it saves state of project
+
+[] rotate all secrets, Generate new Stripe keys in Stripe Dashboard,
+Create new Google OAuth credentials in Google Cloud Console
+Change database password
+Generate new session secret
+
+[]
+
+
+Deploy Backend to Railway/Render
+Deploy Frontend to Vercel/Cloudflare
+Point DNS to hosting
+Set up Stripe webhook (production URL)
+Test with test card in production
+Switch to live Stripe keys
+Launch! 🚀
+
+-Bug ,from a gradient background go to solid background change the color, refresh the page, then swtich to gradient background, it will forget the previous gradient colors. 
+
+REMBMER
+AppUser has both instacnes on Client and Server side, so when upadting one need to update both!!

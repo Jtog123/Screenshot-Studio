@@ -387,6 +387,78 @@ router.get("/auth/google/me", (req, res) => {
     res.json({userProfile: req.user});
 });
 
+router.post("/api/cancel-subscription", async function(req, res) {
+    try {
+
+        if(!req.user) {
+            res.status(401).json({error: "Not authenticated"});
+        }
+
+        const user = req.user as any;
+
+        const userResult = await pool.query(
+            `
+                SELECT subscription_type
+                FROM users
+                WHERE google_id = $1
+            `, [user.google_id]
+        );
+
+        if(userResult.rows.length === 0) {
+            return res.status(404).json({error: "User not found"});
+
+        }
+
+        const subscriptionType = userResult.rows[0].subscription_type;
+
+        if(subscriptionType === "Weekend") {
+            return res.json({
+                message: "Weekend warrior pass will automatically expire after 48 hours. No action needed.",
+                auto_expire: true
+            });
+        }
+
+        if(subscriptionType === "Monthly") {
+            const paymentResult = await pool.query(
+                `
+                SELECT stripe_subscription_id
+                FROM payments
+                WHERE user_id = (SELECT user_id FROM users WHERE google_id = $1)
+                AND stripe_subscription_id IS NOT NULL
+                ORDER BY created_at DESC
+                LIMIT 1
+                
+                `, [user.google_id]
+            )
+
+            if(paymentResult.rows[0].length === 0) {
+                return res.status(404).json({ error: "No active subscription found" });
+
+            }
+
+            const stripeSubscriptionID = paymentResult.rows[0].stripe_subscription_id;
+
+            await stripe.subscriptions.update(stripeSubscriptionID, {
+                cancel_at_period_end: true
+            });
+
+            return res.json({
+                success:true,
+                message: "Subscirption will cancel at the end of your billing period"
+            });
+        }
+
+        // User is Free tier
+        return res.json({ 
+            message: "You don't have an active subscription to cancel"
+        });
+
+    } catch(err) {
+        console.error("Error fetch stripe customer info");
+        return;
+    }
+})
+
 router.get("/api/userdata", async function (req, res) {
     try {
         if(!req.user) {

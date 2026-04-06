@@ -1,6 +1,0 @@
-@ScreenshotSweetAPI_HostAddress = http://localhost:5252
-
-GET {{ScreenshotSweetAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
