@@ -1,4 +1,5 @@
 import {Link} from "react-router"
+import { API_URL, FRONTEND_URL } from "./config";
 export default function FooterMenu() {
 
 
@@ -19,11 +20,13 @@ export default function FooterMenu() {
   },[]);
   */
 
+  //change localhosts
+
     function handleUserLogout() : void {
         //send a log out reuqest to the backend
         const userLogout = async () => {
             try {
-                const response = await fetch("http://localhost:5050/auth/logout", {
+                const response = await fetch(`${API_URL}/auth/logout`, { //"http://localhost:5050/auth/logout"
                     method: "POST",
                     credentials: "include"
                 });
@@ -39,13 +42,13 @@ export default function FooterMenu() {
 
                 if(userData.success) {
                     console.log("Logout success, redirecting");
-                    window.location.href = "http://localhost:5173/";
+                    window.location.href = `${FRONTEND_URL}/`;//http://localhost:5173/
 
                 }
 
             } catch(err) {
                 //navigate home anyway
-                window.location.href = "http://localhost:5173/";
+                window.location.href = `${FRONTEND_URL}/`;
                 console.error("Error", err);
             }
             

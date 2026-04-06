@@ -89,11 +89,16 @@ export default function UserSettings() {
     return(
         <div className="flex justify-center  min-h-screen min-w-screen bg-chocolate  mt-20">
 
-            <div>
-            <Link to="/editor" className="absolute left-56 top-10 text-2xl text-cream-vanilla">✕</Link>
-            </div>
+         <Link 
+            to="/editor" 
+            className="fixed left-8 top-8 text-3xl text-cream-vanilla hover:text-pink-cherry transition-colors z-50"
+        >
+            ✕
+        </Link>
 
             <div className=" flex flex-col   w-[1000px] h-[400px] rounded-xl border-3 border-cream-vanilla">
+
+                            
                 <div className="flex justify-between items-center w-[100%] h-[25%]  mt-4  ">
                     
                     <h1 className="text-5xl text-cream-vanilla ml-6"> Hello, {userDisplayName}</h1>

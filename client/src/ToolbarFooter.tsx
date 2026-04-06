@@ -3,6 +3,7 @@ import { AppUser, SubscriptionType } from "./AppUser"
 import FooterMenu from "./FooterMenu";
 import OfficialLogo from "./IconAssets/OfficialLogo";
 import { div } from "three/src/nodes/TSL.js";
+import { API_URL } from "./config";
 
 interface ToolbarFooterProps {
     isToolbarToggled : boolean
@@ -18,7 +19,7 @@ export default function ToolbarFooter({isToolbarToggled, setToolbarToggled, appU
     useEffect(() => {
         const checkUserMembership = async() => {
             try {
-                const response = await fetch("http://localhost:5050/api/userdata", {
+                const response = await fetch(`${API_URL}/api/userdata`, { //"http://localhost:5050/api/userdata"
                     method: "GET",
                     credentials: "include"
                 });

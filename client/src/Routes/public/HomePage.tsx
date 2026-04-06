@@ -11,7 +11,7 @@ import AppAndArrow from "../../IconAssets/AppAndArrow";
 import OfficialLogo from "../../IconAssets/OfficialLogo";
 import SuccessPage from "../protected/PurchaseSuccessPage";
 import LoadingPage from "../../LoadingPage";
-import { API_URL } from "../../config";
+import { API_URL, FRONTEND_URL } from "../../config";
 import TermsOfService from "../../TermsOfService";
 import PrivacyPolicy from "../../PrivacyPolicy";
 import {Link, useLocation} from "react-router"
@@ -19,6 +19,8 @@ import UserSettings from "../protected/UserSettings";
 
 
 export default function HomePage() {
+
+    
 
     const fov : number = 60; //75
     //const aspect : number = (window.innerWidth /2) / window.innerHeight;

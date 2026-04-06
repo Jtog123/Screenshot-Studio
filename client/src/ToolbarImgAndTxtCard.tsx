@@ -11,6 +11,7 @@ import MenuKarrotIcon from "./IconAssets/MenuKarrotIcon"
 import ExportIcon from "./IconAssets/ExportIcon"
 import ImportIcon from "./IconAssets/ImportIcon"
 import { AppUser, SubscriptionType } from "./AppUser"
+import { API_URL } from "./config"
 
 
 interface ToolbarImgAndTextCardProps {
@@ -303,7 +304,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
 
             //write validation logic here
             try {
-                const firstResponse = await fetch("http://localhost:5050/api/userdata", {
+                const firstResponse = await fetch(`${API_URL}/api/userdata`, { //"http://localhost:5050/api/userdata"
                     method: "GET",
                     credentials: "include",
                     headers: {
@@ -410,7 +411,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
 
                 // Increment export count 
                 try {
-                    const response = await fetch("http://localhost:5050/api/export", {
+                    const response = await fetch(`${API_URL}/api/export`, { //"http://localhost:5050/api/export"
                         method: "POST",
                         credentials: "include",
                         headers: {

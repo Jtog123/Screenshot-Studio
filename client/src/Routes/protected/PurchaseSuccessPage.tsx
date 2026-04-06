@@ -1,6 +1,7 @@
 import { div } from "three/src/nodes/TSL.js";
 import OfficialLogo from "../../IconAssets/OfficialLogo";
 import { useEffect } from "react";
+import { FRONTEND_URL } from "../../config";
 
 /*
 settimeout()
@@ -14,7 +15,7 @@ export default function SuccessPage() {
 
     useEffect(() => {
         setTimeout(() => {
-            window.location.href = "http://localhost:5173/editor"
+            window.location.href = `${FRONTEND_URL}/editor` //"http://localhost:5173/editor"
         }, 2500);
     }, [])
 

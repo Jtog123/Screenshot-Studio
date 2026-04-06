@@ -37,6 +37,7 @@ import TestFonts from '../../TestFonts.js';
 import NavigationBar from '../../NavigationBar.js';
 import HomePage from '../public/HomePage.js';
 import AspectRatioInfo from "../../AspectRatioInfo.js"
+import { API_URL, FRONTEND_URL } from '../../config.js';
 
 
 
@@ -111,7 +112,7 @@ export default function Editor() {
     if(returnTo === "checkout_weekend") {
       localStorage.removeItem("return_to");
 
-      fetch("http://localhost:5050/api/create-checkout-session", {
+      fetch(`${API_URL}/api/create-checkout-session`, { //"http://localhost:5050/api/create-checkout-session"
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -128,7 +129,7 @@ export default function Editor() {
     else if (returnTo === "checkout_monthly") {
       localStorage.removeItem("return_to");
 
-      fetch("http://localhost:5050/api/create-checkout-session", {
+      fetch(`${API_URL}/api/create-checkout-session`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -223,14 +224,14 @@ export default function Editor() {
   useEffect(() => {
     const fetchUser = async() => {
       try {
-        const response = await fetch("http://localhost:5050/auth/google/me", {
+        const response = await fetch(`${API_URL}/auth/google/me`, { //"http://localhost:5050/auth/google/me"
           credentials: "include"
         });
 
         // Bad response? Sending user to homepage
         if(!response.ok) {
           if(response.status === 401) {
-            window.location.href = "http://localhost:5173/";
+            window.location.href = `${FRONTEND_URL}/`; //"http://localhost:5173/"
             return;
           }
           throw new Error("Http Error");
