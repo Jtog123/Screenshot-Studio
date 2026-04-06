@@ -98,7 +98,7 @@ createPool();
 
 
 const router = express.Router();
-const PORT = 5050;
+const PORT = process.env.PORT || 5050;
 
 const app = express();
 
