@@ -39,12 +39,16 @@ const stripe = new Stripe(process.env.STRIPE_S_KEY!, {
 const {Pool} = pg
 
 //Create a pool, better than creating several different Clients
+//port 5432
 const pool = new Pool({
     user: process.env.DB_USER as string,
     host: process.env.DB_HOST as string,
     database: process.env.DB_DATABASE as string,
     password: process.env.DB_PASSWORD as string,
-    port: 5432
+    port: Number(process.env.DO_DB_PORT),
+    ssl: {
+        rejectUnauthorized: false // This is required for DigitalOcean
+    }
 });
 
 /*
