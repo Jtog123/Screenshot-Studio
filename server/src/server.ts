@@ -635,6 +635,25 @@ router.post("/api/create-checkout-session", async function(req, res) {
 });
 
 
+//test routes
+// Add this temporary route to your server file
+router.get("/api/db-inspect", async (req, res) => {
+    try {
+        const tables = await pool.query(`
+            SELECT table_name 
+            FROM information_schema.tables 
+            WHERE table_schema = 'public'
+        `);
+        res.json({ 
+            status: "Connected!", 
+            found_tables: tables.rows.map(r => r.table_name) 
+        });
+    } catch (err) {
+        res.status(500).json({ error: err });
+    }
+});
+
+
 
 
 //creates base route, if we had a router.get("/editor"), route will be /editor
