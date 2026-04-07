@@ -313,6 +313,8 @@ export default function HomePage() {
             observer.observe(mountRef.current);
         }
 
+        //adding this
+
         
 
         loader.loadAsync("/models/phone2/iphoneMyModel13.glb").then(gltf => {
