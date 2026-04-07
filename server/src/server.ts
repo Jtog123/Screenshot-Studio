@@ -45,7 +45,7 @@ const pool = new Pool({
     host: process.env.DB_HOST as string,
     database: process.env.DB_DATABASE as string,
     password: process.env.DB_PASSWORD as string,
-    port: Number(process.env.DO_DB_PORT),
+    port: Number(process.env.DO_DB_PORT) || 25060,
     ssl: {
         rejectUnauthorized: false // This is required for DigitalOcean
     }
