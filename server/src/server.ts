@@ -105,7 +105,7 @@ const router = express.Router();
 const PORT = process.env.PORT || 5050;
 
 const app = express();
-//app.set("trust proxy", 1);
+app.set("trust proxy", 1);
 
 app.use(cors({
         origin: process.env.FRONTEND_URL || "http://localhost:5173",
