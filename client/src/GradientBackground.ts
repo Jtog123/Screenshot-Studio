@@ -9,6 +9,7 @@ class GradientBackground {
     private _gradientPlaneMesh : THREE.Mesh | null = null;
     private _gradientMaterial : THREE.ShaderMaterial | null = null;
     private _scene : THREE.Scene;
+    private _camera : THREE.PerspectiveCamera
 
 
     public prevColor1 : string  | null = null;
@@ -47,9 +48,39 @@ class GradientBackground {
             }
         `;
 
-    constructor(scene : THREE.Scene) {
+    constructor(scene : THREE.Scene, camera: THREE.PerspectiveCamera) {
         this._scene = scene;
+        this._camera = camera
     }
+
+
+
+    private getPlaneSize(): { width: number; height: number } {
+        if (this._camera instanceof THREE.PerspectiveCamera) {
+            const distance = Math.abs(this._camera.position.z - (-2)); // -2 is plane z position
+            const vFOV = THREE.MathUtils.degToRad(this._camera.fov);
+            const height = 2 * Math.tan(vFOV / 2) * distance;
+            const width = height * this._camera.aspect;
+            
+            // Add padding to ensure it covers entire view
+            return { width: width * 1.5, height: height * 1.5 };
+        }
+        
+        // Fallback to large size
+        return { width: 20, height: 20 };
+    }
+
+    public updatePlaneSize(): void {
+    if (this._gradientPlaneMesh && this._gradientPlaneMesh.geometry) {
+        const { width, height } = this.getPlaneSize();
+        
+        // Dispose old geometry
+        this._gradientPlaneMesh.geometry.dispose();
+        
+        // Create new geometry with updated size
+        this._gradientPlaneMesh.geometry = new THREE.PlaneGeometry(width, height);
+    }
+}
 
 
     public turnLeftRightGradientOn(color1 : string = "#4695E8 ", color2 : string = "#FFFFFF") : void {
@@ -79,7 +110,9 @@ class GradientBackground {
             depthWrite : false
         });
 
-        const geometry = new THREE.PlaneGeometry(20, 20);
+        const {width, height} = this.getPlaneSize();
+        const geometry = new THREE.PlaneGeometry(width, height);
+
         this._gradientPlaneMesh = new THREE.Mesh(geometry, this._gradientMaterial);
         this._gradientPlaneMesh.position.set(0, 0, -2);
         this._scene.add(this._gradientPlaneMesh);
@@ -112,7 +145,9 @@ class GradientBackground {
             depthWrite : false
         });
 
-        const geometry = new THREE.PlaneGeometry(20, 20);
+        const {width, height} = this.getPlaneSize();
+        const geometry = new THREE.PlaneGeometry(width, height);
+
         this._gradientPlaneMesh = new THREE.Mesh(geometry, this._gradientMaterial);
         this._gradientPlaneMesh.position.set(0, 0, -2);
         this._scene.add(this._gradientPlaneMesh);

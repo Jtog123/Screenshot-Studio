@@ -39,7 +39,7 @@ export default function SceneManager({_scene, _camera, _renderer, _grid }: Scene
 
         //set initial camera pos
         //_camera.position.z = 4.5;
-        _camera.position.z = 5;
+        //_camera.position.z = 5;
         //_camera.position.y=0.5;
 
         //Grid

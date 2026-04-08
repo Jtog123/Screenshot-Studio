@@ -54,20 +54,26 @@ export default function Editor() {
 
 
   //const mountRef = useRef<HTMLDivElement | null>(null);
-  const [scene, setScene] = useState<THREE.Scene | null>(null);
-  const [camera, setCamera] = useState<THREE.PerspectiveCamera | null>(null);
+  //const [scene, setScene] = useState<THREE.Scene | null>(null);
+  //const [camera, setCamera] = useState<THREE.PerspectiveCamera | null>(null);
   const [raycaster, setRayCaster] = useState<THREE.Raycaster | null>(null);
-  const [renderer, setRenderer] = useState<THREE.WebGLRenderer | null>(null);
+  //const [renderer, setRenderer] = useState<THREE.WebGLRenderer | null>(null);
   const [phone, setPhoneModel] = useState<THREE.Group | null>(null);
   const [isSceneReady, setIsSceneReady] = useState(false);
   const [isBackgroundTransparent, setIsBackgroundTransparent] = useState(false);
+
+  const sceneRef = useRef<THREE.Scene | null>(null);
+  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const gradientBackgroundRef = useRef<GradientBackground | null>(null);
+
 
 
   //toggling background renders needs to live in editor because it nees to passed to both phonegui, and camera manager
 
 
   //const phoneRef = useRef<THREE.Group | null>(null);
-  const [gradientBackground , setGradientBackground] = useState<GradientBackground | null>(null);
+  //const [gradientBackground , setGradientBackground] = useState<GradientBackground | null>(null);
 
   const [lightManager, setLightManager] = useState<LightManager | null>(null);
 
@@ -143,6 +149,8 @@ export default function Editor() {
       });
     }
   }, []);
+
+
 
 
 
@@ -285,37 +293,68 @@ export default function Editor() {
     //SET THE SCENE, CAMERA, RENDER, RAYCASTER, LIGHTMANAGER HERE
     // PROP DRILL THEM AS NEEDED
 
-    const _scene = new THREE.Scene();
-    setScene(_scene);
+    if(!sceneRef.current) {
+      sceneRef.current = new THREE.Scene();
+    }
 
-    const _renderer = new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});
-    _renderer.outputColorSpace = THREE.SRGBColorSpace;
-    setRenderer(_renderer);
+    //const _scene = new THREE.Scene();
+    //setScene(_scene);
 
-    const _camera = new THREE.PerspectiveCamera(
-      _fov,_aspect,_near,_far
-    );
-    setCamera(_camera);
+    if(!rendererRef.current) {
+      rendererRef.current = new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});
+      rendererRef.current.outputColorSpace = THREE.SRGBColorSpace;
+    }
+
+    if(!cameraRef.current) {
+        cameraRef.current = new THREE.PerspectiveCamera(
+        _fov,_aspect,_near,_far
+      );
+      cameraRef.current.position.z = 5;
+    }
+
+
+    //const _renderer = new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});
+    //_renderer.outputColorSpace = THREE.SRGBColorSpace;
+    //setRenderer(_renderer);
+
+    //const _camera = new THREE.PerspectiveCamera(
+    //  _fov,_aspect,_near,_far
+    //);
+    //setCamera(_camera);
 
     const _raycaster = new THREE.Raycaster();
     setRayCaster(_raycaster);
 
     //State variables arent set till after useEffect completes so use locals
-    const _lightManager = new LightManager(_raycaster, _renderer, _camera, _scene);
+    //const _lightManager = new LightManager(_raycaster, _renderer, _camera, _scene);
+    const _lightManager = new LightManager(_raycaster, rendererRef.current, cameraRef.current, sceneRef.current);
     setLightManager(_lightManager);
 
     const _grid = new Grid(20,20);
     setGrid(_grid);
 
-    const _cameraManager = new CameraManager(_scene, _camera ,_renderer, setCapturedImages, setImageCaptured, _grid, );
+    //const _cameraManager = new CameraManager(_scene, _camera ,_renderer, setCapturedImages, setImageCaptured, _grid, );
+    const _cameraManager = new CameraManager(sceneRef.current, cameraRef.current ,rendererRef.current, setCapturedImages, setImageCaptured, _grid, );
 
     setCameraManager(_cameraManager);
 
-    const _assetManager = new AssetManager(_scene, _raycaster, _renderer, _camera);
+    //const _assetManager = new AssetManager(_scene, _raycaster, _renderer, _camera);
+    const _assetManager = new AssetManager(sceneRef.current, _raycaster, rendererRef.current, cameraRef.current);
     setAssetManager(_assetManager);
 
-    const _gradientBackground = new GradientBackground(_scene);
-    setGradientBackground(_gradientBackground);
+    if(!gradientBackgroundRef.current) {
+      gradientBackgroundRef.current = new GradientBackground(sceneRef.current, cameraRef.current);
+
+        setTimeout(() => {
+          if (gradientBackgroundRef.current) {
+            gradientBackgroundRef.current.updatePlaneSize();
+            }
+          }, 0);
+    }
+    
+
+    //const _gradientBackground = new GradientBackground(_scene, _camera);
+    //setGradientBackground(_gradientBackground);
 
 
 
@@ -323,15 +362,24 @@ export default function Editor() {
     const loader = new GLTFLoader();
 
     //Add the light group
-    _scene.add(_lightManager._lightGroup);
+    //_scene.add(_lightManager._lightGroup);
+    sceneRef.current.add(_lightManager._lightGroup);
 
     //add the imagecomponentgroup
-    _scene.add(_assetManager._assetGroup);
+    //_scene.add(_assetManager._assetGroup);
+    sceneRef.current.add(_assetManager._assetGroup)
 
 
 
     //raycaster
+    /*
     _renderer.domElement.addEventListener("mousedown", (evt: MouseEvent) => {
+      _lightManager.selectLight(evt);
+      _assetManager.selectComponent(evt);
+
+    });
+    */
+    rendererRef.current.domElement.addEventListener("mousedown", (evt: MouseEvent) => {
       _lightManager.selectLight(evt);
       _assetManager.selectComponent(evt);
 
@@ -366,7 +414,9 @@ export default function Editor() {
 
 
         gltf.scene.scale.set(0.25, 0.25, 0.25);
-        _scene.add(gltf.scene);
+        //_scene.add(gltf.scene);
+
+        sceneRef.current!.add(gltf.scene);
 
         // allow users to add multiple photos, add to an array of some kind
         // pass it down through the toolbar to toolbarImgandText
@@ -380,7 +430,8 @@ export default function Editor() {
             texture.colorSpace = THREE.SRGBColorSpace; // Corrects the "washed out" red
             texture.minFilter = THREE.LinearFilter;
             texture.magFilter = THREE.NearestFilter; // Sharpest
-            texture.anisotropy = _renderer.capabilities.getMaxAnisotropy();
+            //texture.anisotropy = _renderer.capabilities.getMaxAnisotropy();
+            texture.anisotropy = rendererRef.current!.capabilities.getMaxAnisotropy();
             //texture.anisotropy = 16; // Sharper edges at angles
 
             phoneScreen!.material = new THREE.MeshBasicMaterial({ 
@@ -409,7 +460,8 @@ export default function Editor() {
     //remove on unmount
     return() => {
           if(phone) {
-              _scene.remove(phone);
+              //_scene.remove(phone);
+              sceneRef.current!.remove(phone);
           }
     }
 
@@ -419,11 +471,26 @@ export default function Editor() {
   //Automatically resize the window
   useEffect(() => {
     const handleResize = () => {
+      /*
       if(camera && renderer) {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
 
         renderer.setSize(window.innerWidth, window.innerHeight);
+
+        gradientBackground!.updatePlaneSize();
+
+      }
+        */
+      if(cameraRef.current && rendererRef.current) {
+        cameraRef.current.aspect = window.innerWidth / window.innerHeight;
+        cameraRef.current.updateProjectionMatrix();
+
+        rendererRef.current.setSize(window.innerWidth, window.innerHeight);
+
+        if (gradientBackgroundRef.current) {
+          gradientBackgroundRef.current.updatePlaneSize();
+        }
 
       }
     };
@@ -433,7 +500,7 @@ export default function Editor() {
         window.removeEventListener("resize", handleResize);
     };
 
-  },[camera, renderer]);
+  },[cameraRef.current, rendererRef.current]);
 
 
 
@@ -476,7 +543,7 @@ export default function Editor() {
             */}
         
 
-
+      {/* 
       {scene && lightManager && cameraManager && phone && assetManager && camera && gradientBackground && _phoneScreen && grid && <Toolbar _scene={scene} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents}  _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems} addTextComponent={addTextComponent} camera={camera} _gradientBackground={gradientBackground} _phoneScreen={_phoneScreen} capturedImages={capturedImages} setCapturedImages={setCapturedImages} appUser= {appUser} aspectRatio={aspectRatio} setAspectRatio={setAspectRatio} grid={grid}/>} 
 
       {scene && assetManager && camera && imageComponents.map((item) => {
@@ -486,6 +553,19 @@ export default function Editor() {
       {textComponents}
 
       {isPhoneLoading ? (<h1>Loading</h1>) : (scene && camera && renderer && grid && <SceneManager _scene={scene} _camera={camera} _renderer={renderer} _grid={grid}/>)}
+  
+      <Overlay aspectRatio = {aspectRatio}/>
+      */}
+
+      {sceneRef.current && lightManager && cameraManager && phone && assetManager && cameraRef.current && gradientBackgroundRef.current && _phoneScreen && grid && <Toolbar _scene={sceneRef.current} _lightManager={lightManager} _phoneModel={phone} _cameraManager={cameraManager} _imageComponents={imageComponents} _setImageComponents={setImageComponents}  _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems} addTextComponent={addTextComponent} camera={cameraRef.current} _gradientBackground={gradientBackgroundRef.current} _phoneScreen={_phoneScreen} capturedImages={capturedImages} setCapturedImages={setCapturedImages} appUser= {appUser} aspectRatio={aspectRatio} setAspectRatio={setAspectRatio} grid={grid}/>} 
+
+      {sceneRef.current && assetManager && cameraRef.current && imageComponents.map((item) => {
+        return <ImageComponent key={item.id} position={item.position} _scene={sceneRef.current!} _camera={cameraRef.current!} _assetManager={assetManager} activeListItems={activeListItems} setActiveListItems={setActiveListItems}/>
+      })}
+
+      {textComponents}
+
+      {isPhoneLoading ? (<h1>Loading</h1>) : (sceneRef.current && cameraRef.current && rendererRef.current && grid && <SceneManager _scene={sceneRef.current} _camera={cameraRef.current} _renderer={rendererRef.current} _grid={grid}/>)}
   
       <Overlay aspectRatio = {aspectRatio}/>
 
