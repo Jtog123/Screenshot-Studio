@@ -663,19 +663,7 @@ router.get("/api/db-inspect", async (req, res) => {
 app.use("/", router);
 
 
-//REMOVE AFTER DEPLOYMENT
-app._router.stack.forEach((middleware: any) => {
-    if (middleware.route) { // routes registered directly on the app
-        console.log(`Route loaded: ${Object.keys(middleware.route.methods)} ${middleware.route.path}`);
-    } else if (middleware.name === 'router') { // routes added via router
-        middleware.handle.stack.forEach((handler: any) => {
-            if (handler.route) {
-                console.log(`Router Path loaded: ${Object.keys(handler.route.methods)} ${handler.route.path}`);
-            }
-        });
-    }
-});
-///////
+
 
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
