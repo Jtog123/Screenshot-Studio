@@ -24,6 +24,8 @@ export default function NavigationBar() {
         setIsMenuOpen(false);
     };
 
+    
+
     /*
     -triggers a redirect to the backend
     -the backend triggers a redirect to google

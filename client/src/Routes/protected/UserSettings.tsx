@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import OfficialLogo from "../../IconAssets/OfficialLogo"
 import { API_URL } from "../../config"
 import { Link, redirect } from "react-router";
+import { useNavigate } from "react-router";
 
 /*
 Fwetch user data
@@ -10,6 +11,8 @@ once the button is clicked handle the unsubscribe
 */
 
 export default function UserSettings() {
+
+    const navigate = useNavigate();
 
     const[userEmail, setUserEmail] = useState("");
     const[userDisplayName, setUserDisplayName] = useState("");
@@ -86,15 +89,21 @@ export default function UserSettings() {
 
     }
 
-    return(
-        <div className="flex justify-center  min-h-screen min-w-screen bg-chocolate  mt-20">
-
+    /*
          <Link 
             to="/editor" 
             className="fixed left-8 top-8 text-3xl text-cream-vanilla hover:text-pink-cherry transition-colors z-50"
         >
-            ✕
+            
         </Link>
+    */
+
+    return(
+        <div className="flex justify-center  min-h-screen min-w-screen bg-chocolate  mt-20">
+
+
+
+            <button className="fixed left-8 top-8 text-3xl text-cream-vanilla hover:text-pink-cherry transition-colors z-50" onClick={() => navigate(-1)}>✕</button>
 
             <div className=" flex flex-col   w-[1000px] h-[400px] rounded-xl border-3 border-cream-vanilla">
 
