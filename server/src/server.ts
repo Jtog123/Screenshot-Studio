@@ -252,6 +252,7 @@ app.post("/api/webhook", express.raw({type: "application/json"}), async (req, re
 
 app.use(express.json());
 
+//change prod
 //Allows application to track a user of the app, and store user specific data that presists across requests
 app.use(session({
     secret: process.env.SESSION_SECRET as string, // replace later
