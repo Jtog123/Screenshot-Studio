@@ -105,6 +105,7 @@ const router = express.Router();
 const PORT = process.env.PORT || 5050;
 
 const app = express();
+app.set("trust proxy", 1);
 
 app.use(cors({
         origin: process.env.FRONTEND_URL || "http://localhost:5173",
@@ -660,6 +661,21 @@ router.get("/api/db-inspect", async (req, res) => {
 //creates base route, if we had a router.get("/editor"), route will be /editor
 //app.use("/api") -> router.get("/editor") -> /api/editor
 app.use("/", router);
+
+
+//REMOVE AFTER DEPLOYMENT
+app._router.stack.forEach((middleware: any) => {
+    if (middleware.route) { // routes registered directly on the app
+        console.log(`Route loaded: ${Object.keys(middleware.route.methods)} ${middleware.route.path}`);
+    } else if (middleware.name === 'router') { // routes added via router
+        middleware.handle.stack.forEach((handler: any) => {
+            if (handler.route) {
+                console.log(`Router Path loaded: ${Object.keys(handler.route.methods)} ${handler.route.path}`);
+            }
+        });
+    }
+});
+///////
 
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
