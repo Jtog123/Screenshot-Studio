@@ -554,10 +554,8 @@ return (
 
         
         
-{/* Hero Section - No ScrollFadeIn on mobile */}
-{typeof window !== 'undefined' && window.innerWidth >= 1024 ? (
-    // Desktop: WITH ScrollFadeIn
-    <ScrollFadeIn>
+        {/* Hero Section - Split Left/Right */}
+        {/*<ScrollFadeIn >*/}
         <section id="hero" className="flex flex-col lg:flex-row w-full min-h-screen bg-chocolate">
             
             {/* Left Side - Content */}
@@ -573,18 +571,23 @@ return (
                         Get Started Free
                     </button>
                     
-                    <div className="hidden lg:block absolute -right-58 -bottom-52 w-[650px] pointer-events-none">
-                        <AppAndArrow className="w-full h-auto text-cream-vanilla" />
+
+                     <div className="hidden lg:block absolute -right-58 -bottom-52 w-[650px] pointer-events-none">
+                            <AppAndArrow className="w-full h-auto text-cream-vanilla" />
                     </div>
                 </div>
             </div>
 
             {/* Right Side - Phone Demo */}
-            <div className="rightSide bg-chocolate w-full lg:w-1/2 flex flex-col lg:flex-row items-center justify-center py-8 lg:py-0">
-                <div ref={mountRef} className="phoneDiv flex justify-center w-[400px] lg:w-full h-[600px] lg:h-full mx-auto"></div>
+            <div className="rightSide bg-chocolate w-full lg:w-1/2 flex flex-col lg:flex-row items-center justify-center ">
+   
+                {/* Phone div - Full width on mobile - phoneDiv flex justify-center w-full h-full */}
+                <div ref={mountRef} className="phoneDiv flex justify-center w-[400px] lg:w-full h-[600px] lg:h-full mx-auto" ></div>
                 
-                {/* Texture selector */}
+                {/* Texture selector - Below phone on mobile, fixed on desktop */}
                 <div className="imageContainer relative lg:fixed z-50 bg-gradient-to-br from-pink-cherry to-pink-cherry/65 backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-white/10 w-auto lg:w-[170px] mt-6 lg:mt-0 lg:right-6">
+                    
+                    {/* Header */}
                     <div className="flex flex-col justify-center mb-5">
                         <h3 className="text-white text-lg tracking-tight" style={{fontFamily: "Inter, sans-serif"}}>
                             Try it out
@@ -594,6 +597,7 @@ return (
                         </p>
                     </div>
                     
+                    {/* Texture Grid */}
                     <div className="flex gap-3 justify-center lg:justify-between">
                         {homeScreenTextures.map((img) => (
                             <label
@@ -604,6 +608,7 @@ return (
                                         : 'opacity-60 hover:opacity-100 hover:scale-105'
                                 }`}
                             >
+                                {/* Image Container */}
                                 <div className={`relative rounded-lg overflow-hidden mb-2 transition-all duration-200 ${
                                     activeTextureID === img.id 
                                         ? 'ring-2 ring-blue-500 shadow-lg shadow-blue-500/50' 
@@ -615,6 +620,7 @@ return (
                                         alt=""
                                     />
                                     
+                                    {/* Active Indicator Overlay */}
                                     {activeTextureID === img.id && (
                                         <div className="absolute inset-0 bg-blue-500/20 flex items-center justify-center pointer-events-none">
                                             <div className="w-5 h-5 rounded-full bg-mocha flex items-center justify-center">
@@ -626,6 +632,7 @@ return (
                                     )}
                                 </div>
                                 
+                                {/* Radio Input (hidden but functional) */}
                                 <input 
                                     type="radio" 
                                     checked={activeTextureID === img.id} 
@@ -637,91 +644,9 @@ return (
                     </div>
                 </div>
             </div>
-        </section>
-    </ScrollFadeIn>
-) : (
-    // Mobile: NO ScrollFadeIn
-    <section id="hero" className="flex flex-col lg:flex-row w-full min-h-screen bg-chocolate">
-        
-        {/* Left Side - Content */}
-        <div className="flex leftSide justify-center items-center bg-chocolate w-full lg:w-1/2 ">
-            <div className="flex flex-col w-4/5 max-w-2xl relative justify-center text-center lg:text-left">
-                <h1 className="text-cream-vanilla text-6xl mb-6 font-semibold mt-20 lg:mt-0 " style={{fontFamily: "Inter, sans-serif"}}>Dynamic Mock Ups</h1>
-                
-                <h2 className="text-cream-vanilla/70 text-2xl mb-10 " style={{fontFamily: "Inter, sans-serif"}}>
-                    Making your app stand out has never been easier.
-                </h2>
-
-                <button onClick={handleFreeTesting} className="bg-pink-cherry hover:bg-pink-velvet text-white font-semibold text-xl px-12 py-6 rounded-2xl shadow-[0_0_30px_rgba(232,70,149,0.4)] hover:shadow-[0_0_20px_rgba(232,70,149,0.6)] transform hover:scale-101 transition-all ease-in mx-6 duration-100 cursor-pointer  lg:mx-0 animate-glow-pulse">
-                    Get Started Free
-                </button>
-                
-                <div className="hidden lg:block absolute -right-58 -bottom-52 w-[650px] pointer-events-none">
-                    <AppAndArrow className="w-full h-auto text-cream-vanilla" />
-                </div>
-            </div>
-        </div>
-
-        {/* Right Side - Phone Demo */}
-        <div className="rightSide bg-chocolate w-full lg:w-1/2 flex flex-col lg:flex-row items-center justify-center py-8 lg:py-0">
-            <div ref={mountRef} className="phoneDiv flex justify-center w-[400px] lg:w-full h-[600px] lg:h-full mx-auto"></div>
             
-            {/* Texture selector */}
-            <div className="imageContainer relative lg:fixed z-50 bg-gradient-to-br from-pink-cherry to-pink-cherry/65 backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-white/10 w-auto lg:w-[170px] mt-6 lg:mt-0 lg:right-6">
-                <div className="flex flex-col justify-center mb-5">
-                    <h3 className="text-white text-lg tracking-tight" style={{fontFamily: "Inter, sans-serif"}}>
-                        Try it out
-                    </h3>
-                    <p className="text-white/70 text-xs mt-1" style={{fontFamily: "Inter, sans-serif"}}>
-                        Apply a sample
-                    </p>
-                </div>
-                
-                <div className="flex gap-3 justify-center lg:justify-between">
-                    {homeScreenTextures.map((img) => (
-                        <label
-                            key={img.id}
-                            className={`group cursor-pointer flex flex-col items-center transition-all duration-200 ${
-                                activeTextureID === img.id 
-                                    ? 'scale-105' 
-                                    : 'opacity-60 hover:opacity-100 hover:scale-105'
-                            }`}
-                        >
-                            <div className={`relative rounded-lg overflow-hidden mb-2 transition-all duration-200 ${
-                                activeTextureID === img.id 
-                                    ? 'ring-2 ring-blue-500 shadow-lg shadow-blue-500/50' 
-                                    : 'ring-1 ring-white/20 hover:ring-white/40'
-                            }`}>
-                                <img 
-                                    src={img.imgPath} 
-                                    className="w-16 h-20 object-cover" 
-                                    alt=""
-                                />
-                                
-                                {activeTextureID === img.id && (
-                                    <div className="absolute inset-0 bg-blue-500/20 flex items-center justify-center pointer-events-none">
-                                        <div className="w-5 h-5 rounded-full bg-mocha flex items-center justify-center">
-                                            <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                            
-                            <input 
-                                type="radio" 
-                                checked={activeTextureID === img.id} 
-                                onChange={() => handleTextureSelect(img.id)}
-                                className="w-4 h-4 accent-[#52301C] cursor-pointer"
-                            />
-                        </label>
-                    ))}
-                </div>
-            </div>
-        </div>
-    </section>
-)}
+        </section>
+        {/*</ScrollFadeIn>*/}
 
         
         <section className="w-full bg-chocolate pt-14  lg:pt-20 lg:pb-14">
