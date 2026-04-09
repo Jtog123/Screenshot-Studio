@@ -11,6 +11,7 @@ import { AspectRatio } from './ComponentInterfaces';
 
 
 /*
+
 animation code
 when its toggled closed
 <div className="fixed h-screen bg-stone-950 text-white z-[1000] right-0 w-[5%] transition-all duration-300 ease-in-out">
