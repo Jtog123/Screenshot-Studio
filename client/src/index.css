@@ -191,7 +191,9 @@
 
 body { 
     margin: 0; 
-    background-color: #3D2315
+    background-color: #3D2315;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling */
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 

@@ -8,6 +8,32 @@ export default function ScrollFadeIn({ children }: LayoutProps) {
     const ref = useRef<HTMLDivElement>(null);  // ✅ Specify type
 
     useEffect(() => {
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && ref.current) {
+                    // Only add class once
+                    if (!ref.current.classList.contains("animate-fade-in")) {
+                        ref.current.classList.add("animate-fade-in");
+                    }
+                }
+            });
+        },
+        { 
+            threshold: 0.1,
+            rootMargin: '0px' // Don't trigger early
+        }
+    );
+
+    if (ref.current) {
+        observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+}, []);
+
+    /*
+    useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach(entry => {
@@ -25,6 +51,7 @@ export default function ScrollFadeIn({ children }: LayoutProps) {
 
         return () => observer.disconnect();
     }, []);
+    */
 
     return (
         <div ref={ref} className="opacity-0 w-full h-full ">
