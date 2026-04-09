@@ -431,7 +431,7 @@ export default function HomePage() {
         //run function
         const run = () => {
             requestAnimationFrame(() => run());
-            if(homePhoneModel) {
+            if(homePhoneModel && window.innerWidth >= 1024) {
                 homePhoneModel.rotation.y += rotatationDirection;
                 
                 if(homePhoneModel.rotation.y >= 1) {
