@@ -582,7 +582,7 @@ return (
             <div className="rightSide bg-chocolate w-full lg:w-1/2 flex flex-col lg:flex-row items-center justify-center ">
    
                 {/* Phone div - Full width on mobile - phoneDiv flex justify-center w-full h-full */}
-                <div ref={mountRef} className="phoneDiv flex justify-center w-[400px] lg:w-full h-[600px] lg:h-full mx-auto"></div>
+                <div ref={mountRef} className="phoneDiv flex justify-center w-[400px] lg:w-full h-[600px] lg:h-full mx-auto" ></div>
                 
                 {/* Texture selector - Below phone on mobile, fixed on desktop */}
                 <div className="imageContainer relative lg:fixed z-50 bg-gradient-to-br from-pink-cherry to-pink-cherry/65 backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-white/10 w-auto lg:w-[170px] mt-6 lg:mt-0 lg:right-6">
