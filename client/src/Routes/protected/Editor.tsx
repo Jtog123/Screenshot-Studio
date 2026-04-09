@@ -87,6 +87,8 @@ export default function Editor() {
   //const [screenTextures, setScreenTextures] = useState<ScreenTextureInterface[]>([]);
   const [textComponents, setTextComponents] = useState<JSX.Element[]>([]);
 
+
+
   //phone screen to pass
   const [_phoneScreen, setPhoneScreen] = useState<THREE.Mesh | null>(null);
   const [capturedImages, setCapturedImages] = useState<CapturedImage[]>([]);
@@ -94,7 +96,7 @@ export default function Editor() {
   const [activeListItems, setActiveListItems] = useState<{id:string, name:string}[]>([]);
 
   //use this bool to hide all meshes
-  const[isImageCaptured, setImageCaptured] = useState(false);
+  const[isImageCaptured, setIsImageCaptured] = useState(false);
 
   //global state var
   const[isRendering, setIsRendering] = useState(false);
@@ -334,7 +336,7 @@ export default function Editor() {
     setGrid(_grid);
 
     //const _cameraManager = new CameraManager(_scene, _camera ,_renderer, setCapturedImages, setImageCaptured, _grid, );
-    const _cameraManager = new CameraManager(sceneRef.current, cameraRef.current ,rendererRef.current, setCapturedImages, setImageCaptured, _grid, );
+    const _cameraManager = new CameraManager(sceneRef.current, cameraRef.current ,rendererRef.current, setCapturedImages, setIsImageCaptured ,_grid,);
 
     setCameraManager(_cameraManager);
 
@@ -526,7 +528,7 @@ export default function Editor() {
     
       
 
-      {isSceneReady && phone && cameraManager && <PhoneGUI phoneModel={phone} _cameraManager={cameraManager} aspectRatio={aspectRatio} isBackgroundTransparent={isBackgroundTransparent} setIsBackgroundTransparent={setIsBackgroundTransparent}/>}
+      {isSceneReady && phone && cameraManager && <PhoneGUI phoneModel={phone} _cameraManager={cameraManager} aspectRatio={aspectRatio} isBackgroundTransparent={isBackgroundTransparent} setIsBackgroundTransparent={setIsBackgroundTransparent} />}
 
       <AspectRatioInfo/>
 

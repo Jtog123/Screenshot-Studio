@@ -9,20 +9,23 @@ class CameraManager {
     private _camera : THREE.PerspectiveCamera
     private setCapturedImages :  React.Dispatch<React.SetStateAction<
     CapturedImage[]>>;
-    private setImageCaptured : React.Dispatch<React.SetStateAction<boolean>>;
+    private setIsImageCaptured : React.Dispatch<React.SetStateAction<boolean>>;
     private _grid : Grid;
+
     
 
 
     //private _renderer : THREE.WebGLRenderer
 
     constructor(scene: THREE.Scene ,camera :THREE.PerspectiveCamera , renderer: THREE.WebGLRenderer, setCapturedImages: React.Dispatch<React.SetStateAction<
-        CapturedImage[]>>, setImageCaptured : React.Dispatch<React.SetStateAction<boolean>>, _grid : Grid,  ) {
+        CapturedImage[]>> ,setIsImageCaptured : React.Dispatch<React.SetStateAction<boolean>>, _grid : Grid, ) {
         this._scene = scene;
         this._camera = camera;
         this.setCapturedImages = setCapturedImages;
-        this.setImageCaptured = setImageCaptured;
+
+        this.setIsImageCaptured = setIsImageCaptured;
         this._grid = _grid;
+
 
 
 
@@ -46,6 +49,20 @@ class CameraManager {
     */
 
     public determineBackgroundSettings(aspectRatio: AspectRatio, isBackgroundTransparent: boolean) : void {
+        let canCapture = false;
+        
+        this.setCapturedImages(prev => {
+            if(prev.length >= 7) {
+                console.log('Max 7 images reached - cannot capture more');
+                canCapture = false;
+            } else {
+                canCapture = true;
+            }
+            return prev;
+        });
+
+        if (!canCapture) return;
+
         if(isBackgroundTransparent) {
             this.captureTransparentImage(aspectRatio);
         } else {
@@ -55,7 +72,8 @@ class CameraManager {
 
     public captureTransparentImage(aspectRatio: AspectRatio) : void {
 
-        //if(this.capturedImages === 7) return;
+
+
 
         // assigns false if the lhs is null or undefined, toggles off all light geometry
         const helperVisibility : Map<THREE.Object3D, boolean> = new Map();
@@ -120,13 +138,19 @@ class CameraManager {
                 const url = URL.createObjectURL(blob as Blob);
                 const link = document.createElement("a");
 
+                this.setCapturedImages(prev => [...prev, {
+                    id: `captured_${Date.now()}`,
+                    imgPath: url,
+                }]);
                 
                 //this might not work because ids dont match?
                 
+                /*
                 this.setCapturedImages(prev => [...prev, {
                     id : `captured_${Date.now()}`,
                     imgPath : url,
                 }]);
+                */
                 
 
                 //create a hyperlink ref
@@ -151,13 +175,15 @@ class CameraManager {
         //    helper.visible = wasVisible;
         //});
 
-        this.setImageCaptured(false);
+        this.setIsImageCaptured(false);
 
     }
 
     public captureImage(aspectRatio: AspectRatio) : void {
 
-        //if(this.capturedImages === 7) return;
+
+
+
 
         // assigns false if the lhs is null or undefined, toggles off all light geometry
         const helperVisibility : Map<THREE.Object3D, boolean> = new Map();
@@ -245,11 +271,18 @@ class CameraManager {
 
                 
                 //this might not work because ids dont match?
+
+                this.setCapturedImages(prev => [...prev, {
+                    id: `captured_${Date.now()}`,
+                    imgPath: url,
+                }]);
+                /*
                 
                 this.setCapturedImages(prev => [...prev, {
                     id : `captured_${Date.now()}`,
                     imgPath : url,
                 }]);
+                */
                 
 
                 //create a hyperlink ref
@@ -274,7 +307,7 @@ class CameraManager {
         //    helper.visible = wasVisible;
         //});
 
-        this.setImageCaptured(false);
+        this.setIsImageCaptured(false);
  
 
 
@@ -349,7 +382,7 @@ class CameraManager {
         helper.visible = wasVisible;
     });
 
-    this.setImageCaptured(false);
+    this.setIsImageCaptured(false);
 }
 
     //nneds to reset the camera position when psrites are removed might have to move this out of thid class
