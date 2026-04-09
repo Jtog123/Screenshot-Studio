@@ -222,13 +222,10 @@ export default function HomePage() {
             return width < 1024 ? width : width / 2;
         };
 
-        const getRendererHeight = () => {
-        const width = window.innerWidth;
-        return width < 1024 ? 500 : window.innerHeight; // Fixed 500px on mobile
-        };
 
-        //renderer.setSize(getRendererWidth(), window.innerHeight);
-        renderer.setSize(getRendererWidth(), getRendererHeight());
+
+        renderer.setSize(getRendererWidth(), window.innerHeight);
+
         
 
         renderer.domElement.style.position = "relative";
@@ -464,12 +461,11 @@ export default function HomePage() {
             if (camera && renderer) {
                 const width = window.innerWidth;
                 const rendererWidth = width < 1024 ? width : width / 2;
-                const rendererHeight = width < 1024 ? 500 : window.innerHeight;
+
                 
                 camera.aspect = rendererWidth / window.innerHeight;
                 camera.updateProjectionMatrix();
-                //renderer.setSize(rendererWidth, window.innerHeight);
-                renderer.setSize(rendererWidth, rendererHeight);
+                renderer.setSize(rendererWidth, window.innerHeight);
                 /*
                 camera.aspect = (window.innerWidth / 2) / window.innerHeight;
                 camera.updateProjectionMatrix();
@@ -546,7 +542,7 @@ return (
             <div className="rightSide bg-chocolate w-full lg:w-1/2 flex flex-col lg:flex-row items-center justify-center ">
    
                 {/* Phone div - Full width on mobile - phoneDiv flex justify-center w-full h-full */}
-                <div ref={mountRef} className="phoneDiv w-full max-w-md lg:max-w-none h-[500px] lg:h-full flex items-center justify-center "></div>
+                <div ref={mountRef} className="phoneDiv flex justify-center w-full h-full "></div>
                 
                 {/* Texture selector - Below phone on mobile, fixed on desktop */}
                 <div className="imageContainer relative lg:fixed z-50 bg-gradient-to-br from-pink-cherry to-pink-cherry/65 backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-white/10 w-auto lg:w-[170px] mt-6 lg:mt-0 lg:right-6">

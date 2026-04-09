@@ -154,7 +154,11 @@
             transform: translateY(0px);
         }
 
+        
+
     }
+
+
 
     --animate-glow-pulse: glow-pulse 4s ease-in-out infinite;
 
@@ -171,6 +175,19 @@
 
 
 }
+    /* Smaller movement on mobile */
+    @media (max-width: 1023px) {
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+                transform: translateY(10px); /* Much smaller */
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0px);
+            }
+        }
+    }
 
 
 
