@@ -153,18 +153,15 @@
 
 }
     @keyframes fade-in {
-        0%{
-            opacity:0;
-            transform: translateY(40px);
-        }
-        100%{
-            opacity:1;
-            transform: translateY(0px);
-        }
-
-        
-
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
     }
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
 
     @keyframes glow-pulse {
         0%, 100% {
@@ -177,19 +174,19 @@
         }
     }
     /* Smaller movement on mobile */
-    @media (max-width: 1023px) {
-        @keyframes fade-in {
-            0% {
-                opacity: 0;
-                transform: translateY(0px); /* Much smaller */
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0px);
-            }
+
+@media (max-width: 1023px) {
+    @keyframes fade-in {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
         }
     }
+}
 
+    
 
 
 body { 
