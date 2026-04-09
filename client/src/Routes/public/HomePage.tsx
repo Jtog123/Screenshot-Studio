@@ -224,11 +224,20 @@ export default function HomePage() {
         };
         */
 
+        /*
         const getRendererWidth = () => {
             const width = window.innerWidth;
             if (width < 1024) {
                 // Use a max width to maintain aspect ratio
                 return Math.min(width, 448); // 448px = max-w-md (28rem)
+            }
+            return width / 2;
+        };
+        */
+       const getRendererWidth = () => {
+            const width = window.innerWidth;
+            if (width < 1024) {
+                return 400; // FIXED 400px on mobile
             }
             return width / 2;
         };
@@ -482,7 +491,9 @@ export default function HomePage() {
             
                 if (width < 1024) {
                     // Mobile: constrained width, fixed height
-                    rendererWidth = Math.min(width, 448);
+                    //rendererWidth = Math.min(width, 448);
+                    //rendererHeight = 600;
+                    rendererWidth = 400;
                     rendererHeight = 600;
                 } else {
                     // Desktop: half width, full height
@@ -571,7 +582,7 @@ return (
             <div className="rightSide bg-chocolate w-full lg:w-1/2 flex flex-col lg:flex-row items-center justify-center ">
    
                 {/* Phone div - Full width on mobile - phoneDiv flex justify-center w-full h-full */}
-                <div ref={mountRef} className="phoneDiv flex justify-center w-full max-w-md lg:max-w-none h-[600px] lg:h-full mx-auto"></div>
+                <div ref={mountRef} className="phoneDiv flex justify-center w-[400px] lg:w-full h-[600px] lg:h-full mx-auto"></div>
                 
                 {/* Texture selector - Below phone on mobile, fixed on desktop */}
                 <div className="imageContainer relative lg:fixed z-50 bg-gradient-to-br from-pink-cherry to-pink-cherry/65 backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-white/10 w-auto lg:w-[170px] mt-6 lg:mt-0 lg:right-6">
