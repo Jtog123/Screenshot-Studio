@@ -948,10 +948,10 @@ return (
                         </div>
 
                         {/* Connect & Contact Columns - Right Side */}
-                        <div className="flex gap-24 mr-0 md:mr-20">
+                        <div className="flex gap-8 justify-center lg:justify-end lg:gap-24 lg:mr-20  w-full">
                             
                             {/* Connect Column */}
-                            <div className="flex flex-col">
+                            <div className="flex flex-col w-32 ">
                                 <h3 className="text-cream-vanilla text-2xl font-semibold mb-6">
                                     Connect
                                 </h3>
@@ -971,14 +971,14 @@ return (
                             </div>
 
                             {/* Contact Column */}
-                            <div className="flex flex-col">
+                            <div className="flex flex-col w-32">
                                 <h3 className="text-cream-vanilla text-2xl font-semibold mb-6">
                                     Contact
                                 </h3>
                                 <ul className="space-y-3">
                                     <li>
-                                        <a href="mailto:hello@screenshotsweet.com" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
-                                            hello@screenshotsweet.com
+                                        <a href="mailto:hello@screenshotsweet.com" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors  text-wrap  ">
+                                            support@screenshotsweet.com
                                         </a>
                                     </li>
 
