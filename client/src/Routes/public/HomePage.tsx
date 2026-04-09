@@ -217,14 +217,30 @@ export default function HomePage() {
         rendererRef.current = renderer;
 
         //renderer.setSize( window.innerWidth / 2, window.innerHeight);
+        /*
         const getRendererWidth = () => {
             const width = window.innerWidth;
             return width < 1024 ? width : width / 2;
         };
+        */
+
+        const getRendererWidth = () => {
+            const width = window.innerWidth;
+            if (width < 1024) {
+                // Use a max width to maintain aspect ratio
+                return Math.min(width, 448); // 448px = max-w-md (28rem)
+            }
+            return width / 2;
+        };
+
+        const getRendererHeight = () => {
+        return window.innerWidth < 1024 ? 600 : window.innerHeight; // Fixed 500px on mobile
+    };
 
 
 
-        renderer.setSize(getRendererWidth(), window.innerHeight);
+        //renderer.setSize(getRendererWidth(), window.innerHeight);
+        renderer.setSize(getRendererWidth(), getRendererHeight());
 
         
 
@@ -460,12 +476,25 @@ export default function HomePage() {
 
             if (camera && renderer) {
                 const width = window.innerWidth;
-                const rendererWidth = width < 1024 ? width : width / 2;
+                //const rendererWidth = width < 1024 ? width : width / 2;
+                //const rendererHeight = width < 1024 ? 500 : window.innerHeight;
+                let rendererWidth, rendererHeight;
+            
+                if (width < 1024) {
+                    // Mobile: constrained width, fixed height
+                    rendererWidth = Math.min(width, 448);
+                    rendererHeight = 600;
+                } else {
+                    // Desktop: half width, full height
+                    rendererWidth = width / 2;
+                    rendererHeight = window.innerHeight;
+                }
 
                 
                 camera.aspect = rendererWidth / window.innerHeight;
                 camera.updateProjectionMatrix();
-                renderer.setSize(rendererWidth, window.innerHeight);
+                //renderer.setSize(rendererWidth, window.innerHeight);
+                renderer.setSize(rendererWidth, rendererHeight);
                 /*
                 camera.aspect = (window.innerWidth / 2) / window.innerHeight;
                 camera.updateProjectionMatrix();
@@ -542,7 +571,7 @@ return (
             <div className="rightSide bg-chocolate w-full lg:w-1/2 flex flex-col lg:flex-row items-center justify-center ">
    
                 {/* Phone div - Full width on mobile - phoneDiv flex justify-center w-full h-full */}
-                <div ref={mountRef} className="phoneDiv flex justify-center w-full h-full "></div>
+                <div ref={mountRef} className="phoneDiv flex justify-center w-full max-w-md lg:max-w-none h-[600px] lg:h-full mx-auto"></div>
                 
                 {/* Texture selector - Below phone on mobile, fixed on desktop */}
                 <div className="imageContainer relative lg:fixed z-50 bg-gradient-to-br from-pink-cherry to-pink-cherry/65 backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-white/10 w-auto lg:w-[170px] mt-6 lg:mt-0 lg:right-6">
