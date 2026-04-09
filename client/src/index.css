@@ -144,6 +144,14 @@
 
     /*Animation*/
     --animate-fade-in:fade-in 1s ease-out forwards;
+
+
+    --animate-glow-pulse: glow-pulse 4s ease-in-out infinite;
+
+
+
+
+}
     @keyframes fade-in {
         0%{
             opacity:0;
@@ -158,10 +166,6 @@
 
     }
 
-
-
-    --animate-glow-pulse: glow-pulse 4s ease-in-out infinite;
-
     @keyframes glow-pulse {
         0%, 100% {
             filter: drop-shadow(0 0 20px rgba(232, 70, 149, 0.25));
@@ -172,15 +176,12 @@
             transform: scale(1.01);
         }
     }
-
-
-}
     /* Smaller movement on mobile */
     @media (max-width: 1023px) {
         @keyframes fade-in {
             0% {
                 opacity: 0;
-                transform: translateY(10px); /* Much smaller */
+                transform: translateY(0px); /* Much smaller */
             }
             100% {
                 opacity: 1;
