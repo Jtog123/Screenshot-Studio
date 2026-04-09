@@ -105,6 +105,7 @@ const router = express.Router();
 const PORT = process.env.PORT || 5050;
 
 const app = express();
+//need this for digital ocean, look into it
 app.set("trust proxy", 1);
 
 app.use(cors({
