@@ -1,6 +1,6 @@
 export default function IndexChart({className} : {className:string}) {
     return(
-<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+<svg className={className} viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
 <g clip-path="url(#clip0_120_146)">
 <rect x="123.5" y="91" width="1033" height="538" rx="43.1" stroke="#FFF4E6" stroke-opacity="0.3" stroke-width="2"/>
 <line opacity="0.5" x1="122.497" y1="142.221" x2="1157.5" y2="142.221" stroke="#A91E1B" stroke-width="1.5"/>

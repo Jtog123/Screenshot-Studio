@@ -54,6 +54,9 @@ class CameraManager {
     }
 
     public captureTransparentImage(aspectRatio: AspectRatio) : void {
+
+        //if(this.capturedImages === 7) return;
+
         // assigns false if the lhs is null or undefined, toggles off all light geometry
         const helperVisibility : Map<THREE.Object3D, boolean> = new Map();
 
@@ -153,6 +156,8 @@ class CameraManager {
     }
 
     public captureImage(aspectRatio: AspectRatio) : void {
+
+        //if(this.capturedImages === 7) return;
 
         // assigns false if the lhs is null or undefined, toggles off all light geometry
         const helperVisibility : Map<THREE.Object3D, boolean> = new Map();
