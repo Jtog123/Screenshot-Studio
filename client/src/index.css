@@ -175,6 +175,7 @@
     }
     /* Smaller movement on mobile */
 
+    /*
 @media (max-width: 1023px) {
     @keyframes fade-in {
         0% {
@@ -187,6 +188,7 @@
         }
     }
 }
+    */
 
     
 
