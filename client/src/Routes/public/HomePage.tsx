@@ -567,7 +567,7 @@ return (
         
         
         {/* Hero Section - Split Left/Right */}
-        {/*<ScrollFadeIn >*/}
+        <ScrollFadeIn >
         <section id="hero" className="flex flex-col lg:flex-row w-full min-h-screen bg-chocolate">
             
             {/* Left Side - Content */}
@@ -658,7 +658,7 @@ return (
             </div>
             
         </section>
-        {/*</ScrollFadeIn>*/}
+        </ScrollFadeIn>
 
         
         <section className="w-full bg-chocolate pt-14  lg:pt-20 lg:pb-14">
