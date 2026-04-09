@@ -239,10 +239,13 @@ export default function HomePage() {
             if (width < 1024) {
                 return 400; // FIXED 400px on mobile
             }
+
             return width / 2;
         };
 
         const getRendererHeight = () => {
+        const height = window.innerWidth < 1024 ? 600 : window.innerHeight;
+        console.log('📏 Renderer height:', height); // 🔍 LOG
         return window.innerWidth < 1024 ? 600 : window.innerHeight; // Fixed 500px on mobile
     };
 
@@ -431,7 +434,7 @@ export default function HomePage() {
         //run function
         const run = () => {
             requestAnimationFrame(() => run());
-            if(homePhoneModel && window.innerWidth >= 1024) {
+            if(homePhoneModel ) {
                 homePhoneModel.rotation.y += rotatationDirection;
                 
                 if(homePhoneModel.rotation.y >= 1) {
@@ -479,6 +482,8 @@ export default function HomePage() {
 
         //Automatically resize the window
     useEffect(() => {
+        let lastWidth = window.innerWidth;
+
         const handleResize = () => {
             const camera = cameraRef.current;
             const renderer = rendererRef.current;
@@ -487,6 +492,10 @@ export default function HomePage() {
                 const width = window.innerWidth;
                 //const rendererWidth = width < 1024 ? width : width / 2;
                 //const rendererHeight = width < 1024 ? 500 : window.innerHeight;
+                if(width < 1024 && width === lastWidth) {
+                    return;
+                }
+
                 let rendererWidth, rendererHeight;
             
                 if (width < 1024) {
@@ -501,8 +510,11 @@ export default function HomePage() {
                     rendererHeight = window.innerHeight;
                 }
 
+ 
+
                 
-                camera.aspect = rendererWidth / window.innerHeight;
+                //camera.aspect = rendererWidth / window.innerHeight;
+                camera.aspect = rendererWidth / rendererHeight;
                 camera.updateProjectionMatrix();
                 //renderer.setSize(rendererWidth, window.innerHeight);
                 renderer.setSize(rendererWidth, rendererHeight);
