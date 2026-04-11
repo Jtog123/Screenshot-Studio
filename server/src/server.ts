@@ -577,12 +577,15 @@ router.post("/api/create-checkout-session", async function(req, res) {
 
         const user = req.user as any;
         const {plan} = req.body;
-        let priceData : any;
+        //let priceData : any;
+        let priceID: string;
         let mode : "payment" | "subscription";
         console.log("Plan is: ", plan);
 
         if(plan === "weekend" ) {
             mode = "payment";
+            priceID = process.env.STRIPE_WEEKEND_PRICE_ID as string;
+            /*
             priceData = {
                 currency: "usd",
                 unit_amount: 599,
@@ -591,8 +594,11 @@ router.post("/api/create-checkout-session", async function(req, res) {
                     description: "48-hour unlimited access"
                 }
             }
-        } else {
+                */
+        } else if(plan === "monthly") {
             mode = "subscription";
+            priceID = process.env.STRIPE_MONTHLY_PRICE_ID as string;
+            /*
             priceData = {
                 currency: "usd",
                 unit_amount : 1399,
@@ -605,13 +611,17 @@ router.post("/api/create-checkout-session", async function(req, res) {
                 }
                 
             }
+                */
+        } else {
+            return res.status(400).json({error: "Invalid plan"});
         }
 
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
             mode: mode,
             line_items: [{
-                price_data: priceData,
+                //price_data: priceData,
+                price:priceID,
                 quantity:1
             }],
             customer_email: user.email,
