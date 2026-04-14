@@ -826,7 +826,7 @@ return (
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
-                        <p className="text-coffee text-sm lg:text-base">High Quality 4k exports</p>
+                        <p className="text-coffee text-sm lg:text-base">High Quality 4k Exports</p>
                     </div>
 
                     <div className="flex items-start gap-3">
@@ -871,7 +871,7 @@ return (
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
-                        <p className="text-coffee text-sm lg:text-base">Best Value Over Time.</p>
+                        <p className="text-coffee text-sm lg:text-base">Better Value Over Time.</p>
                     </div>
 
                     <div className="flex items-start gap-3">
@@ -889,7 +889,7 @@ return (
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
-                        <p className="text-coffee text-sm lg:text-base">High Quality 4k exports</p>
+                        <p className="text-coffee text-sm lg:text-base">High Quality 4k Exports</p>
                     </div>
 
                     <div className="flex items-start gap-3">
