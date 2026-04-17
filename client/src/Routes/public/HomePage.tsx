@@ -573,11 +573,12 @@ return (
             {/* Left Side - Content */}
             <div className="flex leftSide justify-center items-center bg-chocolate w-full lg:w-1/2 ">
                 <div className="flex flex-col w-4/5 max-w-2xl relative justify-center text-center lg:text-left">
-                    <h1 className="text-cream-vanilla text-6xl mb-6 font-semibold mt-20 lg:mt-0 " style={{fontFamily: "Inter, sans-serif"}}>Dynamic Mock Ups</h1>
+                    <h1 className="text-cream-vanilla text-6xl mb-6 font-semibold mt-20 lg:mt-0 " style={{fontFamily: "Inter, sans-serif"}}>Stop Being Ignored</h1>
                     
                     <h2 className="text-cream-vanilla/70 text-2xl mb-10 " style={{fontFamily: "Inter, sans-serif"}}>
-                        Making your app stand out has never been easier.
+                        First impressions are important. Stand out.
                     </h2>
+
 
                     <button onClick={handleFreeTesting} className="bg-pink-cherry hover:bg-pink-velvet text-white font-semibold text-xl px-12 py-6 rounded-2xl shadow-[0_0_30px_rgba(232,70,149,0.4)] hover:shadow-[0_0_20px_rgba(232,70,149,0.6)] transform hover:scale-101 transition-all ease-in mx-6 duration-100 cursor-pointer  lg:mx-0 animate-glow-pulse">
                         Get Started Free
