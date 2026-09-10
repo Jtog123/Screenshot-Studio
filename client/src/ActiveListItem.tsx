@@ -114,17 +114,17 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
     const getIcon = () => {
         console.log(itemID);
         if (itemID.startsWith("_DirectionalLight")) {
-            return <DirectionalLightIcon className=" w-[24px] h-[24px] text-blue-frost"/>
+            return <DirectionalLightIcon className=" w-[24px] h-[24px] text-cream-vanilla"/>
         } else if (itemID.startsWith("_SpotLight")) {
-            return <SpotLightIcon className=" w-[24px] h-[24px] text-blue-frost"/>
+            return <SpotLightIcon className=" w-[24px] h-[24px] text-cream-vanilla"/>
         } else if (itemID.startsWith("_PointLight")) {
-            return <PointLightIcon className=" w-[24px] h-[24px] text-blue-frost" />
+            return <PointLightIcon className=" w-[24px] h-[24px] text-cream-vanilla" />
         } else if (itemID.startsWith("_RectAreaLight")) {
-            return <RectAreaIcon className=" w-[24px] h-[24px] text-blue-frost" />
+            return <RectAreaIcon className=" w-[24px] h-[24px] text-cream-vanilla" />
         } else if(itemID.startsWith("sprite_image_")) {
-            return <ImageIcon className="w-[20px] h-[20px] text-blue-frost"/>;
+            return <ImageIcon className="w-[20px] h-[20px] text-cream-vanilla"/>;
         } else if(itemID.startsWith("text_")) {
-            return <TextIcon className="w-[20px] h-[20px] text-blue-frost"/>;
+            return <TextIcon className="w-[20px] h-[20px] text-cream-vanilla"/>;
         } 
         
         
@@ -133,7 +133,7 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
     return (
         <li 
             onClick={handleListItemSelection} 
-            className="group/item flex items-center justify-between px-2 py-1.5 rounded-md bg-coffee/80 hover:bg-coffee/30 transition-colors ease-in duration-200 cursor-pointer border-x-1 border-pink-cherry/80 "
+            className="group/item flex items-center justify-between px-2 py-1.5 rounded-md bg-coffee/80 hover:bg-coffee/30 transition-colors ease-in duration-200 cursor-pointer border-x-1 border-cream-vanilla/20 "
         >
             {/* Left side: Icon + Name */}
             <div className="flex items-center gap-2 flex-1 min-w-0 ">
@@ -157,12 +157,12 @@ export default function ActiveListItem({itemName, itemID, activeListItems, setAc
                         {isItemVisible ? 
                             // Eye icon
                             <>
-                            <EyeOpenIcon className="text-pink-cherry w-[20px] h-[20px] group-hover/eye:hidden  "/>
-                            <EyeMidIcon className="text-pink-cherry w-[20px] h-[20px] hidden hidden group-hover/eye:block" />
+                            <EyeOpenIcon className="text-cream-vanilla w-[20px] h-[20px] group-hover/eye:hidden  "/>
+                            <EyeMidIcon className="text-cream-vanilla w-[20px] h-[20px] hidden hidden group-hover/eye:block" />
                             </>
                          : 
                             // Eye-off icon
-                            <EyeClosedIcon className="text-pink-cherry w-[20px] h-[20px]  "/>
+                            <EyeClosedIcon className="text-cream-vanilla w-[20px] h-[20px]  "/>
                         }
                     
                 </button>

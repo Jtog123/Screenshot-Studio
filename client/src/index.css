@@ -142,11 +142,22 @@
     --color-gold-antique: #B8924A;
 
 
+    /* ===== Editorial Print (light) ===== */
+    --color-paper: #F6F1E7;
+    --color-paper-2: #EDE6D6;
+    --color-ink: #15110C;
+    --color-ink-muted: #5A5346;
+    --color-vermilion: #E6401A;
+    --color-vermilion-deep: #C23410;
+
+    /* ===== Type ===== */
+    --font-display: "Fraunces", serif;
+    --font-sans: "Inter", sans-serif;
+
     /*Animation*/
     --animate-fade-in:fade-in 1s ease-out forwards;
 
 
-    --animate-glow-pulse: glow-pulse 4s ease-in-out infinite;
 
 
 
@@ -163,16 +174,6 @@
     }
 }
 
-    @keyframes glow-pulse {
-        0%, 100% {
-            filter: drop-shadow(0 0 20px rgba(232, 70, 149, 0.25));
-            transform: scale(1);
-        }
-        50% {
-            filter: drop-shadow(0 0 40px rgba(232, 70, 149, 0.38));
-            transform: scale(1.01);
-        }
-    }
     /* Smaller movement on mobile */
 
     /*
@@ -195,7 +196,7 @@
 
 body { 
     margin: 0; 
-    background-color: #3D2315;
+    background-color: #F6F1E7;
     -webkit-overflow-scrolling: touch; /* Smooth scrolling */
     overflow-x: hidden; /* Prevent horizontal scroll */
 }

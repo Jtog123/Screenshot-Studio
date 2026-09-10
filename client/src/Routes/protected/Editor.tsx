@@ -37,7 +37,7 @@ import TestFonts from '../../TestFonts.js';
 import NavigationBar from '../../NavigationBar.js';
 import HomePage from '../public/HomePage.js';
 import AspectRatioInfo from "../../AspectRatioInfo.js"
-import { API_URL, FRONTEND_URL } from '../../config.js';
+//import { API_URL, FRONTEND_URL } from '../../config.js';
 
 
 
@@ -107,13 +107,14 @@ export default function Editor() {
       type: "default"
     }); //"1242x2688"
 
-  const[appUser, setAppUser] = useState<AppUser | null>(null);
-  const [isLoadingUser, setIsLoadingUser] = useState(true);
-  const [authError, setAuthError] = useState<string | null>(null);
+  const[appUser] = useState<AppUser | null>(null);
+//  const [isLoadingUser, setIsLoadingUser] = useState(true);
+//  const [authError, setAuthError] = useState<string | null>(null);
 
   //const[fontsLoaded, setFontsLoaded] = useState(false);
 
   //adjust links to API_URL
+  /*
   useEffect(() => {
     const returnTo = localStorage.getItem("return_to");
 
@@ -151,6 +152,7 @@ export default function Editor() {
       });
     }
   }, []);
+  */
 
 
 
@@ -231,6 +233,7 @@ export default function Editor() {
   }, []);
   
 
+  /*
   useEffect(() => {
     const fetchUser = async() => {
       try {
@@ -270,6 +273,7 @@ export default function Editor() {
     fetchUser();
 
   }, []);
+  */
 
   /*
   useEffect(() => {

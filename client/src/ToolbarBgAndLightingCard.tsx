@@ -455,7 +455,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
             <div onClick={handleBgAndLightCardExpand}  className="flex justify-between items-center py-2 cursor-pointer">
                 <h1 className="text-cream-vanilla ml-5 text-sm font-semibold" style={{ fontFamily: 'lato' }}>Background & Lighting</h1>
                 <button onClick={handleBgAndLightCardExpand} className="mr-5 text-cream-vanilla">
-                    <MenuKarrotIcon className={`text-pink-cherry w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-300 ${isBgAndLightCardExpanded ? `` : `rotate-180`}`} />
+                    <MenuKarrotIcon className={`text-cream-vanilla w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-300 ${isBgAndLightCardExpanded ? `` : `rotate-180`}`} />
                 </button>
             </div>
 
@@ -534,7 +534,7 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
 
                     {/* Divider */}
                     <div className="flex w-[100%] justify-center my-1">
-                        <div className="w-[90%] h-px bg-pink-cherry/80 my-3"></div>
+                        <div className="w-[90%] h-px bg-cream-vanilla/20 my-3"></div>
                     </div>
 
                     {/* Lighting */}
@@ -547,18 +547,18 @@ export default function ToolbarBgAndLightingCard({scene, isToolbarToggled, gradi
                    
                     <div className="flex w-[100%] justify-center mt-2 mb-5">
                         <div className="flex justify-between w-[80%] h-auto">
-                            <button onClick={handleDirectionalLightCreation} className=" flex cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-blue-frost transition-colors duration-200 rounded-lg py-1 justify-center  items-center ">
+                            <button onClick={handleDirectionalLightCreation} className=" flex cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-espresso transition-colors duration-200 rounded-lg py-1 justify-center  items-center ">
                                 <DirectionalLightIcon className='w-[48px] h-[48px]  '/>
                             </button>
 
-                            <button onClick={handleSpotLightCreation} className=" flex justify-center items-center cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-blue-frost transition-colors duration-200 rounded-lg py-1">
+                            <button onClick={handleSpotLightCreation} className=" flex justify-center items-center cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-espresso transition-colors duration-200 rounded-lg py-1">
                                 <SpotLightIcon className='w-[32px] h-[32px]  ' />
                             </button>
 
-                            <button onClick={handlePointLightCreation} className=" flex justify-center items-center cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-blue-frost transition-colors duration-200 rounded-lg py-1">
+                            <button onClick={handlePointLightCreation} className=" flex justify-center items-center cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-espresso transition-colors duration-200 rounded-lg py-1">
                                 <PointLightIcon className='w-[32px] h-[32px] transition-all duration-200 ease-in  '/>
                             </button>
-                            <button onClick={handleRectAreaLightCreation} className=" flex justify-center items-center cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-blue-frost transition-colors duration-200 rounded-lg py-1">
+                            <button onClick={handleRectAreaLightCreation} className=" flex justify-center items-center cursor-pointer w-[36px] h-[36px] transition-all duration-200 ease-in bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-espresso transition-colors duration-200 rounded-lg py-1">
                                 <RectAreaIcon className="w-[40px] h-[40px]"/>
                             </button>
                         </div>

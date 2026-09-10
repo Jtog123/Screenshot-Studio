@@ -10,8 +10,8 @@ import UploadIcon from "./IconAssets/ExportIcon"
 import MenuKarrotIcon from "./IconAssets/MenuKarrotIcon"
 import ExportIcon from "./IconAssets/ExportIcon"
 import ImportIcon from "./IconAssets/ImportIcon"
-import { AppUser, SubscriptionType } from "./AppUser"
-import { API_URL } from "./config"
+//import { AppUser, SubscriptionType } from "./AppUser"
+//import { API_URL } from "./config"
 
 
 interface ToolbarImgAndTextCardProps {
@@ -37,8 +37,8 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
     const [isScreenTextureUploaded , setIsScreenTextureUploaded] = useState(false);
     const [screenTextures, setScreenTextures] = useState<ScreenTextureInterface[]>([]);
     const [activeTextureID, setActiveTextureID] = useState<string | null>(null);
-    const [userCanExport, setUserCanExport] = useState(true);
-    const [hoursRemainingTillNextExport, setHoursRemaningTillNextExport] = useState(0);
+//    const [userCanExport, setUserCanExport] = useState(true);
+//    const [hoursRemainingTillNextExport, setHoursRemaningTillNextExport] = useState(0);
     //const [capturedImages, setCapturedImages] = useState<CapturedImage[]>([]);
   
     //const[contentHeight, setContentHeight] = useState(0);
@@ -296,84 +296,8 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
         try {
             const files: Record<string, Uint8Array> = {};
 
-            //assign these once we know the size of the values
-            let imageLimit = 0;
-            let imagesToExport = 0;
-            
-             
-
-            //write validation logic here
-            try {
-                const firstResponse = await fetch(`${API_URL}/api/userdata`, { //"http://localhost:5050/api/userdata"
-                    method: "GET",
-                    credentials: "include",
-                    headers: {
-                        //"Content-Type": "application/json"
-                    }
-                });
-
-                if (!firstResponse.ok) {
-                    console.error("Failed to increment export count:", firstResponse.status);
-                    return;
-                }
-
-                const userData = await firstResponse.json();
-
-                //assign the amount of images a user can get
-                imageLimit = userData.subscription_type === SubscriptionType.Free ? 3 : 7;
-                imagesToExport = Math.min(imageLimit, capturedImages.length);
-
-
-                console.log(userData.last_export);
-
-                //const todaysDate = new Date();
-
-                if(userData.subscription_type === SubscriptionType.Free) {
-                    if(!userData.last_export) {
-                        //If the user is new and has no exports
-                        console.log("first export");
-                    } else {
-                        //Uncomment when ready for deployment!!
-
-                     
-                        const lastExportDate = new Date(userData.last_export);
-                        const now = new Date();
-
-                        //Delta between todays time and the users last export
-                        const differenceInMs = now.getTime() - lastExportDate.getTime();
-                        
-                        const differenceInDays = Math.floor(differenceInMs / (1000 * 60 * 60 * 24));
-
-                        // if the delta between the times of today and users last export is greater than 2, allow for a new export
-                        if(differenceInDays < 3) {
-                            //display a component on the screen letting users know how long they have to wait
-                            const hoursRemaning = Math.ceil((3 - differenceInDays) * 24);
-                            setHoursRemaningTillNextExport(hoursRemaning);
-                            //Show a timer? limit will reset 
-                            // create a component showing hours remaning
-                            console.log("Free Tier limit reached: 1 export per 2 days");
-                            setUserCanExport(false);
-                            return;
-                        } else {
-                            setUserCanExport(true);
-
-                        }
-                            
-
-                    }
-
-
-                } 
-
-            } catch(err) {
-                console.error("Error trying to get last export");
-                alert("Unable to verify export limit. Please try again.");
-                return;
-            }
-
-            /// Export allowed to continue after validation //////////////
-
-            //const imageLimit = userData.subscription_type === SubscriptionType.Free ? 3 : 7;
+            // Free/static: no export limit — export every captured image.
+            const imagesToExport = capturedImages.length;
 
 
             // Convert images to bytes
@@ -409,6 +333,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                 link.click();
                 URL.revokeObjectURL(url);
 
+                /* 
                 // Increment export count 
                 try {
                     const response = await fetch(`${API_URL}/api/export`, { //"http://localhost:5050/api/export"
@@ -431,6 +356,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                     console.error("Failed to update export count:", err);
                     // Don't block the export if analytics fails
                 }
+                */
             });
             
         } catch (error) {
@@ -440,13 +366,13 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
     }
 
     return (
-        <div  className={ isToolbarToggled ? `hidden`:`w-[100%] rounded-t-xl bg-chcolate -mt-2 z-10 border-1 border-pink-cherry/80 transition-all duration-500 ease-in-out pb-1 overflox-auto  `}
+        <div  className={ isToolbarToggled ? `hidden`:`w-[100%] rounded-t-xl bg-chcolate -mt-2 z-10 border-1 border-cream-vanilla/20 transition-all duration-500 ease-in-out pb-1 overflox-auto  `}
         >
 
             <div onClick={handleImgAndTextCardExpand} className="flex justify-between items-center py-2 cursor-pointer">
                 <h1 className="ml-5 text-cream-vanilla text-sm font-semibold"  style={{ fontFamily: 'lato' }}>Image & Text</h1>
                 <button onClick={handleImgAndTextCardExpand} className="mr-5 text-cream">
-                    <MenuKarrotIcon className={`text-pink-cherry w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-300 ${isImgAndTxtCardExpanded ? `` : `rotate-180`}`} />
+                    <MenuKarrotIcon className={`text-cream-vanilla w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-300 ${isImgAndTxtCardExpanded ? `` : `rotate-180`}`} />
                 </button>
             </div>
 
@@ -459,7 +385,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                     {/* stuff here*/}
                     <div className="flex  w-[100%]  justify-center  pb-2">
                         <div className="flex  w-[50%] h-[50px] justify-evenly items-center  ">
-                            <button onClick={addImageComponent} className="flex justify-center items-center transition-all ease-in duration-200 bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-blue-frost cursor-pointer w-[36px] h-[36px] p-1 mx-1  rounded-lg py-1 ">
+                            <button onClick={addImageComponent} className="flex justify-center items-center transition-all ease-in duration-200 bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-espresso cursor-pointer w-[36px] h-[36px] p-1 mx-1  rounded-lg py-1 ">
                                 <ImageIcon  className=""/>
                             </button>
 
@@ -467,7 +393,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                                 <div className=" h-[40px] w-px bg-cream/40 "></div>
                             </div>
 
-                            <button onClick={addTextComponent} className="flex justify-center items-center transition-all ease-in duration-200 bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-blue-frost  cursor-pointer w-[36px] h-[36px] p-1 mx-1  rounded-lg py-1 ">
+                            <button onClick={addTextComponent} className="flex justify-center items-center transition-all ease-in duration-200 bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-espresso  cursor-pointer w-[36px] h-[36px] p-1 mx-1  rounded-lg py-1 ">
                                 <TextIcon className=""/>
                             </button>
                         </div>
@@ -475,14 +401,14 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
 
                         {/* Divider */}
                     <div className="flex w-[100%] justify-center my-1">
-                        <div className="w-[80%] h-px bg-pink-cherry/80 my-2"></div>
+                        <div className="w-[80%] h-px bg-cream-vanilla/20 my-2"></div>
                     </div>
 
                     <div className="flex justify-center items-center">
                         <h4 className="text-cream-vanilla text-xs ml-5 mr-2"  style={{ fontFamily: 'lato' }}>Add up to 7 photos</h4>
                         <input ref={screenTextureFileRef} type="file" accept="image/png, image/jpeg" onChange={(e) => handleScreenTextureUpload(e)} className="hidden"/>
                             {
-                                <button className={isScreenTextureUploaded ? `hidden` :`flex justify-center items-center transition-all ease-in duration-200 bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-blue-frost cursor-pointer w-[35px] h-[30px] p-2 mx-1  rounded-lg py-1`}
+                                <button className={isScreenTextureUploaded ? `hidden` :`flex justify-center items-center transition-all ease-in duration-200 bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-espresso cursor-pointer w-[35px] h-[30px] p-2 mx-1  rounded-lg py-1`}
                                 onClick={() => screenTextureFileRef.current?.click()}>
                                     <ImportIcon className=""/>
                                 </button> 
@@ -517,8 +443,8 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                                 {/* Image Container */}
                                 <div className={`relative rounded-sm overflow-hidden  mb-3 ${
                                     activeTextureID === img.id 
-                                        ? 'ring-2 ring-cream-vanilla shadow-lg shadow-blue-500/50' 
-                                        : 'ring-1 ring-espresso/20 hover:ring-white/40'
+                                        ? 'ring-2 ring-cream-vanilla shadow-md'
+                                        : 'ring-1 ring-espresso/20 hover:ring-cream-vanilla/40'
                                 }`}>
                                     <img 
                                         src={img.imgPath} 
@@ -528,7 +454,7 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
                                     
                                     {/* Active Indicator Overlay */}
                                     {activeTextureID === img.id && (
-                                        <div className="absolute inset-0 bg-blue-500/20 flex items-center justify-center pointer-events-none">
+                                        <div className="absolute inset-0 bg-cream-vanilla/20 flex items-center justify-center pointer-events-none">
                                             <div className="w-3 h-3 rounded-full bg-mocha flex items-center justify-center">
                                                 <svg className="w-2 h-2 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
@@ -556,29 +482,30 @@ export default function ToolbarImgAndTextCard({imageComponents, setImageComponen
 
                     {/* Divider */}
                     <div className="flex w-[100%] justify-center my-1">
-                        <div className="w-[80%] h-px bg-pink-cherry/80 my-2"></div>
+                        <div className="w-[80%] h-px bg-cream-vanilla/20 my-2"></div>
                     </div>
                     
                     <div className="flex  justify-center items-center  ">
                         
                             <h4 className="text-cream-vanilla text-xs mr-2 ml-5"  style={{ fontFamily: 'lato' }}>Captured</h4>
 
-                            <button className=" disabled:cursor-none" disabled={userCanExport !== true} onClick={handleImageFileExport}>
-                                <ExportIcon className="flex justify-center items-center transition-all ease-in duration-200 bg-coffee/80 hover:bg-amber/80 disabled:bg-stone-700  text-cream-vanilla hover:text-blue-frost cursor-pointer w-[35px] h-[30px] p-2 mx-1  rounded-lg py-1"/>
+                            <button className=" disabled:cursor-none" onClick={handleImageFileExport}>
+                                <ExportIcon className="flex justify-center items-center transition-all ease-in duration-200 bg-coffee/80 hover:bg-amber/80 disabled:bg-stone-700  text-cream-vanilla hover:text-espresso cursor-pointer w-[35px] h-[30px] p-2 mx-1  rounded-lg py-1"/>
                             </button>
 
                             
 
                     </div>
 
+                    {/* 
                     <div className="flex justify-center">
                         {!userCanExport && (
-                            <div className="flex justify-center text-red-400  text-xs max-w-[200px] mx-5 text-wrap mt-1"> 
-                            Export limit reached on the free tier. Upgrade to premium for more exports or return in {hoursRemainingTillNextExport} hour(s).
-
+                            <div className="flex justify-center text-red-400  text-xs max-w-[200px] mx-5 text-wrap mt-1">
+                                Export limit reached on the free tier. Upgrade to premium for more exports or return in {hoursRemainingTillNextExport} hour(s).
                             </div>
                         )}
                     </div>
+                    */}
 
 
 

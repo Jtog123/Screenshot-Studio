@@ -1,5 +1,5 @@
-import {Link} from "react-router"
-import { API_URL, FRONTEND_URL } from "./config";
+//import {Link} from "react-router"
+//import { API_URL, FRONTEND_URL } from "./config";
 export default function FooterMenu() {
 
 
@@ -22,6 +22,7 @@ export default function FooterMenu() {
 
   //change localhosts
 
+    /*
     function handleUserLogout() : void {
         //send a log out reuqest to the backend
         const userLogout = async () => {
@@ -57,11 +58,12 @@ export default function FooterMenu() {
 
         userLogout();
     }
+    */
 
 
     return (
         <>
-            <div className="absolute p-1.5 z-dropdown bg-espresso border border-pink-cherry/80 backdrop-blur-xl rounded-xl min-w-[16rem] text-cream-vanilla shadow-lg max-h-[24rem] overflow-y-auto mx-0.5 bottom-15 right-4">
+            <div className="absolute p-1.5 z-dropdown bg-espresso border border-cream-vanilla/20 backdrop-blur-xl rounded-xl min-w-[16rem] text-cream-vanilla shadow-lg max-h-[24rem] overflow-y-auto mx-0.5 bottom-15 right-4">
             
                 {/* Email header */}
                 <div className="text-cream-vanilla pt-1 px-2 truncate">
@@ -83,19 +85,19 @@ export default function FooterMenu() {
                     <span>Upgrade plan</span>
                 </a>*/}
 
-                <Link to="/#pricing" className="flex items-center gap-2 min-h-8 px-2 rounded-lg hover:bg-bg-200 cursor-pointer hover:bg-mocha/70">Upgrade Plan</Link>
+                {/* <Link to="/#pricing" className="flex items-center gap-2 min-h-8 px-2 rounded-lg hover:bg-bg-200 cursor-pointer hover:bg-mocha/70">Upgrade Plan</Link> */}
 
 
-                <Link to="/user-settings" className="flex items-center gap-2 min-h-8 px-2 mt-1 rounded-lg hover:bg-bg-200 cursor-pointer hover:bg-mocha/70">User Settings</Link>
+                {/* <Link to="/user-settings" className="flex items-center gap-2 min-h-8 px-2 mt-1 rounded-lg hover:bg-bg-200 cursor-pointer hover:bg-mocha/70">User Settings</Link> */}
 
 
                 {/* Divider */}
                 <div className="h-[0.5px] bg-border-300 mt-1 mx-2" />
 
                 {/* Logout */}
-                <a onClick={handleUserLogout} className="flex items-center gap-2 min-h-8 px-2  rounded-lg hover:bg-bg-200 cursor-pointer hover:bg-mocha/70">
+                {/* <a onClick={handleUserLogout} className="flex items-center gap-2 min-h-8 px-2  rounded-lg hover:bg-bg-200 cursor-pointer hover:bg-mocha/70">
                     <span>Log out</span>
-                </a>
+                </a> */}
 
             </div>
         </>

@@ -95,11 +95,11 @@ export default function ToolbarCameraCard({isToolbarToggled, _cameraManager, _ph
         
     return (
         <>
-        <div  className={isToolbarToggled ? `hidden` : `rounded-t-xl bg-chocolate flex-1 -mt-2 z-10 border-t-1 border-x-1 border-pink-cherry/80 transition-all duration-500 ease-in-out `}>
+        <div  className={isToolbarToggled ? `hidden` : `rounded-t-xl bg-chocolate flex-1 -mt-2 z-10 border-t-1 border-x-1 border-cream-vanilla/20 transition-all duration-500 ease-in-out `}>
             <div onClick={handleCameraCardExpand} className="flex justify-between items-center py-2 cursor-pointer">
                 <h1 className="ml-5 text-cream-vanilla text-sm font-semibold" style={{ fontFamily: 'lato' }}>Camera</h1>
                 <button onClick={handleCameraCardExpand} className="mr-5 text-stone-300">
-                    <MenuKarrotIcon className={` cursor-pointer text-pink-cherry w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-300 ${isCameraCardExpanded ? `` : `rotate-180`}`} />
+                    <MenuKarrotIcon className={` cursor-pointer text-cream-vanilla w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-300 ${isCameraCardExpanded ? `` : `rotate-180`}`} />
                 </button>
             </div>
 
@@ -117,13 +117,13 @@ export default function ToolbarCameraCard({isToolbarToggled, _cameraManager, _ph
                         </div>
 
                         <div className="button flex justiify-between container w-[50%] p-1 mr-5">
-                            <button onClick={handleCameraZoomIn}  className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-blue-frost transition-all duration-200  rounded-lg py-1"> 
+                            <button onClick={handleCameraZoomIn}  className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-espresso transition-all duration-200  rounded-lg py-1"> 
                                 <CameraZoomInIcon className="text-cream-vanilla"/>
                             </button>
-                            <button onClick={handleCameraZoomOut} className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-blue-frost  transition-all duration-200  rounded-lg py-1"> 
+                            <button onClick={handleCameraZoomOut} className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-espresso  transition-all duration-200  rounded-lg py-1"> 
                                 <CameraZoomOutIcon className='text-espresso'/>
                             </button>
-                            <button onClick={handleZoomReset} className="flex justify-center items-center bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-blue-frost transition-all duration-200  rounded-xl h-[30px] w-[30px] cursor-pointer group">
+                            <button onClick={handleZoomReset} className="flex justify-center items-center bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-espresso transition-all duration-200  rounded-xl h-[30px] w-[30px] cursor-pointer group">
                                 <RefreshStartIcon className="transition-transform duration-300 group-hover:-rotate-90" />
                             </button>
                         </div>
@@ -137,15 +137,15 @@ export default function ToolbarCameraCard({isToolbarToggled, _cameraManager, _ph
                         </div>
 
                         <div className="button flex justiify-between container w-[50%] p-1 mr-5 pb-2">
-                            <button onClick={handleCameraHeightIncrease} className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-blue-frost transition-all duration-200  rounded-lg py-1">
+                            <button onClick={handleCameraHeightIncrease} className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-espresso transition-all duration-200  rounded-lg py-1">
                                  <CameraUpIcon className=''/>
                             </button>
 
-                            <button onClick={handleCameraHeightDecrease} className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-blue-frost  transition-all duration-200  rounded-lg py-1">
+                            <button onClick={handleCameraHeightDecrease} className="flex justify-center items-center cursor-pointer p-1 h-[30px] w-[40px] mx-1 bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-espresso  transition-all duration-200  rounded-lg py-1">
                                  <CameraDownIcon className=''/>
                             </button>
 
-                            <button onClick={handleHeightReset} className="flex justify-center items-center bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-blue-frost  transition-all duration-200 rounded-xl h-[30px] w-[30px] cursor-pointer group">
+                            <button onClick={handleHeightReset} className="flex justify-center items-center bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-espresso  transition-all duration-200 rounded-xl h-[30px] w-[30px] cursor-pointer group">
                                 <RefreshStartIcon className="transition-transform duration-300 group-hover:-rotate-90" />
                             </button>
                         </div>

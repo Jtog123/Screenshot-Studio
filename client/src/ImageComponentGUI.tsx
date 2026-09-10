@@ -189,7 +189,7 @@ export default function ImageComponentGUI({_componentID, _assetManager} : ImageC
                 {
             <div style={{
                 transform: `translate(${guiPosition.x}px, ${guiPosition.y}px)`}}
-                className="absolute rounded-xl right-[800px] top-[200px] min-w-[300px] min-h-[150px] max-w-[450px] overflow-auto bg-cream-vanilla pb-3 z-50 backdrop-blur-md border border-espresso shadow-[0_0_20px_rgba(120,113,108,0.3)] ring-1 ring-stone-700/50">
+                className="absolute rounded-xl right-[800px] top-[200px] min-w-[300px] min-h-[150px] max-w-[450px] overflow-auto bg-cream-vanilla pb-3 z-50 backdrop-blur-md border border-espresso shadow-lg ring-1 ring-stone-700/50">
 
                 
                 <div onMouseDown={handleMouseDown} style={{ fontFamily: 'lato' }}  className="sticky top-0 flex items-center justify-between  cursor-move bg-cream-golden  w-full py-2 px-4 z-10">
@@ -210,10 +210,10 @@ export default function ImageComponentGUI({_componentID, _assetManager} : ImageC
                     <div className="border border-espresso rounded-lg overflow-hidden">
                         <button 
                             onClick={() => toggleSection('position')}
-                            className="w-full flex justify-between items-center px-3 py-2 bg-cream-golden hover:bg-orange-caramel/20 text-espresso  text-sm"
+                            className="w-full flex justify-between items-center px-3 py-2 bg-cream-golden hover:bg-cream-dark/40 text-espresso  text-sm"
                         >
                             <span style={{ fontFamily: 'lato' }} >Position</span>
-                            <span>{<MenuKarrotIcon className={`text-orange-caramel w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-100 ${expandedSections.position ? `` : `rotate-180`}`}/>}</span>
+                            <span>{<MenuKarrotIcon className={`text-coffee w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-100 ${expandedSections.position ? `` : `rotate-180`}`}/>}</span>
 
                         </button>
 
@@ -248,11 +248,11 @@ export default function ImageComponentGUI({_componentID, _assetManager} : ImageC
                     <div className="border border-stone-700 rounded-lg overflow-hidden">
                         <button 
                             onClick={() => toggleSection("appearance")}
-                            className="w-full flex justify-between items-center px-3 py-2 bg-cream-golden hover:bg-orange-caramel/20 text-espresso text-sm"
+                            className="w-full flex justify-between items-center px-3 py-2 bg-cream-golden hover:bg-cream-dark/40 text-espresso text-sm"
                         >
                             <span style={{ fontFamily: 'lato' }} >Appearance</span>
 
-                            <span>{<MenuKarrotIcon className={`text-orange-caramel w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-100 ${expandedSections.appearance ? `` : `rotate-180`}`}/>}</span>
+                            <span>{<MenuKarrotIcon className={`text-coffee w-[20px] h-[20px] cursor-pointer transition-all ease-in duration-100 ${expandedSections.appearance ? `` : `rotate-180`}`}/>}</span>
                         </button>
 
                         {expandedSections.appearance && (

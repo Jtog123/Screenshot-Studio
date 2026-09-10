@@ -13,13 +13,13 @@ export default function ToolbarHeader({isToolbarToggled, setToolbarToggled} : To
         <>
             <div className={isToolbarToggled ? `flex w-full items-center justify-center  min-h-[5%] bg-coffee/80 py-2` : `flex w-full items-center justify-between min-h-[5%] bg-coffee/80 px-3 `}>
                 <button onClick={setToolbarToggled} className="flex flex-shrink-0 justify-center cursor-pointer items-center h-[30px] w-[40px] bg-espresso transition-colors duration-300 hover:bg-toffee rounded-xl group">
-                    <ToolbarHeaderArrow className={`transition-transform duration-300 text-pink-cherry group-hover:text-espresso ${
+                    <ToolbarHeaderArrow className={`transition-transform duration-300 text-cream-vanilla group-hover:text-espresso ${
                         isToolbarToggled ? 'rotate-180' : 'rotate-0'
                     }`}/> 
                 </button>
 
                 <h1 className={isToolbarToggled ? "hidden" : "min-h-[80%] w-[1/3] flex-shrink-0 text-cream-vanilla rounded-xl flex items-center justify-center"}>
-                    <OfficialLogo className='h-10 w-10 '/>
+                    <OfficialLogo className='h-10 w-10 invert'/>
                 </h1>
             </div>
         </>

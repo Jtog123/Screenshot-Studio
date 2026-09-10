@@ -9,13 +9,13 @@ import YourAppHere from "../../IconAssets/YourAppHere";
 import ArrowPoint from "../../IconAssets/ArrowPoint";
 import AppAndArrow from "../../IconAssets/AppAndArrow";
 import OfficialLogo from "../../IconAssets/OfficialLogo";
-import SuccessPage from "../protected/PurchaseSuccessPage";
-import LoadingPage from "../../LoadingPage";
-import { API_URL, FRONTEND_URL } from "../../config";
-import TermsOfService from "../../TermsOfService";
-import PrivacyPolicy from "../../PrivacyPolicy";
-import {Link, useLocation} from "react-router"
-import UserSettings from "../protected/UserSettings";
+//import SuccessPage from "../protected/PurchaseSuccessPage";
+//import LoadingPage from "../../LoadingPage";
+//import { API_URL, FRONTEND_URL } from "../../config";
+//import TermsOfService from "../../TermsOfService";
+//import PrivacyPolicy from "../../PrivacyPolicy";
+import {Link, useLocation, useNavigate} from "react-router"
+//import UserSettings from "../protected/UserSettings";
 
 
 export default function HomePage() {
@@ -51,14 +51,15 @@ export default function HomePage() {
 
     const [homeScreenTextures, setHomeScreenTextures] = useState<any[]>([]);
 
-    const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
+//    const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
 
     //const loader = new THREE.TextureLoader();
 
-    console.log(API_URL);
+//    console.log(API_URL);
 
     //grabs location from the url # hash
     const {hash} = useLocation();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if(hash === "#pricing") {
@@ -105,12 +106,12 @@ export default function HomePage() {
     }
 
     function handleFreeTesting() : void {
-        //window.location.href = "http://localhost:5050/auth/google";
-        window.location.href = `${API_URL}/auth/google`;
+        navigate("/editor");
     }
 
 
 
+    /*
     async function handleWeekendWarriorStripeRedirect() : Promise<void> {
 
         
@@ -196,6 +197,7 @@ export default function HomePage() {
             console.error(err);
         }
     }
+    */
 
 
 
@@ -562,43 +564,43 @@ return (
         
         
 
-        {isCheckoutLoading && <LoadingPage/>}
+        {/* {isCheckoutLoading && <LoadingPage/>} */}
 
         
         
         {/* Hero Section - Split Left/Right */}
         <ScrollFadeIn >
-        <section id="hero" className="flex flex-col lg:flex-row w-full min-h-screen bg-chocolate">
+        <section id="hero" className="flex flex-col lg:flex-row w-full min-h-screen bg-paper">
             
             {/* Left Side - Content */}
-            <div className="flex leftSide justify-center items-center bg-chocolate w-full lg:w-1/2 ">
+            <div className="flex leftSide justify-center items-center bg-paper w-full lg:w-1/2 ">
                 <div className="flex flex-col w-4/5 max-w-2xl relative justify-center text-center lg:text-left">
-                    <h1 className="text-cream-vanilla text-6xl mb-6 font-semibold mt-20 lg:mt-0 " style={{fontFamily: "Inter, sans-serif"}}>Stop Being Ignored</h1>
+                    <h1 className="text-ink font-display text-5xl sm:text-6xl lg:text-8xl mb-6 font-semibold mt-20 lg:mt-0 tracking-tight leading-[0.95]" style={{fontFamily: "Fraunces, serif"}}>Stop Being Ignored</h1>
                     
-                    <h2 className="text-cream-vanilla/70 text-2xl mb-10 " style={{fontFamily: "Inter, sans-serif"}}>
+                    <h2 className="text-ink/70 text-2xl mb-10 " style={{fontFamily: "Inter, sans-serif"}}>
                         First impressions are important. Stand out.
                     </h2>
 
 
-                    <button onClick={handleFreeTesting} className="bg-pink-cherry hover:bg-pink-velvet text-white font-semibold text-xl px-12 py-6 rounded-2xl shadow-[0_0_30px_rgba(232,70,149,0.4)] hover:shadow-[0_0_20px_rgba(232,70,149,0.6)] transform hover:scale-101 transition-all ease-in mx-6 duration-100 cursor-pointer  lg:mx-0 animate-glow-pulse">
-                        Get Started Free
+                    <button onClick={handleFreeTesting} className="bg-vermilion hover:bg-vermilion-deep text-paper font-semibold text-xl px-12 py-6 rounded-2xl transform hover:scale-101 transition-all ease-in mx-6 duration-100 cursor-pointer  lg:mx-0">
+                        Use for free
                     </button>
                     
 
                      <div className="hidden lg:block absolute -right-58 -bottom-52 w-[650px] pointer-events-none">
-                            <AppAndArrow className="w-full h-auto text-cream-vanilla" />
+                            <AppAndArrow className="w-full h-auto text-ink" />
                     </div>
                 </div>
             </div>
 
             {/* Right Side - Phone Demo */}
-            <div className="rightSide bg-chocolate w-full lg:w-1/2 flex flex-col lg:flex-row items-center justify-center ">
+            <div className="rightSide bg-paper w-full lg:w-1/2 flex flex-col lg:flex-row items-center justify-center ">
    
                 {/* Phone div - Full width on mobile - phoneDiv flex justify-center w-full h-full */}
                 <div ref={mountRef} className="phoneDiv flex justify-center w-[400px] lg:w-full h-[600px] lg:h-full mx-auto" ></div>
                 
                 {/* Texture selector - Below phone on mobile, fixed on desktop */}
-                <div className="imageContainer relative lg:fixed z-50 bg-gradient-to-br from-pink-cherry to-pink-cherry/65 backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-white/10 w-auto lg:w-[170px] mt-6 lg:mt-0 lg:right-6">
+                <div className="imageContainer relative lg:fixed z-50 bg-ink/40 backdrop-blur-xl rounded-2xl p-6 shadow-lg border border-cream-vanilla/20 w-auto lg:w-[170px] mt-6 lg:mt-0 lg:right-6">
                     
                     {/* Header */}
                     <div className="flex flex-col justify-center mb-5">
@@ -624,8 +626,8 @@ return (
                                 {/* Image Container */}
                                 <div className={`relative rounded-lg overflow-hidden mb-2 transition-all duration-200 ${
                                     activeTextureID === img.id 
-                                        ? 'ring-2 ring-blue-500 shadow-lg shadow-blue-500/50' 
-                                        : 'ring-1 ring-white/20 hover:ring-white/40'
+                                        ? 'ring-2 ring-cream-vanilla shadow-md' 
+                                        : 'ring-1 ring-cream-vanilla/20 hover:ring-cream-vanilla/40'
                                 }`}>
                                     <img 
                                         src={img.imgPath} 
@@ -635,7 +637,7 @@ return (
                                     
                                     {/* Active Indicator Overlay */}
                                     {activeTextureID === img.id && (
-                                        <div className="absolute inset-0 bg-blue-500/20 flex items-center justify-center pointer-events-none">
+                                        <div className="absolute inset-0 bg-cream-vanilla/20 flex items-center justify-center pointer-events-none">
                                             <div className="w-5 h-5 rounded-full bg-mocha flex items-center justify-center">
                                                 <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
@@ -662,14 +664,14 @@ return (
         </ScrollFadeIn>
 
         
-        <section className="w-full bg-chocolate pt-14  lg:pt-20 lg:pb-14">
+        <section className="w-full bg-paper pt-14  lg:pt-20 lg:pb-14">
             <ScrollFadeIn>
             <div className="flex flex-col items-center">
-                <h2 className="text-center text-cream-vanilla text-4xl mb-4 font-semibold" style={{fontFamily: "Inter, sans-serif"}}>
+                <h2 className="text-center text-ink font-display text-4xl lg:text-5xl mb-4 font-semibold" style={{fontFamily: "Fraunces, serif"}}>
                     The Mockup Frustration Index
                 </h2>
 
-                <p className=" text-cream-vanilla/70 text-center" style={{fontFamily: "Inter, sans-serif"}}>
+                <p className=" text-ink/70 text-center" style={{fontFamily: "Inter, sans-serif"}}>
                     Notice how as time increases you grow more insane.
                 </p>
                 <div className="chart container flex w-full  items-center justify-center max-h-[350px] lg:max-h-none overflow-hidden ">
@@ -685,14 +687,14 @@ return (
         </section>
 
         
-        <section id="about" className="w-full min-h-screen bg-chocolate p-20">
+        <section id="about" className="w-full min-h-screen bg-paper p-20">
             <ScrollFadeIn>
-            <h2 className="text-cream-vanilla text-5xl text-center mb-12" style={{fontFamily: "Inter, sans-serif"}}>
+            <h2 className="text-ink font-display text-5xl lg:text-6xl text-center mb-12" style={{fontFamily: "Fraunces, serif"}}>
                 {/*Beautiful Mockups Without the Learning Curve*/}
                 Skip The Design Tools
             </h2>
-            <p className="text-cream-vanilla text-center text-xl mb-16  " style={{fontFamily: "Inter, sans-serif"}}>
-                No Figma. No Photoshop. No tutorials. <span className="text-pink-cherry text-xl" style={{fontFamily: "Inter, sans-serif"}}>Appstore ready screenshots in minutes.</span>
+            <p className="text-ink text-center text-xl mb-16  " style={{fontFamily: "Inter, sans-serif"}}>
+                No Figma. No Photoshop. No tutorials. <span className="text-vermilion text-xl" style={{fontFamily: "Inter, sans-serif"}}>Appstore ready screenshots in minutes.</span>
             </p>
 
             
@@ -702,14 +704,14 @@ return (
      {/* Step 1 */}
     <div className="text-center">
         <div className="flex flex-col md:flex-row items-center justify-center gap-2 mb-3">
-            <div className="w-8 h-8 flex-shrink-0 rounded-full bg-blue-cobalt text-cream-vanilla flex items-center justify-center font-bold">
+            <div className="w-8 h-8 flex-shrink-0 rounded-full bg-ink text-paper flex items-center justify-center font-bold">
                 1
             </div>
-            <h3 className="text-cream-vanilla text-2xl font-semibold whitespace-nowrap" style={{fontFamily: "Inter, sans-serif"}}>
+            <h3 className="text-ink text-2xl font-semibold whitespace-nowrap" style={{fontFamily: "Inter, sans-serif"}}>
                 Style Your Scene
             </h3>
         </div>
-        <p className="text-cream-vanilla/60 leading-relaxed" style={{fontFamily: "Inter, sans-serif"}}>
+        <p className="text-ink/60 leading-relaxed" style={{fontFamily: "Inter, sans-serif"}}>
             Choose backgrounds, add lighting, and upload your app screenshots to create the perfect look
         </p>
     </div>
@@ -717,14 +719,14 @@ return (
     {/* Step 2 */}
     <div className="text-center">
         <div className="flex flex-col md:flex-row items-center justify-center gap-2 mb-3">
-            <div className="w-8 h-8 flex-shrink-0 rounded-full bg-blue-cobalt text-cream-vanilla flex items-center justify-center font-bold">
+            <div className="w-8 h-8 flex-shrink-0 rounded-full bg-ink text-paper flex items-center justify-center font-bold">
                 2
             </div>
-            <h3 className="text-cream-vanilla text-2xl font-semibold whitespace-nowrap" style={{fontFamily: "Inter, sans-serif"}}>
+            <h3 className="text-ink text-2xl font-semibold whitespace-nowrap" style={{fontFamily: "Inter, sans-serif"}}>
                 Position Your Model
             </h3>
         </div>
-        <p className="text-cream-vanilla/60 leading-relaxed" style={{fontFamily: "Inter, sans-serif"}}>
+        <p className="text-ink/60 leading-relaxed" style={{fontFamily: "Inter, sans-serif"}}>
             Rotate, tilt, and position your device at the perfect angle using intuitive controls
         </p>
     </div>
@@ -732,14 +734,14 @@ return (
     {/* Step 3 */}
     <div className="text-center">
         <div className="flex flex-col md:flex-row items-center justify-center gap-2 mb-3">
-            <div className="w-8 h-8 flex-shrink-0 rounded-full bg-blue-cobalt text-cream-vanilla flex items-center justify-center font-bold">
+            <div className="w-8 h-8 flex-shrink-0 rounded-full bg-ink text-paper flex items-center justify-center font-bold">
                 3
             </div>
-            <h3 className="text-cream-vanilla text-2xl font-semibold whitespace-nowrap" style={{fontFamily: "Inter, sans-serif"}}>
+            <h3 className="text-ink text-2xl font-semibold whitespace-nowrap" style={{fontFamily: "Inter, sans-serif"}}>
                 Easy Export
             </h3>
         </div>
-        <p className="text-cream-vanilla/60 leading-relaxed" style={{fontFamily: "Inter, sans-serif"}}>
+        <p className="text-ink/60 leading-relaxed" style={{fontFamily: "Inter, sans-serif"}}>
             Capture your images then download your professional mockup in high resolution, ready for showing off
         </p>
     </div>
@@ -770,9 +772,10 @@ return (
 
         {/*Pricing */}
         
- <section id="pricing" className="w-full min-h-screen bg-chocolate p-6 lg:p-20">
+ {/*
+<section id="pricing" className="w-full min-h-screen bg-paper p-6 lg:p-20">
     <ScrollFadeIn>
-    <h2 className="text-cream-vanilla text-3xl lg:text-5xl text-center mb-8 lg:mb-12 px-4" style={{fontFamily: "Inter, sans-serif"}}>
+    <h2 className="text-ink text-3xl lg:text-5xl text-center mb-8 lg:mb-12 px-4" style={{fontFamily: "Inter, sans-serif"}}>
         Pricing
     </h2>
 
@@ -780,18 +783,18 @@ return (
 
         <div className="card1 flex justify-center w-full max-w-sm">
             <div className="flex flex-col bg-pink-bubblegum rounded-2xl p-6 lg:p-8 shadow-lg w-full">
-                {/* Header */}
+                {/* Header *\/}
                 <h2 className="text-espresso text-xl lg:text-2xl font-semibold mb-2" style={{fontFamily: "Inter, sans-serif"}}>
                     Weekend Warrior
                 </h2>
                 
-                {/* Price */}
+                {/* Price *\/}
                 <div className="mb-6 lg:mb-8">
                     <span className="text-text-espresso text-3xl lg:text-4xl font-bold" style={{fontFamily: "Inter, sans-serif"}}>$5.99</span>
                     <span className="text-text-coffee text-base lg:text-lg" style={{fontFamily: "Inter, sans-serif"}}> / 2 day pass</span>
                 </div>
                 
-                {/* CTA Button */}
+                {/* CTA Button *\/}
                 <button 
                     disabled={isCheckoutLoading} 
                     onClick={handleWeekendWarriorStripeRedirect} 
@@ -801,7 +804,7 @@ return (
                     Become the Warrior
                 </button>
                 
-                {/* Features */}
+                {/* Features *\/}
                 <div className="space-y-2 lg:space-y-3">
                     <div className="flex items-start gap-3">
                         <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -844,7 +847,7 @@ return (
 
         <div className="card1 flex justify-center w-full max-w-sm">
             <div className="flex flex-col bg-pink-bubblegum rounded-2xl p-6 lg:p-8 shadow-lg w-full ring-4 ring-pink-cherry ring-offset-2 lg:ring-offset-3 ring-offset-blue-cobalt animate-glow-pulse">
-                {/* Same structure as Weekend Warrior card with responsive text sizes */}
+                {/* Same structure as Weekend Warrior card with responsive text sizes *\/}
                 <h2 className="text-espresso text-xl lg:text-2xl font-semibold mb-2" style={{fontFamily: "Inter, sans-serif"}}>
                     Monthly
                 </h2>
@@ -863,9 +866,9 @@ return (
                     Be Sweet
                 </button>
                 
-                {/* Same features structure with responsive text */}
+                {/* Same features structure with responsive text *\/}
                 <div className="space-y-2 lg:space-y-3">
-                    {/* Copy all features with text-sm lg:text-base and items-start */}
+                    {/* Copy all features with text-sm lg:text-base and items-start *\/}
                     <div className="flex items-start gap-3">
                         <div className="w-5 h-5 rounded-full bg-blue-cobalt flex items-center justify-center flex-shrink-0 mt-0.5">
                             <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -909,26 +912,27 @@ return (
     </div>
     </ScrollFadeIn>
 </section>
+*/}
         
 
 
         {/* CTA Section */}
-        <section className="w-full h-screen bg-chocolate">
+        <section className="w-full h-screen bg-paper">
             <ScrollFadeIn >
                 <div className="w-full h-full flex flex-col">
 
                     {/* CTA - Top Half */}
                     <div className="flex-1 flex flex-col items-center justify-center text-center px-4">
-                        <h2 className="text-pink-cherry text-6xl mb-8 font-semibold">
+                        <h2 className="text-ink font-display text-5xl lg:text-6xl mb-8 font-semibold">
                             Ready To Finish Your App?
                         </h2>
-                        <button onClick={handleFreeTesting} className="bg-cream-vanilla text-pink-cherry px-8 py-3 rounded-xl text-2xl font-semibold hover:bg-pink-cherry hover:text-cream-vanilla transition-colors cursor-pointer ">
+                        <button onClick={handleFreeTesting} className="bg-vermilion text-paper px-8 py-3 rounded-xl text-2xl font-semibold hover:bg-vermilion-deep hover:text-paper transition-colors cursor-pointer ">
                             Let's Go
                         </button>
                     </div>
 
                     {/* Footer - Bottom Half */}
-                    <div className="flex-1 bg-chocolate flex flex-col md:flex-row items-center justify-between px-16 border-black-1">
+                    <div className="flex-1 bg-paper flex flex-col md:flex-row items-center justify-between px-16 border-black-1">
                         
                         {/* Logo - Left Side */}
                         <div className="flex-shrink-0">
@@ -938,10 +942,10 @@ return (
                                     <OfficialLogo className="h-18 w-18 opacity-70" />
                                 </div>
                                 
-                                <h1 className="text-cream-vanilla  text-xl">
+                                <h1 className="text-ink  text-xl">
                                 ScreenshotSweet
                                 </h1>
-                                <h1 className="text-cream-vanilla/70 text-xs">
+                                <h1 className="text-ink/70 text-xs">
                                 &#169; 2026 ScreenshotSweet.
                                 </h1>
                             </div>
@@ -953,17 +957,17 @@ return (
                             
                             {/* Connect Column */}
                             <div className="flex flex-col w-32 ">
-                                <h3 className="text-cream-vanilla text-2xl font-semibold mb-6">
+                                <h3 className="text-ink text-2xl font-semibold mb-6">
                                     Connect
                                 </h3>
                                 <ul className="space-y-3">
                                     <li>
-                                        <a href="#" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
+                                        <a href="#" className="text-ink/70 hover:text-vermilion transition-colors">
                                             Youtube
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
+                                        <a href="#" className="text-ink/70 hover:text-vermilion transition-colors">
                                             Instagram
                                         </a>
                                     </li>
@@ -973,27 +977,27 @@ return (
 
                             {/* Contact Column */}
                             <div className="flex flex-col w-32">
-                                <h3 className="text-cream-vanilla text-2xl font-semibold mb-6">
+                                <h3 className="text-ink text-2xl font-semibold mb-6">
                                     Contact
                                 </h3>
                                 <ul className="space-y-3">
                                     <li>
-                                        <a href="mailto:hello@screenshotsweet.com" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors  text-wrap  ">
+                                        <a href="mailto:hello@screenshotsweet.com" className="text-ink/70 hover:text-vermilion transition-colors  text-wrap  ">
                                             support@screenshotsweet.com
                                         </a>
                                     </li>
 
                                     <li>
                                         {/*
-                                        <a href="#" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
+                                        <a href="#" className="text-ink/70 hover:text-vermilion transition-colors">
                                             Privacy Policy
                                         </a>
                                         */}
-                                        <Link to="/privacy" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors"> Privacy Policy
+                                        <Link to="/privacy" className="text-ink/70 hover:text-vermilion transition-colors"> Privacy Policy
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="/terms" className="text-cream-vanilla/70 hover:text-pink-cherry transition-colors">
+                                        <Link to="/terms" className="text-ink/70 hover:text-vermilion transition-colors">
                                         Terms of Service
                                         </Link>
 

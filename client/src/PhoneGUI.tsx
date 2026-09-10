@@ -306,7 +306,7 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio, isBac
 // fixed flex flex-col left-[calc(100vw/2)] z-22 transform translate-x-[-175%] translate-y-[-5%] overflow-hidden w-1/4 bg-stone-950 rounded-xl bottom-0 z-2 px-4 pb-3 pt-2 backdrop-blur-md border-2 border-stone-600 shadow-[0_0_20px_rgba(120,113,108,0.3),0_0_0_4px_rgba(28,25,23,1),0_0_0_5px_rgba(168,162,158,0.5)] ring-1 ring-stone-700/50 transition-all duration-500 ease-in-out"
     return(
         <>
-            <div className="fixed flex flex-col left-0 z-19 transform translate-x-[1.1%] translate-y-[-1.8%] overflow-hidden w-1/4 bg-chocolate rounded-xl bottom-0 z-2 backdrop-blur-md border-2 border-pink-cherry/50 shadow-[0_0_20px_rgba(229,196,133,0.15),0_0_0_4px_rgba(125,83,40,1),0_0_0_5px_rgba(229,196,133,0.35)] ring-1 ring-pink-cherry/50 transition-all duration-500 ease-in-out">
+            <div className="fixed flex flex-col left-0 z-19 transform translate-x-[1.1%] translate-y-[-1.8%] overflow-hidden w-1/4 bg-chocolate rounded-xl bottom-0 z-2 backdrop-blur-md border-2 border-cream-vanilla/20 shadow-lg ring-1 ring-cream-vanilla/20 transition-all duration-500 ease-in-out">
 
                 <div className="px-4 pb-2 w-[full] bg-coffee/80 ">
                     <div className=" flex wrapperDiv w-full mt-2 h-1/6 ">
@@ -339,7 +339,7 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio, isBac
                         <label className="text-sm text-cream-vanilla pt-1 mt-1 " style={{ fontFamily: 'lato' }} htmlFor="">X: </label>
                         <div className="flex justify-between justify-center items-center">
                             <input className='w-[95%] mr-2 h-1 accent-[#7D5328]' onChange={(e) => handlePhoneRotation(e, "xRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.x} step="0.01" />
-                            <button onClick={(e) => handleControlsReset(e, "xReset")} className='flex justify-center items-center bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-blue-frost transition-all duration-200  h-[24px] w-[40px]   rounded-4xl ] cursor-pointer group'>
+                            <button onClick={(e) => handleControlsReset(e, "xReset")} className='flex justify-center items-center bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-espresso transition-all duration-200  h-[24px] w-[40px]   rounded-4xl ] cursor-pointer group'>
                                 <RefreshStartIcon className="transition-transform duration-300 group-hover:-rotate-90" />
                             </button>
                         </div>
@@ -348,7 +348,7 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio, isBac
                         <label className="text-sm text-cream-vanilla pt-1 " style={{ fontFamily: 'lato' }} htmlFor="">Y: </label>
                         <div className="flex justify-between justify-center items-center">
                             <input className='w-[95%] mr-2 h-1 accent-[#7D5328]'  onChange={(e) => handlePhoneRotation(e, "yRot")} type="range" min={"-1"} max={"1"} value={phoneRotation.y} step="0.01"/>
-                            <button onClick={(e) => handleControlsReset(e, "yReset")} className='flex justify-center items-center bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-blue-frost transition-all duration-200   rounded-4xl h-[24px] w-[40px] cursor-pointer group'>
+                            <button onClick={(e) => handleControlsReset(e, "yReset")} className='flex justify-center items-center bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-espresso transition-all duration-200   rounded-4xl h-[24px] w-[40px] cursor-pointer group'>
                                 <RefreshStartIcon className="transition-transform duration-300 group-hover:-rotate-90" />
                             </button>
                         </div>
@@ -358,7 +358,7 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio, isBac
                         <div className="flex justify-between justify-center items-center">
                             <input className='w-[95%] mr-2 h-1 accent-[#7D5328]' onChange={(e) => handlePhoneRotation(e, "zRot")} type="range" min={"-1.57"} max={"1.57"} value={phoneRotation.z} step="0.01"/>
                             
-                            <button onClick={(e) => handleControlsReset(e, "zReset")} className='flex justify-center items-center bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-blue-frost transition-all duration-200  rounded-4xl h-[24px] w-[40px] cursor-pointer group'>
+                            <button onClick={(e) => handleControlsReset(e, "zReset")} className='flex justify-center items-center bg-coffee/80 hover:bg-amber/80 text-cream-vanilla hover:text-espresso transition-all duration-200  rounded-4xl h-[24px] w-[40px] cursor-pointer group'>
 
                                 <RefreshStartIcon className="transition-transform duration-300 group-hover:-rotate-90" />
 
@@ -400,8 +400,8 @@ export default function PhoneGUI({phoneModel, _cameraManager, aspectRatio, isBac
                     {/*<button onClick={handleControlsReset} className="text-stone-200 h-[1/6] w-[20%] bg-stone-700/30 px-1 mt-3 rounded-xl ">Reset</button>*/}
                     {/*<CameraButton cameraManager={_cameraManager}/>*/}
                     <div className='w-[20%] flex justify-end  mr-3 my-1 items-center   '>
-                        <button onClick={handleImageCapture}  className="rounded-xl bg-pink-cherry  hover:bg-pink-candy disabled:stone-600 cursor-pointer mb-2 group transition-colors duration-100 mr-0.5">
-                            <CameraIcon className='text-cream-vanialla/70 h-[40px] w-[40px] group-hover:hidden' />
+                        <button onClick={handleImageCapture}  className="rounded-xl bg-cream-vanilla  hover:bg-cream-custard cursor-pointer mb-2 group transition-colors duration-100 mr-0.5">
+                            <CameraIcon className='text-espresso/70 h-[40px] w-[40px] group-hover:hidden' />
                             <CameraHoverIcon className='text-espresso/70 h-[40px] w-[40px]  hidden group-hover:block  group-hover:scale-110 
                             transition-transform 
                             duration-300' />

@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { AppUser, SubscriptionType } from "./AppUser"
+import { useState } from "react";
+import { AppUser } from "./AppUser"
 import FooterMenu from "./FooterMenu";
 import OfficialLogo from "./IconAssets/OfficialLogo";
 import { div } from "three/src/nodes/TSL.js";
-import { API_URL } from "./config";
+//import { API_URL } from "./config";
 
 interface ToolbarFooterProps {
     isToolbarToggled : boolean
@@ -14,8 +14,9 @@ interface ToolbarFooterProps {
 export default function ToolbarFooter({isToolbarToggled, setToolbarToggled, appUser}: ToolbarFooterProps) {
 
     const[isFooterMenuVisible, setFooterMenuVisible] = useState(false);
-    const[userSubscriptionPlan , setUserSubscriptionPlan] = useState<SubscriptionType>(SubscriptionType.Free);
+//    const[userSubscriptionPlan , setUserSubscriptionPlan] = useState<SubscriptionType>(SubscriptionType.Free);
 
+    /*
     useEffect(() => {
         const checkUserMembership = async() => {
             try {
@@ -41,6 +42,7 @@ export default function ToolbarFooter({isToolbarToggled, setToolbarToggled, appU
         checkUserMembership();
 
     }, [])
+    */
 
     function handleFooterMenu() :  any {
         console.log("handle footer menu");
@@ -75,10 +77,11 @@ export default function ToolbarFooter({isToolbarToggled, setToolbarToggled, appU
                             <span className="text-cream-vanilla text-sm">
                                 {appUser.display_name}
                             </span>
+                            {/* 
                             <span className="text-xs text-cream-vanilla/80 text-start">
-                            
-                            {userSubscriptionPlan} plan 
+                                {userSubscriptionPlan} plan 
                             </span>
+                            */}
                             
                         </div>
                     )}

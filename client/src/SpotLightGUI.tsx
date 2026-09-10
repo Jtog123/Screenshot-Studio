@@ -205,7 +205,7 @@ export default function SpotLightGUI({_lightID, _lightManager} : SpotLightGUIPro
         {
             <div style={{
                 transform: `translate(${guiPosition.x}px, ${guiPosition.y}px)`}}  
-                className="absolute rounded-xl right-[800px] top-[200px] min-w-[300px] min-h-[150px] max-w-[450px] overflow-auto bg-chocolate pb-3 z-50 backdrop-blur-md border border-espresso shadow-[0_0_20px_rgba(120,113,108,0.3)] ring-1 ring-stone-700/50"
+                className="absolute rounded-xl right-[800px] top-[200px] min-w-[300px] min-h-[150px] max-w-[450px] overflow-auto bg-chocolate pb-3 z-50 backdrop-blur-md border border-espresso shadow-lg ring-1 ring-stone-700/50"
                 >
                 <div onMouseDown={handleMouseDown} className="sticky top-0 flex items-center justify-between  cursor-move bg-mocha w-full py-2 px-4 z-10">
                     <div className="titlebox ">
@@ -225,7 +225,7 @@ export default function SpotLightGUI({_lightID, _lightManager} : SpotLightGUIPro
                         <button onClick={() => toggleSection('position')}
                             className="w-full flex justify-between items-center px-3 py-2 bg-mocha hover:bg-espresso text-cream-vanilla text-sm">
                                 <span style={{ fontFamily: 'lato' }} >Position</span>
-                                <span>{expandedSections.position ?  <MenuKarrotIcon className="text-pink-cherry w-[20px] h-[20px] rotate-180"/> : <MenuKarrotIcon className="text-pink-cherry w-[20px] h-[20px]"/>}</span>
+                                <span>{expandedSections.position ?  <MenuKarrotIcon className="text-cream-vanilla w-[20px] h-[20px] rotate-180"/> : <MenuKarrotIcon className="text-cream-vanilla w-[20px] h-[20px]"/>}</span>
                         </button>
 
                         {expandedSections.position && (
@@ -260,7 +260,7 @@ export default function SpotLightGUI({_lightID, _lightManager} : SpotLightGUIPro
                             className="w-full flex justify-between items-center px-3 py-2 bg-mocha hover:bg-espresso text-cream-vanilla text-sm"
                         >
                             <span style={{ fontFamily: 'lato' }} >Appearance</span>
-                            <span>{expandedSections.appearance ?  <MenuKarrotIcon className="text-pink-cherry w-[20px] h-[20px] rotate-180"/> : <MenuKarrotIcon className="text-pink-cherry w-[20px] h-[20px]"/>}</span>
+                            <span>{expandedSections.appearance ?  <MenuKarrotIcon className="text-cream-vanilla w-[20px] h-[20px] rotate-180"/> : <MenuKarrotIcon className="text-cream-vanilla w-[20px] h-[20px]"/>}</span>
                         </button>
 
                         {expandedSections.appearance && (

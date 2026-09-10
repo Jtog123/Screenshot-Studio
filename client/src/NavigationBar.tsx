@@ -1,7 +1,7 @@
 import { NavLink } from "react-router"
 import OfficialLogo from "./IconAssets/OfficialLogo";
 import OfficialNameIcon from "./IconAssets/OfficialName";
-import { API_URL } from "./config";
+//import { API_URL } from "./config";
 import { useState } from "react";
 
 /*
@@ -40,30 +40,30 @@ export default function NavigationBar() {
         6. **Redirects to frontend** (back to your React app)
     -redirect to frontend/editor 
     */
-    function handleAuthRedirect() {
-        //route that takes me to the google sign in page, as specified by my server
-        window.location.href = `${API_URL}/auth/google`;
-
-        console.log("this gets called immidiatley")
-
-       /*
-       fetch("http://localhost:5050/", {
-        method: "GET",
-        credentials: "include",
-        headers: {
-            
-        },
-        //body: JSON.stringify({name: "Example Name sending req"})
-       })
-       .then(response => response.json())
-       .then(data => {
-        console.log("We are good?", data);
-       })
-       .catch(err => {
-        console.error("error", err);
-       })
-        */
-    }
+//    function handleAuthRedirect() {
+//        //route that takes me to the google sign in page, as specified by my server
+//        window.location.href = `${API_URL}/auth/google`;
+//
+//        console.log("this gets called immidiatley")
+//
+//       /*
+//       fetch("http://localhost:5050/", {
+//        method: "GET",
+//        credentials: "include",
+//        headers: {
+//            
+//        },
+//        //body: JSON.stringify({name: "Example Name sending req"})
+//       })
+//       .then(response => response.json())
+//       .then(data => {
+//        console.log("We are good?", data);
+//       })
+//       .catch(err => {
+//        console.error("error", err);
+//       })
+//        */
+//    }
 
     /*
 
@@ -80,7 +80,7 @@ export default function NavigationBar() {
             <div className="fixed top-0 flex h-[7%] w-[100%] z-[100]">
                 
                 {/* Logo Section */}
-                <div className="LogoTitleContainer flex w-full lg:w-[33%] h-[100%] items-center justify-between bg-coffee/80 px-5">
+                <div className="LogoTitleContainer flex w-full lg:w-[33%] h-[100%] items-center justify-between bg-paper/85 backdrop-blur-sm px-5">
                     {/* Logo */}
                 <div className="flex items-center h-full">
                     <div className="h-[90%]">
@@ -92,53 +92,57 @@ export default function NavigationBar() {
                     {/* Hamburger Menu - Mobile Only */}
                     <button 
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        className="lg:hidden text-cream-vanilla flex flex-col gap-1.5 w-8 h-8 justify-center items-center"
+                        className="lg:hidden text-ink flex flex-col gap-1.5 w-8 h-8 justify-center items-center"
                         aria-label="Toggle menu"
                     >
-                        <span className={`block w-6 h-0.5 bg-cream-vanilla transition-all ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-                        <span className={`block w-6 h-0.5 bg-cream-vanilla transition-all ${isMenuOpen ? 'opacity-0' : ''}`}></span>
-                        <span className={`block w-6 h-0.5 bg-cream-vanilla transition-all ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+                        <span className={`block w-6 h-0.5 bg-ink transition-all ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+                        <span className={`block w-6 h-0.5 bg-ink transition-all ${isMenuOpen ? 'opacity-0' : ''}`}></span>
+                        <span className={`block w-6 h-0.5 bg-ink transition-all ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
                     </button>
                 </div>
 
                 {/* Navigation Links - Desktop */}
-                <div className="navigationLinks hidden lg:flex justify-center w-[77%] h-[100%] bg-coffee/80">
+                <div className="navigationLinks hidden lg:flex justify-center w-[77%] h-[100%] bg-paper/85">
                     <nav className="flex justify-around items-center w-[80%] h-[100%]">
-                        <button onClick={() => scrollToSection('hero')} className="text-cream-vanilla font-inter cursor-pointer hover:underline">Home</button>
-                        <button onClick={() => scrollToSection('about')} className="text-cream-vanilla font-inter cursor-pointer hover:underline">About</button>
-                        <button onClick={() => scrollToSection('pricing')} className="text-cream-vanilla font-inter cursor-pointer hover:underline">Pricing</button>
-                        <button onClick={handleAuthRedirect} className="text-cream-vanilla font-inter cursor-pointer hover:underline">Sign In</button>
+                        <button onClick={() => scrollToSection('hero')} className="text-ink font-sans cursor-pointer hover:text-vermilion transition-colors">Home</button>
+                        <button onClick={() => scrollToSection('about')} className="text-ink font-sans cursor-pointer hover:text-vermilion transition-colors">About</button>
+                        {/* <button onClick={() => scrollToSection('pricing')} className="text-cream-vanilla font-inter cursor-pointer hover:underline">Pricing</button> */}
+                        {/* <button onClick={handleAuthRedirect} className="text-cream-vanilla font-inter cursor-pointer hover:underline">Sign In</button> */}
                     </nav>
                 </div>
             </div>
 
             {/* Mobile Menu Dropdown */}
-            <div className={`fixed top-[7%] left-0 w-full bg-coffee/95 backdrop-blur-sm z-[99] lg:hidden transition-all duration-300 ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+            <div className={`fixed top-[7%] left-0 w-full bg-paper/95 backdrop-blur-sm z-[99] lg:hidden transition-all duration-300 ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
                 <nav className="flex flex-col items-center py-6 gap-6">
                     <button 
                         onClick={() => scrollToSection('hero')}
-                        className="text-cream-vanilla font-inter text-xl cursor-pointer hover:text-pink-cherry transition-colors"
+                        className="text-ink font-sans text-xl cursor-pointer hover:text-vermilion transition-colors"
                     >
                         Home
                     </button>
                     <button 
                         onClick={() => scrollToSection('about')}
-                        className="text-cream-vanilla font-inter text-xl cursor-pointer hover:text-pink-cherry transition-colors"
+                        className="text-ink font-sans text-xl cursor-pointer hover:text-vermilion transition-colors"
                     >
                         About
                     </button>
-                    <button 
+                    {/*
+                    <button
                         onClick={() => scrollToSection('pricing')}
-                        className="text-cream-vanilla font-inter text-xl cursor-pointer hover:text-pink-cherry transition-colors"
+                        className="text-cream-vanilla font-inter text-xl cursor-pointer hover:text-toffee transition-colors"
                     >
                         Pricing
                     </button>
+                    */}
+                    {/*
                     <button 
                         onClick={handleAuthRedirect}
-                        className="text-cream-vanilla font-inter text-xl cursor-pointer hover:text-pink-cherry transition-colors"
+                        className="text-cream-vanilla font-inter text-xl cursor-pointer hover:text-toffee transition-colors"
                     >
                         Sign In
                     </button>
+                    */}
                 </nav>
             </div>
         </>
