@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route} from "react-router"
+import {HashRouter, Routes, Route} from "react-router"
 import Editor from "./Routes/protected/Editor";
 import HomePage from "./Routes/public/HomePage";
 //import SuccessPage from "./Routes/protected/PurchaseSuccessPage";
@@ -9,7 +9,7 @@ import TermsOfService from "./TermsOfService";
 export default function App() {
     return (
         <>
-        <BrowserRouter>
+        <HashRouter>
             <Routes>
                 <Route path="/" element={<HomePage/>}></Route>
                 <Route path="/editor" element={<Editor/>}></Route>
@@ -19,7 +19,7 @@ export default function App() {
                 {/* <Route path="/user-settings" element={<UserSettings/>}> </Route> */}
             </Routes>
             
-        </BrowserRouter>
+        </HashRouter>
             
         </>
     )
